@@ -1,6 +1,10 @@
 import Link from "next/link";
+import { MEDIAFILE_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
 
-export const Header: React.VFC = () => {
+type Props = {
+  profileImagePath: string;
+};
+export const Header: React.VFC<Props> = (props) => {
   return (
     <div>
       <header className="px-32">
@@ -10,7 +14,7 @@ export const Header: React.VFC = () => {
               <a>logo</a>
             </Link>
           </div>
-          <ul className="flex">
+          <ul className="flex items-center">
             <li className="m-2">
               <Link href="/">
                 <a>HOME</a>
@@ -24,20 +28,28 @@ export const Header: React.VFC = () => {
             <li className="m-2">
               <Link href="/settings">
                 <a>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-6 h-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  {props.profileImagePath ? (
+                    <img
+                      src={`${MEDIAFILE_API_ENDPOINT}${props.profileImagePath}`}
+                      alt="Profile"
+                      className="object-cover w-10 h-10"
                     />
-                  </svg>
+                  ) : (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-6 h-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  )}
                 </a>
               </Link>
             </li>
