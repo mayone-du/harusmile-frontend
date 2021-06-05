@@ -396,9 +396,9 @@ export type ProfileNodeEdge = {
 
 export type Query = {
   __typename?: 'Query';
+  loginUser?: Maybe<UserNode>;
   user?: Maybe<UserNode>;
   allUsers?: Maybe<UserNodeConnection>;
-  myProfile?: Maybe<ProfileNode>;
   profile?: Maybe<ProfileNode>;
   allProfiles?: Maybe<ProfileNodeConnection>;
   post?: Maybe<PostNode>;
@@ -788,6 +788,88 @@ export type RefreshTokensMutation = (
   )> }
 );
 
+export type GetAllPostsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllPostsQuery = (
+  { __typename?: 'Query' }
+  & { allPosts?: Maybe<(
+    { __typename?: 'PostNodeConnection' }
+    & { pageInfo: (
+      { __typename?: 'PageInfo' }
+      & Pick<PageInfo, 'hasNextPage' | 'startCursor' | 'endCursor'>
+    ), edges: Array<Maybe<(
+      { __typename?: 'PostNodeEdge' }
+      & Pick<PostNodeEdge, 'cursor'>
+      & { node?: Maybe<(
+        { __typename?: 'PostNode' }
+        & Pick<PostNode, 'id' | 'title' | 'content' | 'isPublished' | 'publishedAt' | 'createdAt'>
+        & { postedUser: (
+          { __typename?: 'UserNode' }
+          & Pick<UserNode, 'id'>
+          & { targetUser?: Maybe<(
+            { __typename?: 'ProfileNode' }
+            & Pick<ProfileNode, 'profileName'>
+          )> }
+        ) }
+      )> }
+    )>> }
+  )> }
+);
+
+export type GetLoginUserQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetLoginUserQuery = (
+  { __typename?: 'Query' }
+  & { loginUser?: Maybe<(
+    { __typename?: 'UserNode' }
+    & Pick<UserNode, 'id' | 'email'>
+    & { sender: (
+      { __typename?: 'MessageNodeConnection' }
+      & { edges: Array<Maybe<(
+        { __typename?: 'MessageNodeEdge' }
+        & { node?: Maybe<(
+          { __typename?: 'MessageNode' }
+          & Pick<MessageNode, 'text' | 'createdAt'>
+          & { destination: (
+            { __typename?: 'UserNode' }
+            & Pick<UserNode, 'email'>
+          ) }
+        )> }
+      )>> }
+    ), targetUser?: Maybe<(
+      { __typename?: 'ProfileNode' }
+      & Pick<ProfileNode, 'id' | 'profileName' | 'profileText' | 'profileImage' | 'telephoneNumber' | 'createdAt'>
+      & { followingUsers: (
+        { __typename?: 'UserNodeConnection' }
+        & { edges: Array<Maybe<(
+          { __typename?: 'UserNodeEdge' }
+          & { node?: Maybe<(
+            { __typename?: 'UserNode' }
+            & Pick<UserNode, 'id' | 'email'>
+          )> }
+        )>> }
+      ), selectedGender: (
+        { __typename?: 'GenderNode' }
+        & Pick<GenderNode, 'genderName'>
+      ), selectedAddress: (
+        { __typename?: 'AddressNode' }
+        & Pick<AddressNode, 'addressName'>
+      ), tags: (
+        { __typename?: 'TagNodeConnection' }
+        & { edges: Array<Maybe<(
+          { __typename?: 'TagNodeEdge' }
+          & { node?: Maybe<(
+            { __typename?: 'TagNode' }
+            & Pick<TagNode, 'tagName'>
+          )> }
+        )>> }
+      ) }
+    )> }
+  )> }
+);
+
 
 export const CreateUserDocument = gql`
     mutation CreateUser($email: String!, $password: String!) {
@@ -899,3 +981,133 @@ export function useRefreshTokensMutation(baseOptions?: Apollo.MutationHookOption
 export type RefreshTokensMutationHookResult = ReturnType<typeof useRefreshTokensMutation>;
 export type RefreshTokensMutationResult = Apollo.MutationResult<RefreshTokensMutation>;
 export type RefreshTokensMutationOptions = Apollo.BaseMutationOptions<RefreshTokensMutation, RefreshTokensMutationVariables>;
+export const GetAllPostsDocument = gql`
+    query GetAllPosts {
+  allPosts {
+    pageInfo {
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    edges {
+      cursor
+      node {
+        id
+        title
+        content
+        isPublished
+        postedUser {
+          id
+          targetUser {
+            profileName
+          }
+        }
+        publishedAt
+        createdAt
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAllPostsQuery__
+ *
+ * To run a query within a React component, call `useGetAllPostsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllPostsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllPostsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllPostsQuery(baseOptions?: Apollo.QueryHookOptions<GetAllPostsQuery, GetAllPostsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllPostsQuery, GetAllPostsQueryVariables>(GetAllPostsDocument, options);
+      }
+export function useGetAllPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllPostsQuery, GetAllPostsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllPostsQuery, GetAllPostsQueryVariables>(GetAllPostsDocument, options);
+        }
+export type GetAllPostsQueryHookResult = ReturnType<typeof useGetAllPostsQuery>;
+export type GetAllPostsLazyQueryHookResult = ReturnType<typeof useGetAllPostsLazyQuery>;
+export type GetAllPostsQueryResult = Apollo.QueryResult<GetAllPostsQuery, GetAllPostsQueryVariables>;
+export const GetLoginUserDocument = gql`
+    query GetLoginUser {
+  loginUser {
+    id
+    email
+    sender {
+      edges {
+        node {
+          destination {
+            email
+          }
+          text
+          createdAt
+        }
+      }
+    }
+    targetUser {
+      id
+      profileName
+      profileText
+      profileImage
+      telephoneNumber
+      createdAt
+      followingUsers {
+        edges {
+          node {
+            id
+            email
+          }
+        }
+      }
+      selectedGender {
+        genderName
+      }
+      selectedAddress {
+        addressName
+      }
+      tags {
+        edges {
+          node {
+            tagName
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetLoginUserQuery__
+ *
+ * To run a query within a React component, call `useGetLoginUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLoginUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLoginUserQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetLoginUserQuery(baseOptions?: Apollo.QueryHookOptions<GetLoginUserQuery, GetLoginUserQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetLoginUserQuery, GetLoginUserQueryVariables>(GetLoginUserDocument, options);
+      }
+export function useGetLoginUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLoginUserQuery, GetLoginUserQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetLoginUserQuery, GetLoginUserQueryVariables>(GetLoginUserDocument, options);
+        }
+export type GetLoginUserQueryHookResult = ReturnType<typeof useGetLoginUserQuery>;
+export type GetLoginUserLazyQueryHookResult = ReturnType<typeof useGetLoginUserLazyQuery>;
+export type GetLoginUserQueryResult = Apollo.QueryResult<GetLoginUserQuery, GetLoginUserQueryVariables>;

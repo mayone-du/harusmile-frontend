@@ -1,0 +1,26 @@
+query GetAllPosts {
+  allPosts {
+    pageInfo {
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    edges {
+      cursor
+      node {
+        id
+        title
+        content
+        isPublished
+        postedUser {
+          id
+          targetUser {
+            profileName
+          }
+        }
+        publishedAt
+        createdAt
+      }
+    }
+  }
+}
