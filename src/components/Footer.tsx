@@ -1,4 +1,6 @@
-export const Footer: React.VFC = () => {
+import { memo } from "react";
+
+export const Footer: React.VFC = memo(() => {
   return (
     <div>
       <footer>
@@ -6,4 +8,5 @@ export const Footer: React.VFC = () => {
       </footer>
     </div>
   );
-};
+});
+Footer.displayName = "Footer";

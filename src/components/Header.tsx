@@ -1,10 +1,11 @@
 import Link from "next/link";
+import { memo } from "react";
 import { MEDIAFILE_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
 
 type Props = {
   profileImagePath: string;
 };
-export const Header: React.VFC<Props> = (props) => {
+export const Header: React.VFC<Props> = memo((props) => {
   return (
     <div>
       <header className="px-32">
@@ -58,4 +59,5 @@ export const Header: React.VFC<Props> = (props) => {
       </header>
     </div>
   );
-};
+});
+Header.displayName = "Header";

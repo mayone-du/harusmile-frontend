@@ -10,7 +10,7 @@ import { initializeApollo } from "src/apollo/apolloClient";
 const App = (props: AppProps, context: NextPageContext) => {
   const cookies = nookies.get(context);
 
-  const apolloClient = initializeApollo(null, cookies);
+  const apolloClient = initializeApollo(null, cookies, context);
 
   return (
     <div>
