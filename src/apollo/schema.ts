@@ -834,13 +834,13 @@ export type GetLoginUserQuery = (
           & Pick<MessageNode, 'text' | 'createdAt'>
           & { destination: (
             { __typename?: 'UserNode' }
-            & Pick<UserNode, 'email'>
+            & Pick<UserNode, 'id' | 'email'>
           ) }
         )> }
       )>> }
     ), targetUser?: Maybe<(
       { __typename?: 'ProfileNode' }
-      & Pick<ProfileNode, 'id' | 'profileName' | 'profileText' | 'profileImage' | 'telephoneNumber' | 'createdAt'>
+      & Pick<ProfileNode, 'id' | 'profileName' | 'profileText' | 'profileImage' | 'telephoneNumber' | 'schoolName' | 'createdAt'>
       & { followingUsers: (
         { __typename?: 'UserNodeConnection' }
         & { edges: Array<Maybe<(
@@ -848,6 +848,10 @@ export type GetLoginUserQuery = (
           & { node?: Maybe<(
             { __typename?: 'UserNode' }
             & Pick<UserNode, 'id' | 'email'>
+            & { targetUser?: Maybe<(
+              { __typename?: 'ProfileNode' }
+              & Pick<ProfileNode, 'profileName' | 'profileImage'>
+            )> }
           )> }
         )>> }
       ), selectedGender: (
@@ -1045,6 +1049,7 @@ export const GetLoginUserDocument = gql`
       edges {
         node {
           destination {
+            id
             email
           }
           text
@@ -1058,12 +1063,17 @@ export const GetLoginUserDocument = gql`
       profileText
       profileImage
       telephoneNumber
+      schoolName
       createdAt
       followingUsers {
         edges {
           node {
             id
             email
+            targetUser {
+              profileName
+              profileImage
+            }
           }
         }
       }

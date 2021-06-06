@@ -6,6 +6,7 @@ query GetLoginUser {
       edges {
         node {
           destination {
+            id
             email
           }
           text
@@ -19,12 +20,17 @@ query GetLoginUser {
       profileText
       profileImage
       telephoneNumber
+      schoolName
       createdAt
       followingUsers {
         edges {
           node {
             id
             email
+            targetUser {
+              profileName
+              profileImage
+            }
           }
         }
       }
