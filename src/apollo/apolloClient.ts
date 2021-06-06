@@ -11,6 +11,7 @@ let apolloClient: ApolloClient<NormalizedCacheObject> | undefined;
 const createApolloClient = (context: NextPageContext) => {
   const cookies = nookies.get(context);
 
+  // accessTokenがあればJWTにセット
   return new ApolloClient({
     ssrMode: typeof window === "undefined",
     link: createUploadLink({

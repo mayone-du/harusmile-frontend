@@ -1,8 +1,10 @@
+// import type { NextPageContext } from "next";
 import Head from "next/head";
 import { parseCookies, setCookie } from "nookies";
 import { memo, useEffect, useState } from "react";
-import { useRefreshTokensMutation } from "src/apollo/schema";
-import { useGetLoginUserQuery } from "src/apollo/schema";
+// import { initializeApollo } from "src/apollo/apolloClient";
+import { useGetLoginUserLazyQuery, useRefreshTokensMutation } from "src/apollo/schema";
+// import { useGetLoginUserQuery } from "src/apollo/schema";
 import { Footer } from "src/components/Footer";
 import { Header } from "src/components/Header";
 import { calcDate } from "src/libs/calcDate";
@@ -11,15 +13,22 @@ type Props = {
   metaTitle: string;
 };
 
+// export const Layout: React.FC<Props> = memo((props, context: NextPageContext) => {
 export const Layout: React.FC<Props> = memo((props) => {
   const cookies = parseCookies();
 
   const [refreshTokenMutation] = useRefreshTokensMutation();
-  const { data: loginUserData, loading: isLoading } = useGetLoginUserQuery();
-  const [profileImagePath, setProfileImagePath] = useState("");
+  const [getLoginUserLazyQuery, { data: loginUserData, loading: isLoading }] =
+    useGetLoginUserLazyQuery();
+  const [profileImagePath, setProfileImagePath] = useState(
+    typeof loginUserData?.loginUser?.targetUser?.profileImage === "string"
+      ? loginUserData?.loginUser?.targetUser?.profileImage
+      : "",
+  );
 
   useEffect(() => {
     // accessTokenがなく、refreshTokenがある場合にaccessTokenを更新
+    // その後、ログインユーザーを取得するクエリを実行
     if (!cookies.accessToken && cookies.refreshToken) {
       (async () => {
         const { data } = await refreshTokenMutation({
@@ -31,33 +40,27 @@ export const Layout: React.FC<Props> = memo((props) => {
             maxAge: calcDate(data.refreshToken.payload.exp),
           });
       })();
+      // クエリを実行
+      getLoginUserLazyQuery();
+      console.log("query: ", loginUserData);
+
+      // 存在する場合は画像をローカルステートにセット
+      if (loginUserData?.loginUser?.targetUser?.profileImage) {
+        setProfileImagePath(loginUserData?.loginUser?.targetUser?.profileImage);
+      }
     }
-  }, [cookies.accessToken, cookies.refreshToken, refreshTokenMutation, loginUserData]);
+  }, [
+    cookies.accessToken,
+    cookies.refreshToken,
+    refreshTokenMutation,
+    loginUserData,
+    getLoginUserLazyQuery,
+  ]);
 
-  useEffect(() => {
-    // クエリで取得したデータが存在し、ローカルストレージに画像のパスを保存してない時の処理
-    if (loginUserData && !localStorage.getItem("loginUserImage")) {
-      localStorage.setItem(
-        "loginUserImage",
-        JSON.stringify(loginUserData.loginUser?.targetUser?.profileImage),
-      );
-      const localData = JSON.parse(localStorage.getItem("loginUserImage"));
-      setProfileImagePath(localData);
-      console.log(
-        "クエリで取得したデータが存在し、ローカルストレージに画像のパスを保存してない時の処理",
-      );
-
-      // ローカルストレージに保存した画像のパスが存在するとき
-    } else if (localStorage.getItem("loginUserImage")) {
-      console.log("ローカルストレージに保存した画像のパスが存在するとき");
-      const localData = JSON.parse(localStorage.getItem("loginUserImage"));
-      setProfileImagePath(localData);
-    }
-  }, [loginUserData]);
-
-  const handleClick = () => {
-    console.log("click");
-  };
+  // const handleClick = () => {
+  //   console.log("click");
+  //   console.log(loginUserData);
+  // };
 
   return (
     <div>
@@ -67,9 +70,9 @@ export const Layout: React.FC<Props> = memo((props) => {
       <Header profileImagePath={profileImagePath} />
       <main>{props.children}</main>
       {isLoading && <div className="text-7xl text-red-500">loading</div>}
-      <button className="border" onClick={handleClick}>
+      {/* <button className="border" onClick={handleClick}>
         button
-      </button>
+      </button> */}
       <Footer />
     </div>
   );
