@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { memo } from "react";
 import { MEDIAFILE_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
@@ -12,18 +13,20 @@ export const Header: React.VFC<Props> = memo((props) => {
         <nav className="flex justify-between items-center">
           <div className="m-2">
             <Link href="/">
-              <a>logo</a>
+              <a>
+                <Image src="/images/logo.png" width={200} height={70} className="object-cover" />
+              </a>
             </Link>
           </div>
           <ul className="flex items-center">
             <li className="m-2">
-              <Link href="/">
-                <a>HOME</a>
+              <Link href="/auth/signin">
+                <a>ログイン</a>
               </Link>
             </li>
             <li className="m-2">
               <Link href="/auth/signup">
-                <a>SignUp</a>
+                <a>新規登録</a>
               </Link>
             </li>
             <li className="m-2">

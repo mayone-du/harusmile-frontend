@@ -8,6 +8,7 @@ const SignUp: NextPage = () => {
     useAuth();
   return (
     <Layout metaTitle="SignUp">
+      <h2 className="text-5xl">新規登録</h2>
       <form className="border" onSubmit={handleSignUp}>
         <div>
           <input

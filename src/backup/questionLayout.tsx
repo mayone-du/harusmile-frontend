@@ -1,8 +1,7 @@
 import Head from "next/head";
 import { parseCookies, setCookie } from "nookies";
 import { memo, useEffect, useState } from "react";
-import { useRefreshTokensMutation } from "src/apollo/schema";
-import { useGetLoginUserQuery } from "src/apollo/schema";
+import { useGetLoginUserLazyQuery, useRefreshTokensMutation } from "src/apollo/schema";
 import { Footer } from "src/components/Footer";
 import { Header } from "src/components/Header";
 import { calcDate } from "src/libs/calcDate";
@@ -11,18 +10,22 @@ type Props = {
   metaTitle: string;
 };
 
+// export const Layout: React.FC<Props> = memo((props, context: NextPageContext) => {
 export const Layout: React.FC<Props> = memo((props) => {
   const cookies = parseCookies();
 
   const [refreshTokenMutation] = useRefreshTokensMutation();
-  const { data: loginUserData, loading: isLoading } = useGetLoginUserQuery();
-  // CSRかつ、localStorageに保存してる画像のパスがnullでなければ初期値として設定
+  const [getLoginUserLazyQuery, { data: loginUserData, loading: isLoading }] =
+    useGetLoginUserLazyQuery();
   const [profileImagePath, setProfileImagePath] = useState(
-    typeof window !== "undefined" ? JSON.parse(localStorage.getItem("loginUserImage") || "") : "",
+    typeof loginUserData?.loginUser?.targetUser?.profileImage === "string"
+      ? loginUserData?.loginUser?.targetUser?.profileImage
+      : "",
   );
 
   useEffect(() => {
     // accessTokenがなく、refreshTokenがある場合にaccessTokenを更新
+    // その後、ログインユーザーを取得するクエリを実行
     if (!cookies.accessToken && cookies.refreshToken) {
       (async () => {
         const { data } = await refreshTokenMutation({
@@ -34,21 +37,27 @@ export const Layout: React.FC<Props> = memo((props) => {
             maxAge: calcDate(data.refreshToken.payload.exp),
           });
       })();
-    }
-  }, [cookies.accessToken, cookies.refreshToken, refreshTokenMutation, loginUserData]);
+      // クエリを実行
+      getLoginUserLazyQuery();
+      console.log("query: ", loginUserData);
 
-  useEffect(() => {
-    // クエリで取得したデータが存在し、ローカルストレージに画像のパスを保存してない時の処理
-    if (loginUserData && profileImagePath === "") {
-      localStorage.setItem(
-        "loginUserImage",
-        JSON.stringify(loginUserData.loginUser?.targetUser?.profileImage),
-      );
-      const defaultLocalData = localStorage.getItem("loginUserImage");
-      const parsedLocalData = defaultLocalData !== null && JSON.parse(defaultLocalData);
-      setProfileImagePath(parsedLocalData);
+      // 存在する場合は画像をローカルステートにセット
+      if (loginUserData?.loginUser?.targetUser?.profileImage) {
+        setProfileImagePath(loginUserData?.loginUser?.targetUser?.profileImage);
+      }
     }
-  }, [loginUserData, profileImagePath]);
+  }, [
+    cookies.accessToken,
+    cookies.refreshToken,
+    refreshTokenMutation,
+    loginUserData,
+    getLoginUserLazyQuery,
+  ]);
+
+  // const handleClick = () => {
+  //   console.log("click");
+  //   console.log(loginUserData);
+  // };
 
   return (
     <div>
@@ -58,6 +67,9 @@ export const Layout: React.FC<Props> = memo((props) => {
       <Header profileImagePath={profileImagePath} />
       <main>{props.children}</main>
       {isLoading && <div className="text-7xl text-red-500">loading</div>}
+      {/* <button className="border" onClick={handleClick}>
+        button
+      </button> */}
       <Footer />
     </div>
   );

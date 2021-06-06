@@ -8,6 +8,7 @@ const SignIn: NextPage = () => {
     useAuth();
   return (
     <Layout metaTitle="SignIn">
+      <h2 className="text-5xl">ログイン</h2>
       <form className="border" onSubmit={handleSignIn}>
         <div>
           <input
