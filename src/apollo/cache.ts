@@ -4,7 +4,7 @@ import type { User } from "src/types/types";
 
 export const cache = new InMemoryCache();
 
-export const loginUserVar = makeVar<User>({
+export const initialLoginUserVar: User = {
   userId: "",
   email: "",
   profileId: "",
@@ -26,4 +26,5 @@ export const loginUserVar = makeVar<User>({
     },
   ],
   followingUsers: [],
-});
+};
+export const loginUserVar = makeVar<User>(initialLoginUserVar);

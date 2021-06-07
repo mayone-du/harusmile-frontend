@@ -32,9 +32,16 @@ const SignIn: NextPage = () => {
           SignIn
         </button>
       </form>
-      <Link href="/auth/signup">
-        <a>SignUp</a>
-      </Link>
+      <div>
+        <Link href="/auth/signup">
+          <a>SignUp</a>
+        </Link>
+      </div>
+      <div>
+        <Link href="/auth/signout">
+          <a>SignOut</a>
+        </Link>
+      </div>
     </Layout>
   );
 };

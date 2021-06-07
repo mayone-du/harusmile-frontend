@@ -3,7 +3,7 @@ import { useGetLoginUserQuery } from "src/apollo/schema";
 import { Layout } from "src/components/Layout";
 
 const Settings: NextPage = () => {
-  const { data } = useGetLoginUserQuery();
+  const { data } = useGetLoginUserQuery({ fetchPolicy: "network-only" });
   return (
     <div>
       <Layout metaTitle="settings">

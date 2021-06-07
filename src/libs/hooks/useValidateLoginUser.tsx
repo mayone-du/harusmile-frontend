@@ -1,61 +1,44 @@
 import { useReactiveVar } from "@apollo/client";
-import Head from "next/head";
 import { parseCookies, setCookie } from "nookies";
-import { memo, useEffect, useState } from "react";
-import { loginUserVar } from "src/apollo/cache";
-import { useRefreshTokensMutation } from "src/apollo/schema";
-import { useGetLoginUserQuery } from "src/apollo/schema";
-import { Footer } from "src/components/Footer";
-import { Header } from "src/components/Header";
+import { useEffect } from "react";
+import { initialLoginUserVar, loginUserVar } from "src/apollo/cache";
+import { useGetLoginUserLazyQuery, useRefreshTokensMutation } from "src/apollo/schema";
 import { calcDate } from "src/libs/calcDate";
 
-type Props = {
-  metaTitle: string;
-};
-
-export const Layout: React.FC<Props> = memo((props) => {
+export const useValidateLoginUser = () => {
   const cookies = parseCookies();
   const loginUserData = useReactiveVar(loginUserVar);
 
   const [refreshTokenMutation] = useRefreshTokensMutation();
-  const { data: queryData, loading: isLoading } = useGetLoginUserQuery();
-  // CSRかつ、localStorageに保存してる画像のパスがnullでなければ初期値として設定
-  const [profileImagePath, setProfileImagePath] = useState(
-    typeof window !== "undefined" ? JSON.parse(localStorage.getItem("loginUserImage") || "") : "",
-  );
+  const [getLoginUserLazyQuery, { data: queryData }] = useGetLoginUserLazyQuery();
 
-  useEffect(() => {
-    // accessTokenがなく、refreshTokenがある場合にaccessTokenを更新
-    if (!cookies.accessToken && cookies.refreshToken) {
-      (async () => {
-        const { data } = await refreshTokenMutation({
-          variables: { refreshToken: cookies.refreshToken },
-        });
-        data?.refreshToken &&
-          setCookie(null, "accessToken", data?.refreshToken?.token, {
-            path: "/",
-            maxAge: calcDate(data.refreshToken.payload.exp),
+  useEffect(
+    () => {
+      // accessTokenがなく、refreshTokenがある場合にaccessTokenを更新
+      if (!cookies.accessToken && cookies.refreshToken) {
+        (async () => {
+          const { data } = await refreshTokenMutation({
+            variables: { refreshToken: cookies.refreshToken },
           });
-      })();
-      console.log("アクセストークンが更新されました");
-    }
-  }, [cookies.accessToken, cookies.refreshToken, refreshTokenMutation, queryData]);
+          data?.refreshToken &&
+            setCookie(null, "accessToken", data?.refreshToken?.token, {
+              path: "/",
+              maxAge: calcDate(data.refreshToken.payload.exp),
+            });
+          getLoginUserLazyQuery();
+        })();
 
-  useEffect(() => {
-    // クエリで取得したデータが存在し、ローカルストレージに画像のパスを保存してない時の処理
-    if (queryData && profileImagePath === "") {
-      localStorage.setItem(
-        "loginUserImage",
-        JSON.stringify(queryData.loginUser?.targetUser?.profileImage),
-      );
-      const defaultLocalData = localStorage.getItem("loginUserImage");
-      const parsedLocalData = defaultLocalData !== null && JSON.parse(defaultLocalData);
-      setProfileImagePath(parsedLocalData);
-      console.log(
-        "localStorageにパスを保存していなかったので、クエリで取得したデータを設定しました",
-      );
-    }
-  }, [queryData, profileImagePath]);
+        // tokenがどちらもない場合
+      } else if (!cookies.accessToken && !cookies.refreshToken) {
+        loginUserVar(initialLoginUserVar);
+        alert("ログインしてください。");
+      } else {
+        getLoginUserLazyQuery();
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
 
   useEffect(() => {
     // キャッシュのログイン状態がfalseかつ、クエリーデータがある場合に値をセット
@@ -115,22 +98,5 @@ export const Layout: React.FC<Props> = memo((props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryData]);
 
-  const handleClick = () => {
-    console.log(loginUserData);
-  };
-  return (
-    <div>
-      <Head>
-        <title>{props.metaTitle}</title>
-      </Head>
-      <Header profileImagePath={profileImagePath} />
-      <main>{props.children}</main>
-      {isLoading && <div className="text-7xl text-red-500">loading</div>}
-      <button className="border" onClick={handleClick}>
-        button
-      </button>
-      <Footer />
-    </div>
-  );
-});
-Layout.displayName = "Layout";
+  return { loginUserData };
+};
