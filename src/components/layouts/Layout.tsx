@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { memo } from "react";
-import { Footer } from "src/components/Footer";
-import { Header } from "src/components/Header";
+import { Footer } from "src/components/layouts/Footer";
+import { Header } from "src/components/layouts/Header";
 import { useValidateLoginUser } from "src/libs/hooks/useValidateLoginUser";
 
 type Props = {
@@ -17,7 +17,7 @@ export const Layout: React.FC<Props> = memo((props) => {
         <title>{props.metaTitle}</title>
       </Head>
       <Header profileImagePath={loginUserData.profileImage} />
-      <main>{props.children}</main>
+      <main className="mx-2 md:mx-32">{props.children}</main>
       <Footer />
     </div>
   );

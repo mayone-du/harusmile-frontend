@@ -9,7 +9,7 @@ type Props = {
 export const Header: React.VFC<Props> = memo((props) => {
   return (
     <div>
-      <header className="px-32">
+      <header className="px-2 md:px-32">
         <nav className="flex justify-between items-center">
           <div className="m-2">
             <Link href="/">

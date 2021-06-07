@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Link from "next/link";
-import { Layout } from "src/components/Layout";
+import { Layout } from "src/components/layouts/Layout";
 import { useAuth } from "src/libs/hooks/useAuth";
 
 const SignUp: NextPage = () => {

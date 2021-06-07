@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { Layout } from "src/components/Layout";
+import { Layout } from "src/components/layouts/Layout";
 import { SignOut as SignOutComponent } from "src/components/SignOut";
 
 const SignOut: NextPage = () => {

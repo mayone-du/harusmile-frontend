@@ -3,10 +3,12 @@ import { ApolloClient } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { createUploadLink } from "apollo-upload-client";
 import type { NextPageContext } from "next";
+import type { AppProps } from "next/dist/next-server/lib/router/router";
 import nookies, { parseCookies } from "nookies";
 import { cache } from "src/apollo/cache";
 import { GRAPHQL_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
 
+export const APOLLO_STATE_PROP_NAME = "__APOLLO_STATE__";
 let apolloClient: ApolloClient<NormalizedCacheObject> | undefined;
 
 const httpLink = createUploadLink({
@@ -16,8 +18,6 @@ const httpLink = createUploadLink({
 const authLink = setContext((operation, { headers }) => {
   const cookies = parseCookies();
   const accessToken = cookies.accessToken;
-  // console.log("setContextが呼ばれました。accessToken: ", accessToken);
-  // console.log("operation", operation);
 
   // return the headers to the context so httpLink can read them
   return accessToken
@@ -26,8 +26,6 @@ const authLink = setContext((operation, { headers }) => {
 });
 
 const createApolloClient = () => {
-  // console.log("createApolloClient");
-
   // accessTokenがあればJWTにセット
   return new ApolloClient({
     ssrMode: typeof window === "undefined",
@@ -35,9 +33,8 @@ const createApolloClient = () => {
     cache: cache,
   });
 };
-export const initializeApollo = (_initialState = null, context: NextPageContext) => {
+export const initializeApollo = (_initialState = null, context?: NextPageContext) => {
   const cookies = nookies.get(context);
-  // console.log("initializeApollo", cookies);
 
   const _apolloClient = apolloClient ?? createApolloClient();
   // SSR時は新しいclientを作成
@@ -48,4 +45,14 @@ export const initializeApollo = (_initialState = null, context: NextPageContext)
   if (!apolloClient) apolloClient = _apolloClient;
 
   return _apolloClient;
+};
+
+export const addApolloState = (
+  client: ApolloClient<NormalizedCacheObject>,
+  pageProps: AppProps["pageProps"],
+) => {
+  if (pageProps?.props) {
+    pageProps.props[APOLLO_STATE_PROP_NAME] = client.cache.extract();
+  }
+  return pageProps;
 };

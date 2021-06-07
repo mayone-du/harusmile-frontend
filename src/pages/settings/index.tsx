@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import { useGetLoginUserQuery } from "src/apollo/schema";
-import { Layout } from "src/components/Layout";
+import { Layout } from "src/components/layouts/Layout";
+import { ThemeChanger } from "src/components/ThemeChanger";
 
 const Settings: NextPage = () => {
   const { data } = useGetLoginUserQuery({ fetchPolicy: "network-only" });
@@ -19,6 +20,7 @@ const Settings: NextPage = () => {
             </ul>
           )}
         </div>
+        <ThemeChanger />
       </Layout>
     </div>
   );
