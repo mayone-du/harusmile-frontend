@@ -788,29 +788,33 @@ export type RefreshTokensMutation = (
   )> }
 );
 
-export type GetAllPostsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetAllProfilesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllPostsQuery = (
+export type GetAllProfilesQuery = (
   { __typename?: 'Query' }
-  & { allPosts?: Maybe<(
-    { __typename?: 'PostNodeConnection' }
-    & { pageInfo: (
-      { __typename?: 'PageInfo' }
-      & Pick<PageInfo, 'hasNextPage' | 'startCursor' | 'endCursor'>
-    ), edges: Array<Maybe<(
-      { __typename?: 'PostNodeEdge' }
-      & Pick<PostNodeEdge, 'cursor'>
+  & { allProfiles?: Maybe<(
+    { __typename?: 'ProfileNodeConnection' }
+    & { edges: Array<Maybe<(
+      { __typename?: 'ProfileNodeEdge' }
       & { node?: Maybe<(
-        { __typename?: 'PostNode' }
-        & Pick<PostNode, 'id' | 'title' | 'content' | 'isPublished' | 'publishedAt' | 'createdAt'>
-        & { postedUser: (
-          { __typename?: 'UserNode' }
-          & Pick<UserNode, 'id'>
-          & { targetUser?: Maybe<(
-            { __typename?: 'ProfileNode' }
-            & Pick<ProfileNode, 'profileName'>
-          )> }
+        { __typename?: 'ProfileNode' }
+        & Pick<ProfileNode, 'id' | 'profileName' | 'profileText' | 'isCollegeStudent' | 'schoolName' | 'profileImage'>
+        & { selectedGender: (
+          { __typename?: 'GenderNode' }
+          & Pick<GenderNode, 'genderName'>
+        ), selectedAddress: (
+          { __typename?: 'AddressNode' }
+          & Pick<AddressNode, 'addressName'>
+        ), tags: (
+          { __typename?: 'TagNodeConnection' }
+          & { edges: Array<Maybe<(
+            { __typename?: 'TagNodeEdge' }
+            & { node?: Maybe<(
+              { __typename?: 'TagNode' }
+              & Pick<TagNode, 'tagName'>
+            )> }
+          )>> }
         ) }
       )> }
     )>> }
@@ -985,29 +989,30 @@ export function useRefreshTokensMutation(baseOptions?: Apollo.MutationHookOption
 export type RefreshTokensMutationHookResult = ReturnType<typeof useRefreshTokensMutation>;
 export type RefreshTokensMutationResult = Apollo.MutationResult<RefreshTokensMutation>;
 export type RefreshTokensMutationOptions = Apollo.BaseMutationOptions<RefreshTokensMutation, RefreshTokensMutationVariables>;
-export const GetAllPostsDocument = gql`
-    query GetAllPosts {
-  allPosts {
-    pageInfo {
-      hasNextPage
-      startCursor
-      endCursor
-    }
+export const GetAllProfilesDocument = gql`
+    query GetAllProfiles {
+  allProfiles {
     edges {
-      cursor
       node {
         id
-        title
-        content
-        isPublished
-        postedUser {
-          id
-          targetUser {
-            profileName
+        profileName
+        profileText
+        isCollegeStudent
+        schoolName
+        profileImage
+        selectedGender {
+          genderName
+        }
+        selectedAddress {
+          addressName
+        }
+        tags {
+          edges {
+            node {
+              tagName
+            }
           }
         }
-        publishedAt
-        createdAt
       }
     }
   }
@@ -1015,31 +1020,31 @@ export const GetAllPostsDocument = gql`
     `;
 
 /**
- * __useGetAllPostsQuery__
+ * __useGetAllProfilesQuery__
  *
- * To run a query within a React component, call `useGetAllPostsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAllPostsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetAllProfilesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllProfilesQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetAllPostsQuery({
+ * const { data, loading, error } = useGetAllProfilesQuery({
  *   variables: {
  *   },
  * });
  */
-export function useGetAllPostsQuery(baseOptions?: Apollo.QueryHookOptions<GetAllPostsQuery, GetAllPostsQueryVariables>) {
+export function useGetAllProfilesQuery(baseOptions?: Apollo.QueryHookOptions<GetAllProfilesQuery, GetAllProfilesQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAllPostsQuery, GetAllPostsQueryVariables>(GetAllPostsDocument, options);
+        return Apollo.useQuery<GetAllProfilesQuery, GetAllProfilesQueryVariables>(GetAllProfilesDocument, options);
       }
-export function useGetAllPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllPostsQuery, GetAllPostsQueryVariables>) {
+export function useGetAllProfilesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllProfilesQuery, GetAllProfilesQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAllPostsQuery, GetAllPostsQueryVariables>(GetAllPostsDocument, options);
+          return Apollo.useLazyQuery<GetAllProfilesQuery, GetAllProfilesQueryVariables>(GetAllProfilesDocument, options);
         }
-export type GetAllPostsQueryHookResult = ReturnType<typeof useGetAllPostsQuery>;
-export type GetAllPostsLazyQueryHookResult = ReturnType<typeof useGetAllPostsLazyQuery>;
-export type GetAllPostsQueryResult = Apollo.QueryResult<GetAllPostsQuery, GetAllPostsQueryVariables>;
+export type GetAllProfilesQueryHookResult = ReturnType<typeof useGetAllProfilesQuery>;
+export type GetAllProfilesLazyQueryHookResult = ReturnType<typeof useGetAllProfilesLazyQuery>;
+export type GetAllProfilesQueryResult = Apollo.QueryResult<GetAllProfilesQuery, GetAllProfilesQueryVariables>;
 export const GetLoginUserDocument = gql`
     query GetLoginUser {
   loginUser {

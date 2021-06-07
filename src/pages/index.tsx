@@ -1,15 +1,15 @@
 import type { NextPage } from "next";
 import type { GetStaticProps } from "next";
 import { addApolloState, initializeApollo } from "src/apollo/apolloClient";
-import type { GetAllPostsQuery, GetAllPostsQueryVariables } from "src/apollo/schema";
-import { GetAllPostsDocument } from "src/apollo/schema";
+import type { GetAllProfilesQuery, GetAllProfilesQueryVariables } from "src/apollo/schema";
+import { GetAllProfilesDocument } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
-import { PostsWrapper } from "src/components/posts/PostsWrapper";
+import { ProfilesWrapper } from "src/components/posts/ProfilesWrapper";
 
 export const getStaticProps: GetStaticProps = async () => {
   const apolloClient = initializeApollo(null);
-  await apolloClient.query<GetAllPostsQuery, GetAllPostsQueryVariables>({
-    query: GetAllPostsDocument,
+  await apolloClient.query<GetAllProfilesQuery, GetAllProfilesQueryVariables>({
+    query: GetAllProfilesDocument,
   });
   return addApolloState(apolloClient, { props: {}, revalidate: 60 * 60 });
 };
@@ -42,7 +42,7 @@ const Index: NextPage = () => {
         <h2 className="py-10 text-5xl font-bold text-center text-gray-700 dark:text-white">
           一覧から探す
         </h2>
-        <PostsWrapper />
+        <ProfilesWrapper />
       </div>
     </Layout>
   );

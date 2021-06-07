@@ -1,0 +1,27 @@
+query GetAllProfiles {
+  allProfiles {
+    edges {
+      node {
+        id
+        profileName
+        profileText
+        isCollegeStudent
+        schoolName
+        profileImage
+        selectedGender {
+          genderName
+        }
+        selectedAddress {
+          addressName
+        }
+        tags {
+          edges {
+            node {
+              tagName
+            }
+          }
+        }
+      }
+    }
+  }
+}
