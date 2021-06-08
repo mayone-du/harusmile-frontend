@@ -21,6 +21,12 @@ query GetLoginUser {
       profileImage
       telephoneNumber
       schoolName
+      age
+      undergraduate
+      department
+      clubActivities
+      admissionFormat
+      favoriteSubject
       createdAt
       followingUsers {
         edges {

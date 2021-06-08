@@ -4,6 +4,7 @@ export type Cookies = {
 };
 
 export type User = {
+  isLogin: boolean;
   userId: string;
   email: string;
   profileId: string;
@@ -15,7 +16,12 @@ export type User = {
   schoolName: string;
   genderName: string;
   addressName: string;
-  isLogin: boolean;
+  age: number;
+  undergraduate: string;
+  department: string;
+  clubActivities: string;
+  admissionFormat: string;
+  favoriteSubject: string;
   tags: string[];
   sendMessages: {
     distinationId: string;

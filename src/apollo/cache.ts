@@ -5,6 +5,7 @@ import type { User } from "src/types/types";
 export const cache = new InMemoryCache();
 
 export const initialLoginUserVar: User = {
+  isLogin: false,
   userId: "",
   email: "",
   profileId: "",
@@ -16,7 +17,12 @@ export const initialLoginUserVar: User = {
   schoolName: "",
   genderName: "",
   addressName: "",
-  isLogin: false,
+  age: 0,
+  undergraduate: "",
+  department: "",
+  clubActivities: "",
+  admissionFormat: "",
+  favoriteSubject: "",
   tags: [],
   sendMessages: [
     {

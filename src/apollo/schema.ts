@@ -887,7 +887,7 @@ export type GetLoginUserQuery = (
       )>> }
     ), targetUser?: Maybe<(
       { __typename?: 'ProfileNode' }
-      & Pick<ProfileNode, 'id' | 'profileName' | 'profileText' | 'profileImage' | 'telephoneNumber' | 'schoolName' | 'createdAt'>
+      & Pick<ProfileNode, 'id' | 'profileName' | 'profileText' | 'profileImage' | 'telephoneNumber' | 'schoolName' | 'age' | 'undergraduate' | 'department' | 'clubActivities' | 'admissionFormat' | 'favoriteSubject' | 'createdAt'>
       & { followingUsers: (
         { __typename?: 'UserNodeConnection' }
         & { edges: Array<Maybe<(
@@ -1127,6 +1127,12 @@ export const GetLoginUserDocument = gql`
       profileImage
       telephoneNumber
       schoolName
+      age
+      undergraduate
+      department
+      clubActivities
+      admissionFormat
+      favoriteSubject
       createdAt
       followingUsers {
         edges {

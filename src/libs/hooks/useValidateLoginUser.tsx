@@ -44,6 +44,7 @@ export const useValidateLoginUser = () => {
     // キャッシュのログイン状態がfalseかつ、クエリーデータがある場合に値をセット
     if (loginUserData.isLogin === false && queryData) {
       loginUserVar({
+        isLogin: queryData ? true : false,
         userId: queryData.loginUser?.id ? queryData.loginUser.id : "",
         email: queryData.loginUser?.email ? queryData.loginUser.email : "",
         profileId: queryData.loginUser?.targetUser?.id ? queryData.loginUser?.targetUser?.id : "",
@@ -65,7 +66,22 @@ export const useValidateLoginUser = () => {
         addressName: queryData.loginUser?.targetUser?.selectedAddress.addressName
           ? queryData.loginUser.targetUser?.selectedAddress.addressName
           : "",
-        isLogin: queryData ? true : false,
+        age: queryData.loginUser?.targetUser?.age ? queryData.loginUser.targetUser?.age : 0,
+        undergraduate: queryData.loginUser?.targetUser?.undergraduate
+          ? queryData.loginUser.targetUser?.undergraduate
+          : "",
+        department: queryData.loginUser?.targetUser?.department
+          ? queryData.loginUser.targetUser?.undergraduate
+          : "",
+        clubActivities: queryData.loginUser?.targetUser?.clubActivities
+          ? queryData.loginUser.targetUser?.clubActivities
+          : "",
+        admissionFormat: queryData.loginUser?.targetUser?.admissionFormat
+          ? queryData.loginUser.targetUser?.admissionFormat
+          : "",
+        favoriteSubject: queryData.loginUser?.targetUser?.clubActivities
+          ? queryData.loginUser.targetUser?.clubActivities
+          : "",
         tags: queryData.loginUser?.targetUser?.tags.edges
           ? queryData.loginUser?.targetUser?.tags.edges.map((tag) => {
               return tag?.node?.tagName ? tag?.node?.tagName : "";
