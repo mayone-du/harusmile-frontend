@@ -21,6 +21,13 @@ export const ProfilesWrapper: React.VFC<PropsGetAllProfilesQuery<GetAllProfilesQ
               schoolName={profile?.node?.schoolName ? profile.node.schoolName : ""}
               age={profile?.node?.age ? profile.node.age : 0}
               tags={profile?.node?.tags ? profile.node.tags : []}
+              stars={
+                profile?.node?.targetUser
+                  ? profile.node.targetUser.provider.edges.map((review) => {
+                      return review?.node?.stars;
+                    })
+                  : [0]
+              }
             />
           );
         })}

@@ -8,6 +8,7 @@ type Props = {
   schoolName: string;
   age: number;
   tags: any;
+  stars: any;
 };
 export const Profile: React.VFC<Props> = (props) => {
   return (
@@ -32,6 +33,17 @@ export const Profile: React.VFC<Props> = (props) => {
         </div>
 
         <div>{props.profileText}</div>
+        <div className="text-yellow-200">
+          {/* 配列の数字の平均を出し、少数第二位を切り上げ */}
+          {(
+            Math.ceil(
+              props.stars.reduce((prev: number, current: number) => {
+                return prev + current / props.stars.length;
+              }, 0) * 10,
+            ) / 10
+          ).toString()}{" "}
+          / 5<span className="text-black">(合計{props.stars.length.toString()}件)</span>
+        </div>
         <ul>
           <div className="text-lg">Tags</div>
           {props.tags.edges.map((tag: any, index: any) => {

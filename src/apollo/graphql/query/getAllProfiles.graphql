@@ -9,6 +9,15 @@ query GetAllProfiles {
         schoolName
         profileImage
         age
+        targetUser {
+          provider {
+            edges {
+              node {
+                stars
+              }
+            }
+          }
+        }
         selectedGender {
           genderName
         }

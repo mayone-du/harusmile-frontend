@@ -821,7 +821,19 @@ export type GetAllProfilesQuery = (
       & { node?: Maybe<(
         { __typename?: 'ProfileNode' }
         & Pick<ProfileNode, 'id' | 'profileName' | 'profileText' | 'isCollegeStudent' | 'schoolName' | 'profileImage' | 'age'>
-        & { selectedGender: (
+        & { targetUser: (
+          { __typename?: 'UserNode' }
+          & { provider: (
+            { __typename?: 'ReviewNodeConnection' }
+            & { edges: Array<Maybe<(
+              { __typename?: 'ReviewNodeEdge' }
+              & { node?: Maybe<(
+                { __typename?: 'ReviewNode' }
+                & Pick<ReviewNode, 'stars'>
+              )> }
+            )>> }
+          ) }
+        ), selectedGender: (
           { __typename?: 'GenderNode' }
           & Pick<GenderNode, 'genderName'>
         ), selectedAddress: (
@@ -1022,6 +1034,15 @@ export const GetAllProfilesDocument = gql`
         schoolName
         profileImage
         age
+        targetUser {
+          provider {
+            edges {
+              node {
+                stars
+              }
+            }
+          }
+        }
         selectedGender {
           genderName
         }
