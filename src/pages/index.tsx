@@ -26,7 +26,7 @@ type PropsGetAllProfilesQuery<T> = {
 const Index: NextPage<PropsGetAllProfilesQuery<GetAllProfilesQuery>> = (props) => {
   return (
     <Layout metaTitle="Index Page">
-      <section className="py-10 mb-20 bg-pink-200">
+      <section className="py-10 mt-10 mb-20 bg-pink-200">
         <h2 className="py-10 text-5xl font-bold text-center text-gray-700 dark:text-white">
           全く新しい大学受験メンタリングの形
         </h2>
@@ -51,7 +51,7 @@ const Index: NextPage<PropsGetAllProfilesQuery<GetAllProfilesQuery>> = (props) =
                 type="search"
                 placeholder="大学名、出身高校名、部活など"
               />
-              <button className="p-4 bg-white border-r">
+              <button className="p-4 bg-white border-t border-r border-b">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="w-6 h-6"
