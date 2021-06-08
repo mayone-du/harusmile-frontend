@@ -9,7 +9,7 @@ export const ProfilesWrapper: React.VFC<PropsGetAllProfilesQuery<GetAllProfilesQ
 ) => {
   if (props.profilesData === undefined) return <div>undefined</div>;
   return (
-    <div className="md:flex md:flex-wrap">
+    <ul className="md:flex md:flex-wrap">
       {props.profilesData.allProfiles &&
         props.profilesData.allProfiles.edges.map((profile) => {
           return (
@@ -18,9 +18,12 @@ export const ProfilesWrapper: React.VFC<PropsGetAllProfilesQuery<GetAllProfilesQ
               profileName={profile?.node?.profileName ? profile.node.profileName : ""}
               profileText={profile?.node?.profileText ? profile.node.profileText : ""}
               profileImage={profile?.node?.profileImage ? profile.node.profileImage : ""}
+              schoolName={profile?.node?.schoolName ? profile.node.schoolName : ""}
+              age={profile?.node?.age ? profile.node.age : 0}
+              tags={profile?.node?.tags ? profile.node.tags : []}
             />
           );
         })}
-    </div>
+    </ul>
   );
 };

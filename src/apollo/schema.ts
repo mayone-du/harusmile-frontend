@@ -113,6 +113,19 @@ export type CreateProfileMutationPayload = {
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
+export type CreateReviewMutationInput = {
+  provider: Scalars['ID'];
+  reviewText: Scalars['String'];
+  stars: Scalars['Int'];
+  clientMutationId?: Maybe<Scalars['String']>;
+};
+
+export type CreateReviewMutationPayload = {
+  __typename?: 'CreateReviewMutationPayload';
+  review?: Maybe<ReviewNode>;
+  clientMutationId?: Maybe<Scalars['String']>;
+};
+
 export type CreateUserMutationInput = {
   email: Scalars['String'];
   password: Scalars['String'];
@@ -215,6 +228,7 @@ export type Mutation = {
   updatePost?: Maybe<UpdatePostMutationPayload>;
   deletePost?: Maybe<DeletePostMutationPayload>;
   createMessage?: Maybe<CreateMessageMutationPayload>;
+  createReview?: Maybe<CreateReviewMutationPayload>;
   /** Obtain JSON Web Token mutation */
   tokenAuth?: Maybe<ObtainJsonWebToken>;
   refreshToken?: Maybe<Refresh>;
@@ -253,6 +267,11 @@ export type MutationDeletePostArgs = {
 
 export type MutationCreateMessageArgs = {
   input: CreateMessageMutationInput;
+};
+
+
+export type MutationCreateReviewArgs = {
+  input: CreateReviewMutationInput;
 };
 
 
@@ -305,19 +324,6 @@ export type PostNode = Node & {
   isPublished: Scalars['Boolean'];
   publishedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
-  targetPost: ReviewNodeConnection;
-};
-
-
-export type PostNodeTargetPostArgs = {
-  offset?: Maybe<Scalars['Int']>;
-  before?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  stars?: Maybe<Scalars['Int']>;
-  reviewText?: Maybe<Scalars['String']>;
-  reviewText_Icontains?: Maybe<Scalars['String']>;
 };
 
 export type PostNodeConnection = {
@@ -349,6 +355,7 @@ export type ProfileNode = Node & {
   schoolName: Scalars['String'];
   createdAt: Scalars['DateTime'];
   profileImage?: Maybe<Scalars['String']>;
+  age: Scalars['Int'];
   followingUsers: UserNodeConnection;
   selectedAddress: AddressNode;
   selectedGender: GenderNode;
@@ -545,8 +552,8 @@ export type ReviewNode = Node & {
   __typename?: 'ReviewNode';
   /** The ID of the object. */
   id: Scalars['ID'];
-  targetPost: PostNode;
-  reviewedUser: UserNode;
+  provider: UserNode;
+  customer: UserNode;
   reviewText: Scalars['String'];
   stars: Scalars['Int'];
 };
@@ -629,6 +636,7 @@ export type UpdateProfileMutationInput = {
   profileName: Scalars['String'];
   isCollegeStudent: Scalars['Boolean'];
   schoolName: Scalars['String'];
+  age: Scalars['Int'];
   selectedGender: Scalars['ID'];
   selectedAddress: Scalars['ID'];
   followingUsers?: Maybe<Array<Maybe<Scalars['ID']>>>;
@@ -659,7 +667,8 @@ export type UserNode = Node & {
   targetUser?: Maybe<ProfileNode>;
   followingUsers: ProfileNodeConnection;
   postedUser: PostNodeConnection;
-  reviewedUser: ReviewNodeConnection;
+  provider: ReviewNodeConnection;
+  customer: ReviewNodeConnection;
   sender: MessageNodeConnection;
   destination: MessageNodeConnection;
 };
@@ -694,7 +703,19 @@ export type UserNodePostedUserArgs = {
 };
 
 
-export type UserNodeReviewedUserArgs = {
+export type UserNodeProviderArgs = {
+  offset?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  after?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  stars?: Maybe<Scalars['Int']>;
+  reviewText?: Maybe<Scalars['String']>;
+  reviewText_Icontains?: Maybe<Scalars['String']>;
+};
+
+
+export type UserNodeCustomerArgs = {
   offset?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   after?: Maybe<Scalars['String']>;
@@ -799,7 +820,7 @@ export type GetAllProfilesQuery = (
       { __typename?: 'ProfileNodeEdge' }
       & { node?: Maybe<(
         { __typename?: 'ProfileNode' }
-        & Pick<ProfileNode, 'id' | 'profileName' | 'profileText' | 'isCollegeStudent' | 'schoolName' | 'profileImage'>
+        & Pick<ProfileNode, 'id' | 'profileName' | 'profileText' | 'isCollegeStudent' | 'schoolName' | 'profileImage' | 'age'>
         & { selectedGender: (
           { __typename?: 'GenderNode' }
           & Pick<GenderNode, 'genderName'>
@@ -1000,6 +1021,7 @@ export const GetAllProfilesDocument = gql`
         isCollegeStudent
         schoolName
         profileImage
+        age
         selectedGender {
           genderName
         }

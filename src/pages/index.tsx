@@ -32,9 +32,9 @@ const Index: NextPage<PropsGetAllProfilesQuery<GetAllProfilesQuery>> = (props) =
         </h2>
         <h3 className="py-2 text-xl text-center">憧れの先輩に直接質問する時代</h3>
         <div className="flex justify-center">
-          <div className="mx-10 w-full h-20 text-center bg-white">img</div>
-          <div className="mx-10 w-full h-20 text-center bg-white">img</div>
-          <div className="mx-10 w-full h-20 text-center bg-white">img</div>
+          <div className="mx-10 w-full h-20 text-center bg-white">static image</div>
+          <div className="mx-10 w-full h-20 text-center bg-white">static image</div>
+          <div className="mx-10 w-full h-20 text-center bg-white">static image</div>
         </div>
       </div>
 

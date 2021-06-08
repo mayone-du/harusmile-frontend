@@ -8,6 +8,7 @@ query GetAllProfiles {
         isCollegeStudent
         schoolName
         profileImage
+        age
         selectedGender {
           genderName
         }
