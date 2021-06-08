@@ -8,12 +8,20 @@ import { ProfilesWrapper } from "src/components/posts/ProfilesWrapper";
 
 export const getStaticProps: GetStaticProps = async () => {
   const apolloClient = initializeApollo(null);
-  await apolloClient.query<GetAllProfilesQuery, GetAllProfilesQueryVariables>({
+  const { data: profilesData } = await apolloClient.query<
+    GetAllProfilesQuery,
+    GetAllProfilesQueryVariables
+  >({
     query: GetAllProfilesDocument,
   });
-  return addApolloState(apolloClient, { props: {}, revalidate: 60 * 60 });
+
+  return addApolloState(apolloClient, {
+    props: { profilesData },
+    revalidate: 60 * 60,
+  });
 };
-const Index: NextPage = () => {
+
+const Index: NextPage<any> = (props) => {
   return (
     <Layout metaTitle="Index Page">
       <div className="py-10 bg-pink-200">
@@ -42,7 +50,7 @@ const Index: NextPage = () => {
         <h2 className="py-10 text-5xl font-bold text-center text-gray-700 dark:text-white">
           一覧から探す
         </h2>
-        <ProfilesWrapper />
+        <ProfilesWrapper profilesData={props.profilesData} />
       </div>
     </Layout>
   );

@@ -1,15 +1,11 @@
-import { useGetAllProfilesQuery } from "src/apollo/schema";
 import { Profile } from "src/components/posts/Profile";
 
-export const ProfilesWrapper: React.VFC = () => {
-  const { data, loading: isLoading, error } = useGetAllProfilesQuery();
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div> {error.message} </div>;
+export const ProfilesWrapper: React.VFC<any> = (props) => {
+  if (props.profilesData === undefined) return <div>undefined</div>;
   return (
     <div className="md:flex md:flex-wrap">
-      {data?.allProfiles?.edges &&
-        data.allProfiles.edges.map((profile) => {
+      {props?.profilesData?.allProfiles.edges &&
+        props.profilesData.allProfiles.edges.map((profile: any) => {
           return (
             <Profile
               key={profile?.node?.id}
