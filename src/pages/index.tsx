@@ -26,7 +26,7 @@ type PropsGetAllProfilesQuery<T> = {
 const Index: NextPage<PropsGetAllProfilesQuery<GetAllProfilesQuery>> = (props) => {
   return (
     <Layout metaTitle="Index Page">
-      <div className="py-10 bg-pink-200">
+      <section className="py-10 mb-20 bg-pink-200">
         <h2 className="py-10 text-5xl font-bold text-center text-gray-700 dark:text-white">
           全く新しい大学受験メンタリングの形
         </h2>
@@ -36,24 +36,51 @@ const Index: NextPage<PropsGetAllProfilesQuery<GetAllProfilesQuery>> = (props) =
           <div className="mx-10 w-full h-20 text-center bg-white">static image</div>
           <div className="mx-10 w-full h-20 text-center bg-white">static image</div>
         </div>
-      </div>
+      </section>
 
-      <div>
+      <section className="pb-20">
         <h2 className="py-10 text-5xl font-bold text-center text-gray-700 dark:text-white">
           条件から探す
         </h2>
-        <div className="py-10 bg-blue-100">
-          <p>フリーワード検索</p>
-          <input className="border" type="search" placeholder="大学名、出身高校名、部活など" />
+        <div className="mx-32">
+          <div className="py-10 px-6 bg-blue-100">
+            <p>フリーワード検索</p>
+            <div className="flex items-center">
+              <input
+                className="block p-4 w-full rounded-none border-t border-b border-l focus:outline-none"
+                type="search"
+                placeholder="大学名、出身高校名、部活など"
+              />
+              <button className="p-4 bg-white border-r">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-6 h-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div>
+              <button className="text-blue-700">検索条件を開く</button>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <div>
+      <section className="pb-20">
         <h2 className="py-10 text-5xl font-bold text-center text-gray-700 dark:text-white">
           一覧から探す
         </h2>
         <ProfilesWrapper profilesData={props.profilesData} />
-      </div>
+      </section>
     </Layout>
   );
 };

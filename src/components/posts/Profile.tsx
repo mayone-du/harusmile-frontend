@@ -18,29 +18,30 @@ type Props = {
 export const Profile: React.VFC<Props> = (props) => {
   return (
     <li className="p-4 md:w-1/3">
-      <div className="p-4 border border-t-8 border-pink-200">
-        <div className="flex items-center">
+      <div className="p-6 border border-t-8 border-pink-200">
+        <div className="flex items-center w-full">
           <img
             src={`${MEDIAFILE_API_ENDPOINT}${props.profileImage}`}
             className="object-cover w-14 h-14 rounded-full border border-blue-600"
             alt="Profile"
           />
 
-          <div>
-            <div className="flex items-center">
-              <div className="text-2xl">{props.profileName}</div>
+          {/* 名前、歳、学校 */}
+          <div className="pr-12 pl-6 w-full">
+            <div className="flex justify-between items-center">
+              <div className="text-2xl font-bold">{props.profileName}</div>
               <div> {props.age.toString()}歳</div>
             </div>
 
-            <div>
-              <div>{props.schoolName}</div>
-            </div>
+            <div className="text-gray-600">{props.schoolName}</div>
           </div>
         </div>
 
-        <div className="py-2">{props.profileText}</div>
+        {/* プロフィールテキスト */}
+        <div className="p-4 text-sm text-gray-600">{props.profileText}</div>
 
-        <div className="flex justify-between items-center">
+        {/* 星 */}
+        <div className="flex justify-between items-center py-4 border-b border-gray-400">
           <div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -58,9 +59,9 @@ export const Profile: React.VFC<Props> = (props) => {
             </svg>
           </div>
           <div>
-            {/* 配列の数字の平均を出し、少数第二位を切り上げ */}
+            {/* 配列の数字の平均を出し、少数第二位を四捨五入 */}
             {(
-              Math.ceil(
+              Math.round(
                 props.stars.reduce((prev: number, current: number) => {
                   return prev + current / props.stars.length;
                 }, 0) * 10,
@@ -82,7 +83,8 @@ export const Profile: React.VFC<Props> = (props) => {
           })}
         </ul> */}
 
-        <dl>
+        {/* 学校詳細 */}
+        <dl className="px-4 pt-4">
           <div className="flex items-center">
             <dt className="w-1/2">学部</dt>
             <dd className="w-1/2">{props.undergraduate}</dd>

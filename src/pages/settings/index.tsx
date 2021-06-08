@@ -1,23 +1,24 @@
+import { useReactiveVar } from "@apollo/client";
 import type { NextPage } from "next";
-import { useGetLoginUserQuery } from "src/apollo/schema";
+import { loginUserVar } from "src/apollo/cache";
 import { Layout } from "src/components/layouts/Layout";
 import { ThemeChanger } from "src/components/ThemeChanger";
 
 const Settings: NextPage = () => {
-  const { data } = useGetLoginUserQuery({ fetchPolicy: "network-only" });
+  const loginUserData = useReactiveVar(loginUserVar);
   return (
     <div>
       <Layout metaTitle="settings">
         <h2>Settings</h2>
         <div>
-          {data?.loginUser && (
+          {loginUserData.isLogin ? (
             <ul>
-              <li>UserID: {data.loginUser.id}</li>
-              <li>{data.loginUser.email}</li>
-              <li>{data.loginUser.targetUser?.id}</li>
-              <li>{data.loginUser.targetUser?.profileName}</li>
-              <li>{data.loginUser.targetUser?.profileText}</li>
+              <li>Email: {loginUserData.email}</li>
+              <li>Email: {loginUserData.profileName}</li>
+              <li>Email: {loginUserData.profileText}</li>
             </ul>
+          ) : (
+            <h3>ログインしてください</h3>
           )}
         </div>
         <ThemeChanger />

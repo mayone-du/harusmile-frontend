@@ -1,12 +1,15 @@
+import { useReactiveVar } from "@apollo/client";
 import Image from "next/image";
 import Link from "next/link";
 import { memo } from "react";
+import { loginUserVar } from "src/apollo/cache";
 import { MEDIAFILE_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
 
 type Props = {
   profileImagePath: string;
 };
 export const Header: React.VFC<Props> = memo((props) => {
+  const loginUserData = useReactiveVar(loginUserVar);
   return (
     <div>
       <header className="px-2 md:px-32">
@@ -19,16 +22,27 @@ export const Header: React.VFC<Props> = memo((props) => {
             </Link>
           </div>
           <ul className="flex items-center">
-            <li className="m-2">
-              <Link href="/auth/signin">
-                <a>ログイン</a>
-              </Link>
-            </li>
-            <li className="m-2">
-              <Link href="/auth/signup">
-                <a>新規登録</a>
-              </Link>
-            </li>
+            {loginUserData.isLogin ? (
+              <li>
+                <Link href="/auth/signout">
+                  <a>ログアウト</a>
+                </Link>
+              </li>
+            ) : (
+              <>
+                <li className="m-2">
+                  <Link href="/auth/signin">
+                    <a>ログイン</a>
+                  </Link>
+                </li>
+                <li className="m-2">
+                  <Link href="/auth/signup">
+                    <a>新規登録</a>
+                  </Link>
+                </li>
+              </>
+            )}
+
             <li className="m-2">
               <Link href="/settings">
                 <a>
