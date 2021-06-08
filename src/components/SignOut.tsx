@@ -6,15 +6,17 @@ export const SignOut: React.VFC = () => {
   const router = useRouter();
   const handleSignOut = () => {
     const cookies = parseCookies();
-    if (cookies.accessToken) destroyCookie(null, "accessToken", { path: "/", maxAge: -100 });
-    if (cookies.refreshToken) destroyCookie(null, "refreshToken", { path: "/", maxAge: -100 });
+    if (cookies.accessToken) destroyCookie(null, "accessToken", { path: "/", maxAge: -1 });
+    if (cookies.refreshToken) destroyCookie(null, "refreshToken", { path: "/", maxAge: -1 });
     loginUserVar(initialLoginUserVar);
-    alert("サインアウトしました。");
+    alert("ログアウトしました。");
     router.push("/");
   };
   return (
     <div>
-      <button onClick={handleSignOut}>SignOut</button>
+      <button className="py-2 px-4 border" onClick={handleSignOut}>
+        ログアウト
+      </button>
     </div>
   );
 };

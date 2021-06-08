@@ -33,14 +33,16 @@ export const Header: React.VFC<Props> = memo((props) => {
               </li>
             ) : (
               <>
-                <li className="m-2">
+                <li className="mx-4">
                   <Link href="/auth/signin">
-                    <a>ログイン</a>
+                    <a className="text-blue-700 ">ログイン</a>
                   </Link>
                 </li>
-                <li className="m-2">
+                <li className="mx-4">
                   <Link href="/auth/signup">
-                    <a>新規登録</a>
+                    <a className="py-3 px-8 font-bold text-white bg-blue-700 rounded-3xl">
+                      新規登録
+                    </a>
                   </Link>
                 </li>
               </>
@@ -48,7 +50,7 @@ export const Header: React.VFC<Props> = memo((props) => {
 
             {loginUserData.isLogin ? (
               <>
-                <li className="flex items-center px-2 m-2">
+                <li className="flex items-center px-2 mx-4">
                   <Link href="/settings">
                     <a>
                       {props.profileImagePath ? (
@@ -56,7 +58,7 @@ export const Header: React.VFC<Props> = memo((props) => {
                           <img
                             src={`${MEDIAFILE_API_ENDPOINT}${props.profileImagePath}`}
                             alt="Profile"
-                            className="block object-cover w-10 h-10"
+                            className="block object-cover mx-2 w-10 h-10 rounded-full border border-gray-500"
                           />
                         </div>
                       ) : (
@@ -84,7 +86,7 @@ export const Header: React.VFC<Props> = memo((props) => {
                     <p className="text-sm">{loginUserData.email}</p>
                   </div>
                 </li>
-                <li className="px-2 border-l-2 border-gray-300">
+                <li className="px-4 border-l-2 border-gray-300">
                   <button className="block" onClick={handleBellClick}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

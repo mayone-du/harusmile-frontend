@@ -42,7 +42,7 @@ const Index: NextPage<PropsGetAllProfilesQuery<GetAllProfilesQuery>> = (props) =
         <h2 className="py-10 text-5xl font-bold text-center text-gray-700 dark:text-white">
           条件から探す
         </h2>
-        <div className="mx-32">
+        <div className="mx-2 md:mx-32">
           <div className="py-10 px-6 bg-blue-100">
             <p>フリーワード検索</p>
             <div className="flex items-center">

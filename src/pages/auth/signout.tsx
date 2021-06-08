@@ -6,7 +6,9 @@ const SignOut: NextPage = () => {
   return (
     <div>
       <Layout metaTitle="SignOut">
-        <SignOutComponent />
+        <div className="flex justify-center items-center min-h-screen">
+          <SignOutComponent />
+        </div>
       </Layout>
     </div>
   );

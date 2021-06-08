@@ -16,19 +16,22 @@ const Settings: NextPage = () => {
         <h2 className="py-10 text-3xl text-center">Settings</h2>
 
         <section>
+          {/* 枠 */}
           <div className="flex items-center p-4 border shadow-md">
-            <div className="flex items-center w-1/2 h-16 border-r">
+            {/* 左 */}
+            <div className="flex items-center w-1/2 border-r">
               <img
                 src={`${MEDIAFILE_API_ENDPOINT}${loginUserData.profileImage}`}
                 alt="Profile"
-                className="block"
+                className="block object-cover mx-6 w-32 h-32 rounded-full"
               />
               <div>
                 <p>{loginUserData.email}</p>
                 <p>{loginUserData.schoolName}</p>
               </div>
             </div>
-            <div className="flex flex-col justify-center w-1/2 h-16 font-bold text-center border-l">
+            {/* 右 */}
+            <div className="flex flex-col justify-center w-1/2 h-16 font-bold text-center">
               <h3>これまでに相談したセンパイの数</h3>
               <p>サンプルテキスト</p>
             </div>
