@@ -20,8 +20,10 @@ export const getStaticProps: GetStaticProps = async () => {
     revalidate: 60 * 60,
   });
 };
-
-const Index: NextPage<any> = (props) => {
+type PropsGetAllProfilesQuery<T> = {
+  profilesData: T;
+};
+const Index: NextPage<PropsGetAllProfilesQuery<GetAllProfilesQuery>> = (props) => {
   return (
     <Layout metaTitle="Index Page">
       <div className="py-10 bg-pink-200">
