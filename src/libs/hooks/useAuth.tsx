@@ -1,9 +1,12 @@
+import { useRouter } from "next/dist/client/router";
 import { setCookie } from "nookies";
 import { useCallback, useState } from "react";
+import { initialLoginUserVar, loginUserVar } from "src/apollo/cache";
 import { useCreateUserMutation, useGetTokensMutation } from "src/apollo/schema";
 import { calcDate } from "src/libs/calcDate";
 
 export const useAuth = () => {
+  const router = useRouter();
   const [createUserMutation] = useCreateUserMutation();
   const [getTokensMutation] = useGetTokensMutation();
   const [inputEmail, setInputEmail] = useState("");
@@ -53,8 +56,11 @@ export const useAuth = () => {
             maxAge: calcDate(tokenData.tokenAuth.refreshExpiresIn),
           });
         }
+
+        loginUserVar(initialLoginUserVar);
         setInputEmail("");
         setInputPassword("");
+        await router.push("/");
       } catch (error) {
         alert(error);
         return;
