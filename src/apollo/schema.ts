@@ -356,6 +356,11 @@ export type ProfileNode = Node & {
   createdAt: Scalars['DateTime'];
   profileImage?: Maybe<Scalars['String']>;
   age: Scalars['Int'];
+  undergraduate: Scalars['String'];
+  department: Scalars['String'];
+  clubActivities: Scalars['String'];
+  admissionFormat: Scalars['String'];
+  favoriteSubject: Scalars['String'];
   followingUsers: UserNodeConnection;
   selectedAddress: AddressNode;
   selectedGender: GenderNode;
@@ -641,6 +646,11 @@ export type UpdateProfileMutationInput = {
   selectedAddress: Scalars['ID'];
   followingUsers?: Maybe<Array<Maybe<Scalars['ID']>>>;
   tags?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  undergraduate: Scalars['String'];
+  department: Scalars['String'];
+  clubActivities: Scalars['String'];
+  admissionFormat: Scalars['String'];
+  favoriteSubject: Scalars['String'];
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
@@ -820,7 +830,7 @@ export type GetAllProfilesQuery = (
       { __typename?: 'ProfileNodeEdge' }
       & { node?: Maybe<(
         { __typename?: 'ProfileNode' }
-        & Pick<ProfileNode, 'id' | 'profileName' | 'profileText' | 'isCollegeStudent' | 'schoolName' | 'profileImage' | 'age'>
+        & Pick<ProfileNode, 'id' | 'profileName' | 'profileText' | 'isCollegeStudent' | 'schoolName' | 'profileImage' | 'age' | 'undergraduate' | 'department' | 'clubActivities' | 'admissionFormat' | 'favoriteSubject'>
         & { targetUser: (
           { __typename?: 'UserNode' }
           & { provider: (
@@ -1034,6 +1044,11 @@ export const GetAllProfilesDocument = gql`
         schoolName
         profileImage
         age
+        undergraduate
+        department
+        clubActivities
+        admissionFormat
+        favoriteSubject
         targetUser {
           provider {
             edges {

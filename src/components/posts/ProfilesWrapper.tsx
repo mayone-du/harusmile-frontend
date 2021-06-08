@@ -20,7 +20,12 @@ export const ProfilesWrapper: React.VFC<PropsGetAllProfilesQuery<GetAllProfilesQ
               profileImage={profile?.node?.profileImage ? profile.node.profileImage : ""}
               schoolName={profile?.node?.schoolName ? profile.node.schoolName : ""}
               age={profile?.node?.age ? profile.node.age : 0}
-              tags={profile?.node?.tags ? profile.node.tags : []}
+              undergraduate={profile?.node?.undergraduate ? profile.node.undergraduate : ""}
+              department={profile?.node?.department ? profile.node.department : ""}
+              clubActivities={profile?.node?.clubActivities ? profile.node.clubActivities : ""}
+              admissionFormat={profile?.node?.admissionFormat ? profile.node.admissionFormat : ""}
+              favoriteSubject={profile?.node?.favoriteSubject ? profile.node.favoriteSubject : ""}
+              // tags={profile?.node?.tags ? profile.node.tags : []}
               stars={
                 profile?.node?.targetUser
                   ? profile.node.targetUser.provider.edges.map((review) => {

@@ -9,6 +9,11 @@ query GetAllProfiles {
         schoolName
         profileImage
         age
+        undergraduate
+        department
+        clubActivities
+        admissionFormat
+        favoriteSubject
         targetUser {
           provider {
             edges {
