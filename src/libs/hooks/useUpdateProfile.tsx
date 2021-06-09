@@ -1,6 +1,6 @@
 import { useReactiveVar } from "@apollo/client";
 import { parseCookies, setCookie } from "nookies";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { loginUserVar } from "src/apollo/cache";
 import { useRefreshTokensMutation, useUpdateProfileMutation } from "src/apollo/schema";
 import { calcDate } from "src/libs/calcDate";
@@ -11,9 +11,13 @@ export const useProfileUpdate = () => {
   const [refreshTokensMutation] = useRefreshTokensMutation();
   const [updateProfileMutation] = useUpdateProfileMutation();
   const [inputLoginUserData, setInputLoginUserData] = useState(loginUserData);
+  useEffect(() => {
+    setInputLoginUserData({
+      ...loginUserData,
+    });
+  }, [loginUserData]);
 
-  // console.log("input", inputLoginUserData, "loginUserData", loginUserData);
-
+  // 各項目ごとのハンドラ
   const handleProfileNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputLoginUserData({ ...inputLoginUserData, profileName: e.target.value });
   };
@@ -21,6 +25,7 @@ export const useProfileUpdate = () => {
     setInputLoginUserData({ ...inputLoginUserData, profileText: e.target.value });
   };
 
+  // 送信用関数
   const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {

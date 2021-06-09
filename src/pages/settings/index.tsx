@@ -1,13 +1,12 @@
-import { useReactiveVar } from "@apollo/client";
 import type { NextPage } from "next";
-import { loginUserVar } from "src/apollo/cache";
 import { Layout } from "src/components/layouts/Layout";
 import { ThemeChanger } from "src/components/ThemeChanger";
-import { useProfileUpdate } from "src/libs/hooks/useProfileUpdate";
+import { useSetLoginUserData } from "src/libs/hooks/useSetLoginUserData";
+import { useProfileUpdate } from "src/libs/hooks/useUpdateProfile";
 import { MEDIAFILE_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
 
 const Settings: NextPage = () => {
-  const loginUserData = useReactiveVar(loginUserVar);
+  const { loginUserData } = useSetLoginUserData();
   const { inputLoginUserData, handleProfileNameChange, handleProfileTextChange, handleSubmit } =
     useProfileUpdate();
 
