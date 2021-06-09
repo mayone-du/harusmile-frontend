@@ -52,8 +52,8 @@ export const useProfileUpdate = () => {
           isCollegeStudent: inputLoginUserData.isCollegeStudent,
           schoolName: inputLoginUserData.schoolName,
           age: inputLoginUserData.age,
-          telephoneNumber: "123",
-          // telephoneNumber: inputLoginUserData.telephoneNumber.toString(),
+          // telephoneNumber: "234789",
+          telephoneNumber: inputLoginUserData.telephoneNumber,
           // selectedGender: inputLoginUserData.genderName,
           selectedGender: "QWRkcmVzc05vZGU6Mg==",
           // selectedAddress: inputLoginUserData.addressName,
@@ -63,6 +63,8 @@ export const useProfileUpdate = () => {
           clubActivities: inputLoginUserData.clubActivities,
           admissionFormat: inputLoginUserData.admissionFormat,
           favoriteSubject: inputLoginUserData.favoriteSubject,
+          wantHear: inputLoginUserData.wantHear,
+          problem: inputLoginUserData.problem,
         },
       });
       alert("update success! : " + data?.updateProfile?.profile?.profileName);

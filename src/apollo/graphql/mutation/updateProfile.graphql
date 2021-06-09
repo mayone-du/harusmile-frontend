@@ -13,6 +13,8 @@ mutation UpdateProfile(
   $clubActivities: String!
   $admissionFormat: String!
   $favoriteSubject: String!
+  $wantHear: String!
+  $problem: String!
 ) {
   updateProfile(
     input: {
@@ -30,6 +32,8 @@ mutation UpdateProfile(
       clubActivities: $clubActivities
       admissionFormat: $admissionFormat
       favoriteSubject: $favoriteSubject
+      wantHear: $wantHear
+      problem: $problem
     }
   ) {
     profile {

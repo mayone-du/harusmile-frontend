@@ -361,6 +361,8 @@ export type ProfileNode = Node & {
   clubActivities: Scalars['String'];
   admissionFormat: Scalars['String'];
   favoriteSubject: Scalars['String'];
+  wantHear: Scalars['String'];
+  problem: Scalars['String'];
   followingUsers: UserNodeConnection;
   selectedAddress: AddressNode;
   selectedGender: GenderNode;
@@ -646,6 +648,8 @@ export type UpdateProfileMutationInput = {
   selectedGender: Scalars['ID'];
   selectedAddress: Scalars['ID'];
   telephoneNumber: Scalars['String'];
+  wantHear: Scalars['String'];
+  problem: Scalars['String'];
   followingUsers?: Maybe<Array<Maybe<Scalars['ID']>>>;
   tags?: Maybe<Array<Maybe<Scalars['ID']>>>;
   undergraduate: Scalars['String'];
@@ -836,6 +840,8 @@ export type UpdateProfileMutationVariables = Exact<{
   clubActivities: Scalars['String'];
   admissionFormat: Scalars['String'];
   favoriteSubject: Scalars['String'];
+  wantHear: Scalars['String'];
+  problem: Scalars['String'];
 }>;
 
 
@@ -918,7 +924,7 @@ export type GetLoginUserQuery = (
       )>> }
     ), targetUser?: Maybe<(
       { __typename?: 'ProfileNode' }
-      & Pick<ProfileNode, 'id' | 'profileName' | 'profileText' | 'profileImage' | 'telephoneNumber' | 'schoolName' | 'age' | 'undergraduate' | 'department' | 'clubActivities' | 'admissionFormat' | 'favoriteSubject' | 'createdAt'>
+      & Pick<ProfileNode, 'id' | 'profileName' | 'profileText' | 'profileImage' | 'telephoneNumber' | 'schoolName' | 'age' | 'undergraduate' | 'department' | 'clubActivities' | 'admissionFormat' | 'favoriteSubject' | 'wantHear' | 'problem' | 'createdAt'>
       & { followingUsers: (
         { __typename?: 'UserNodeConnection' }
         & { edges: Array<Maybe<(
@@ -1064,9 +1070,9 @@ export type RefreshTokensMutationHookResult = ReturnType<typeof useRefreshTokens
 export type RefreshTokensMutationResult = Apollo.MutationResult<RefreshTokensMutation>;
 export type RefreshTokensMutationOptions = Apollo.BaseMutationOptions<RefreshTokensMutation, RefreshTokensMutationVariables>;
 export const UpdateProfileDocument = gql`
-    mutation UpdateProfile($id: ID!, $profileName: String!, $profileText: String!, $isCollegeStudent: Boolean!, $schoolName: String!, $age: Int!, $telephoneNumber: String!, $selectedGender: ID!, $selectedAddress: ID!, $undergraduate: String!, $department: String!, $clubActivities: String!, $admissionFormat: String!, $favoriteSubject: String!) {
+    mutation UpdateProfile($id: ID!, $profileName: String!, $profileText: String!, $isCollegeStudent: Boolean!, $schoolName: String!, $age: Int!, $telephoneNumber: String!, $selectedGender: ID!, $selectedAddress: ID!, $undergraduate: String!, $department: String!, $clubActivities: String!, $admissionFormat: String!, $favoriteSubject: String!, $wantHear: String!, $problem: String!) {
   updateProfile(
-    input: {id: $id, profileName: $profileName, profileText: $profileText, isCollegeStudent: $isCollegeStudent, schoolName: $schoolName, age: $age, telephoneNumber: $telephoneNumber, selectedGender: $selectedGender, selectedAddress: $selectedAddress, undergraduate: $undergraduate, department: $department, clubActivities: $clubActivities, admissionFormat: $admissionFormat, favoriteSubject: $favoriteSubject}
+    input: {id: $id, profileName: $profileName, profileText: $profileText, isCollegeStudent: $isCollegeStudent, schoolName: $schoolName, age: $age, telephoneNumber: $telephoneNumber, selectedGender: $selectedGender, selectedAddress: $selectedAddress, undergraduate: $undergraduate, department: $department, clubActivities: $clubActivities, admissionFormat: $admissionFormat, favoriteSubject: $favoriteSubject, wantHear: $wantHear, problem: $problem}
   ) {
     profile {
       profileName
@@ -1104,6 +1110,8 @@ export type UpdateProfileMutationFn = Apollo.MutationFunction<UpdateProfileMutat
  *      clubActivities: // value for 'clubActivities'
  *      admissionFormat: // value for 'admissionFormat'
  *      favoriteSubject: // value for 'favoriteSubject'
+ *      wantHear: // value for 'wantHear'
+ *      problem: // value for 'problem'
  *   },
  * });
  */
@@ -1215,6 +1223,8 @@ export const GetLoginUserDocument = gql`
       clubActivities
       admissionFormat
       favoriteSubject
+      wantHear
+      problem
       createdAt
       followingUsers {
         edges {

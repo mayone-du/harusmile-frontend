@@ -11,7 +11,7 @@ export type User = {
   profileName: string;
   profileImage: string;
   profileText: string;
-  telephoneNumber: number;
+  telephoneNumber: string;
   isCollegeStudent: boolean;
   schoolName: string;
   genderName: string;
@@ -22,6 +22,8 @@ export type User = {
   clubActivities: string;
   admissionFormat: string;
   favoriteSubject: string;
+  wantHear: string;
+  problem: string;
   tags: string[];
   sendMessages: {
     distinationId: string;

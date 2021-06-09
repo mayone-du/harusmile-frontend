@@ -57,7 +57,7 @@ export const useValidateLoginUser = () => {
         profileText: queryData.loginUser?.targetUser?.profileText
           ? queryData.loginUser.targetUser?.profileText
           : "",
-        telephoneNumber: 0,
+        telephoneNumber: "",
         isCollegeStudent: false,
         schoolName: queryData.loginUser?.targetUser?.schoolName
           ? queryData.loginUser.targetUser?.schoolName
@@ -83,6 +83,12 @@ export const useValidateLoginUser = () => {
           : "",
         favoriteSubject: queryData.loginUser?.targetUser?.favoriteSubject
           ? queryData.loginUser.targetUser?.favoriteSubject
+          : "",
+        wantHear: queryData.loginUser?.targetUser?.wantHear
+          ? queryData.loginUser.targetUser?.wantHear
+          : "",
+        problem: queryData.loginUser?.targetUser?.problem
+          ? queryData.loginUser.targetUser?.problem
           : "",
         tags: queryData.loginUser?.targetUser?.tags.edges
           ? queryData.loginUser?.targetUser?.tags.edges.map((tag) => {

@@ -27,6 +27,8 @@ query GetLoginUser {
       clubActivities
       admissionFormat
       favoriteSubject
+      wantHear
+      problem
       createdAt
       followingUsers {
         edges {

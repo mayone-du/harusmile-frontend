@@ -69,6 +69,14 @@ const Settings: NextPage = () => {
                   onChange={handleProfileTextChange}
                 />
               </li>
+              <li>
+                <input
+                  type="tel"
+                  placeholder="telephoneNumber"
+                  className="block overflow-y-scroll p-2 max-h-32 border"
+                  value={inputLoginUserData.telephoneNumber}
+                />
+              </li>
               {/* <li>
                 <input
                   type="text"
