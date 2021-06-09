@@ -3,13 +3,12 @@ import type { NextPage } from "next";
 import { loginUserVar } from "src/apollo/cache";
 import { Layout } from "src/components/layouts/Layout";
 import { ThemeChanger } from "src/components/ThemeChanger";
+import { useProfileUpdate } from "src/libs/hooks/useProfileUpdate";
 import { MEDIAFILE_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
 
 const Settings: NextPage = () => {
   const loginUserData = useReactiveVar(loginUserVar);
-  const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  };
+  const { handleSubmit } = useProfileUpdate();
   return (
     <div>
       <Layout metaTitle="settings">
@@ -50,12 +49,12 @@ const Settings: NextPage = () => {
                 />
               </li>
               <li>
-                <input
-                  type="text"
+                <textarea
                   placeholder="profileName"
-                  value={loginUserData.profileName}
-                  className="block p-2 border"
-                />
+                  className="block overflow-y-scroll p-2 max-h-32 border"
+                >
+                  {loginUserData.profileName}
+                </textarea>
               </li>
               <li>
                 <input
@@ -86,6 +85,54 @@ const Settings: NextPage = () => {
                   type="text"
                   placeholder="addressName"
                   value={loginUserData.addressName}
+                  className="block p-2 border"
+                />
+              </li>
+              <li>
+                <input
+                  type="text"
+                  placeholder="age"
+                  value={loginUserData.age}
+                  className="block p-2 border"
+                />
+              </li>
+              <li>
+                <input
+                  type="text"
+                  placeholder="undergraduate"
+                  value={loginUserData.undergraduate}
+                  className="block p-2 border"
+                />
+              </li>
+              <li>
+                <input
+                  type="text"
+                  placeholder="department"
+                  value={loginUserData.department}
+                  className="block p-2 border"
+                />
+              </li>
+              <li>
+                <input
+                  type="text"
+                  placeholder="clubActivities"
+                  value={loginUserData.clubActivities}
+                  className="block p-2 border"
+                />
+              </li>
+              <li>
+                <input
+                  type="text"
+                  placeholder="admissionFormat"
+                  value={loginUserData.admissionFormat}
+                  className="block p-2 border"
+                />
+              </li>
+              <li>
+                <input
+                  type="text"
+                  placeholder="favoriteSubject"
+                  value={loginUserData.favoriteSubject}
                   className="block p-2 border"
                 />
               </li>

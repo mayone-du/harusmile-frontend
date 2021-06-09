@@ -48,7 +48,9 @@ export const useValidateLoginUser = () => {
         userId: queryData.loginUser?.id ? queryData.loginUser.id : "",
         email: queryData.loginUser?.email ? queryData.loginUser.email : "",
         profileId: queryData.loginUser?.targetUser?.id ? queryData.loginUser?.targetUser?.id : "",
-        profileName: queryData.loginUser?.targetUser?.id ? queryData.loginUser?.targetUser?.id : "",
+        profileName: queryData.loginUser?.targetUser?.profileName
+          ? queryData.loginUser?.targetUser?.profileName
+          : "",
         profileImage: queryData.loginUser?.targetUser?.profileImage
           ? queryData.loginUser.targetUser?.profileImage
           : "",
@@ -71,7 +73,7 @@ export const useValidateLoginUser = () => {
           ? queryData.loginUser.targetUser?.undergraduate
           : "",
         department: queryData.loginUser?.targetUser?.department
-          ? queryData.loginUser.targetUser?.undergraduate
+          ? queryData.loginUser.targetUser?.department
           : "",
         clubActivities: queryData.loginUser?.targetUser?.clubActivities
           ? queryData.loginUser.targetUser?.clubActivities
@@ -79,8 +81,8 @@ export const useValidateLoginUser = () => {
         admissionFormat: queryData.loginUser?.targetUser?.admissionFormat
           ? queryData.loginUser.targetUser?.admissionFormat
           : "",
-        favoriteSubject: queryData.loginUser?.targetUser?.clubActivities
-          ? queryData.loginUser.targetUser?.clubActivities
+        favoriteSubject: queryData.loginUser?.targetUser?.favoriteSubject
+          ? queryData.loginUser.targetUser?.favoriteSubject
           : "",
         tags: queryData.loginUser?.targetUser?.tags.edges
           ? queryData.loginUser?.targetUser?.tags.edges.map((tag) => {
