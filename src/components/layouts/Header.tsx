@@ -48,8 +48,15 @@ export const Header: React.VFC<Props> = memo((props) => {
               </>
             )}
 
+            {/* ログインしている場合 */}
             {loginUserData.isLogin ? (
               <>
+                <li className="flex items-center px-2 mx-4">
+                  <Link href="/talk">
+                    <a>トーク画面</a>
+                  </Link>
+                </li>
+
                 <li className="flex items-center px-2 mx-4">
                   <Link href="/settings">
                     <a>

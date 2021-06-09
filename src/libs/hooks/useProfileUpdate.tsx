@@ -43,10 +43,11 @@ export const useProfileUpdate = () => {
         variables: {
           id: inputLoginUserData.profileId,
           profileName: inputLoginUserData.profileName,
+          profileText: inputLoginUserData.profileText,
           isCollegeStudent: inputLoginUserData.isCollegeStudent,
           schoolName: inputLoginUserData.schoolName,
           age: inputLoginUserData.age,
-          telephoneNumber: "03030303",
+          telephoneNumber: "123",
           // telephoneNumber: inputLoginUserData.telephoneNumber.toString(),
           // selectedGender: inputLoginUserData.genderName,
           selectedGender: "QWRkcmVzc05vZGU6Mg==",

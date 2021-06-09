@@ -7,10 +7,12 @@ import { calcDate } from "src/libs/calcDate";
 
 export const useAuth = () => {
   const router = useRouter();
+
   const [createUserMutation] = useCreateUserMutation();
   const [getTokensMutation] = useGetTokensMutation();
   const [inputEmail, setInputEmail] = useState("");
   const [inputPassword, setInputPassword] = useState("");
+
   const handleEmailChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setInputEmail(event.target.value);
   }, []);
@@ -61,6 +63,7 @@ export const useAuth = () => {
         setInputEmail("");
         setInputPassword("");
         await router.push("/");
+        router.reload();
       } catch (error) {
         alert(error);
         return;

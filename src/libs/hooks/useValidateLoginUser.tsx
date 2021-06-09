@@ -41,7 +41,7 @@ export const useValidateLoginUser = () => {
   );
 
   useEffect(() => {
-    // キャッシュのログイン状態がfalseかつ、クエリーデータがある場合に値をセット
+    // Reactive変数のログイン状態がfalseかつ、クエリーデータがある場合に値をセット
     if (loginUserData.isLogin === false && queryData) {
       loginUserVar({
         isLogin: queryData ? true : false,

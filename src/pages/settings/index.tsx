@@ -24,7 +24,7 @@ const Settings: NextPage = () => {
               <img
                 src={`${MEDIAFILE_API_ENDPOINT}${loginUserData.profileImage}`}
                 alt="Profile"
-                className="block object-cover mx-6 w-32 h-32 rounded-full"
+                className="block object-cover mx-6 w-32 h-32 rounded-full border"
               />
               <div>
                 <p>{loginUserData.email}</p>

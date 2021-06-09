@@ -1,6 +1,7 @@
 mutation UpdateProfile(
   $id: ID!
   $profileName: String!
+  $profileText: String!
   $isCollegeStudent: Boolean!
   $schoolName: String!
   $age: Int!
@@ -17,6 +18,7 @@ mutation UpdateProfile(
     input: {
       id: $id
       profileName: $profileName
+      profileText: $profileText
       isCollegeStudent: $isCollegeStudent
       schoolName: $schoolName
       age: $age
