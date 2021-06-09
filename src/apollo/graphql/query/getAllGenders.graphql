@@ -1,0 +1,10 @@
+query GetAllGendersQuery {
+  allGenders {
+    edges {
+      node {
+        id
+        genderName
+      }
+    }
+  }
+}

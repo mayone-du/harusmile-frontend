@@ -1,0 +1,10 @@
+query GetAllAdressesQuery {
+  allAddresses {
+    edges {
+      node {
+        id
+        addressName
+      }
+    }
+  }
+}

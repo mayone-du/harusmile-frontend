@@ -856,6 +856,40 @@ export type UpdateProfileMutation = (
   )> }
 );
 
+export type GetAllAdressesQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllAdressesQueryQuery = (
+  { __typename?: 'Query' }
+  & { allAddresses?: Maybe<(
+    { __typename?: 'AddressNodeConnection' }
+    & { edges: Array<Maybe<(
+      { __typename?: 'AddressNodeEdge' }
+      & { node?: Maybe<(
+        { __typename?: 'AddressNode' }
+        & Pick<AddressNode, 'id' | 'addressName'>
+      )> }
+    )>> }
+  )> }
+);
+
+export type GetAllGendersQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllGendersQueryQuery = (
+  { __typename?: 'Query' }
+  & { allGenders?: Maybe<(
+    { __typename?: 'GenderNodeConnection' }
+    & { edges: Array<Maybe<(
+      { __typename?: 'GenderNodeEdge' }
+      & { node?: Maybe<(
+        { __typename?: 'GenderNode' }
+        & Pick<GenderNode, 'id' | 'genderName'>
+      )> }
+    )>> }
+  )> }
+);
+
 export type GetAllProfilesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1122,6 +1156,84 @@ export function useUpdateProfileMutation(baseOptions?: Apollo.MutationHookOption
 export type UpdateProfileMutationHookResult = ReturnType<typeof useUpdateProfileMutation>;
 export type UpdateProfileMutationResult = Apollo.MutationResult<UpdateProfileMutation>;
 export type UpdateProfileMutationOptions = Apollo.BaseMutationOptions<UpdateProfileMutation, UpdateProfileMutationVariables>;
+export const GetAllAdressesQueryDocument = gql`
+    query GetAllAdressesQuery {
+  allAddresses {
+    edges {
+      node {
+        id
+        addressName
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAllAdressesQueryQuery__
+ *
+ * To run a query within a React component, call `useGetAllAdressesQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllAdressesQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllAdressesQueryQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllAdressesQueryQuery(baseOptions?: Apollo.QueryHookOptions<GetAllAdressesQueryQuery, GetAllAdressesQueryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllAdressesQueryQuery, GetAllAdressesQueryQueryVariables>(GetAllAdressesQueryDocument, options);
+      }
+export function useGetAllAdressesQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllAdressesQueryQuery, GetAllAdressesQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllAdressesQueryQuery, GetAllAdressesQueryQueryVariables>(GetAllAdressesQueryDocument, options);
+        }
+export type GetAllAdressesQueryQueryHookResult = ReturnType<typeof useGetAllAdressesQueryQuery>;
+export type GetAllAdressesQueryLazyQueryHookResult = ReturnType<typeof useGetAllAdressesQueryLazyQuery>;
+export type GetAllAdressesQueryQueryResult = Apollo.QueryResult<GetAllAdressesQueryQuery, GetAllAdressesQueryQueryVariables>;
+export const GetAllGendersQueryDocument = gql`
+    query GetAllGendersQuery {
+  allGenders {
+    edges {
+      node {
+        id
+        genderName
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAllGendersQueryQuery__
+ *
+ * To run a query within a React component, call `useGetAllGendersQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllGendersQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllGendersQueryQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllGendersQueryQuery(baseOptions?: Apollo.QueryHookOptions<GetAllGendersQueryQuery, GetAllGendersQueryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllGendersQueryQuery, GetAllGendersQueryQueryVariables>(GetAllGendersQueryDocument, options);
+      }
+export function useGetAllGendersQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllGendersQueryQuery, GetAllGendersQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllGendersQueryQuery, GetAllGendersQueryQueryVariables>(GetAllGendersQueryDocument, options);
+        }
+export type GetAllGendersQueryQueryHookResult = ReturnType<typeof useGetAllGendersQueryQuery>;
+export type GetAllGendersQueryLazyQueryHookResult = ReturnType<typeof useGetAllGendersQueryLazyQuery>;
+export type GetAllGendersQueryQueryResult = Apollo.QueryResult<GetAllGendersQueryQuery, GetAllGendersQueryQueryVariables>;
 export const GetAllProfilesDocument = gql`
     query GetAllProfiles {
   allProfiles {
