@@ -7,8 +7,15 @@ import { MEDIAFILE_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
 
 const Settings: NextPage = () => {
   const { loginUserData } = useSetLoginUserData();
-  const { inputLoginUserData, handleProfileNameChange, handleProfileTextChange, handleSubmit } =
-    useProfileUpdate();
+  const {
+    inputLoginUserData,
+    handleProfileNameChange,
+    handleProfileTextChange,
+    handleFavoriteSubjectChange,
+    handleProblemChange,
+    handleWantHearChange,
+    handleSubmit,
+  } = useProfileUpdate();
 
   return (
     <div>
@@ -41,17 +48,15 @@ const Settings: NextPage = () => {
         <form onSubmit={handleSubmit}>
           {loginUserData.isLogin ? (
             <ul>
-              {/* <li>
+              <li>
                 <input
                   type="email"
                   placeholder="email"
-                  value={loginUserData.email}
+                  value={inputLoginUserData.email}
                   className="block p-2 border"
                 />
-              </li> */}
+              </li>
               <li>
-                {/* {console.log(inputLoginUserData)}
-                {console.log(loginUserData)} */}
                 <input
                   type="text"
                   placeholder="profileName"
@@ -77,11 +82,11 @@ const Settings: NextPage = () => {
                   value={inputLoginUserData.telephoneNumber}
                 />
               </li>
-              {/* <li>
+              <li>
                 <input
                   type="text"
                   placeholder="schoolName"
-                  value={loginUserData.schoolName}
+                  value={inputLoginUserData.schoolName}
                   className="block p-2 border"
                 />
               </li>
@@ -89,7 +94,7 @@ const Settings: NextPage = () => {
                 <input
                   type="text"
                   placeholder="genderName"
-                  value={loginUserData.genderName}
+                  value={inputLoginUserData.genderName}
                   className="block p-2 border"
                 />
               </li>
@@ -97,7 +102,7 @@ const Settings: NextPage = () => {
                 <input
                   type="text"
                   placeholder="addressName"
-                  value={loginUserData.addressName}
+                  value={inputLoginUserData.addressName}
                   className="block p-2 border"
                 />
               </li>
@@ -105,7 +110,7 @@ const Settings: NextPage = () => {
                 <input
                   type="text"
                   placeholder="age"
-                  value={loginUserData.age}
+                  value={inputLoginUserData.age}
                   className="block p-2 border"
                 />
               </li>
@@ -113,7 +118,7 @@ const Settings: NextPage = () => {
                 <input
                   type="text"
                   placeholder="undergraduate"
-                  value={loginUserData.undergraduate}
+                  value={inputLoginUserData.undergraduate}
                   className="block p-2 border"
                 />
               </li>
@@ -121,7 +126,7 @@ const Settings: NextPage = () => {
                 <input
                   type="text"
                   placeholder="department"
-                  value={loginUserData.department}
+                  value={inputLoginUserData.department}
                   className="block p-2 border"
                 />
               </li>
@@ -129,7 +134,7 @@ const Settings: NextPage = () => {
                 <input
                   type="text"
                   placeholder="clubActivities"
-                  value={loginUserData.clubActivities}
+                  value={inputLoginUserData.clubActivities}
                   className="block p-2 border"
                 />
               </li>
@@ -137,7 +142,7 @@ const Settings: NextPage = () => {
                 <input
                   type="text"
                   placeholder="admissionFormat"
-                  value={loginUserData.admissionFormat}
+                  value={inputLoginUserData.admissionFormat}
                   className="block p-2 border"
                 />
               </li>
@@ -145,10 +150,29 @@ const Settings: NextPage = () => {
                 <input
                   type="text"
                   placeholder="favoriteSubject"
-                  value={loginUserData.favoriteSubject}
+                  value={inputLoginUserData.favoriteSubject}
                   className="block p-2 border"
+                  onChange={handleFavoriteSubjectChange}
                 />
-              </li> */}
+              </li>
+              <li>
+                <input
+                  type="text"
+                  placeholder="wantHear"
+                  value={inputLoginUserData.wantHear}
+                  className="block p-2 border"
+                  onChange={handleWantHearChange}
+                />
+              </li>
+              <li>
+                <input
+                  type="text"
+                  placeholder="problem"
+                  value={inputLoginUserData.problem}
+                  className="block p-2 border"
+                  onChange={handleProblemChange}
+                />
+              </li>
             </ul>
           ) : (
             <h3>ログインしてください</h3>

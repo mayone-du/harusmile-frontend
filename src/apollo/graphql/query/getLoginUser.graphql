@@ -20,6 +20,7 @@ query GetLoginUser {
       profileText
       profileImage
       telephoneNumber
+      isCollegeStudent
       schoolName
       age
       undergraduate

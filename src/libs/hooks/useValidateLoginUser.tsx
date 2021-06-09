@@ -57,8 +57,10 @@ export const useValidateLoginUser = () => {
         profileText: queryData.loginUser?.targetUser?.profileText
           ? queryData.loginUser.targetUser?.profileText
           : "",
-        telephoneNumber: "",
-        isCollegeStudent: false,
+        telephoneNumber: queryData.loginUser?.targetUser?.telephoneNumber
+          ? queryData.loginUser.targetUser.telephoneNumber
+          : "",
+        isCollegeStudent: queryData.loginUser?.targetUser?.isCollegeStudent ? true : false,
         schoolName: queryData.loginUser?.targetUser?.schoolName
           ? queryData.loginUser.targetUser?.schoolName
           : "",

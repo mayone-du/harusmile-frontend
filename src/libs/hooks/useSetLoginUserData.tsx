@@ -24,7 +24,7 @@ export const useSetLoginUserData = () => {
       telephoneNumber: queryData?.loginUser?.targetUser?.telephoneNumber
         ? queryData.loginUser.targetUser.telephoneNumber
         : "",
-      isCollegeStudent: false,
+      isCollegeStudent: queryData?.loginUser?.targetUser?.isCollegeStudent ? true : false,
       schoolName: queryData?.loginUser?.targetUser?.schoolName
         ? queryData.loginUser.targetUser?.schoolName
         : "",
