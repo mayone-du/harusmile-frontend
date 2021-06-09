@@ -101,6 +101,7 @@ export type CreatePostMutationPayload = {
 export type CreateProfileMutationInput = {
   profileName: Scalars['String'];
   isCollegeStudent: Scalars['Boolean'];
+  telephoneNumber: Scalars['String'];
   schoolName: Scalars['String'];
   selectedGender: Scalars['ID'];
   selectedAddress: Scalars['ID'];
@@ -657,6 +658,7 @@ export type UpdateProfileMutationInput = {
   clubActivities: Scalars['String'];
   admissionFormat: Scalars['String'];
   favoriteSubject: Scalars['String'];
+  profileImage?: Maybe<Scalars['Upload']>;
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
@@ -842,6 +844,7 @@ export type UpdateProfileMutationVariables = Exact<{
   favoriteSubject: Scalars['String'];
   wantHear: Scalars['String'];
   problem: Scalars['String'];
+  profileImage?: Maybe<Scalars['Upload']>;
 }>;
 
 
@@ -1104,9 +1107,9 @@ export type RefreshTokensMutationHookResult = ReturnType<typeof useRefreshTokens
 export type RefreshTokensMutationResult = Apollo.MutationResult<RefreshTokensMutation>;
 export type RefreshTokensMutationOptions = Apollo.BaseMutationOptions<RefreshTokensMutation, RefreshTokensMutationVariables>;
 export const UpdateProfileDocument = gql`
-    mutation UpdateProfile($id: ID!, $profileName: String!, $profileText: String!, $isCollegeStudent: Boolean!, $schoolName: String!, $age: Int!, $telephoneNumber: String!, $selectedGender: ID!, $selectedAddress: ID!, $undergraduate: String!, $department: String!, $clubActivities: String!, $admissionFormat: String!, $favoriteSubject: String!, $wantHear: String!, $problem: String!) {
+    mutation UpdateProfile($id: ID!, $profileName: String!, $profileText: String!, $isCollegeStudent: Boolean!, $schoolName: String!, $age: Int!, $telephoneNumber: String!, $selectedGender: ID!, $selectedAddress: ID!, $undergraduate: String!, $department: String!, $clubActivities: String!, $admissionFormat: String!, $favoriteSubject: String!, $wantHear: String!, $problem: String!, $profileImage: Upload) {
   updateProfile(
-    input: {id: $id, profileName: $profileName, profileText: $profileText, isCollegeStudent: $isCollegeStudent, schoolName: $schoolName, age: $age, telephoneNumber: $telephoneNumber, selectedGender: $selectedGender, selectedAddress: $selectedAddress, undergraduate: $undergraduate, department: $department, clubActivities: $clubActivities, admissionFormat: $admissionFormat, favoriteSubject: $favoriteSubject, wantHear: $wantHear, problem: $problem}
+    input: {id: $id, profileName: $profileName, profileText: $profileText, isCollegeStudent: $isCollegeStudent, schoolName: $schoolName, age: $age, telephoneNumber: $telephoneNumber, selectedGender: $selectedGender, selectedAddress: $selectedAddress, undergraduate: $undergraduate, department: $department, clubActivities: $clubActivities, admissionFormat: $admissionFormat, favoriteSubject: $favoriteSubject, wantHear: $wantHear, problem: $problem, profileImage: $profileImage}
   ) {
     profile {
       profileName
@@ -1146,6 +1149,7 @@ export type UpdateProfileMutationFn = Apollo.MutationFunction<UpdateProfileMutat
  *      favoriteSubject: // value for 'favoriteSubject'
  *      wantHear: // value for 'wantHear'
  *      problem: // value for 'problem'
+ *      profileImage: // value for 'profileImage'
  *   },
  * });
  */

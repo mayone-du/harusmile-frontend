@@ -16,6 +16,7 @@ export const useProfileUpdate = () => {
       ...loginUserData,
     });
   }, [loginUserData]);
+  const [profileImageFile, setProfileImageFile] = useState<File | null>(null);
 
   // 各項目ごとのハンドラ
   const handleProfileNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,6 +33,9 @@ export const useProfileUpdate = () => {
   };
   const handleProblemChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputLoginUserData({ ...inputLoginUserData, problem: e.target.value });
+  };
+  const handleProfileImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) setProfileImageFile(e.target.files[0]);
   };
 
   // 送信用関数
@@ -73,6 +77,7 @@ export const useProfileUpdate = () => {
           favoriteSubject: inputLoginUserData.favoriteSubject,
           wantHear: inputLoginUserData.wantHear,
           problem: inputLoginUserData.problem,
+          profileImage: profileImageFile,
         },
       });
       alert("update success! : " + data?.updateProfile?.profile?.profileName);
@@ -89,6 +94,7 @@ export const useProfileUpdate = () => {
     handleFavoriteSubjectChange,
     handleProblemChange,
     handleWantHearChange,
+    handleProfileImageChange,
     handleSubmit,
   };
 };

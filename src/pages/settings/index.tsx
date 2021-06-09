@@ -14,6 +14,7 @@ const Settings: NextPage = () => {
     handleFavoriteSubjectChange,
     handleProblemChange,
     handleWantHearChange,
+    handleProfileImageChange,
     handleSubmit,
   } = useProfileUpdate();
 
@@ -171,6 +172,14 @@ const Settings: NextPage = () => {
                   value={inputLoginUserData.problem}
                   className="block p-2 border"
                   onChange={handleProblemChange}
+                />
+              </li>
+              <li>
+                <input
+                  type="file"
+                  placeholder="profileImage"
+                  className="block p-2 border"
+                  onChange={handleProfileImageChange}
                 />
               </li>
             </ul>
