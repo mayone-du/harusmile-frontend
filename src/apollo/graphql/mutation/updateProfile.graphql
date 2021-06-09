@@ -1,0 +1,38 @@
+mutation UpdateProfile(
+  $id: ID!
+  $profileName: String!
+  $isCollegeStudent: Boolean!
+  $schoolName: String!
+  $age: Int!
+  $telephoneNumber: String!
+  $selectedGender: ID!
+  $selectedAddress: ID!
+  $undergraduate: String!
+  $department: String!
+  $clubActivities: String!
+  $admissionFormat: String!
+  $favoriteSubject: String!
+) {
+  updateProfile(
+    input: {
+      id: $id
+      profileName: $profileName
+      isCollegeStudent: $isCollegeStudent
+      schoolName: $schoolName
+      age: $age
+      telephoneNumber: $telephoneNumber
+      selectedGender: $selectedGender
+      selectedAddress: $selectedAddress
+      undergraduate: $undergraduate
+      department: $department
+      clubActivities: $clubActivities
+      admissionFormat: $admissionFormat
+      favoriteSubject: $favoriteSubject
+    }
+  ) {
+    profile {
+      profileName
+      profileText
+    }
+  }
+}

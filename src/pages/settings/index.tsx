@@ -8,7 +8,9 @@ import { MEDIAFILE_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
 
 const Settings: NextPage = () => {
   const loginUserData = useReactiveVar(loginUserVar);
-  const { handleSubmit } = useProfileUpdate();
+  const { inputLoginUserData, handleProfileNameChange, handleProfileTextChange, handleSubmit } =
+    useProfileUpdate();
+
   return (
     <div>
       <Layout metaTitle="settings">
@@ -40,31 +42,35 @@ const Settings: NextPage = () => {
         <form onSubmit={handleSubmit}>
           {loginUserData.isLogin ? (
             <ul>
-              <li>
+              {/* <li>
                 <input
                   type="email"
                   placeholder="email"
                   value={loginUserData.email}
                   className="block p-2 border"
                 />
-              </li>
+              </li> */}
               <li>
-                <textarea
+                {/* {console.log(inputLoginUserData)}
+                {console.log(loginUserData)} */}
+                <input
+                  type="text"
                   placeholder="profileName"
-                  className="block overflow-y-scroll p-2 max-h-32 border"
-                >
-                  {loginUserData.profileName}
-                </textarea>
+                  value={inputLoginUserData.profileName}
+                  className="block p-2 border"
+                  onChange={handleProfileNameChange}
+                />
               </li>
               <li>
                 <input
                   type="text"
                   placeholder="profileText"
-                  value={loginUserData.profileText}
-                  className="block p-2 border"
+                  className="block overflow-y-scroll p-2 max-h-32 border"
+                  value={inputLoginUserData.profileText}
+                  onChange={handleProfileTextChange}
                 />
               </li>
-              <li>
+              {/* <li>
                 <input
                   type="text"
                   placeholder="schoolName"
@@ -135,7 +141,7 @@ const Settings: NextPage = () => {
                   value={loginUserData.favoriteSubject}
                   className="block p-2 border"
                 />
-              </li>
+              </li> */}
             </ul>
           ) : (
             <h3>ログインしてください</h3>

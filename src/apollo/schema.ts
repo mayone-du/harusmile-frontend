@@ -644,6 +644,7 @@ export type UpdateProfileMutationInput = {
   age: Scalars['Int'];
   selectedGender: Scalars['ID'];
   selectedAddress: Scalars['ID'];
+  telephoneNumber: Scalars['String'];
   followingUsers?: Maybe<Array<Maybe<Scalars['ID']>>>;
   tags?: Maybe<Array<Maybe<Scalars['ID']>>>;
   undergraduate: Scalars['String'];
@@ -816,6 +817,34 @@ export type RefreshTokensMutation = (
   & { refreshToken?: Maybe<(
     { __typename?: 'Refresh' }
     & Pick<Refresh, 'token' | 'payload' | 'refreshToken' | 'refreshExpiresIn'>
+  )> }
+);
+
+export type UpdateProfileMutationVariables = Exact<{
+  id: Scalars['ID'];
+  profileName: Scalars['String'];
+  isCollegeStudent: Scalars['Boolean'];
+  schoolName: Scalars['String'];
+  age: Scalars['Int'];
+  telephoneNumber: Scalars['String'];
+  selectedGender: Scalars['ID'];
+  selectedAddress: Scalars['ID'];
+  undergraduate: Scalars['String'];
+  department: Scalars['String'];
+  clubActivities: Scalars['String'];
+  admissionFormat: Scalars['String'];
+  favoriteSubject: Scalars['String'];
+}>;
+
+
+export type UpdateProfileMutation = (
+  { __typename?: 'Mutation' }
+  & { updateProfile?: Maybe<(
+    { __typename?: 'UpdateProfileMutationPayload' }
+    & { profile?: Maybe<(
+      { __typename?: 'ProfileNode' }
+      & Pick<ProfileNode, 'profileName' | 'profileText'>
+    )> }
   )> }
 );
 
@@ -1032,6 +1061,56 @@ export function useRefreshTokensMutation(baseOptions?: Apollo.MutationHookOption
 export type RefreshTokensMutationHookResult = ReturnType<typeof useRefreshTokensMutation>;
 export type RefreshTokensMutationResult = Apollo.MutationResult<RefreshTokensMutation>;
 export type RefreshTokensMutationOptions = Apollo.BaseMutationOptions<RefreshTokensMutation, RefreshTokensMutationVariables>;
+export const UpdateProfileDocument = gql`
+    mutation UpdateProfile($id: ID!, $profileName: String!, $isCollegeStudent: Boolean!, $schoolName: String!, $age: Int!, $telephoneNumber: String!, $selectedGender: ID!, $selectedAddress: ID!, $undergraduate: String!, $department: String!, $clubActivities: String!, $admissionFormat: String!, $favoriteSubject: String!) {
+  updateProfile(
+    input: {id: $id, profileName: $profileName, isCollegeStudent: $isCollegeStudent, schoolName: $schoolName, age: $age, telephoneNumber: $telephoneNumber, selectedGender: $selectedGender, selectedAddress: $selectedAddress, undergraduate: $undergraduate, department: $department, clubActivities: $clubActivities, admissionFormat: $admissionFormat, favoriteSubject: $favoriteSubject}
+  ) {
+    profile {
+      profileName
+      profileText
+    }
+  }
+}
+    `;
+export type UpdateProfileMutationFn = Apollo.MutationFunction<UpdateProfileMutation, UpdateProfileMutationVariables>;
+
+/**
+ * __useUpdateProfileMutation__
+ *
+ * To run a mutation, you first call `useUpdateProfileMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateProfileMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateProfileMutation, { data, loading, error }] = useUpdateProfileMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      profileName: // value for 'profileName'
+ *      isCollegeStudent: // value for 'isCollegeStudent'
+ *      schoolName: // value for 'schoolName'
+ *      age: // value for 'age'
+ *      telephoneNumber: // value for 'telephoneNumber'
+ *      selectedGender: // value for 'selectedGender'
+ *      selectedAddress: // value for 'selectedAddress'
+ *      undergraduate: // value for 'undergraduate'
+ *      department: // value for 'department'
+ *      clubActivities: // value for 'clubActivities'
+ *      admissionFormat: // value for 'admissionFormat'
+ *      favoriteSubject: // value for 'favoriteSubject'
+ *   },
+ * });
+ */
+export function useUpdateProfileMutation(baseOptions?: Apollo.MutationHookOptions<UpdateProfileMutation, UpdateProfileMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateProfileMutation, UpdateProfileMutationVariables>(UpdateProfileDocument, options);
+      }
+export type UpdateProfileMutationHookResult = ReturnType<typeof useUpdateProfileMutation>;
+export type UpdateProfileMutationResult = Apollo.MutationResult<UpdateProfileMutation>;
+export type UpdateProfileMutationOptions = Apollo.BaseMutationOptions<UpdateProfileMutation, UpdateProfileMutationVariables>;
 export const GetAllProfilesDocument = gql`
     query GetAllProfiles {
   allProfiles {
