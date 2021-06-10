@@ -48,9 +48,26 @@ export type AddressNodeSelectedAddressArgs = {
   last?: Maybe<Scalars['Int']>;
   profileName?: Maybe<Scalars['String']>;
   profileName_Icontains?: Maybe<Scalars['String']>;
+  profileText?: Maybe<Scalars['String']>;
+  profileText_Icontains?: Maybe<Scalars['String']>;
+  age?: Maybe<Scalars['Int']>;
   isCollegeStudent?: Maybe<Scalars['Boolean']>;
   schoolName?: Maybe<Scalars['String']>;
   schoolName_Icontains?: Maybe<Scalars['String']>;
+  undergraduate?: Maybe<Scalars['String']>;
+  undergraduate_Icontains?: Maybe<Scalars['String']>;
+  department?: Maybe<Scalars['String']>;
+  department_Icontains?: Maybe<Scalars['String']>;
+  clubActivities?: Maybe<Scalars['String']>;
+  clubActivities_Icontains?: Maybe<Scalars['String']>;
+  admissionFormat?: Maybe<Scalars['String']>;
+  admissionFormat_Icontains?: Maybe<Scalars['String']>;
+  favoriteSubject?: Maybe<Scalars['String']>;
+  favoriteSubject_Icontains?: Maybe<Scalars['String']>;
+  wantHear?: Maybe<Scalars['String']>;
+  wantHear_Icontains?: Maybe<Scalars['String']>;
+  problem?: Maybe<Scalars['String']>;
+  problem_Icontains?: Maybe<Scalars['String']>;
   selectedAddress?: Maybe<Scalars['ID']>;
   selectedGender?: Maybe<Scalars['ID']>;
 };
@@ -178,9 +195,26 @@ export type GenderNodeSelectedGenderArgs = {
   last?: Maybe<Scalars['Int']>;
   profileName?: Maybe<Scalars['String']>;
   profileName_Icontains?: Maybe<Scalars['String']>;
+  profileText?: Maybe<Scalars['String']>;
+  profileText_Icontains?: Maybe<Scalars['String']>;
+  age?: Maybe<Scalars['Int']>;
   isCollegeStudent?: Maybe<Scalars['Boolean']>;
   schoolName?: Maybe<Scalars['String']>;
   schoolName_Icontains?: Maybe<Scalars['String']>;
+  undergraduate?: Maybe<Scalars['String']>;
+  undergraduate_Icontains?: Maybe<Scalars['String']>;
+  department?: Maybe<Scalars['String']>;
+  department_Icontains?: Maybe<Scalars['String']>;
+  clubActivities?: Maybe<Scalars['String']>;
+  clubActivities_Icontains?: Maybe<Scalars['String']>;
+  admissionFormat?: Maybe<Scalars['String']>;
+  admissionFormat_Icontains?: Maybe<Scalars['String']>;
+  favoriteSubject?: Maybe<Scalars['String']>;
+  favoriteSubject_Icontains?: Maybe<Scalars['String']>;
+  wantHear?: Maybe<Scalars['String']>;
+  wantHear_Icontains?: Maybe<Scalars['String']>;
+  problem?: Maybe<Scalars['String']>;
+  problem_Icontains?: Maybe<Scalars['String']>;
   selectedAddress?: Maybe<Scalars['ID']>;
   selectedGender?: Maybe<Scalars['ID']>;
 };
@@ -474,9 +508,26 @@ export type QueryAllProfilesArgs = {
   last?: Maybe<Scalars['Int']>;
   profileName?: Maybe<Scalars['String']>;
   profileName_Icontains?: Maybe<Scalars['String']>;
+  profileText?: Maybe<Scalars['String']>;
+  profileText_Icontains?: Maybe<Scalars['String']>;
+  age?: Maybe<Scalars['Int']>;
   isCollegeStudent?: Maybe<Scalars['Boolean']>;
   schoolName?: Maybe<Scalars['String']>;
   schoolName_Icontains?: Maybe<Scalars['String']>;
+  undergraduate?: Maybe<Scalars['String']>;
+  undergraduate_Icontains?: Maybe<Scalars['String']>;
+  department?: Maybe<Scalars['String']>;
+  department_Icontains?: Maybe<Scalars['String']>;
+  clubActivities?: Maybe<Scalars['String']>;
+  clubActivities_Icontains?: Maybe<Scalars['String']>;
+  admissionFormat?: Maybe<Scalars['String']>;
+  admissionFormat_Icontains?: Maybe<Scalars['String']>;
+  favoriteSubject?: Maybe<Scalars['String']>;
+  favoriteSubject_Icontains?: Maybe<Scalars['String']>;
+  wantHear?: Maybe<Scalars['String']>;
+  wantHear_Icontains?: Maybe<Scalars['String']>;
+  problem?: Maybe<Scalars['String']>;
+  problem_Icontains?: Maybe<Scalars['String']>;
   selectedAddress?: Maybe<Scalars['ID']>;
   selectedGender?: Maybe<Scalars['ID']>;
 };
@@ -621,9 +672,26 @@ export type TagNodeTagsArgs = {
   last?: Maybe<Scalars['Int']>;
   profileName?: Maybe<Scalars['String']>;
   profileName_Icontains?: Maybe<Scalars['String']>;
+  profileText?: Maybe<Scalars['String']>;
+  profileText_Icontains?: Maybe<Scalars['String']>;
+  age?: Maybe<Scalars['Int']>;
   isCollegeStudent?: Maybe<Scalars['Boolean']>;
   schoolName?: Maybe<Scalars['String']>;
   schoolName_Icontains?: Maybe<Scalars['String']>;
+  undergraduate?: Maybe<Scalars['String']>;
+  undergraduate_Icontains?: Maybe<Scalars['String']>;
+  department?: Maybe<Scalars['String']>;
+  department_Icontains?: Maybe<Scalars['String']>;
+  clubActivities?: Maybe<Scalars['String']>;
+  clubActivities_Icontains?: Maybe<Scalars['String']>;
+  admissionFormat?: Maybe<Scalars['String']>;
+  admissionFormat_Icontains?: Maybe<Scalars['String']>;
+  favoriteSubject?: Maybe<Scalars['String']>;
+  favoriteSubject_Icontains?: Maybe<Scalars['String']>;
+  wantHear?: Maybe<Scalars['String']>;
+  wantHear_Icontains?: Maybe<Scalars['String']>;
+  problem?: Maybe<Scalars['String']>;
+  problem_Icontains?: Maybe<Scalars['String']>;
   selectedAddress?: Maybe<Scalars['ID']>;
   selectedGender?: Maybe<Scalars['ID']>;
 };
@@ -721,9 +789,26 @@ export type UserNodeFollowingUsersArgs = {
   last?: Maybe<Scalars['Int']>;
   profileName?: Maybe<Scalars['String']>;
   profileName_Icontains?: Maybe<Scalars['String']>;
+  profileText?: Maybe<Scalars['String']>;
+  profileText_Icontains?: Maybe<Scalars['String']>;
+  age?: Maybe<Scalars['Int']>;
   isCollegeStudent?: Maybe<Scalars['Boolean']>;
   schoolName?: Maybe<Scalars['String']>;
   schoolName_Icontains?: Maybe<Scalars['String']>;
+  undergraduate?: Maybe<Scalars['String']>;
+  undergraduate_Icontains?: Maybe<Scalars['String']>;
+  department?: Maybe<Scalars['String']>;
+  department_Icontains?: Maybe<Scalars['String']>;
+  clubActivities?: Maybe<Scalars['String']>;
+  clubActivities_Icontains?: Maybe<Scalars['String']>;
+  admissionFormat?: Maybe<Scalars['String']>;
+  admissionFormat_Icontains?: Maybe<Scalars['String']>;
+  favoriteSubject?: Maybe<Scalars['String']>;
+  favoriteSubject_Icontains?: Maybe<Scalars['String']>;
+  wantHear?: Maybe<Scalars['String']>;
+  wantHear_Icontains?: Maybe<Scalars['String']>;
+  problem?: Maybe<Scalars['String']>;
+  problem_Icontains?: Maybe<Scalars['String']>;
   selectedAddress?: Maybe<Scalars['ID']>;
   selectedGender?: Maybe<Scalars['ID']>;
 };
@@ -1064,6 +1149,62 @@ export type GetLoginUserQuery = (
         )>> }
       ) }
     )> }
+  )> }
+);
+
+export type GetAllProfilesQueryQueryVariables = Exact<{
+  keyword: Scalars['String'];
+}>;
+
+
+export type GetAllProfilesQueryQuery = (
+  { __typename?: 'Query' }
+  & { allProfiles?: Maybe<(
+    { __typename?: 'ProfileNodeConnection' }
+    & { edges: Array<Maybe<(
+      { __typename?: 'ProfileNodeEdge' }
+      & { node?: Maybe<(
+        { __typename?: 'ProfileNode' }
+        & Pick<ProfileNode, 'id' | 'profileName' | 'profileText' | 'telephoneNumber' | 'isCollegeStudent' | 'schoolName' | 'createdAt' | 'profileImage' | 'undergraduate' | 'department' | 'clubActivities' | 'admissionFormat' | 'favoriteSubject' | 'wantHear' | 'problem'>
+        & { targetUser: (
+          { __typename?: 'UserNode' }
+          & { provider: (
+            { __typename?: 'ReviewNodeConnection' }
+            & { edges: Array<Maybe<(
+              { __typename?: 'ReviewNodeEdge' }
+              & { node?: Maybe<(
+                { __typename?: 'ReviewNode' }
+                & Pick<ReviewNode, 'stars'>
+              )> }
+            )>> }
+          ) }
+        ), followingUsers: (
+          { __typename?: 'UserNodeConnection' }
+          & { edges: Array<Maybe<(
+            { __typename?: 'UserNodeEdge' }
+            & { node?: Maybe<(
+              { __typename?: 'UserNode' }
+              & Pick<UserNode, 'id' | 'email'>
+            )> }
+          )>> }
+        ), selectedGender: (
+          { __typename?: 'GenderNode' }
+          & Pick<GenderNode, 'id' | 'genderName'>
+        ), selectedAddress: (
+          { __typename?: 'AddressNode' }
+          & Pick<AddressNode, 'id' | 'addressName'>
+        ), tags: (
+          { __typename?: 'TagNodeConnection' }
+          & { edges: Array<Maybe<(
+            { __typename?: 'TagNodeEdge' }
+            & { node?: Maybe<(
+              { __typename?: 'TagNode' }
+              & Pick<TagNode, 'tagName'>
+            )> }
+          )>> }
+        ) }
+      )> }
+    )>> }
   )> }
 );
 
@@ -1578,3 +1719,99 @@ export function useGetLoginUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type GetLoginUserQueryHookResult = ReturnType<typeof useGetLoginUserQuery>;
 export type GetLoginUserLazyQueryHookResult = ReturnType<typeof useGetLoginUserLazyQuery>;
 export type GetLoginUserQueryResult = Apollo.QueryResult<GetLoginUserQuery, GetLoginUserQueryVariables>;
+export const GetAllProfilesQueryDocument = gql`
+    query GetAllProfilesQuery($keyword: String!) {
+  allProfiles(
+    profileName_Icontains: $keyword
+    profileText_Icontains: $keyword
+    schoolName_Icontains: $keyword
+    undergraduate_Icontains: $keyword
+    department_Icontains: $keyword
+    clubActivities_Icontains: $keyword
+    admissionFormat_Icontains: $keyword
+    favoriteSubject_Icontains: $keyword
+    wantHear_Icontains: $keyword
+    problem_Icontains: $keyword
+  ) {
+    edges {
+      node {
+        id
+        profileName
+        profileText
+        telephoneNumber
+        isCollegeStudent
+        schoolName
+        createdAt
+        profileImage
+        undergraduate
+        department
+        clubActivities
+        admissionFormat
+        favoriteSubject
+        wantHear
+        problem
+        targetUser {
+          provider {
+            edges {
+              node {
+                stars
+              }
+            }
+          }
+        }
+        followingUsers {
+          edges {
+            node {
+              id
+              email
+            }
+          }
+        }
+        selectedGender {
+          id
+          genderName
+        }
+        selectedAddress {
+          id
+          addressName
+        }
+        tags {
+          edges {
+            node {
+              tagName
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAllProfilesQueryQuery__
+ *
+ * To run a query within a React component, call `useGetAllProfilesQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllProfilesQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllProfilesQueryQuery({
+ *   variables: {
+ *      keyword: // value for 'keyword'
+ *   },
+ * });
+ */
+export function useGetAllProfilesQueryQuery(baseOptions: Apollo.QueryHookOptions<GetAllProfilesQueryQuery, GetAllProfilesQueryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllProfilesQueryQuery, GetAllProfilesQueryQueryVariables>(GetAllProfilesQueryDocument, options);
+      }
+export function useGetAllProfilesQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllProfilesQueryQuery, GetAllProfilesQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllProfilesQueryQuery, GetAllProfilesQueryQueryVariables>(GetAllProfilesQueryDocument, options);
+        }
+export type GetAllProfilesQueryQueryHookResult = ReturnType<typeof useGetAllProfilesQueryQuery>;
+export type GetAllProfilesQueryLazyQueryHookResult = ReturnType<typeof useGetAllProfilesQueryLazyQuery>;
+export type GetAllProfilesQueryQueryResult = Apollo.QueryResult<GetAllProfilesQueryQuery, GetAllProfilesQueryQueryVariables>;

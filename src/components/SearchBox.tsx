@@ -1,7 +1,13 @@
 import { useSearch } from "src/libs/hooks/useSearch";
 
 export const SearchBox: React.VFC = () => {
-  const { inputSearchKeyword, handleSearchKeywordChange, handleSearch } = useSearch();
+  const {
+    inputSearchKeyword,
+    handleSearchKeywordChange,
+    isConditionsOpen,
+    handleConditionsToggle,
+    handleSearch,
+  } = useSearch();
   return (
     <div>
       <section className="pb-20">
@@ -36,10 +42,24 @@ export const SearchBox: React.VFC = () => {
                 </svg>
               </button>
             </form>
+
             <div>
-              <button type="submit" className="text-blue-700">
+              <button type="submit" className="text-blue-700" onClick={handleConditionsToggle}>
                 検索条件を開く
               </button>
+              {/* 検索条件 */}
+              {isConditionsOpen && (
+                <div>
+                  <ul>
+                    <li>
+                      <label className="flex items-center">
+                        <p>〇〇に絞る</p>
+                        <input className="block" type="checkbox" />
+                      </label>
+                    </li>
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
         </div>
