@@ -39,6 +39,7 @@ export const useAuth = () => {
   const handleSignIn = async (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     const { isFormError } = validateInputs();
+
     if (!isFormError) {
       try {
         const { data: tokenData } = await getTokensMutation({

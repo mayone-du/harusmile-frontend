@@ -1,6 +1,18 @@
+import { useReactiveVar } from "@apollo/client";
+import { useRouter } from "next/dist/client/router";
+import { useEffect } from "react";
+import { loginUserVar } from "src/apollo/cache";
 import { Layout } from "src/components/layouts/Layout";
 
 const Talk = () => {
+  const router = useRouter();
+  const loginUserData = useReactiveVar(loginUserVar);
+  useEffect(() => {
+    if (loginUserData.isLogin && loginUserData.profileName === "") {
+      alert("プロフィールを設定してください。");
+      router.push("/settings");
+    }
+  }, []);
   return (
     <div>
       <Layout metaTitle="Talk Page">

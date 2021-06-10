@@ -100,11 +100,21 @@ export type CreatePostMutationPayload = {
 
 export type CreateProfileMutationInput = {
   profileName: Scalars['String'];
+  profileText?: Maybe<Scalars['String']>;
   isCollegeStudent: Scalars['Boolean'];
-  telephoneNumber: Scalars['String'];
   schoolName: Scalars['String'];
+  age?: Maybe<Scalars['Int']>;
   selectedGender: Scalars['ID'];
   selectedAddress: Scalars['ID'];
+  telephoneNumber: Scalars['String'];
+  wantHear?: Maybe<Scalars['String']>;
+  problem?: Maybe<Scalars['String']>;
+  undergraduate?: Maybe<Scalars['String']>;
+  department?: Maybe<Scalars['String']>;
+  clubActivities?: Maybe<Scalars['String']>;
+  admissionFormat?: Maybe<Scalars['String']>;
+  favoriteSubject?: Maybe<Scalars['String']>;
+  profileImage?: Maybe<Scalars['Upload']>;
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
@@ -356,14 +366,14 @@ export type ProfileNode = Node & {
   schoolName: Scalars['String'];
   createdAt: Scalars['DateTime'];
   profileImage?: Maybe<Scalars['String']>;
-  age: Scalars['Int'];
-  undergraduate: Scalars['String'];
-  department: Scalars['String'];
-  clubActivities: Scalars['String'];
-  admissionFormat: Scalars['String'];
-  favoriteSubject: Scalars['String'];
-  wantHear: Scalars['String'];
-  problem: Scalars['String'];
+  age?: Maybe<Scalars['Int']>;
+  undergraduate?: Maybe<Scalars['String']>;
+  department?: Maybe<Scalars['String']>;
+  clubActivities?: Maybe<Scalars['String']>;
+  admissionFormat?: Maybe<Scalars['String']>;
+  favoriteSubject?: Maybe<Scalars['String']>;
+  wantHear?: Maybe<Scalars['String']>;
+  problem?: Maybe<Scalars['String']>;
   followingUsers: UserNodeConnection;
   selectedAddress: AddressNode;
   selectedGender: GenderNode;
@@ -783,6 +793,44 @@ export type UserNodeEdge = {
   cursor: Scalars['String'];
 };
 
+export type CreateProfileMutationVariables = Exact<{
+  profileName: Scalars['String'];
+  profileText?: Maybe<Scalars['String']>;
+  isCollegeStudent: Scalars['Boolean'];
+  schoolName: Scalars['String'];
+  age?: Maybe<Scalars['Int']>;
+  selectedGender: Scalars['ID'];
+  selectedAddress: Scalars['ID'];
+  telephoneNumber: Scalars['String'];
+  wantHear?: Maybe<Scalars['String']>;
+  problem?: Maybe<Scalars['String']>;
+  undergraduate?: Maybe<Scalars['String']>;
+  department?: Maybe<Scalars['String']>;
+  clubActivities?: Maybe<Scalars['String']>;
+  admissionFormat?: Maybe<Scalars['String']>;
+  favoriteSubject?: Maybe<Scalars['String']>;
+  profileImage?: Maybe<Scalars['Upload']>;
+}>;
+
+
+export type CreateProfileMutation = (
+  { __typename?: 'Mutation' }
+  & { createProfile?: Maybe<(
+    { __typename?: 'CreateProfileMutationPayload' }
+    & { profile?: Maybe<(
+      { __typename?: 'ProfileNode' }
+      & Pick<ProfileNode, 'profileName' | 'profileText' | 'isCollegeStudent' | 'schoolName' | 'telephoneNumber' | 'createdAt' | 'profileImage' | 'age' | 'undergraduate' | 'department' | 'clubActivities' | 'admissionFormat' | 'favoriteSubject' | 'wantHear' | 'problem'>
+      & { selectedGender: (
+        { __typename?: 'GenderNode' }
+        & Pick<GenderNode, 'genderName'>
+      ), selectedAddress: (
+        { __typename?: 'AddressNode' }
+        & Pick<AddressNode, 'addressName'>
+      ) }
+    )> }
+  )> }
+);
+
 export type CreateUserMutationVariables = Exact<{
   email: Scalars['String'];
   password: Scalars['String'];
@@ -996,6 +1044,78 @@ export type GetLoginUserQuery = (
 );
 
 
+export const CreateProfileDocument = gql`
+    mutation CreateProfile($profileName: String!, $profileText: String, $isCollegeStudent: Boolean!, $schoolName: String!, $age: Int, $selectedGender: ID!, $selectedAddress: ID!, $telephoneNumber: String!, $wantHear: String, $problem: String, $undergraduate: String, $department: String, $clubActivities: String, $admissionFormat: String, $favoriteSubject: String, $profileImage: Upload) {
+  createProfile(
+    input: {profileName: $profileName, profileText: $profileText, isCollegeStudent: $isCollegeStudent, schoolName: $schoolName, age: $age, selectedGender: $selectedGender, selectedAddress: $selectedAddress, telephoneNumber: $telephoneNumber, wantHear: $wantHear, problem: $problem, undergraduate: $undergraduate, department: $department, clubActivities: $clubActivities, admissionFormat: $admissionFormat, favoriteSubject: $favoriteSubject, profileImage: $profileImage}
+  ) {
+    profile {
+      profileName
+      profileText
+      isCollegeStudent
+      schoolName
+      telephoneNumber
+      createdAt
+      profileImage
+      age
+      undergraduate
+      department
+      clubActivities
+      admissionFormat
+      favoriteSubject
+      wantHear
+      problem
+      selectedGender {
+        genderName
+      }
+      selectedAddress {
+        addressName
+      }
+    }
+  }
+}
+    `;
+export type CreateProfileMutationFn = Apollo.MutationFunction<CreateProfileMutation, CreateProfileMutationVariables>;
+
+/**
+ * __useCreateProfileMutation__
+ *
+ * To run a mutation, you first call `useCreateProfileMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateProfileMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createProfileMutation, { data, loading, error }] = useCreateProfileMutation({
+ *   variables: {
+ *      profileName: // value for 'profileName'
+ *      profileText: // value for 'profileText'
+ *      isCollegeStudent: // value for 'isCollegeStudent'
+ *      schoolName: // value for 'schoolName'
+ *      age: // value for 'age'
+ *      selectedGender: // value for 'selectedGender'
+ *      selectedAddress: // value for 'selectedAddress'
+ *      telephoneNumber: // value for 'telephoneNumber'
+ *      wantHear: // value for 'wantHear'
+ *      problem: // value for 'problem'
+ *      undergraduate: // value for 'undergraduate'
+ *      department: // value for 'department'
+ *      clubActivities: // value for 'clubActivities'
+ *      admissionFormat: // value for 'admissionFormat'
+ *      favoriteSubject: // value for 'favoriteSubject'
+ *      profileImage: // value for 'profileImage'
+ *   },
+ * });
+ */
+export function useCreateProfileMutation(baseOptions?: Apollo.MutationHookOptions<CreateProfileMutation, CreateProfileMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateProfileMutation, CreateProfileMutationVariables>(CreateProfileDocument, options);
+      }
+export type CreateProfileMutationHookResult = ReturnType<typeof useCreateProfileMutation>;
+export type CreateProfileMutationResult = Apollo.MutationResult<CreateProfileMutation>;
+export type CreateProfileMutationOptions = Apollo.BaseMutationOptions<CreateProfileMutation, CreateProfileMutationVariables>;
 export const CreateUserDocument = gql`
     mutation CreateUser($email: String!, $password: String!) {
   createUser(input: {email: $email, password: $password}) {

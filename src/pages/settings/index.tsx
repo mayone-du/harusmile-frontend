@@ -7,10 +7,18 @@ import { MEDIAFILE_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
 
 const Settings: NextPage = () => {
   const { loginUserData } = useSetLoginUserData();
+
   const {
     inputLoginUserData,
     handleProfileNameChange,
     handleProfileTextChange,
+    handleAgeChange,
+    handleSchoolNameChange,
+    handleTelephoneNumberChange,
+    handleUndergraduateChange,
+    handleAdmissionFormatChange,
+    handleDepartmentChange,
+    handleClubActivitiesChange,
     handleFavoriteSubjectChange,
     handleProblemChange,
     handleWantHearChange,
@@ -61,8 +69,8 @@ const Settings: NextPage = () => {
                 <input
                   type="text"
                   placeholder="profileName"
-                  value={inputLoginUserData.profileName}
                   className="block p-2 border"
+                  value={inputLoginUserData.profileName}
                   onChange={handleProfileNameChange}
                 />
               </li>
@@ -81,78 +89,86 @@ const Settings: NextPage = () => {
                   placeholder="telephoneNumber"
                   className="block overflow-y-scroll p-2 max-h-32 border"
                   value={inputLoginUserData.telephoneNumber}
+                  onChange={handleTelephoneNumberChange}
                 />
               </li>
               <li>
                 <input
                   type="text"
                   placeholder="schoolName"
-                  value={inputLoginUserData.schoolName}
                   className="block p-2 border"
+                  value={inputLoginUserData.schoolName}
+                  onChange={handleSchoolNameChange}
                 />
               </li>
               <li>
                 <input
                   type="text"
                   placeholder="genderName"
-                  value={inputLoginUserData.genderName}
                   className="block p-2 border"
+                  value={inputLoginUserData.genderName}
+                  // onChange={h}
                 />
               </li>
               <li>
                 <input
                   type="text"
                   placeholder="addressName"
-                  value={inputLoginUserData.addressName}
                   className="block p-2 border"
+                  value={inputLoginUserData.addressName}
                 />
               </li>
               <li>
                 <input
                   type="text"
                   placeholder="age"
-                  value={inputLoginUserData.age}
                   className="block p-2 border"
+                  value={inputLoginUserData.age}
+                  onChange={handleAgeChange}
                 />
               </li>
               <li>
                 <input
                   type="text"
                   placeholder="undergraduate"
-                  value={inputLoginUserData.undergraduate}
                   className="block p-2 border"
+                  value={inputLoginUserData.undergraduate}
+                  onChange={handleUndergraduateChange}
                 />
               </li>
               <li>
                 <input
                   type="text"
                   placeholder="department"
-                  value={inputLoginUserData.department}
                   className="block p-2 border"
+                  value={inputLoginUserData.department}
+                  onChange={handleDepartmentChange}
                 />
               </li>
               <li>
                 <input
                   type="text"
                   placeholder="clubActivities"
-                  value={inputLoginUserData.clubActivities}
                   className="block p-2 border"
+                  value={inputLoginUserData.clubActivities}
+                  onChange={handleClubActivitiesChange}
                 />
               </li>
               <li>
                 <input
                   type="text"
                   placeholder="admissionFormat"
-                  value={inputLoginUserData.admissionFormat}
                   className="block p-2 border"
+                  value={inputLoginUserData.admissionFormat}
+                  onChange={handleAdmissionFormatChange}
                 />
               </li>
               <li>
                 <input
                   type="text"
                   placeholder="favoriteSubject"
-                  value={inputLoginUserData.favoriteSubject}
                   className="block p-2 border"
+                  value={inputLoginUserData.favoriteSubject}
                   onChange={handleFavoriteSubjectChange}
                 />
               </li>
@@ -160,8 +176,8 @@ const Settings: NextPage = () => {
                 <input
                   type="text"
                   placeholder="wantHear"
-                  value={inputLoginUserData.wantHear}
                   className="block p-2 border"
+                  value={inputLoginUserData.wantHear}
                   onChange={handleWantHearChange}
                 />
               </li>
@@ -169,8 +185,8 @@ const Settings: NextPage = () => {
                 <input
                   type="text"
                   placeholder="problem"
-                  value={inputLoginUserData.problem}
                   className="block p-2 border"
+                  value={inputLoginUserData.problem}
                   onChange={handleProblemChange}
                 />
               </li>
