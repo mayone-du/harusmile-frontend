@@ -25,32 +25,14 @@ export const Header: React.VFC<Props> = memo((props) => {
             </Link>
           </div>
           <ul className="flex items-center">
-            {loginUserData.isLogin ? (
-              <li>
-                <Link href="/auth/signout">
-                  <a>ログアウト</a>
-                </Link>
-              </li>
-            ) : (
-              <>
-                <li className="mx-4">
-                  <Link href="/auth/signin">
-                    <a className="text-blue-700 ">ログイン</a>
-                  </Link>
-                </li>
-                <li className="mx-4">
-                  <Link href="/auth/signup">
-                    <a className="py-3 px-8 font-bold text-white bg-blue-700 rounded-3xl">
-                      新規登録
-                    </a>
-                  </Link>
-                </li>
-              </>
-            )}
-
             {/* ログインしている場合 */}
             {loginUserData.isLogin ? (
               <>
+                <li className="flex items-center px-2 mx-4">
+                  <Link href="/auth/signout">
+                    <a>ログアウト</a>
+                  </Link>
+                </li>
                 <li className="flex items-center px-2 mx-4">
                   <Link href="/talk">
                     <a>トーク画面</a>
@@ -60,6 +42,7 @@ export const Header: React.VFC<Props> = memo((props) => {
                 <li className="flex items-center px-2 mx-4">
                   <Link href="/settings">
                     <a>
+                      {/* プロフ画像の設定の有無によって分ける */}
                       {props.profileImagePath ? (
                         <div>
                           <img
@@ -112,7 +95,23 @@ export const Header: React.VFC<Props> = memo((props) => {
                   </button>
                 </li>
               </>
-            ) : null}
+            ) : (
+              <>
+                {/* ログインしていない場合 */}
+                <li className="mx-4">
+                  <Link href="/auth/signin">
+                    <a className="text-blue-700 ">ログイン</a>
+                  </Link>
+                </li>
+                <li className="mx-4">
+                  <Link href="/auth/signup">
+                    <a className="py-3 px-8 font-bold text-white bg-blue-700 rounded-3xl">
+                      新規登録
+                    </a>
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </nav>
       </header>
