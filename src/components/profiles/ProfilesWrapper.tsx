@@ -1,5 +1,5 @@
 import type { GetAllProfilesQuery } from "src/apollo/schema";
-import { Profile } from "src/components/posts/Profile";
+import { Profile } from "src/components/profiles/Profile";
 
 type PropsGetAllProfilesQuery<T> = {
   profilesData: T;

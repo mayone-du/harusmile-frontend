@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Stars } from "src/components/profiles/Stars";
 import { MEDIAFILE_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
 
 type Props = {
@@ -20,11 +21,29 @@ export const Profile: React.VFC<Props> = (props) => {
     <li className="p-4 md:w-1/3">
       <div className="p-6 border border-t-8 border-pink-200">
         <div className="flex items-center w-full">
-          <img
-            src={`${MEDIAFILE_API_ENDPOINT}${props.profileImage}`}
-            className="object-cover w-14 h-14 rounded-full border border-blue-600"
-            alt="Profile"
-          />
+          {/* プロフ画像の有無によって出し分け */}
+          {props.profileImage !== "" ? (
+            <img
+              src={`${MEDIAFILE_API_ENDPOINT}${props.profileImage}`}
+              className="block object-cover w-14 h-14 rounded-full border border-gray-500"
+              alt="Profile"
+            />
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="block w-14 h-14"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+          )}
 
           {/* 名前、歳、学校 */}
           <div className="pr-12 pl-6 w-full">
@@ -43,20 +62,7 @@ export const Profile: React.VFC<Props> = (props) => {
         {/* 星 */}
         <div className="flex justify-between items-center py-4 border-b border-gray-400">
           <div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-6 h-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
-              />
-            </svg>
+            <Stars />
           </div>
           <div>
             {/* 配列の数字の平均を出し、少数第二位を四捨五入 */}

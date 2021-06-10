@@ -4,7 +4,7 @@ import { addApolloState, initializeApollo } from "src/apollo/apolloClient";
 import type { GetAllProfilesQuery, GetAllProfilesQueryVariables } from "src/apollo/schema";
 import { GetAllProfilesDocument } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
-import { ProfilesWrapper } from "src/components/posts/ProfilesWrapper";
+import { ProfilesWrapper } from "src/components/profiles/ProfilesWrapper";
 import { SearchBox } from "src/components/SearchBox";
 
 export const getStaticProps: GetStaticProps = async () => {

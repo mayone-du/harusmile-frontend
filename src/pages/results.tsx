@@ -3,7 +3,7 @@ import { useRouter } from "next/dist/client/router";
 import { useEffect } from "react";
 import { useSearchProfilesLazyQuery } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
-import { ProfilesWrapper } from "src/components/posts/ProfilesWrapper";
+import { ProfilesWrapper } from "src/components/profiles/ProfilesWrapper";
 
 const Results: NextPage = () => {
   const router = useRouter();
