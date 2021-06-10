@@ -1049,10 +1049,10 @@ export type GetLoginUserQuery = (
         )>> }
       ), selectedGender: (
         { __typename?: 'GenderNode' }
-        & Pick<GenderNode, 'genderName'>
+        & Pick<GenderNode, 'id' | 'genderName'>
       ), selectedAddress: (
         { __typename?: 'AddressNode' }
-        & Pick<AddressNode, 'addressName'>
+        & Pick<AddressNode, 'id' | 'addressName'>
       ), tags: (
         { __typename?: 'TagNodeConnection' }
         & { edges: Array<Maybe<(
@@ -1533,9 +1533,11 @@ export const GetLoginUserDocument = gql`
         }
       }
       selectedGender {
+        id
         genderName
       }
       selectedAddress {
+        id
         addressName
       }
       tags {

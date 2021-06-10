@@ -109,7 +109,7 @@ const Settings: NextPage = () => {
               <li>
                 <select
                   className="block p-2 border"
-                  value={inputLoginUserData.addressName}
+                  value={inputLoginUserData.addressId}
                   onChange={handleAddressBlur}
                   onBlur={handleGenderBlur}
                 >
@@ -131,7 +131,7 @@ const Settings: NextPage = () => {
               <li>
                 <select
                   className="block p-2 border"
-                  value={inputLoginUserData.genderName}
+                  value={inputLoginUserData.genderId}
                   onChange={handleGenderBlur}
                   onBlur={handleGenderBlur}
                 >

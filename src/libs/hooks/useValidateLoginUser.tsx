@@ -84,8 +84,14 @@ export const useValidateLoginUser = () => {
         schoolName: queryData.loginUser?.targetUser?.schoolName
           ? queryData.loginUser.targetUser?.schoolName
           : "",
+        genderId: queryData?.loginUser?.targetUser?.selectedGender.id
+          ? queryData.loginUser.targetUser.selectedGender.id
+          : "",
         genderName: queryData.loginUser?.targetUser?.selectedGender.genderName
           ? queryData.loginUser.targetUser?.selectedGender.genderName
+          : "",
+        addressId: queryData?.loginUser?.targetUser?.selectedAddress.id
+          ? queryData.loginUser.targetUser.selectedAddress.id
           : "",
         addressName: queryData.loginUser?.targetUser?.selectedAddress.addressName
           ? queryData.loginUser.targetUser?.selectedAddress.addressName

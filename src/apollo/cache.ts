@@ -1,10 +1,10 @@
 import { InMemoryCache } from "@apollo/client";
 import { makeVar } from "@apollo/client";
-import type { User } from "src/types/types";
+import type { LoginUser } from "src/types/types";
 
 export const cache = new InMemoryCache();
 
-export const initialLoginUserVar: User = {
+export const initialLoginUserVar: LoginUser = {
   isLogin: false,
   userId: "",
   email: "",
@@ -12,10 +12,12 @@ export const initialLoginUserVar: User = {
   profileName: "",
   profileImage: "",
   profileText: "",
-  telephoneNumber: 0,
+  telephoneNumber: "",
   isCollegeStudent: false,
   schoolName: "",
+  genderId: "",
   genderName: "",
+  addressId: "",
   addressName: "",
   age: 0,
   undergraduate: "",
@@ -23,6 +25,8 @@ export const initialLoginUserVar: User = {
   clubActivities: "",
   admissionFormat: "",
   favoriteSubject: "",
+  wantHear: "",
+  problem: "",
   tags: [],
   sendMessages: [
     {
@@ -33,4 +37,4 @@ export const initialLoginUserVar: User = {
   ],
   followingUsers: [],
 };
-export const loginUserVar = makeVar<User>(initialLoginUserVar);
+export const loginUserVar = makeVar<LoginUser>(initialLoginUserVar);

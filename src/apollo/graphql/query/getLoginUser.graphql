@@ -44,9 +44,11 @@ query GetLoginUser {
         }
       }
       selectedGender {
+        id
         genderName
       }
       selectedAddress {
+        id
         addressName
       }
       tags {

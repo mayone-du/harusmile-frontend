@@ -3,7 +3,7 @@ export type Cookies = {
   refreshToken?: string;
 };
 
-export type User = {
+export type LoginUser = {
   isLogin: boolean;
   userId: string;
   email: string;
@@ -14,7 +14,9 @@ export type User = {
   telephoneNumber: string;
   isCollegeStudent: boolean;
   schoolName: string;
+  genderId: string;
   genderName: string;
+  addressId: string;
   addressName: string;
   age: number;
   undergraduate: string;
