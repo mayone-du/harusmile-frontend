@@ -5,6 +5,7 @@ import type { GetAllProfilesQuery, GetAllProfilesQueryVariables } from "src/apol
 import { GetAllProfilesDocument } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
 import { ProfilesWrapper } from "src/components/posts/ProfilesWrapper";
+import { SearchBox } from "src/components/SearchBox";
 
 export const getStaticProps: GetStaticProps = async () => {
   const apolloClient = initializeApollo(null);
@@ -38,42 +39,8 @@ const Index: NextPage<PropsGetAllProfilesQuery<GetAllProfilesQuery>> = (props) =
         </div>
       </section>
 
-      <section className="pb-20">
-        <h2 className="py-10 text-5xl font-bold text-center text-gray-700 dark:text-white">
-          条件から探す
-        </h2>
-        <div className="mx-2 md:mx-32">
-          <div className="py-10 px-6 bg-blue-100">
-            <p>フリーワード検索</p>
-            <div className="flex items-center">
-              <input
-                className="block p-4 w-full rounded-none border-t border-b border-l focus:outline-none"
-                type="search"
-                placeholder="大学名、出身高校名、部活など"
-              />
-              <button className="p-4 bg-white border-t border-r border-b">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-6 h-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-              </button>
-            </div>
-            <div>
-              <button className="text-blue-700">検索条件を開く</button>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* 検索窓 */}
+      <SearchBox />
 
       <section className="pb-20">
         <h2 className="py-10 text-5xl font-bold text-center text-gray-700 dark:text-white">

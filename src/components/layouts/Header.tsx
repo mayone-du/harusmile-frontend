@@ -15,7 +15,7 @@ export const Header: React.VFC<Props> = memo((props) => {
   }, []);
   return (
     <div>
-      <header className="px-2 md:px-32 shadow-md">
+      <header className="px-2 md:px-32 border-b shadow-md">
         <nav className="flex justify-between items-center">
           <div className="mx-2">
             <Link href="/">
