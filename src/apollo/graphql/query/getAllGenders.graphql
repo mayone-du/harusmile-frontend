@@ -1,4 +1,4 @@
-query GetAllGendersQuery {
+query GetAllGenders {
   allGenders {
     edges {
       node {

@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import { useGetAllAdressesQuery, useGetAllGendersQuery } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
 import { ThemeChanger } from "src/components/ThemeChanger";
 import { useSetLoginUserData } from "src/libs/hooks/useSetLoginUserData";
@@ -7,6 +8,9 @@ import { MEDIAFILE_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
 
 const Settings: NextPage = () => {
   const { loginUserData } = useSetLoginUserData();
+
+  const { data: allAdressesData } = useGetAllAdressesQuery();
+  const { data: allGendersData } = useGetAllGendersQuery();
 
   const {
     inputLoginUserData,
@@ -22,6 +26,8 @@ const Settings: NextPage = () => {
     handleFavoriteSubjectChange,
     handleProblemChange,
     handleWantHearChange,
+    handleAddressBlur,
+    handleGenderBlur,
     handleProfileImageChange,
     handleSubmit,
   } = useProfileUpdate();
@@ -36,11 +42,16 @@ const Settings: NextPage = () => {
           <div className="flex items-center p-4 border shadow-md">
             {/* 左 */}
             <div className="flex items-center w-1/2 border-r">
-              <img
-                src={`${MEDIAFILE_API_ENDPOINT}${loginUserData.profileImage}`}
-                alt="Profile"
-                className="block object-cover mx-6 w-32 h-32 rounded-full border"
-              />
+              {loginUserData.profileImage ? (
+                <img
+                  src={`${MEDIAFILE_API_ENDPOINT}${loginUserData.profileImage}`}
+                  alt="Profile"
+                  className="block object-cover mx-6 w-32 h-32 rounded-full border"
+                />
+              ) : (
+                <div className="mx-6 w-32 h-32 rounded-full border">null</div>
+              )}
+
               <div>
                 <p>{loginUserData.email}</p>
                 <p>{loginUserData.schoolName}</p>
@@ -57,14 +68,6 @@ const Settings: NextPage = () => {
         <form onSubmit={handleSubmit}>
           {loginUserData.isLogin ? (
             <ul>
-              <li>
-                <input
-                  type="email"
-                  placeholder="email"
-                  value={inputLoginUserData.email}
-                  className="block p-2 border"
-                />
-              </li>
               <li>
                 <input
                   type="text"
@@ -101,26 +104,57 @@ const Settings: NextPage = () => {
                   onChange={handleSchoolNameChange}
                 />
               </li>
+
+              {/* TODO: selectタグ周りの挙動 */}
               <li>
-                <input
-                  type="text"
-                  placeholder="genderName"
-                  className="block p-2 border"
-                  value={inputLoginUserData.genderName}
-                  // onChange={h}
-                />
-              </li>
-              <li>
-                <input
-                  type="text"
-                  placeholder="addressName"
+                <select
                   className="block p-2 border"
                   value={inputLoginUserData.addressName}
-                />
+                  onChange={handleAddressBlur}
+                  onBlur={handleGenderBlur}
+                >
+                  {allAdressesData?.allAddresses?.edges.map((address) => {
+                    return (
+                      <option
+                        key={address?.node?.id}
+                        value={address?.node?.id}
+                        // selected={
+                        //   loginUserData.addressName === address?.node?.addressName ? true : false
+                        // }
+                      >
+                        {address?.node?.addressName}
+                      </option>
+                    );
+                  })}
+                </select>
+              </li>
+              <li>
+                <select
+                  className="block p-2 border"
+                  value={inputLoginUserData.genderName}
+                  onChange={handleGenderBlur}
+                  onBlur={handleGenderBlur}
+                >
+                  {allGendersData?.allGenders?.edges.map((gender) => {
+                    return (
+                      <option
+                        key={gender?.node?.id}
+                        value={gender?.node?.id}
+                        // selected={
+                        //   loginUserData.genderName === gender?.node?.genderName ? true : false
+                        // }
+                      >
+                        {gender?.node?.genderName}
+                      </option>
+                    );
+                  })}
+                </select>
               </li>
               <li>
                 <input
-                  type="text"
+                  type="number"
+                  max={50}
+                  min={0}
                   placeholder="age"
                   className="block p-2 border"
                   value={inputLoginUserData.age}

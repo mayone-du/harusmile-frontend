@@ -23,9 +23,10 @@ export const useProfileUpdate = () => {
       ...loginUserData,
     });
   }, [loginUserData]);
+
   const [profileImageFile, setProfileImageFile] = useState<File | null>(null);
 
-  // TODO: 各項目ごとのハンドラ
+  // 各項目ごとのイベントハンドラ
   const handleProfileNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputLoginUserData({ ...inputLoginUserData, profileName: e.target.value });
   };
@@ -62,6 +63,15 @@ export const useProfileUpdate = () => {
   const handleProblemChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputLoginUserData({ ...inputLoginUserData, problem: e.target.value });
   };
+
+  // 住んでる県と性別のselectタグ用イベントハンドラ
+  const handleAddressBlur = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setInputLoginUserData({ ...inputLoginUserData, addressName: e.target.value });
+  };
+  const handleGenderBlur = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setInputLoginUserData({ ...inputLoginUserData, genderName: e.target.value });
+  };
+  // プロフ画像のイベントハンドラ
   const handleProfileImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) setProfileImageFile(e.target.files[0]);
   };
@@ -111,11 +121,8 @@ export const useProfileUpdate = () => {
               schoolName: inputLoginUserData.schoolName,
               age: inputLoginUserData.age,
               telephoneNumber: inputLoginUserData.telephoneNumber,
-              // ! TODO: セレクトタグで選択できるようにする
-              // selectedGender: inputLoginUserData.genderName,
-              selectedGender: "QWRkcmVzc05vZGU6Mg==",
-              // selectedAddress: inputLoginUserData.addressName,
-              selectedAddress: "R2VuZGVyTm9kZTox",
+              selectedGender: inputLoginUserData.genderName,
+              selectedAddress: inputLoginUserData.addressName,
               undergraduate: inputLoginUserData.undergraduate,
               department: inputLoginUserData.department,
               clubActivities: inputLoginUserData.clubActivities,
@@ -127,7 +134,7 @@ export const useProfileUpdate = () => {
             },
           });
           alert("Success! : " + data?.createProfile?.profile?.profileName);
-          // data?.createProfile?.profile &&
+          // TODO: ログインユーザーのステートの更新;
         } catch (error) {
           alert(error);
           return;
@@ -142,11 +149,8 @@ export const useProfileUpdate = () => {
             schoolName: inputLoginUserData.schoolName,
             age: inputLoginUserData.age,
             telephoneNumber: inputLoginUserData.telephoneNumber,
-            // ! TODO: セレクトタグで選択できるようにする
-            // selectedGender: inputLoginUserData.genderName,
-            selectedGender: "QWRkcmVzc05vZGU6Mg==",
-            // selectedAddress: inputLoginUserData.addressName,
-            selectedAddress: "R2VuZGVyTm9kZTox",
+            selectedGender: inputLoginUserData.genderName,
+            selectedAddress: inputLoginUserData.addressName,
             undergraduate: inputLoginUserData.undergraduate,
             department: inputLoginUserData.department,
             clubActivities: inputLoginUserData.clubActivities,
@@ -179,6 +183,8 @@ export const useProfileUpdate = () => {
     handleFavoriteSubjectChange,
     handleProblemChange,
     handleWantHearChange,
+    handleAddressBlur,
+    handleGenderBlur,
     handleProfileImageChange,
     handleSubmit,
   };

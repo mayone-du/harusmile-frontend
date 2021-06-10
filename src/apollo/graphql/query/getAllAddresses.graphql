@@ -1,4 +1,4 @@
-query GetAllAdressesQuery {
+query GetAllAdresses {
   allAddresses {
     edges {
       node {
