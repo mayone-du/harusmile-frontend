@@ -243,6 +243,7 @@ export type Mutation = {
   /** Obtain JSON Web Token mutation */
   tokenAuth?: Maybe<ObtainJsonWebToken>;
   refreshToken?: Maybe<Refresh>;
+  revokeToken?: Maybe<Revoke>;
 };
 
 
@@ -293,6 +294,11 @@ export type MutationTokenAuthArgs = {
 
 
 export type MutationRefreshTokenArgs = {
+  refreshToken?: Maybe<Scalars['String']>;
+};
+
+
+export type MutationRevokeTokenArgs = {
   refreshToken?: Maybe<Scalars['String']>;
 };
 
@@ -593,6 +599,11 @@ export type ReviewNodeEdge = {
   cursor: Scalars['String'];
 };
 
+export type Revoke = {
+  __typename?: 'Revoke';
+  revoked: Scalars['Int'];
+};
+
 export type TagNode = Node & {
   __typename?: 'TagNode';
   /** The ID of the object. */
@@ -872,6 +883,19 @@ export type RefreshTokensMutation = (
   & { refreshToken?: Maybe<(
     { __typename?: 'Refresh' }
     & Pick<Refresh, 'token' | 'payload' | 'refreshToken' | 'refreshExpiresIn'>
+  )> }
+);
+
+export type RevokeRefreshTokenMutationVariables = Exact<{
+  refreshToken: Scalars['String'];
+}>;
+
+
+export type RevokeRefreshTokenMutation = (
+  { __typename?: 'Mutation' }
+  & { revokeToken?: Maybe<(
+    { __typename?: 'Revoke' }
+    & Pick<Revoke, 'revoked'>
   )> }
 );
 
@@ -1226,6 +1250,39 @@ export function useRefreshTokensMutation(baseOptions?: Apollo.MutationHookOption
 export type RefreshTokensMutationHookResult = ReturnType<typeof useRefreshTokensMutation>;
 export type RefreshTokensMutationResult = Apollo.MutationResult<RefreshTokensMutation>;
 export type RefreshTokensMutationOptions = Apollo.BaseMutationOptions<RefreshTokensMutation, RefreshTokensMutationVariables>;
+export const RevokeRefreshTokenDocument = gql`
+    mutation RevokeRefreshToken($refreshToken: String!) {
+  revokeToken(refreshToken: $refreshToken) {
+    revoked
+  }
+}
+    `;
+export type RevokeRefreshTokenMutationFn = Apollo.MutationFunction<RevokeRefreshTokenMutation, RevokeRefreshTokenMutationVariables>;
+
+/**
+ * __useRevokeRefreshTokenMutation__
+ *
+ * To run a mutation, you first call `useRevokeRefreshTokenMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRevokeRefreshTokenMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [revokeRefreshTokenMutation, { data, loading, error }] = useRevokeRefreshTokenMutation({
+ *   variables: {
+ *      refreshToken: // value for 'refreshToken'
+ *   },
+ * });
+ */
+export function useRevokeRefreshTokenMutation(baseOptions?: Apollo.MutationHookOptions<RevokeRefreshTokenMutation, RevokeRefreshTokenMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RevokeRefreshTokenMutation, RevokeRefreshTokenMutationVariables>(RevokeRefreshTokenDocument, options);
+      }
+export type RevokeRefreshTokenMutationHookResult = ReturnType<typeof useRevokeRefreshTokenMutation>;
+export type RevokeRefreshTokenMutationResult = Apollo.MutationResult<RevokeRefreshTokenMutation>;
+export type RevokeRefreshTokenMutationOptions = Apollo.BaseMutationOptions<RevokeRefreshTokenMutation, RevokeRefreshTokenMutationVariables>;
 export const UpdateProfileDocument = gql`
     mutation UpdateProfile($id: ID!, $profileName: String!, $profileText: String!, $isCollegeStudent: Boolean!, $schoolName: String!, $age: Int!, $telephoneNumber: String!, $selectedGender: ID!, $selectedAddress: ID!, $undergraduate: String!, $department: String!, $clubActivities: String!, $admissionFormat: String!, $favoriteSubject: String!, $wantHear: String!, $problem: String!, $profileImage: Upload) {
   updateProfile(

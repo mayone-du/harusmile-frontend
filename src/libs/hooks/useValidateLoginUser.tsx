@@ -2,7 +2,11 @@ import { useReactiveVar } from "@apollo/client";
 import { parseCookies, setCookie } from "nookies";
 import { useEffect } from "react";
 import { initialLoginUserVar, loginUserVar } from "src/apollo/cache";
-import { useGetLoginUserLazyQuery, useRefreshTokensMutation } from "src/apollo/schema";
+import {
+  useGetLoginUserLazyQuery,
+  useRefreshTokensMutation,
+  useRevokeRefreshTokenMutation,
+} from "src/apollo/schema";
 import { calcDate } from "src/libs/calcDate";
 
 export const useValidateLoginUser = () => {
@@ -10,21 +14,37 @@ export const useValidateLoginUser = () => {
   const loginUserData = useReactiveVar(loginUserVar);
 
   const [refreshTokenMutation] = useRefreshTokensMutation();
+  const [revokeRefreshTokenMutation] = useRevokeRefreshTokenMutation();
   const [getLoginUserLazyQuery, { data: queryData }] = useGetLoginUserLazyQuery();
 
   useEffect(
     () => {
       // accessTokenがなく、refreshTokenがある場合にaccessTokenを更新
       if (!cookies.accessToken && cookies.refreshToken) {
+        const oldRefreshToken = cookies.refreshToken;
         (async () => {
           const { data } = await refreshTokenMutation({
             variables: { refreshToken: cookies.refreshToken },
           });
+
+          // accessTokenの更新
           data?.refreshToken &&
             setCookie(null, "accessToken", data?.refreshToken?.token, {
               path: "/",
               maxAge: calcDate(data.refreshToken.payload.exp),
             });
+          // refreshTokenの更新
+          data?.refreshToken &&
+            setCookie(null, "refreshToken", data?.refreshToken?.refreshToken, {
+              path: "/",
+              maxAge: calcDate(data.refreshToken.refreshExpiresIn),
+            });
+
+          // 最初に設定されていたrefreshTokenを無効化
+          await revokeRefreshTokenMutation({
+            variables: { refreshToken: oldRefreshToken },
+          });
+
           getLoginUserLazyQuery();
         })();
 

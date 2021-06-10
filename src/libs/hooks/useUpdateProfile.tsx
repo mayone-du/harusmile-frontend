@@ -2,14 +2,21 @@ import { useReactiveVar } from "@apollo/client";
 import { parseCookies, setCookie } from "nookies";
 import { useEffect, useState } from "react";
 import { loginUserVar } from "src/apollo/cache";
-import { useRefreshTokensMutation, useUpdateProfileMutation } from "src/apollo/schema";
+import {
+  useCreateProfileMutation,
+  useRefreshTokensMutation,
+  useRevokeRefreshTokenMutation,
+  useUpdateProfileMutation,
+} from "src/apollo/schema";
 import { calcDate } from "src/libs/calcDate";
 
 export const useProfileUpdate = () => {
   const loginUserData = useReactiveVar(loginUserVar);
 
   const [refreshTokensMutation] = useRefreshTokensMutation();
+  const [revokerefreshTokenMutation] = useRevokeRefreshTokenMutation();
   const [updateProfileMutation] = useUpdateProfileMutation();
+  const [createProfileMutation] = useCreateProfileMutation();
   const [inputLoginUserData, setInputLoginUserData] = useState(loginUserData);
   useEffect(() => {
     setInputLoginUserData({
@@ -71,16 +78,60 @@ export const useProfileUpdate = () => {
             refreshToken: cookies.refreshToken,
           },
         });
-        data?.refreshToken &&
+        if (data?.refreshToken) {
+          const oldRefreshToken = cookies.refreshToken;
+
+          // accessTokenをセット
           setCookie(null, "accessToken", data.refreshToken.token, {
             path: "/",
             maxAge: calcDate(data?.refreshToken?.payload.exp),
           });
+
+          // refreshTokenをセット
+          setCookie(null, "refreshToken", data?.refreshToken?.refreshToken, {
+            path: "/",
+            maxAge: calcDate(data?.refreshToken?.refreshExpiresIn),
+          });
+
+          // 古いrefreshTokenを無効化
+          await revokerefreshTokenMutation({
+            variables: { refreshToken: oldRefreshToken },
+          });
+        }
       }
 
       if (loginUserData.isLogin && loginUserData.profileId === "") {
         // Userは作成したが、Profileをまだ作成していない場合
-        // const {}
+        try {
+          const { data } = await createProfileMutation({
+            variables: {
+              profileName: inputLoginUserData.profileName,
+              profileText: inputLoginUserData.profileText,
+              isCollegeStudent: inputLoginUserData.isCollegeStudent,
+              schoolName: inputLoginUserData.schoolName,
+              age: inputLoginUserData.age,
+              telephoneNumber: inputLoginUserData.telephoneNumber,
+              // ! TODO: セレクトタグで選択できるようにする
+              // selectedGender: inputLoginUserData.genderName,
+              selectedGender: "QWRkcmVzc05vZGU6Mg==",
+              // selectedAddress: inputLoginUserData.addressName,
+              selectedAddress: "R2VuZGVyTm9kZTox",
+              undergraduate: inputLoginUserData.undergraduate,
+              department: inputLoginUserData.department,
+              clubActivities: inputLoginUserData.clubActivities,
+              admissionFormat: inputLoginUserData.admissionFormat,
+              favoriteSubject: inputLoginUserData.favoriteSubject,
+              wantHear: inputLoginUserData.wantHear,
+              problem: inputLoginUserData.problem,
+              profileImage: profileImageFile,
+            },
+          });
+          alert("Success! : " + data?.createProfile?.profile?.profileName);
+          // data?.createProfile?.profile &&
+        } catch (error) {
+          alert(error);
+          return;
+        }
       } else {
         const { data } = await updateProfileMutation({
           variables: {
