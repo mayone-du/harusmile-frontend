@@ -16,3 +16,9 @@
 ## SetUp
 
 - Create /.env.local
+
+### TODO
+
+- リファクタリング
+  - event オブジェクトの引数名 e | event
+  - 検索時の条件など

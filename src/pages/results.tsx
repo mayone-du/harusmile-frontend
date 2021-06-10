@@ -13,8 +13,7 @@ const Results: NextPage = () => {
   const [searchProfileName, { data: profileNameData }] = useSearchProfilesLazyQuery();
 
   useEffect(() => {
-    // TODO: 条件の個数によって分岐
-    // profileNameが含まれる場合
+    // TODO: 条件や個数によって分岐
     if (searchCondition === "profileName") {
       searchProfileName({
         variables: { inputProfileName: searchKeyword },
@@ -24,6 +23,7 @@ const Results: NextPage = () => {
         variables: { inputSchoolName: searchKeyword },
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchCondition]);
 
   return (
@@ -32,9 +32,15 @@ const Results: NextPage = () => {
         <h2 className="py-4 text-2xl text-center">
           {'"'}
           {searchKeyword}
-          {'"'}の検索結果
+          {'"'}を含む
+          {searchCondition === "schoolName"
+            ? "大学名"
+            : searchCondition === "profileName"
+            ? "ユーザー名"
+            : ""}
+          の検索結果
         </h2>
-        <p>検索した条件: {searchCondition}</p>
+        <p>取得件数: {profileNameData?.allProfiles?.edges.length.toString()}件</p>
         <section>
           {profileNameData && <ProfilesWrapper profilesData={profileNameData} />}
           {/* {error && <h3>{error.message}</h3>}

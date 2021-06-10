@@ -53,8 +53,14 @@ export const SearchBox: React.VFC = () => {
                   <ul>
                     <li>
                       <label className="flex items-center">
-                        <p>学校名に絞る</p>
-                        <input className="block" type="checkbox" />
+                        <p>ユーザー名で検索</p>
+                        <input className="block" type="checkbox" value="profileName" />
+                      </label>
+                    </li>
+                    <li>
+                      <label className="flex items-center">
+                        <p>学校名で検索</p>
+                        <input className="block" type="checkbox" value="schoolName" />
                       </label>
                     </li>
                   </ul>
