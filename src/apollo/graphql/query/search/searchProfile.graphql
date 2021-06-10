@@ -1,4 +1,4 @@
-query GetAllProfilesQuery($keyword: String!) {
+query SearchProfiles($keyword: String!) {
   allProfiles(
     profileName_Icontains: $keyword
     profileText_Icontains: $keyword

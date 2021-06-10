@@ -1152,12 +1152,12 @@ export type GetLoginUserQuery = (
   )> }
 );
 
-export type GetAllProfilesQueryQueryVariables = Exact<{
+export type SearchProfilesQueryVariables = Exact<{
   keyword: Scalars['String'];
 }>;
 
 
-export type GetAllProfilesQueryQuery = (
+export type SearchProfilesQuery = (
   { __typename?: 'Query' }
   & { allProfiles?: Maybe<(
     { __typename?: 'ProfileNodeConnection' }
@@ -1719,8 +1719,8 @@ export function useGetLoginUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type GetLoginUserQueryHookResult = ReturnType<typeof useGetLoginUserQuery>;
 export type GetLoginUserLazyQueryHookResult = ReturnType<typeof useGetLoginUserLazyQuery>;
 export type GetLoginUserQueryResult = Apollo.QueryResult<GetLoginUserQuery, GetLoginUserQueryVariables>;
-export const GetAllProfilesQueryDocument = gql`
-    query GetAllProfilesQuery($keyword: String!) {
+export const SearchProfilesDocument = gql`
+    query SearchProfiles($keyword: String!) {
   allProfiles(
     profileName_Icontains: $keyword
     profileText_Icontains: $keyword
@@ -1789,29 +1789,29 @@ export const GetAllProfilesQueryDocument = gql`
     `;
 
 /**
- * __useGetAllProfilesQueryQuery__
+ * __useSearchProfilesQuery__
  *
- * To run a query within a React component, call `useGetAllProfilesQueryQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAllProfilesQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useSearchProfilesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchProfilesQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetAllProfilesQueryQuery({
+ * const { data, loading, error } = useSearchProfilesQuery({
  *   variables: {
  *      keyword: // value for 'keyword'
  *   },
  * });
  */
-export function useGetAllProfilesQueryQuery(baseOptions: Apollo.QueryHookOptions<GetAllProfilesQueryQuery, GetAllProfilesQueryQueryVariables>) {
+export function useSearchProfilesQuery(baseOptions: Apollo.QueryHookOptions<SearchProfilesQuery, SearchProfilesQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAllProfilesQueryQuery, GetAllProfilesQueryQueryVariables>(GetAllProfilesQueryDocument, options);
+        return Apollo.useQuery<SearchProfilesQuery, SearchProfilesQueryVariables>(SearchProfilesDocument, options);
       }
-export function useGetAllProfilesQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllProfilesQueryQuery, GetAllProfilesQueryQueryVariables>) {
+export function useSearchProfilesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchProfilesQuery, SearchProfilesQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAllProfilesQueryQuery, GetAllProfilesQueryQueryVariables>(GetAllProfilesQueryDocument, options);
+          return Apollo.useLazyQuery<SearchProfilesQuery, SearchProfilesQueryVariables>(SearchProfilesDocument, options);
         }
-export type GetAllProfilesQueryQueryHookResult = ReturnType<typeof useGetAllProfilesQueryQuery>;
-export type GetAllProfilesQueryLazyQueryHookResult = ReturnType<typeof useGetAllProfilesQueryLazyQuery>;
-export type GetAllProfilesQueryQueryResult = Apollo.QueryResult<GetAllProfilesQueryQuery, GetAllProfilesQueryQueryVariables>;
+export type SearchProfilesQueryHookResult = ReturnType<typeof useSearchProfilesQuery>;
+export type SearchProfilesLazyQueryHookResult = ReturnType<typeof useSearchProfilesLazyQuery>;
+export type SearchProfilesQueryResult = Apollo.QueryResult<SearchProfilesQuery, SearchProfilesQueryVariables>;

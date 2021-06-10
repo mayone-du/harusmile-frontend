@@ -115,13 +115,7 @@ const Settings: NextPage = () => {
                 >
                   {allAdressesData?.allAddresses?.edges.map((address) => {
                     return (
-                      <option
-                        key={address?.node?.id}
-                        value={address?.node?.id}
-                        // selected={
-                        //   loginUserData.addressName === address?.node?.addressName ? true : false
-                        // }
-                      >
+                      <option key={address?.node?.id} value={address?.node?.id}>
                         {address?.node?.addressName}
                       </option>
                     );
@@ -137,13 +131,7 @@ const Settings: NextPage = () => {
                 >
                   {allGendersData?.allGenders?.edges.map((gender) => {
                     return (
-                      <option
-                        key={gender?.node?.id}
-                        value={gender?.node?.id}
-                        // selected={
-                        //   loginUserData.genderName === gender?.node?.genderName ? true : false
-                        // }
-                      >
+                      <option key={gender?.node?.id} value={gender?.node?.id}>
                         {gender?.node?.genderName}
                       </option>
                     );
