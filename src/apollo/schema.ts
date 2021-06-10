@@ -1152,12 +1152,12 @@ export type GetLoginUserQuery = (
   )> }
 );
 
-export type SearchProfilesQueryVariables = Exact<{
+export type SearchProfileNameQueryVariables = Exact<{
   keyword: Scalars['String'];
 }>;
 
 
-export type SearchProfilesQuery = (
+export type SearchProfileNameQuery = (
   { __typename?: 'Query' }
   & { allProfiles?: Maybe<(
     { __typename?: 'ProfileNodeConnection' }
@@ -1719,20 +1719,9 @@ export function useGetLoginUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type GetLoginUserQueryHookResult = ReturnType<typeof useGetLoginUserQuery>;
 export type GetLoginUserLazyQueryHookResult = ReturnType<typeof useGetLoginUserLazyQuery>;
 export type GetLoginUserQueryResult = Apollo.QueryResult<GetLoginUserQuery, GetLoginUserQueryVariables>;
-export const SearchProfilesDocument = gql`
-    query SearchProfiles($keyword: String!) {
-  allProfiles(
-    profileName_Icontains: $keyword
-    profileText_Icontains: $keyword
-    schoolName_Icontains: $keyword
-    undergraduate_Icontains: $keyword
-    department_Icontains: $keyword
-    clubActivities_Icontains: $keyword
-    admissionFormat_Icontains: $keyword
-    favoriteSubject_Icontains: $keyword
-    wantHear_Icontains: $keyword
-    problem_Icontains: $keyword
-  ) {
+export const SearchProfileNameDocument = gql`
+    query SearchProfileName($keyword: String!) {
+  allProfiles(profileName_Icontains: $keyword) {
     edges {
       node {
         id
@@ -1789,29 +1778,29 @@ export const SearchProfilesDocument = gql`
     `;
 
 /**
- * __useSearchProfilesQuery__
+ * __useSearchProfileNameQuery__
  *
- * To run a query within a React component, call `useSearchProfilesQuery` and pass it any options that fit your needs.
- * When your component renders, `useSearchProfilesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useSearchProfileNameQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchProfileNameQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useSearchProfilesQuery({
+ * const { data, loading, error } = useSearchProfileNameQuery({
  *   variables: {
  *      keyword: // value for 'keyword'
  *   },
  * });
  */
-export function useSearchProfilesQuery(baseOptions: Apollo.QueryHookOptions<SearchProfilesQuery, SearchProfilesQueryVariables>) {
+export function useSearchProfileNameQuery(baseOptions: Apollo.QueryHookOptions<SearchProfileNameQuery, SearchProfileNameQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<SearchProfilesQuery, SearchProfilesQueryVariables>(SearchProfilesDocument, options);
+        return Apollo.useQuery<SearchProfileNameQuery, SearchProfileNameQueryVariables>(SearchProfileNameDocument, options);
       }
-export function useSearchProfilesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchProfilesQuery, SearchProfilesQueryVariables>) {
+export function useSearchProfileNameLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchProfileNameQuery, SearchProfileNameQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<SearchProfilesQuery, SearchProfilesQueryVariables>(SearchProfilesDocument, options);
+          return Apollo.useLazyQuery<SearchProfileNameQuery, SearchProfileNameQueryVariables>(SearchProfileNameDocument, options);
         }
-export type SearchProfilesQueryHookResult = ReturnType<typeof useSearchProfilesQuery>;
-export type SearchProfilesLazyQueryHookResult = ReturnType<typeof useSearchProfilesLazyQuery>;
-export type SearchProfilesQueryResult = Apollo.QueryResult<SearchProfilesQuery, SearchProfilesQueryVariables>;
+export type SearchProfileNameQueryHookResult = ReturnType<typeof useSearchProfileNameQuery>;
+export type SearchProfileNameLazyQueryHookResult = ReturnType<typeof useSearchProfileNameLazyQuery>;
+export type SearchProfileNameQueryResult = Apollo.QueryResult<SearchProfileNameQuery, SearchProfileNameQueryVariables>;

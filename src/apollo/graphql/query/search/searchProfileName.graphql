@@ -1,16 +1,5 @@
-query SearchProfiles($keyword: String!) {
-  allProfiles(
-    profileName_Icontains: $keyword
-    profileText_Icontains: $keyword
-    schoolName_Icontains: $keyword
-    undergraduate_Icontains: $keyword
-    department_Icontains: $keyword
-    clubActivities_Icontains: $keyword
-    admissionFormat_Icontains: $keyword
-    favoriteSubject_Icontains: $keyword
-    wantHear_Icontains: $keyword
-    problem_Icontains: $keyword
-  ) {
+query SearchProfileName($keyword: String!) {
+  allProfiles(profileName_Icontains: $keyword) {
     edges {
       node {
         id
