@@ -5,15 +5,18 @@ query GetAllProfiles {
         id
         profileName
         profileText
+        telephoneNumber
         isCollegeStudent
         schoolName
-        profileImage
         age
+        profileImage
         undergraduate
         department
         clubActivities
         admissionFormat
         favoriteSubject
+        wantHear
+        problem
         targetUser {
           provider {
             edges {
@@ -28,13 +31,6 @@ query GetAllProfiles {
         }
         selectedAddress {
           addressName
-        }
-        tags {
-          edges {
-            node {
-              tagName
-            }
-          }
         }
       }
     }

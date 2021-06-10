@@ -1061,7 +1061,7 @@ export type GetAllProfilesQuery = (
       { __typename?: 'ProfileNodeEdge' }
       & { node?: Maybe<(
         { __typename?: 'ProfileNode' }
-        & Pick<ProfileNode, 'id' | 'profileName' | 'profileText' | 'isCollegeStudent' | 'schoolName' | 'profileImage' | 'age' | 'undergraduate' | 'department' | 'clubActivities' | 'admissionFormat' | 'favoriteSubject'>
+        & Pick<ProfileNode, 'id' | 'profileName' | 'profileText' | 'telephoneNumber' | 'isCollegeStudent' | 'schoolName' | 'age' | 'profileImage' | 'undergraduate' | 'department' | 'clubActivities' | 'admissionFormat' | 'favoriteSubject' | 'wantHear' | 'problem'>
         & { targetUser: (
           { __typename?: 'UserNode' }
           & { provider: (
@@ -1080,15 +1080,6 @@ export type GetAllProfilesQuery = (
         ), selectedAddress: (
           { __typename?: 'AddressNode' }
           & Pick<AddressNode, 'addressName'>
-        ), tags: (
-          { __typename?: 'TagNodeConnection' }
-          & { edges: Array<Maybe<(
-            { __typename?: 'TagNodeEdge' }
-            & { node?: Maybe<(
-              { __typename?: 'TagNode' }
-              & Pick<TagNode, 'tagName'>
-            )> }
-          )>> }
         ) }
       )> }
     )>> }
@@ -1152,12 +1143,15 @@ export type GetLoginUserQuery = (
   )> }
 );
 
-export type SearchProfileNameQueryVariables = Exact<{
-  keyword: Scalars['String'];
+export type SearchProfilesQueryVariables = Exact<{
+  inputProfileName?: Maybe<Scalars['String']>;
+  inputProfileText?: Maybe<Scalars['String']>;
+  inputSchoolName?: Maybe<Scalars['String']>;
+  inputClubActivities?: Maybe<Scalars['String']>;
 }>;
 
 
-export type SearchProfileNameQuery = (
+export type SearchProfilesQuery = (
   { __typename?: 'Query' }
   & { allProfiles?: Maybe<(
     { __typename?: 'ProfileNodeConnection' }
@@ -1165,7 +1159,7 @@ export type SearchProfileNameQuery = (
       { __typename?: 'ProfileNodeEdge' }
       & { node?: Maybe<(
         { __typename?: 'ProfileNode' }
-        & Pick<ProfileNode, 'id' | 'profileName' | 'profileText' | 'telephoneNumber' | 'isCollegeStudent' | 'schoolName' | 'createdAt' | 'profileImage' | 'undergraduate' | 'department' | 'clubActivities' | 'admissionFormat' | 'favoriteSubject' | 'wantHear' | 'problem'>
+        & Pick<ProfileNode, 'id' | 'profileName' | 'profileText' | 'telephoneNumber' | 'isCollegeStudent' | 'schoolName' | 'age' | 'profileImage' | 'undergraduate' | 'department' | 'clubActivities' | 'admissionFormat' | 'favoriteSubject' | 'wantHear' | 'problem'>
         & { targetUser: (
           { __typename?: 'UserNode' }
           & { provider: (
@@ -1178,30 +1172,12 @@ export type SearchProfileNameQuery = (
               )> }
             )>> }
           ) }
-        ), followingUsers: (
-          { __typename?: 'UserNodeConnection' }
-          & { edges: Array<Maybe<(
-            { __typename?: 'UserNodeEdge' }
-            & { node?: Maybe<(
-              { __typename?: 'UserNode' }
-              & Pick<UserNode, 'id' | 'email'>
-            )> }
-          )>> }
         ), selectedGender: (
           { __typename?: 'GenderNode' }
-          & Pick<GenderNode, 'id' | 'genderName'>
+          & Pick<GenderNode, 'genderName'>
         ), selectedAddress: (
           { __typename?: 'AddressNode' }
-          & Pick<AddressNode, 'id' | 'addressName'>
-        ), tags: (
-          { __typename?: 'TagNodeConnection' }
-          & { edges: Array<Maybe<(
-            { __typename?: 'TagNodeEdge' }
-            & { node?: Maybe<(
-              { __typename?: 'TagNode' }
-              & Pick<TagNode, 'tagName'>
-            )> }
-          )>> }
+          & Pick<AddressNode, 'addressName'>
         ) }
       )> }
     )>> }
@@ -1564,15 +1540,18 @@ export const GetAllProfilesDocument = gql`
         id
         profileName
         profileText
+        telephoneNumber
         isCollegeStudent
         schoolName
-        profileImage
         age
+        profileImage
         undergraduate
         department
         clubActivities
         admissionFormat
         favoriteSubject
+        wantHear
+        problem
         targetUser {
           provider {
             edges {
@@ -1587,13 +1566,6 @@ export const GetAllProfilesDocument = gql`
         }
         selectedAddress {
           addressName
-        }
-        tags {
-          edges {
-            node {
-              tagName
-            }
-          }
         }
       }
     }
@@ -1719,9 +1691,14 @@ export function useGetLoginUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type GetLoginUserQueryHookResult = ReturnType<typeof useGetLoginUserQuery>;
 export type GetLoginUserLazyQueryHookResult = ReturnType<typeof useGetLoginUserLazyQuery>;
 export type GetLoginUserQueryResult = Apollo.QueryResult<GetLoginUserQuery, GetLoginUserQueryVariables>;
-export const SearchProfileNameDocument = gql`
-    query SearchProfileName($keyword: String!) {
-  allProfiles(profileName_Icontains: $keyword) {
+export const SearchProfilesDocument = gql`
+    query SearchProfiles($inputProfileName: String, $inputProfileText: String, $inputSchoolName: String, $inputClubActivities: String) {
+  allProfiles(
+    profileName_Icontains: $inputProfileName
+    profileText_Icontains: $inputProfileText
+    schoolName_Icontains: $inputSchoolName
+    clubActivities_Icontains: $inputClubActivities
+  ) {
     edges {
       node {
         id
@@ -1730,7 +1707,7 @@ export const SearchProfileNameDocument = gql`
         telephoneNumber
         isCollegeStudent
         schoolName
-        createdAt
+        age
         profileImage
         undergraduate
         department
@@ -1748,28 +1725,11 @@ export const SearchProfileNameDocument = gql`
             }
           }
         }
-        followingUsers {
-          edges {
-            node {
-              id
-              email
-            }
-          }
-        }
         selectedGender {
-          id
           genderName
         }
         selectedAddress {
-          id
           addressName
-        }
-        tags {
-          edges {
-            node {
-              tagName
-            }
-          }
         }
       }
     }
@@ -1778,29 +1738,32 @@ export const SearchProfileNameDocument = gql`
     `;
 
 /**
- * __useSearchProfileNameQuery__
+ * __useSearchProfilesQuery__
  *
- * To run a query within a React component, call `useSearchProfileNameQuery` and pass it any options that fit your needs.
- * When your component renders, `useSearchProfileNameQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useSearchProfilesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchProfilesQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useSearchProfileNameQuery({
+ * const { data, loading, error } = useSearchProfilesQuery({
  *   variables: {
- *      keyword: // value for 'keyword'
+ *      inputProfileName: // value for 'inputProfileName'
+ *      inputProfileText: // value for 'inputProfileText'
+ *      inputSchoolName: // value for 'inputSchoolName'
+ *      inputClubActivities: // value for 'inputClubActivities'
  *   },
  * });
  */
-export function useSearchProfileNameQuery(baseOptions: Apollo.QueryHookOptions<SearchProfileNameQuery, SearchProfileNameQueryVariables>) {
+export function useSearchProfilesQuery(baseOptions?: Apollo.QueryHookOptions<SearchProfilesQuery, SearchProfilesQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<SearchProfileNameQuery, SearchProfileNameQueryVariables>(SearchProfileNameDocument, options);
+        return Apollo.useQuery<SearchProfilesQuery, SearchProfilesQueryVariables>(SearchProfilesDocument, options);
       }
-export function useSearchProfileNameLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchProfileNameQuery, SearchProfileNameQueryVariables>) {
+export function useSearchProfilesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchProfilesQuery, SearchProfilesQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<SearchProfileNameQuery, SearchProfileNameQueryVariables>(SearchProfileNameDocument, options);
+          return Apollo.useLazyQuery<SearchProfilesQuery, SearchProfilesQueryVariables>(SearchProfilesDocument, options);
         }
-export type SearchProfileNameQueryHookResult = ReturnType<typeof useSearchProfileNameQuery>;
-export type SearchProfileNameLazyQueryHookResult = ReturnType<typeof useSearchProfileNameLazyQuery>;
-export type SearchProfileNameQueryResult = Apollo.QueryResult<SearchProfileNameQuery, SearchProfileNameQueryVariables>;
+export type SearchProfilesQueryHookResult = ReturnType<typeof useSearchProfilesQuery>;
+export type SearchProfilesLazyQueryHookResult = ReturnType<typeof useSearchProfilesLazyQuery>;
+export type SearchProfilesQueryResult = Apollo.QueryResult<SearchProfilesQuery, SearchProfilesQueryVariables>;

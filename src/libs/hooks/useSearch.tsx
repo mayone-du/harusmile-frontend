@@ -8,11 +8,18 @@ export const useSearch = () => {
   // 検索条件の表示のstate
   const [isConditionsOpen, setIsConditionsOpen] = useState(false);
 
+  const [inputCondition, setCondition] = useState("");
+
   const handleSearchKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputSearchKeyword(e.target.value);
   };
 
-  // 検索条件の開閉
+  // TODO: 検索条件が変更されたときのハンドラ
+  // const handleConditionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setCondition(e.target.value);
+  // };
+
+  // 検索条件の開閉用イベントハンドラ
   const handleConditionsToggle = () => {
     setIsConditionsOpen((prev) => {
       return !prev;
@@ -23,7 +30,10 @@ export const useSearch = () => {
     e.preventDefault();
     router.push({
       pathname: "/results",
-      query: { keyword: inputSearchKeyword },
+      query: {
+        keyword: inputSearchKeyword,
+        condition: inputCondition ? inputCondition : "schoolName",
+      },
     });
   };
 

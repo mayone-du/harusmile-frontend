@@ -1,5 +1,15 @@
-query SearchProfileName($keyword: String!) {
-  allProfiles(profileName_Icontains: $keyword) {
+query SearchProfiles(
+  $inputProfileName: String
+  $inputProfileText: String
+  $inputSchoolName: String
+  $inputClubActivities: String
+) {
+  allProfiles(
+    profileName_Icontains: $inputProfileName
+    profileText_Icontains: $inputProfileText
+    schoolName_Icontains: $inputSchoolName
+    clubActivities_Icontains: $inputClubActivities
+  ) {
     edges {
       node {
         id
@@ -8,7 +18,7 @@ query SearchProfileName($keyword: String!) {
         telephoneNumber
         isCollegeStudent
         schoolName
-        createdAt
+        age
         profileImage
         undergraduate
         department
@@ -26,28 +36,11 @@ query SearchProfileName($keyword: String!) {
             }
           }
         }
-        followingUsers {
-          edges {
-            node {
-              id
-              email
-            }
-          }
-        }
         selectedGender {
-          id
           genderName
         }
         selectedAddress {
-          id
           addressName
-        }
-        tags {
-          edges {
-            node {
-              tagName
-            }
-          }
         }
       }
     }
