@@ -27,11 +27,6 @@ export type LoginUser = {
   wantHear: string;
   problem: string;
   tags: string[];
-  sendMessages: {
-    distinationId: string;
-    text: string;
-    createdAt: string;
-  }[];
   followingUsers: {
     followingId: string;
     followingName: string;

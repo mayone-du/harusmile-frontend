@@ -123,15 +123,6 @@ export const useValidateLoginUser = () => {
               return tag?.node?.tagName ? tag?.node?.tagName : "";
             })
           : [],
-        sendMessages: queryData.loginUser?.sender
-          ? queryData.loginUser?.sender.edges.map((sender) => {
-              return {
-                distinationId: sender?.node?.destination.id ? sender?.node?.destination.id : "",
-                text: sender?.node?.text ? sender.node.text : "",
-                createdAt: sender?.node?.createdAt ? sender?.node?.createdAt : "",
-              };
-            })
-          : [],
         followingUsers: queryData.loginUser?.targetUser?.followingUsers
           ? queryData.loginUser?.targetUser?.followingUsers.edges.map((followingUser) => {
               return {
