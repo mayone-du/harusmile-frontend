@@ -90,7 +90,7 @@ export type AddressNodeEdge = {
 };
 
 export type CreateMessageMutationInput = {
-  distination: Scalars['ID'];
+  talkingRoomId: Scalars['ID'];
   text: Scalars['String'];
   clientMutationId?: Maybe<Scalars['String']>;
 };
@@ -151,6 +151,18 @@ export type CreateReviewMutationInput = {
 export type CreateReviewMutationPayload = {
   __typename?: 'CreateReviewMutationPayload';
   review?: Maybe<ReviewNode>;
+  clientMutationId?: Maybe<Scalars['String']>;
+};
+
+export type CreateTalkRoomMutationInput = {
+  talkRoomDescription?: Maybe<Scalars['String']>;
+  joinUsers?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  clientMutationId?: Maybe<Scalars['String']>;
+};
+
+export type CreateTalkRoomMutationPayload = {
+  __typename?: 'CreateTalkRoomMutationPayload';
+  talkRoom?: Maybe<TalkRoomNode>;
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
@@ -241,8 +253,8 @@ export type MessageNode = Node & {
   __typename?: 'MessageNode';
   /** The ID of the object. */
   id: Scalars['ID'];
+  talkingRoom: TalkRoomNode;
   sender: UserNode;
-  destination: UserNode;
   text: Scalars['String'];
   createdAt: Scalars['DateTime'];
 };
@@ -272,6 +284,7 @@ export type Mutation = {
   createPost?: Maybe<CreatePostMutationPayload>;
   updatePost?: Maybe<UpdatePostMutationPayload>;
   deletePost?: Maybe<DeletePostMutationPayload>;
+  createTalkRoom?: Maybe<CreateTalkRoomMutationPayload>;
   createMessage?: Maybe<CreateMessageMutationPayload>;
   createReview?: Maybe<CreateReviewMutationPayload>;
   /** Obtain JSON Web Token mutation */
@@ -308,6 +321,11 @@ export type MutationUpdatePostArgs = {
 
 export type MutationDeletePostArgs = {
   input: DeletePostMutationInput;
+};
+
+
+export type MutationCreateTalkRoomArgs = {
+  input: CreateTalkRoomMutationInput;
 };
 
 
@@ -476,6 +494,7 @@ export type Query = {
   allGenders?: Maybe<GenderNodeConnection>;
   address?: Maybe<AddressNode>;
   allAddresses?: Maybe<AddressNodeConnection>;
+  allTalkRooms?: Maybe<TalkRoomNodeConnection>;
   message?: Maybe<MessageNode>;
   allMessages?: Maybe<MessageNodeConnection>;
   loginUserMessages?: Maybe<MessageNodeConnection>;
@@ -619,6 +638,16 @@ export type QueryAllAddressesArgs = {
 };
 
 
+export type QueryAllTalkRoomsArgs = {
+  offset?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  after?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  joinUsers?: Maybe<Array<Maybe<Scalars['ID']>>>;
+};
+
+
 export type QueryMessageArgs = {
   id: Scalars['ID'];
 };
@@ -743,6 +772,54 @@ export type TagNodeEdge = {
   cursor: Scalars['String'];
 };
 
+export type TalkRoomNode = Node & {
+  __typename?: 'TalkRoomNode';
+  /** The ID of the object. */
+  id: Scalars['ID'];
+  talkRoomDescription?: Maybe<Scalars['String']>;
+  joinUsers: UserNodeConnection;
+  talkingRoom: MessageNodeConnection;
+};
+
+
+export type TalkRoomNodeJoinUsersArgs = {
+  offset?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  after?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  email?: Maybe<Scalars['String']>;
+  email_Icontains?: Maybe<Scalars['String']>;
+};
+
+
+export type TalkRoomNodeTalkingRoomArgs = {
+  offset?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  after?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  text?: Maybe<Scalars['String']>;
+  text_Icontains?: Maybe<Scalars['String']>;
+};
+
+export type TalkRoomNodeConnection = {
+  __typename?: 'TalkRoomNodeConnection';
+  /** Pagination data for this connection. */
+  pageInfo: PageInfo;
+  /** Contains the nodes in this connection. */
+  edges: Array<Maybe<TalkRoomNodeEdge>>;
+};
+
+/** A Relay edge containing a `TalkRoomNode` and its cursor. */
+export type TalkRoomNodeEdge = {
+  __typename?: 'TalkRoomNodeEdge';
+  /** The item at the end of the edge */
+  node?: Maybe<TalkRoomNode>;
+  /** A cursor for use in pagination */
+  cursor: Scalars['String'];
+};
+
 export type UpdatePostMutationInput = {
   id: Scalars['ID'];
   title?: Maybe<Scalars['String']>;
@@ -801,13 +878,34 @@ export type UserNode = Node & {
   isStaff: Scalars['Boolean'];
   firstName?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
+  joinUsers: TalkRoomNodeConnection;
+  sender: MessageNodeConnection;
   targetUser?: Maybe<ProfileNode>;
   followingUsers: ProfileNodeConnection;
   postedUser: PostNodeConnection;
   provider: ReviewNodeConnection;
   customer: ReviewNodeConnection;
-  sender: MessageNodeConnection;
-  destination: MessageNodeConnection;
+};
+
+
+export type UserNodeJoinUsersArgs = {
+  offset?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  after?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  joinUsers?: Maybe<Array<Maybe<Scalars['ID']>>>;
+};
+
+
+export type UserNodeSenderArgs = {
+  offset?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  after?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  text?: Maybe<Scalars['String']>;
+  text_Icontains?: Maybe<Scalars['String']>;
 };
 
 
@@ -878,28 +976,6 @@ export type UserNodeCustomerArgs = {
   stars?: Maybe<Scalars['Int']>;
   reviewText?: Maybe<Scalars['String']>;
   reviewText_Icontains?: Maybe<Scalars['String']>;
-};
-
-
-export type UserNodeSenderArgs = {
-  offset?: Maybe<Scalars['Int']>;
-  before?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  text?: Maybe<Scalars['String']>;
-  text_Icontains?: Maybe<Scalars['String']>;
-};
-
-
-export type UserNodeDestinationArgs = {
-  offset?: Maybe<Scalars['Int']>;
-  before?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  text?: Maybe<Scalars['String']>;
-  text_Icontains?: Maybe<Scalars['String']>;
 };
 
 export type UserNodeConnection = {
@@ -1124,20 +1200,7 @@ export type GetLoginUserQuery = (
   & { loginUser?: Maybe<(
     { __typename?: 'UserNode' }
     & Pick<UserNode, 'id' | 'email'>
-    & { sender: (
-      { __typename?: 'MessageNodeConnection' }
-      & { edges: Array<Maybe<(
-        { __typename?: 'MessageNodeEdge' }
-        & { node?: Maybe<(
-          { __typename?: 'MessageNode' }
-          & Pick<MessageNode, 'text' | 'createdAt'>
-          & { destination: (
-            { __typename?: 'UserNode' }
-            & Pick<UserNode, 'id' | 'email'>
-          ) }
-        )> }
-      )>> }
-    ), targetUser?: Maybe<(
+    & { targetUser?: Maybe<(
       { __typename?: 'ProfileNode' }
       & Pick<ProfileNode, 'id' | 'profileName' | 'profileText' | 'profileImage' | 'telephoneNumber' | 'isCollegeStudent' | 'schoolName' | 'age' | 'undergraduate' | 'department' | 'clubActivities' | 'admissionFormat' | 'favoriteSubject' | 'wantHear' | 'problem' | 'createdAt'>
       & { followingUsers: (
@@ -1184,21 +1247,20 @@ export type GetLoginUserMessagesQuery = (
       { __typename?: 'MessageNodeEdge' }
       & { node?: Maybe<(
         { __typename?: 'MessageNode' }
-        & Pick<MessageNode, 'text'>
-        & { sender: (
-          { __typename?: 'UserNode' }
-          & Pick<UserNode, 'id'>
-          & { targetUser?: Maybe<(
-            { __typename?: 'ProfileNode' }
-            & Pick<ProfileNode, 'profileName' | 'profileImage' | 'schoolName'>
-          )> }
-        ), destination: (
-          { __typename?: 'UserNode' }
-          & Pick<UserNode, 'id'>
-          & { targetUser?: Maybe<(
-            { __typename?: 'ProfileNode' }
-            & Pick<ProfileNode, 'profileName' | 'profileImage' | 'schoolName'>
-          )> }
+        & Pick<MessageNode, 'id' | 'text'>
+        & { talkingRoom: (
+          { __typename?: 'TalkRoomNode' }
+          & Pick<TalkRoomNode, 'id'>
+          & { joinUsers: (
+            { __typename?: 'UserNodeConnection' }
+            & { edges: Array<Maybe<(
+              { __typename?: 'UserNodeEdge' }
+              & { node?: Maybe<(
+                { __typename?: 'UserNode' }
+                & Pick<UserNode, 'id' | 'email'>
+              )> }
+            )>> }
+          ) }
         ) }
       )> }
     )>> }
@@ -1666,18 +1728,6 @@ export const GetLoginUserDocument = gql`
   loginUser {
     id
     email
-    sender {
-      edges {
-        node {
-          destination {
-            id
-            email
-          }
-          text
-          createdAt
-        }
-      }
-    }
     targetUser {
       id
       profileName
@@ -1758,21 +1808,17 @@ export const GetLoginUserMessagesDocument = gql`
   loginUserMessages {
     edges {
       node {
+        id
         text
-        sender {
+        talkingRoom {
           id
-          targetUser {
-            profileName
-            profileImage
-            schoolName
-          }
-        }
-        destination {
-          id
-          targetUser {
-            profileName
-            profileImage
-            schoolName
+          joinUsers {
+            edges {
+              node {
+                id
+                email
+              }
+            }
           }
         }
       }

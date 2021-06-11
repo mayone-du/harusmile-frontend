@@ -2,18 +2,6 @@ query GetLoginUser {
   loginUser {
     id
     email
-    sender {
-      edges {
-        node {
-          destination {
-            id
-            email
-          }
-          text
-          createdAt
-        }
-      }
-    }
     targetUser {
       id
       profileName
