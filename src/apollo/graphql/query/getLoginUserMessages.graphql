@@ -1,0 +1,25 @@
+query GetLoginUserMessages {
+  loginUserMessages {
+    edges {
+      node {
+        text
+        sender {
+          id
+          targetUser {
+            profileName
+            profileImage
+            schoolName
+          }
+        }
+        destination {
+          id
+          targetUser {
+            profileName
+            profileImage
+            schoolName
+          }
+        }
+      }
+    }
+  }
+}

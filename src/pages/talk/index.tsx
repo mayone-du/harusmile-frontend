@@ -1,18 +1,33 @@
 import { useReactiveVar } from "@apollo/client";
+import type { NextPage } from "next";
 import { useRouter } from "next/dist/client/router";
 import { useEffect } from "react";
 import { loginUserVar } from "src/apollo/cache";
+import { useGetLoginUserMessagesQuery } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
+import { Talks } from "src/components/talks/Talks";
 
-const Talk = () => {
+const Talk: NextPage = () => {
   const router = useRouter();
   const loginUserData = useReactiveVar(loginUserVar);
+
+  // 自分に関係するメッセージを定期的に取得
+  const {
+    data: messagesData,
+    error: messagesError,
+    loading: isLoading,
+  } = useGetLoginUserMessagesQuery({
+    fetchPolicy: "network-only",
+    pollInterval: 60 * 60,
+  });
+
   useEffect(() => {
     if (loginUserData.isLogin && loginUserData.profileName === "") {
       alert("プロフィールを設定してください。");
       router.push("/settings");
     }
   }, []);
+
   return (
     <div>
       <Layout metaTitle="Talk Page">
@@ -38,7 +53,7 @@ const Talk = () => {
                     </div>
                   </li>
 
-                  {/* サンプル */}
+                  {/* サンプルトーク履歴リスト */}
                   <li className="flex items-center py-2 px-4 border-t border-b">
                     <img
                       src="/images/logo.png"
@@ -77,6 +92,10 @@ const Talk = () => {
           </aside>
 
           {/* talk */}
+          {messagesError && messagesError.message}
+          {isLoading && <div>loading</div>}
+          {messagesData && <Talks messagesData={messagesData} />}
+
           <div className="p-4 w-2/3">
             <div className="border shadow-md">
               {/* 会話相手のプロフィール */}

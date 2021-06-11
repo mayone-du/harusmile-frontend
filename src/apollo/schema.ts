@@ -476,6 +476,9 @@ export type Query = {
   allGenders?: Maybe<GenderNodeConnection>;
   address?: Maybe<AddressNode>;
   allAddresses?: Maybe<AddressNodeConnection>;
+  message?: Maybe<MessageNode>;
+  allMessages?: Maybe<MessageNodeConnection>;
+  loginUserMessages?: Maybe<MessageNodeConnection>;
 };
 
 
@@ -613,6 +616,33 @@ export type QueryAllAddressesArgs = {
   last?: Maybe<Scalars['Int']>;
   addressName?: Maybe<Scalars['String']>;
   addressName_Icontains?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryMessageArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryAllMessagesArgs = {
+  offset?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  after?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  text?: Maybe<Scalars['String']>;
+  text_Icontains?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryLoginUserMessagesArgs = {
+  offset?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  after?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  text?: Maybe<Scalars['String']>;
+  text_Icontains?: Maybe<Scalars['String']>;
 };
 
 export type Refresh = {
@@ -1140,6 +1170,38 @@ export type GetLoginUserQuery = (
         )>> }
       ) }
     )> }
+  )> }
+);
+
+export type GetLoginUserMessagesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetLoginUserMessagesQuery = (
+  { __typename?: 'Query' }
+  & { loginUserMessages?: Maybe<(
+    { __typename?: 'MessageNodeConnection' }
+    & { edges: Array<Maybe<(
+      { __typename?: 'MessageNodeEdge' }
+      & { node?: Maybe<(
+        { __typename?: 'MessageNode' }
+        & Pick<MessageNode, 'text'>
+        & { sender: (
+          { __typename?: 'UserNode' }
+          & Pick<UserNode, 'id'>
+          & { targetUser?: Maybe<(
+            { __typename?: 'ProfileNode' }
+            & Pick<ProfileNode, 'profileName' | 'profileImage' | 'schoolName'>
+          )> }
+        ), destination: (
+          { __typename?: 'UserNode' }
+          & Pick<UserNode, 'id'>
+          & { targetUser?: Maybe<(
+            { __typename?: 'ProfileNode' }
+            & Pick<ProfileNode, 'profileName' | 'profileImage' | 'schoolName'>
+          )> }
+        ) }
+      )> }
+    )>> }
   )> }
 );
 
@@ -1691,6 +1753,60 @@ export function useGetLoginUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type GetLoginUserQueryHookResult = ReturnType<typeof useGetLoginUserQuery>;
 export type GetLoginUserLazyQueryHookResult = ReturnType<typeof useGetLoginUserLazyQuery>;
 export type GetLoginUserQueryResult = Apollo.QueryResult<GetLoginUserQuery, GetLoginUserQueryVariables>;
+export const GetLoginUserMessagesDocument = gql`
+    query GetLoginUserMessages {
+  loginUserMessages {
+    edges {
+      node {
+        text
+        sender {
+          id
+          targetUser {
+            profileName
+            profileImage
+            schoolName
+          }
+        }
+        destination {
+          id
+          targetUser {
+            profileName
+            profileImage
+            schoolName
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetLoginUserMessagesQuery__
+ *
+ * To run a query within a React component, call `useGetLoginUserMessagesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLoginUserMessagesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLoginUserMessagesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetLoginUserMessagesQuery(baseOptions?: Apollo.QueryHookOptions<GetLoginUserMessagesQuery, GetLoginUserMessagesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetLoginUserMessagesQuery, GetLoginUserMessagesQueryVariables>(GetLoginUserMessagesDocument, options);
+      }
+export function useGetLoginUserMessagesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLoginUserMessagesQuery, GetLoginUserMessagesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetLoginUserMessagesQuery, GetLoginUserMessagesQueryVariables>(GetLoginUserMessagesDocument, options);
+        }
+export type GetLoginUserMessagesQueryHookResult = ReturnType<typeof useGetLoginUserMessagesQuery>;
+export type GetLoginUserMessagesLazyQueryHookResult = ReturnType<typeof useGetLoginUserMessagesLazyQuery>;
+export type GetLoginUserMessagesQueryResult = Apollo.QueryResult<GetLoginUserMessagesQuery, GetLoginUserMessagesQueryVariables>;
 export const SearchProfilesDocument = gql`
     query SearchProfiles($inputProfileName: String, $inputProfileText: String, $inputSchoolName: String, $inputClubActivities: String) {
   allProfiles(
