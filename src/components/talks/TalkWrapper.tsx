@@ -12,7 +12,7 @@ export const TalkWrapper: React.VFC = () => {
   const {
     data: talkRoomsData,
     // error: messagesError,
-    // loading: isLoading,
+    loading: isLoading,
   } = useGetLoginUserJoinTalkRoomQuery({
     fetchPolicy: "network-only",
     pollInterval: 1000 * 60,
@@ -57,7 +57,33 @@ export const TalkWrapper: React.VFC = () => {
   return (
     <div className="flex">
       <aside className="block p-4 w-1/3">
-        {/* <div>{isLoading && "loading"}</div> */}
+        {isLoading && (
+          <div>
+            <div className="py-2 px-4 mx-auto w-full border border-gray-100 shadow">
+              <div className="flex space-x-4 animate-pulse">
+                <div className="w-14 h-14 bg-gray-200 rounded-full"></div>
+                <div className="flex-1 py-1 space-y-4">
+                  <div className="w-3/4 h-4 bg-gray-200 rounded"></div>
+                  <div className="space-y-2">
+                    <div className="w-5/6 h-4 bg-gray-200 rounded"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="py-2 px-4 mx-auto w-full border border-gray-100 shadow">
+              <div className="flex space-x-4 animate-pulse">
+                <div className="w-14 h-14 bg-gray-200 rounded-full"></div>
+                <div className="flex-1 py-1 space-y-4">
+                  <div className="w-3/4 h-4 bg-gray-200 rounded"></div>
+                  <div className="space-y-2">
+                    <div className="w-5/6 h-4 bg-gray-200 rounded"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* <div>{messagesError && messagesError.message}</div> */}
         <ul className="border shadow-md">
           {talkRoomsData?.allTalkRooms?.edges.map((talkRooms, index) => {
@@ -90,7 +116,7 @@ export const TalkWrapper: React.VFC = () => {
                             <div>
                               {/* 相手のプロフィールが設定されていなければemailを返す */}
 
-                              <div>
+                              <div className="px-4">
                                 {user?.node?.targetUser?.profileName
                                   ? user.node.targetUser.profileName
                                   : user?.node?.id !== loginUserData.userId && user?.node?.email}
