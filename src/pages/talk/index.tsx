@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { loginUserVar } from "src/apollo/cache";
 import { Layout } from "src/components/layouts/Layout";
 import { TalkRooms } from "src/components/talks/TalkRooms";
+import { TalkWrapper } from "src/components/talks/TalkWrapper";
 
 const Talk: NextPage = () => {
   const router = useRouter();
@@ -21,6 +22,8 @@ const Talk: NextPage = () => {
   return (
     <div>
       <Layout metaTitle="Talk Page">
+        <TalkWrapper />
+
         <div className="flex">
           <aside className="block p-4 w-1/3">
             <div className="border shadow-md">
@@ -28,6 +31,8 @@ const Talk: NextPage = () => {
               <div>
                 <div>
                   <TalkRooms />
+
+                  {/* <TalkWrapper /> */}
                 </div>
               </div>
             </div>
