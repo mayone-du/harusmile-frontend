@@ -1389,7 +1389,7 @@ export type GetLoginUserJoinTalkRoomQuery = (
             { __typename?: 'MessageNodeEdge' }
             & { node?: Maybe<(
               { __typename?: 'MessageNode' }
-              & Pick<MessageNode, 'id' | 'text'>
+              & Pick<MessageNode, 'id' | 'text' | 'createdAt'>
               & { sender: (
                 { __typename?: 'UserNode' }
                 & Pick<UserNode, 'id' | 'email'>
@@ -2125,6 +2125,7 @@ export const GetLoginUserJoinTalkRoomDocument = gql`
             node {
               id
               text
+              createdAt
               sender {
                 id
                 email

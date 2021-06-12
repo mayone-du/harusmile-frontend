@@ -21,6 +21,7 @@ query GetLoginUserJoinTalkRoom($loginUserId: ID!) {
             node {
               id
               text
+              createdAt
               sender {
                 id
                 email

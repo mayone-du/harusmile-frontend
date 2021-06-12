@@ -127,51 +127,44 @@ export const TalkWrapper: React.VFC = () => {
           <div className="overflow-y-scroll">
             {/* メッセージ */}
 
-            {/* <ul>
-              {data?.talkRoom &&
-                data.talkRoom.talkingRoom.edges.map((message, index) => {
-                  return (
-                    <li
-                      className={`my-4 border flex ${
-                        message?.node?.sender.id === loginUserData.userId
-                          ? "justify-end"
-                          : "justify-start"
-                      }`}
-                      key={index}
-                    >
-                      <div>
-                        <div
-                          className={`inline-block p-2 rounded-sm ${
-                            message?.node?.sender.id === loginUserData.userId
-                              ? "bg-pink-200"
-                              : "bg-blue-200"
-                          }`}
-                        >
-                          {message?.node?.text}
-                        </div>
-                        <div>{fixDateFormat(message?.node?.createdAt)}</div>
-                      </div>
-                    </li>
-                  );
-                })}
-            </ul> */}
-
-            <ul>
+            <div>
               {talkRoomsData?.allTalkRooms?.edges.map((talkRoom, talkRoomIndex) => {
                 return (
                   openTalkRoomId === talkRoom?.node?.id && (
-                    <li key={talkRoomIndex}>
+                    <div key={talkRoomIndex}>
                       <div>{talkRoom?.node?.id}</div>
-                      <div>
+                      <ul>
                         {talkRoom.node.talkingRoom.edges.map((message, messageIndex) => {
-                          return <div key={messageIndex}>{message?.node?.text}</div>;
+                          return (
+                            <li
+                              className={`my-4 border flex ${
+                                message?.node?.sender.id === loginUserData.userId
+                                  ? "justify-end"
+                                  : "justify-start"
+                              }`}
+                              key={messageIndex}
+                            >
+                              <div>
+                                <div
+                                  className={`inline-block p-2 rounded-sm ${
+                                    message?.node?.sender.id === loginUserData.userId
+                                      ? "bg-pink-200"
+                                      : "bg-blue-200"
+                                  }`}
+                                >
+                                  {message?.node?.text}
+                                </div>
+                                <div>{fixDateFormat(message?.node?.createdAt)}</div>
+                              </div>
+                            </li>
+                          );
                         })}
-                      </div>
-                    </li>
+                      </ul>
+                    </div>
                   )
                 );
               })}
-            </ul>
+            </div>
           </div>
 
           {/* 入力欄や送信ボタン */}
