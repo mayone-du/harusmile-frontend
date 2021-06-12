@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { loginUserVar } from "src/apollo/cache";
 import { useGetLoginUserJoinTalkRoomQuery } from "src/apollo/schema";
 import { useCreateMessageMutation } from "src/apollo/schema";
+import { InitialTalkDetail } from "src/components/talks/InitialTalkDetail";
 import { fixDateFormat } from "src/libs/fixDateFormat";
 
 export const TalkWrapper: React.VFC = () => {
@@ -53,6 +54,11 @@ export const TalkWrapper: React.VFC = () => {
   }, [openTalkRoomId]);
 
   // TODO: トークルームを最新順に並べ替え (Query自体を書き直す必要ありかも？)
+
+  // トーク履歴がない場合
+  if (talkRoomsData?.allTalkRooms?.edges.length === 0) {
+    return <InitialTalkDetail />;
+  }
 
   return (
     <div className="flex">
@@ -214,6 +220,8 @@ export const TalkWrapper: React.VFC = () => {
               )
             );
           })}
+
+          {/* 入力欄や送信ボタン */}
           <div className="flex items-center">
             <input
               type="text"
