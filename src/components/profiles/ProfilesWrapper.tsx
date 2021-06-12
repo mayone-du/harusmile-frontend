@@ -15,6 +15,7 @@ export const ProfilesWrapper: React.VFC<PropsGetAllProfilesQuery<GetAllProfilesQ
           return (
             <Profile
               key={profile?.node?.id}
+              profileId={profile?.node?.id ? profile.node.id : ""}
               profileName={profile?.node?.profileName ? profile.node.profileName : ""}
               profileText={profile?.node?.profileText ? profile.node.profileText : ""}
               profileImage={profile?.node?.profileImage ? profile.node.profileImage : ""}

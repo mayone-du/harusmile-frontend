@@ -1189,42 +1189,6 @@ export type GetAllGendersQuery = (
   )> }
 );
 
-export type GetAllProfilesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetAllProfilesQuery = (
-  { __typename?: 'Query' }
-  & { allProfiles?: Maybe<(
-    { __typename?: 'ProfileNodeConnection' }
-    & { edges: Array<Maybe<(
-      { __typename?: 'ProfileNodeEdge' }
-      & { node?: Maybe<(
-        { __typename?: 'ProfileNode' }
-        & Pick<ProfileNode, 'id' | 'profileName' | 'profileText' | 'telephoneNumber' | 'isCollegeStudent' | 'schoolName' | 'age' | 'profileImage' | 'undergraduate' | 'department' | 'clubActivities' | 'admissionFormat' | 'favoriteSubject' | 'wantHear' | 'problem'>
-        & { targetUser: (
-          { __typename?: 'UserNode' }
-          & { provider: (
-            { __typename?: 'ReviewNodeConnection' }
-            & { edges: Array<Maybe<(
-              { __typename?: 'ReviewNodeEdge' }
-              & { node?: Maybe<(
-                { __typename?: 'ReviewNode' }
-                & Pick<ReviewNode, 'stars'>
-              )> }
-            )>> }
-          ) }
-        ), selectedGender: (
-          { __typename?: 'GenderNode' }
-          & Pick<GenderNode, 'genderName'>
-        ), selectedAddress: (
-          { __typename?: 'AddressNode' }
-          & Pick<AddressNode, 'addressName'>
-        ) }
-      )> }
-    )>> }
-  )> }
-);
-
 export type GetLoginUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1275,6 +1239,97 @@ export type GetLoginUserQuery = (
         )>> }
       ) }
     )> }
+  )> }
+);
+
+export type GetAllProfilesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllProfilesQuery = (
+  { __typename?: 'Query' }
+  & { allProfiles?: Maybe<(
+    { __typename?: 'ProfileNodeConnection' }
+    & { edges: Array<Maybe<(
+      { __typename?: 'ProfileNodeEdge' }
+      & { node?: Maybe<(
+        { __typename?: 'ProfileNode' }
+        & Pick<ProfileNode, 'id' | 'profileName' | 'profileText' | 'telephoneNumber' | 'isCollegeStudent' | 'schoolName' | 'age' | 'profileImage' | 'undergraduate' | 'department' | 'clubActivities' | 'admissionFormat' | 'favoriteSubject' | 'wantHear' | 'problem'>
+        & { targetUser: (
+          { __typename?: 'UserNode' }
+          & { provider: (
+            { __typename?: 'ReviewNodeConnection' }
+            & { edges: Array<Maybe<(
+              { __typename?: 'ReviewNodeEdge' }
+              & { node?: Maybe<(
+                { __typename?: 'ReviewNode' }
+                & Pick<ReviewNode, 'stars'>
+              )> }
+            )>> }
+          ) }
+        ), selectedGender: (
+          { __typename?: 'GenderNode' }
+          & Pick<GenderNode, 'genderName'>
+        ), selectedAddress: (
+          { __typename?: 'AddressNode' }
+          & Pick<AddressNode, 'addressName'>
+        ) }
+      )> }
+    )>> }
+  )> }
+);
+
+export type GetProfileQueryVariables = Exact<{
+  profileId: Scalars['ID'];
+}>;
+
+
+export type GetProfileQuery = (
+  { __typename?: 'Query' }
+  & { profile?: Maybe<(
+    { __typename?: 'ProfileNode' }
+    & Pick<ProfileNode, 'id' | 'profileName' | 'profileText' | 'profileImage' | 'isCollegeStudent' | 'schoolName' | 'age' | 'undergraduate' | 'department' | 'clubActivities' | 'admissionFormat' | 'favoriteSubject' | 'wantHear' | 'problem'>
+    & { targetUser: (
+      { __typename?: 'UserNode' }
+      & { joinUsers: (
+        { __typename?: 'TalkRoomNodeConnection' }
+        & { edges: Array<Maybe<(
+          { __typename?: 'TalkRoomNodeEdge' }
+          & { node?: Maybe<(
+            { __typename?: 'TalkRoomNode' }
+            & Pick<TalkRoomNode, 'id'>
+            & { joinUsers: (
+              { __typename?: 'UserNodeConnection' }
+              & { edges: Array<Maybe<(
+                { __typename?: 'UserNodeEdge' }
+                & { node?: Maybe<(
+                  { __typename?: 'UserNode' }
+                  & Pick<UserNode, 'id' | 'email'>
+                )> }
+              )>> }
+            ) }
+          )> }
+        )>> }
+      ), provider: (
+        { __typename?: 'ReviewNodeConnection' }
+        & { edges: Array<Maybe<(
+          { __typename?: 'ReviewNodeEdge' }
+          & { node?: Maybe<(
+            { __typename?: 'ReviewNode' }
+            & Pick<ReviewNode, 'id' | 'reviewText' | 'stars'>
+            & { customer: (
+              { __typename?: 'UserNode' }
+              & Pick<UserNode, 'id' | 'email'>
+            ) }
+          )> }
+        )>> }
+      ) }
+    ), selectedGender: (
+      { __typename?: 'GenderNode' }
+      & Pick<GenderNode, 'id' | 'genderName'>
+    ), selectedAddress: (
+      { __typename?: 'AddressNode' }
+      & Pick<AddressNode, 'id' | 'addressName'>
+    ) }
   )> }
 );
 
@@ -1814,73 +1869,6 @@ export function useGetAllGendersLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type GetAllGendersQueryHookResult = ReturnType<typeof useGetAllGendersQuery>;
 export type GetAllGendersLazyQueryHookResult = ReturnType<typeof useGetAllGendersLazyQuery>;
 export type GetAllGendersQueryResult = Apollo.QueryResult<GetAllGendersQuery, GetAllGendersQueryVariables>;
-export const GetAllProfilesDocument = gql`
-    query GetAllProfiles {
-  allProfiles {
-    edges {
-      node {
-        id
-        profileName
-        profileText
-        telephoneNumber
-        isCollegeStudent
-        schoolName
-        age
-        profileImage
-        undergraduate
-        department
-        clubActivities
-        admissionFormat
-        favoriteSubject
-        wantHear
-        problem
-        targetUser {
-          provider {
-            edges {
-              node {
-                stars
-              }
-            }
-          }
-        }
-        selectedGender {
-          genderName
-        }
-        selectedAddress {
-          addressName
-        }
-      }
-    }
-  }
-}
-    `;
-
-/**
- * __useGetAllProfilesQuery__
- *
- * To run a query within a React component, call `useGetAllProfilesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAllProfilesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetAllProfilesQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetAllProfilesQuery(baseOptions?: Apollo.QueryHookOptions<GetAllProfilesQuery, GetAllProfilesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAllProfilesQuery, GetAllProfilesQueryVariables>(GetAllProfilesDocument, options);
-      }
-export function useGetAllProfilesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllProfilesQuery, GetAllProfilesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAllProfilesQuery, GetAllProfilesQueryVariables>(GetAllProfilesDocument, options);
-        }
-export type GetAllProfilesQueryHookResult = ReturnType<typeof useGetAllProfilesQuery>;
-export type GetAllProfilesLazyQueryHookResult = ReturnType<typeof useGetAllProfilesLazyQuery>;
-export type GetAllProfilesQueryResult = Apollo.QueryResult<GetAllProfilesQuery, GetAllProfilesQueryVariables>;
 export const GetLoginUserDocument = gql`
     query GetLoginUser {
   loginUser {
@@ -1968,6 +1956,159 @@ export function useGetLoginUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type GetLoginUserQueryHookResult = ReturnType<typeof useGetLoginUserQuery>;
 export type GetLoginUserLazyQueryHookResult = ReturnType<typeof useGetLoginUserLazyQuery>;
 export type GetLoginUserQueryResult = Apollo.QueryResult<GetLoginUserQuery, GetLoginUserQueryVariables>;
+export const GetAllProfilesDocument = gql`
+    query GetAllProfiles {
+  allProfiles {
+    edges {
+      node {
+        id
+        profileName
+        profileText
+        telephoneNumber
+        isCollegeStudent
+        schoolName
+        age
+        profileImage
+        undergraduate
+        department
+        clubActivities
+        admissionFormat
+        favoriteSubject
+        wantHear
+        problem
+        targetUser {
+          provider {
+            edges {
+              node {
+                stars
+              }
+            }
+          }
+        }
+        selectedGender {
+          genderName
+        }
+        selectedAddress {
+          addressName
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAllProfilesQuery__
+ *
+ * To run a query within a React component, call `useGetAllProfilesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllProfilesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllProfilesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllProfilesQuery(baseOptions?: Apollo.QueryHookOptions<GetAllProfilesQuery, GetAllProfilesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllProfilesQuery, GetAllProfilesQueryVariables>(GetAllProfilesDocument, options);
+      }
+export function useGetAllProfilesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllProfilesQuery, GetAllProfilesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllProfilesQuery, GetAllProfilesQueryVariables>(GetAllProfilesDocument, options);
+        }
+export type GetAllProfilesQueryHookResult = ReturnType<typeof useGetAllProfilesQuery>;
+export type GetAllProfilesLazyQueryHookResult = ReturnType<typeof useGetAllProfilesLazyQuery>;
+export type GetAllProfilesQueryResult = Apollo.QueryResult<GetAllProfilesQuery, GetAllProfilesQueryVariables>;
+export const GetProfileDocument = gql`
+    query GetProfile($profileId: ID!) {
+  profile(id: $profileId) {
+    id
+    profileName
+    profileText
+    profileImage
+    isCollegeStudent
+    schoolName
+    age
+    undergraduate
+    department
+    clubActivities
+    admissionFormat
+    favoriteSubject
+    wantHear
+    problem
+    targetUser {
+      joinUsers {
+        edges {
+          node {
+            id
+            joinUsers {
+              edges {
+                node {
+                  id
+                  email
+                }
+              }
+            }
+          }
+        }
+      }
+      provider {
+        edges {
+          node {
+            id
+            reviewText
+            stars
+            customer {
+              id
+              email
+            }
+          }
+        }
+      }
+    }
+    selectedGender {
+      id
+      genderName
+    }
+    selectedAddress {
+      id
+      addressName
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetProfileQuery__
+ *
+ * To run a query within a React component, call `useGetProfileQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProfileQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetProfileQuery({
+ *   variables: {
+ *      profileId: // value for 'profileId'
+ *   },
+ * });
+ */
+export function useGetProfileQuery(baseOptions: Apollo.QueryHookOptions<GetProfileQuery, GetProfileQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetProfileQuery, GetProfileQueryVariables>(GetProfileDocument, options);
+      }
+export function useGetProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetProfileQuery, GetProfileQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetProfileQuery, GetProfileQueryVariables>(GetProfileDocument, options);
+        }
+export type GetProfileQueryHookResult = ReturnType<typeof useGetProfileQuery>;
+export type GetProfileLazyQueryHookResult = ReturnType<typeof useGetProfileLazyQuery>;
+export type GetProfileQueryResult = Apollo.QueryResult<GetProfileQuery, GetProfileQueryVariables>;
 export const SearchProfilesDocument = gql`
     query SearchProfiles($inputProfileName: String, $inputProfileText: String, $inputSchoolName: String, $inputClubActivities: String) {
   allProfiles(

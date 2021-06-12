@@ -1,4 +1,5 @@
 export const InitialTalkDetail: React.VFC = () => {
+  // TODO: ユーザーを検索し、メッセージを送れるようにする
   return (
     <div>
       <h2 className="py-4 text-2xl font-bold text-center">トークを始めましょう</h2>

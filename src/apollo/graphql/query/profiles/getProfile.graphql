@@ -1,0 +1,56 @@
+query GetProfile($profileId: ID!) {
+  profile(id: $profileId) {
+    id
+    profileName
+    profileText
+    profileImage
+    isCollegeStudent
+    schoolName
+    age
+    undergraduate
+    department
+    clubActivities
+    admissionFormat
+    favoriteSubject
+    wantHear
+    problem
+    targetUser {
+      joinUsers {
+        edges {
+          node {
+            id
+            joinUsers {
+              edges {
+                node {
+                  id
+                  email
+                }
+              }
+            }
+          }
+        }
+      }
+      provider {
+        edges {
+          node {
+            id
+            reviewText
+            stars
+            customer {
+              id
+              email
+            }
+          }
+        }
+      }
+    }
+    selectedGender {
+      id
+      genderName
+    }
+    selectedAddress {
+      id
+      addressName
+    }
+  }
+}

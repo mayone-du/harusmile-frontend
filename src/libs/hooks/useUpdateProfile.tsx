@@ -134,7 +134,7 @@ export const useProfileUpdate = () => {
             },
           });
           alert("Success! : " + data?.createProfile?.profile?.profileName);
-          // TODO: ログインユーザーのステートの更新;
+          // TODO: ログインユーザーのステートreactiveVarの更新;
         } catch (error) {
           alert(error);
           return;

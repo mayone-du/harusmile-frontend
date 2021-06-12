@@ -3,6 +3,7 @@ import { Stars } from "src/components/profiles/Stars";
 import { MEDIAFILE_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
 
 type Props = {
+  profileId: string;
   profileName: string;
   profileText: string;
   profileImage: string;
@@ -114,7 +115,7 @@ export const Profile: React.VFC<Props> = (props) => {
         </dl>
 
         <div>
-          <Link href="/">
+          <Link href={`/profiles/${props.profileId}`}>
             <a className="block py-2 px-4 my-6 mx-auto w-2/3 text-center rounded-lg border border-pink-200">
               詳細を見る
             </a>
