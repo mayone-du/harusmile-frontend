@@ -12,6 +12,7 @@ query GetLoginUserJoinTalkRoom($loginUserId: ID!) {
               targetUser {
                 profileName
                 profileImage
+                schoolName
               }
             }
           }

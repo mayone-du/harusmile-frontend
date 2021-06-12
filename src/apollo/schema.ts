@@ -1379,7 +1379,7 @@ export type GetLoginUserJoinTalkRoomQuery = (
               & Pick<UserNode, 'id' | 'email'>
               & { targetUser?: Maybe<(
                 { __typename?: 'ProfileNode' }
-                & Pick<ProfileNode, 'profileName' | 'profileImage'>
+                & Pick<ProfileNode, 'profileName' | 'profileImage' | 'schoolName'>
               )> }
             )> }
           )>> }
@@ -2116,6 +2116,7 @@ export const GetLoginUserJoinTalkRoomDocument = gql`
               targetUser {
                 profileName
                 profileImage
+                schoolName
               }
             }
           }

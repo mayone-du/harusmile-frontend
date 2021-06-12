@@ -1,6 +1,5 @@
 import { useReactiveVar } from "@apollo/client";
-import { useRouter } from "next/dist/client/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { loginUserVar } from "src/apollo/cache";
 import { useGetLoginUserJoinTalkRoomQuery } from "src/apollo/schema";
 import { useCreateMessageMutation } from "src/apollo/schema";
@@ -9,11 +8,11 @@ import { fixDateFormat } from "src/libs/fixDateFormat";
 export const TalkWrapper: React.VFC = () => {
   const loginUserData = useReactiveVar(loginUserVar);
 
-  // ログインユーザーが参加しているトークルームのデータ
+  // ログインユーザーが参加しているトークルームのデータを取得
   const {
     data: talkRoomsData,
-    error: messagesError,
-    loading: isLoading,
+    // error: messagesError,
+    // loading: isLoading,
   } = useGetLoginUserJoinTalkRoomQuery({
     fetchPolicy: "network-only",
     pollInterval: 1000 * 60,
@@ -21,9 +20,6 @@ export const TalkWrapper: React.VFC = () => {
       loginUserId: loginUserData.userId,
     },
   });
-
-  const router = useRouter();
-  const talkRoomId = router.asPath.replace("/talk/", "");
 
   // どのトークルームを開くかのstate
   const [openTalkRoomId, setOpenTalkRoomId] = useState("");
@@ -40,21 +36,30 @@ export const TalkWrapper: React.VFC = () => {
   const handleSubmit = async () => {
     await createMessageMutation({
       variables: {
-        talkingRoomId: talkRoomId,
+        talkingRoomId: openTalkRoomId,
         text: inputText,
       },
     });
     setInputText("");
   };
 
+  // TODO: レビューの作成
+  const handleCreateReview = () => {
+    alert("レビュー機能は現在開発中です。");
+  };
+
+  useEffect(() => {
+    setInputText("");
+  }, [openTalkRoomId]);
+
   // TODO: トークルームを最新順に並べ替え (Query自体を書き直す必要ありかも？)
 
   return (
     <div className="flex">
       <aside className="block p-4 w-1/3">
-        <div>{isLoading && "loading"}</div>
-        <div>{messagesError && messagesError.message}</div>
-        <ul>
+        {/* <div>{isLoading && "loading"}</div> */}
+        {/* <div>{messagesError && messagesError.message}</div> */}
+        <ul className="border shadow-md">
           {talkRoomsData?.allTalkRooms?.edges.map((talkRooms, index) => {
             return (
               // 自分が参加しているトークルームの一覧を返す
@@ -62,7 +67,7 @@ export const TalkWrapper: React.VFC = () => {
                 {/* {talkRooms?.node?.talkingRoom.edges.slice(-1)[0]?.node?.sender.email} */}
                 {talkRooms?.node?.id ? (
                   <button
-                    className="flex items-center py-2 px-4 w-full"
+                    className="flex items-center py-2 px-4 w-full focus:outline-none"
                     value={talkRooms.node.id}
                     onClick={handleOpenTalkRoomChange}
                     id={talkRooms.node.id}
@@ -110,29 +115,46 @@ export const TalkWrapper: React.VFC = () => {
       </aside>
 
       <div className="p-4 w-2/3">
-        <div className="border shadow-md">
-          {/* 会話相手のプロフィール */}
-          <div className="flex justify-between items-center py-2 px-10 border-b border-gray-500">
-            <div className="flex items-center">
-              <img src="" alt="Profile" className="block w-10 h-10 rounded-full border" />
-              <div className="mx-4">
-                <p className="text-lg">プロフィール</p>
-                <p>相手の学校</p>
-              </div>
-            </div>
-            <button className="block p-2 bg-yellow-500">レビューを書く</button>
-          </div>
+        <div>
+          {/* トークルーム詳細 */}
+          {talkRoomsData?.allTalkRooms?.edges.map((talkRoom, talkRoomIndex) => {
+            return (
+              openTalkRoomId === talkRoom?.node?.id && (
+                <div className="border shadow-md" key={talkRoomIndex}>
+                  <div className="flex justify-between items-center py-2 px-10 border-b border-gray-500">
+                    {/* 会話相手のプロフィール */}
 
-          {/* トーク部分 */}
-          <div className="overflow-y-scroll">
-            {/* メッセージ */}
-
-            <div>
-              {talkRoomsData?.allTalkRooms?.edges.map((talkRoom, talkRoomIndex) => {
-                return (
-                  openTalkRoomId === talkRoom?.node?.id && (
-                    <div key={talkRoomIndex}>
-                      <div>{talkRoom?.node?.id}</div>
+                    {talkRoom.node.joinUsers.edges.map((user, userIndex) => {
+                      return (
+                        user?.node?.id !== loginUserData.userId && (
+                          <div className="flex items-center" key={userIndex}>
+                            {/* 相手のデータのみ表示 */}
+                            {user?.node?.targetUser?.profileImage === "" ? (
+                              <div className="w-10 h-10 rounded-full border">noimage</div>
+                            ) : (
+                              user?.node?.targetUser?.profileImage !== null && (
+                                <img
+                                  src={user?.node?.targetUser?.profileImage}
+                                  alt=""
+                                  className="block w-10 h-10 rounded-full border"
+                                />
+                              )
+                            )}
+                            <div className="mx-4">
+                              <p className="text-lg">{user?.node?.targetUser?.profileName}</p>
+                              <p>{user?.node?.targetUser?.schoolName}</p>
+                            </div>
+                          </div>
+                        )
+                      );
+                    })}
+                    <button className="block p-2 bg-yellow-500" onClick={handleCreateReview}>
+                      レビューを書く
+                    </button>
+                  </div>
+                  {/* トーク部分 */}
+                  <div className="overflow-y-scroll">
+                    <div>
                       <ul>
                         {talkRoom.node.talkingRoom.edges.map((message, messageIndex) => {
                           return (
@@ -161,13 +183,11 @@ export const TalkWrapper: React.VFC = () => {
                         })}
                       </ul>
                     </div>
-                  )
-                );
-              })}
-            </div>
-          </div>
-
-          {/* 入力欄や送信ボタン */}
+                  </div>
+                </div>
+              )
+            );
+          })}
           <div className="flex items-center">
             <input
               type="text"
@@ -182,6 +202,22 @@ export const TalkWrapper: React.VFC = () => {
           </div>
         </div>
       </div>
+
+      {/* 入力欄や送信ボタン */}
+      {/* <div className="flex items-center">
+        <input
+          type="text"
+          className="block p-2 border border-black"
+          placeholder="メッセージを入力"
+          value={inputText}
+          onChange={handleInputChange}
+        />
+        <button className="block py-2 px-4 bg-pink-400" onClick={handleSubmit}>
+          送信
+        </button>
+      </div> */}
+      {/* </div> */}
     </div>
+    // </div>
   );
 };
