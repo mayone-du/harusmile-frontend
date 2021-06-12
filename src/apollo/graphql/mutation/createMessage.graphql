@@ -1,0 +1,8 @@
+mutation CreateMessage($talkingRoomId: ID!, $text: String!) {
+  createMessage(input: { talkingRoomId: $talkingRoomId, text: $text }) {
+    message {
+      text
+      createdAt
+    }
+  }
+}
