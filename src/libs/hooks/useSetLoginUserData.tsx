@@ -83,7 +83,13 @@ export const useSetLoginUserData = () => {
               };
             })
           : [],
+        joinTalkRooms: queryData?.loginUser?.joinUsers
+          ? queryData.loginUser.joinUsers.edges.map((user) => {
+              return user?.node?.id ? user.node.id : "";
+            })
+          : [],
       });
+
       getLoginUserLazyQuery();
     }
 

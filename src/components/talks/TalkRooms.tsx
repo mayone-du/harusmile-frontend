@@ -1,28 +1,31 @@
 import { useReactiveVar } from "@apollo/client";
-import { useRouter } from "next/dist/client/router";
 import Link from "next/link";
 import { loginUserVar } from "src/apollo/cache";
-import type { GetLoginUserJoinTalkRoomQuery } from "src/apollo/schema";
+import { useGetLoginUserJoinTalkRoomQuery } from "src/apollo/schema";
 
-type Props<T> = {
-  talkRoomsData: T;
-};
-
-export const TalkRooms: React.VFC<Props<GetLoginUserJoinTalkRoomQuery>> = (props) => {
+export const TalkRooms: React.VFC = () => {
   const loginUserData = useReactiveVar(loginUserVar);
 
-  const paths = props.talkRoomsData.allTalkRooms?.edges.map((message) => {
-    return message?.node?.talkingRoom.edges;
+  const {
+    data: talkRoomsData,
+    error: messagesError,
+    loading: isLoading,
+  } = useGetLoginUserJoinTalkRoomQuery({
+    fetchPolicy: "network-only",
+    pollInterval: 1000 * 60,
+    variables: {
+      loginUserId: loginUserData.userId,
+    },
   });
-
-  const router = useRouter();
 
   // TODO: トークルームを最新順に並べ替え (Query自体を書き直す必要ありかも？)
 
   return (
     <div>
+      <div>{isLoading && "loading"}</div>
+      <div>{messagesError && messagesError.message}</div>
       <ul>
-        {props.talkRoomsData.allTalkRooms?.edges.map((talkRooms, index) => {
+        {talkRoomsData?.allTalkRooms?.edges.map((talkRooms, index) => {
           return (
             // 自分が参加しているトークルームの一覧を返す
             <li className="border-t border-b" key={index}>

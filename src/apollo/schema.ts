@@ -1233,7 +1233,16 @@ export type GetLoginUserQuery = (
   & { loginUser?: Maybe<(
     { __typename?: 'UserNode' }
     & Pick<UserNode, 'id' | 'email'>
-    & { targetUser?: Maybe<(
+    & { joinUsers: (
+      { __typename?: 'TalkRoomNodeConnection' }
+      & { edges: Array<Maybe<(
+        { __typename?: 'TalkRoomNodeEdge' }
+        & { node?: Maybe<(
+          { __typename?: 'TalkRoomNode' }
+          & Pick<TalkRoomNode, 'id'>
+        )> }
+      )>> }
+    ), targetUser?: Maybe<(
       { __typename?: 'ProfileNode' }
       & Pick<ProfileNode, 'id' | 'profileName' | 'profileText' | 'profileImage' | 'telephoneNumber' | 'isCollegeStudent' | 'schoolName' | 'age' | 'undergraduate' | 'department' | 'clubActivities' | 'admissionFormat' | 'favoriteSubject' | 'wantHear' | 'problem' | 'createdAt'>
       & { followingUsers: (
@@ -1877,6 +1886,13 @@ export const GetLoginUserDocument = gql`
   loginUser {
     id
     email
+    joinUsers {
+      edges {
+        node {
+          id
+        }
+      }
+    }
     targetUser {
       id
       profileName

@@ -3,26 +3,12 @@ import type { NextPage } from "next";
 import { useRouter } from "next/dist/client/router";
 import { useEffect } from "react";
 import { loginUserVar } from "src/apollo/cache";
-import { useGetLoginUserJoinTalkRoomQuery } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
 import { TalkRooms } from "src/components/talks/TalkRooms";
 
 const Talk: NextPage = () => {
   const router = useRouter();
   const loginUserData = useReactiveVar(loginUserVar);
-
-  // 自分に関係するメッセージを定期的に取得
-  const {
-    data: talkRoomsData,
-    error: messagesError,
-    loading: isLoading,
-  } = useGetLoginUserJoinTalkRoomQuery({
-    fetchPolicy: "network-only",
-    pollInterval: 60 * 60,
-    variables: {
-      loginUserId: loginUserData.userId,
-    },
-  });
 
   useEffect(() => {
     if (loginUserData.isLogin && loginUserData.profileName === "") {
@@ -40,62 +26,8 @@ const Talk: NextPage = () => {
               <input type="search" className="block p-2 border" placeholder="search" />
               <div>
                 <div>
-                  {messagesError && messagesError.message}
-                  {isLoading && <div>loading</div>}
-                  {talkRoomsData && <TalkRooms talkRoomsData={talkRoomsData} />}
+                  <TalkRooms />
                 </div>
-
-                <ul>
-                  <li className="flex items-center py-2 px-4 border-t border-b">
-                    <img
-                      src="/images/logo.png"
-                      alt=""
-                      className="block mx-4 w-14 h-14 rounded-full border"
-                    />
-                    <div>
-                      <div className="flex justify-between">
-                        <h4>なまえ</h4>
-                        <div>11:57</div>
-                      </div>
-
-                      <p>最後のメッセージ</p>
-                    </div>
-                  </li>
-
-                  {/* サンプルトーク履歴リスト */}
-                  <li className="flex items-center py-2 px-4 border-t border-b">
-                    <img
-                      src="/images/logo.png"
-                      alt=""
-                      className="block mx-4 w-14 h-14 rounded-full border"
-                    />
-                    <div>
-                      <div className="flex justify-between">
-                        <h4>なまえ</h4>
-                        <div>11:57</div>
-                      </div>
-
-                      <p>最後のメッセージ</p>
-                    </div>
-                  </li>
-                  <li className="flex items-center py-2 px-4 border-t border-b">
-                    <img
-                      src="/images/logo.png"
-                      alt=""
-                      className="block mx-4 w-14 h-14 rounded-full border"
-                    />
-                    <div>
-                      <div className="flex justify-between">
-                        <h4>なまえ</h4>
-                        <div>11:57</div>
-                      </div>
-
-                      <p>最後のメッセージ</p>
-                    </div>
-                  </li>
-
-                  {/* サンプル終わり */}
-                </ul>
               </div>
             </div>
           </aside>

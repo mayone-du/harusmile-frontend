@@ -28,13 +28,7 @@ export const initialLoginUserVar: LoginUser = {
   wantHear: "",
   problem: "",
   tags: [],
-  sendMessages: [
-    {
-      distinationId: "",
-      text: "",
-      createdAt: "",
-    },
-  ],
   followingUsers: [],
+  joinTalkRooms: [],
 };
 export const loginUserVar = makeVar<LoginUser>(initialLoginUserVar);
