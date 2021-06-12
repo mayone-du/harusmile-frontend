@@ -1,9 +1,10 @@
-query GetLoginUserMessages {
-  loginUserMessages {
+query GetJoinRoomMessages($joinUserId: ID!) {
+  allMessages(talkingRoom_JoinUsers: [$joinUserId]) {
     edges {
       node {
         id
         text
+        createdAt
         talkingRoom {
           id
           joinUsers {
@@ -11,6 +12,11 @@ query GetLoginUserMessages {
               node {
                 id
                 email
+                targetUser {
+                  id
+                  profileName
+                  profileImage
+                }
               }
             }
           }

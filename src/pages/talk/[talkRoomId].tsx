@@ -33,8 +33,32 @@
 //   return {};
 // };
 
+import { useRouter } from "next/dist/client/router";
+import { useGetTalkRoomQuery } from "src/apollo/schema";
+import { Layout } from "src/components/layouts/Layout";
+
 const TalkDetail: React.VFC = () => {
-  return <div></div>;
+  const router = useRouter();
+  const path = router.asPath.replace("/talk/", "");
+  const { data } = useGetTalkRoomQuery({ variables: { talkRoomId: path } });
+  return (
+    <Layout metaTitle="talk detail">
+      <div>
+        <ul>
+          {data?.talkRoom &&
+            data.talkRoom.talkingRoom.edges.map((message, index) => {
+              return (
+                <li className="my-4 border" key={index}>
+                  <div>{message?.node?.sender.email}</div>
+                  <div>{message?.node?.text}</div>
+                  <div>{message?.node?.createdAt}</div>
+                </li>
+              );
+            })}
+        </ul>
+      </div>
+    </Layout>
+  );
 };
 
 export default TalkDetail;

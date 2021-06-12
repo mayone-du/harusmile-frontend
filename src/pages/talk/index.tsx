@@ -3,9 +3,9 @@ import type { NextPage } from "next";
 import { useRouter } from "next/dist/client/router";
 import { useEffect } from "react";
 import { loginUserVar } from "src/apollo/cache";
-import { useGetLoginUserMessagesQuery } from "src/apollo/schema";
+import { useGetLoginUserJoinTalkRoomQuery } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
-import { Talks } from "src/components/talks/Talks";
+import { TalkRooms } from "src/components/talks/TalkRooms";
 
 const Talk: NextPage = () => {
   const router = useRouter();
@@ -13,12 +13,15 @@ const Talk: NextPage = () => {
 
   // 自分に関係するメッセージを定期的に取得
   const {
-    data: messagesData,
+    data: talkRoomsData,
     error: messagesError,
     loading: isLoading,
-  } = useGetLoginUserMessagesQuery({
+  } = useGetLoginUserJoinTalkRoomQuery({
     fetchPolicy: "network-only",
     pollInterval: 60 * 60,
+    variables: {
+      loginUserId: loginUserData.userId,
+    },
   });
 
   useEffect(() => {
@@ -36,6 +39,12 @@ const Talk: NextPage = () => {
             <div className="border shadow-md">
               <input type="search" className="block p-2 border" placeholder="search" />
               <div>
+                <div>
+                  {messagesError && messagesError.message}
+                  {isLoading && <div>loading</div>}
+                  {talkRoomsData && <TalkRooms talkRoomsData={talkRoomsData} />}
+                </div>
+
                 <ul>
                   <li className="flex items-center py-2 px-4 border-t border-b">
                     <img
@@ -92,9 +101,6 @@ const Talk: NextPage = () => {
           </aside>
 
           {/* talk */}
-          {messagesError && messagesError.message}
-          {isLoading && <div>loading</div>}
-          {messagesData && <Talks messagesData={messagesData} />}
 
           <div className="p-4 w-2/3">
             <div className="border shadow-md">

@@ -1,0 +1,19 @@
+query GetTalkRoom($talkRoomId: ID!) {
+  talkRoom(id: $talkRoomId) {
+    id
+    talkRoomDescription
+    talkingRoom {
+      edges {
+        node {
+          id
+          text
+          createdAt
+          sender {
+            id
+            email
+          }
+        }
+      }
+    }
+  }
+}

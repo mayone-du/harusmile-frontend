@@ -1,0 +1,34 @@
+query GetLoginUserJoinTalkRoom($loginUserId: ID!) {
+  allTalkRooms(joinUsers: [$loginUserId]) {
+    edges {
+      node {
+        id
+        talkRoomDescription
+        joinUsers {
+          edges {
+            node {
+              id
+              email
+              targetUser {
+                profileName
+                profileImage
+              }
+            }
+          }
+        }
+        talkingRoom {
+          edges {
+            node {
+              id
+              text
+              sender {
+                id
+                email
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
