@@ -15,6 +15,7 @@ const Talk: NextPage = () => {
       alert("プロフィールを設定してください。");
       router.push("/settings");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

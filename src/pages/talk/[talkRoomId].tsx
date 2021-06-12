@@ -13,10 +13,6 @@ const TalkDetail: NextPage = () => {
   const loginUserData = useReactiveVar(loginUserVar);
 
   useEffect(() => {
-    console.log(loginUserData);
-  }, []);
-
-  useEffect(() => {
     if (loginUserData.isLogin && loginUserData.profileName === "") {
       alert("プロフィールを設定してください。");
       router.push("/settings");
@@ -27,6 +23,7 @@ const TalkDetail: NextPage = () => {
       alert("error");
       router.push("/");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
