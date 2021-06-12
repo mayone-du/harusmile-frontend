@@ -3,14 +3,11 @@ import type { NextPage } from "next";
 import { useRouter } from "next/dist/client/router";
 import { useEffect, useState } from "react";
 import { loginUserVar } from "src/apollo/cache";
-import {
-  GetTalkRoomDocument,
-  useCreateMessageMutation,
-  useGetTalkRoomQuery,
-} from "src/apollo/schema";
+import { useCreateMessageMutation, useGetTalkRoomQuery } from "src/apollo/schema";
 import { useGetLoginUserJoinTalkRoomQuery } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
 import { TalkRooms } from "src/components/talks/TalkRooms";
+import { fixDateFormat } from "src/libs/fixDateFormat";
 
 const TalkDetail: NextPage = () => {
   const router = useRouter();
@@ -94,33 +91,30 @@ const TalkDetail: NextPage = () => {
                   {data?.talkRoom &&
                     data.talkRoom.talkingRoom.edges.map((message, index) => {
                       return (
-                        <li className="my-4 border" key={index}>
-                          <div
-                            className={
-                              message?.node?.sender.id === loginUserData.userId
-                                ? "bg-pink-400"
-                                : "bg-blue-600"
-                            }
-                          >
-                            {message?.node?.text}
+                        <li
+                          className={`my-4 border flex ${
+                            message?.node?.sender.id === loginUserData.userId
+                              ? "justify-end"
+                              : "justify-start"
+                          }`}
+                          key={index}
+                        >
+                          <div>
+                            <div
+                              className={`inline-block p-2 rounded-sm ${
+                                message?.node?.sender.id === loginUserData.userId
+                                  ? "bg-pink-200"
+                                  : "bg-blue-200"
+                              }`}
+                            >
+                              {message?.node?.text}
+                            </div>
+                            <div>{fixDateFormat(message?.node?.createdAt)}</div>
                           </div>
-                          <div>{message?.node?.createdAt}</div>
                         </li>
                       );
                     })}
                 </ul>
-
-                <div className="flex m-4">
-                  <p className="py-2 px-4 border">相手からのメッセージ</p>
-                </div>
-                <div className="flex justify-end m-4">
-                  <p className="py-2 px-4 bg-pink-300">自分からのメッセージ</p>
-                </div>
-                <div className="flex justify-end m-4">
-                  <p className="py-2 px-4 bg-pink-300">
-                    自分からのメッセージ自分からのメッセージ自分からのメッセージ
-                  </p>
-                </div>
               </div>
 
               {/* 入力欄や送信ボタン */}
