@@ -8,9 +8,10 @@ import { MEDIAFILE_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
 
 const Settings: NextPage = () => {
   const { loginUserData } = useSetLoginUserData();
-
   const { data: allAdressesData } = useGetAllAdressesQuery();
   const { data: allGendersData } = useGetAllGendersQuery();
+
+  // TODO: プロフィール画像周りのバグ修正
 
   const {
     inputLoginUserData,

@@ -10,6 +10,8 @@ const Talk: NextPage = () => {
   const router = useRouter();
   const loginUserData = useReactiveVar(loginUserVar);
 
+  // TODO: パーミッションエラーの改善
+
   useEffect(() => {
     if (loginUserData.isLogin && loginUserData.profileName === "") {
       alert("プロフィールを設定してください。");

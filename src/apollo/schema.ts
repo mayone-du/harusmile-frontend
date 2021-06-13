@@ -1066,6 +1066,34 @@ export type CreateProfileMutation = (
   )> }
 );
 
+export type CreateTalkRoomMutationVariables = Exact<{
+  loginUserId: Scalars['ID'];
+  opponentUserId: Scalars['ID'];
+  talkRoomDescription?: Maybe<Scalars['String']>;
+}>;
+
+
+export type CreateTalkRoomMutation = (
+  { __typename?: 'Mutation' }
+  & { createTalkRoom?: Maybe<(
+    { __typename?: 'CreateTalkRoomMutationPayload' }
+    & { talkRoom?: Maybe<(
+      { __typename?: 'TalkRoomNode' }
+      & Pick<TalkRoomNode, 'id' | 'talkRoomDescription'>
+      & { joinUsers: (
+        { __typename?: 'UserNodeConnection' }
+        & { edges: Array<Maybe<(
+          { __typename?: 'UserNodeEdge' }
+          & { node?: Maybe<(
+            { __typename?: 'UserNode' }
+            & Pick<UserNode, 'id' | 'email'>
+          )> }
+        )>> }
+      ) }
+    )> }
+  )> }
+);
+
 export type CreateUserMutationVariables = Exact<{
   email: Scalars['String'];
   password: Scalars['String'];
@@ -1290,6 +1318,7 @@ export type GetProfileQuery = (
     & Pick<ProfileNode, 'id' | 'profileName' | 'profileText' | 'profileImage' | 'isCollegeStudent' | 'schoolName' | 'age' | 'undergraduate' | 'department' | 'clubActivities' | 'admissionFormat' | 'favoriteSubject' | 'wantHear' | 'problem'>
     & { targetUser: (
       { __typename?: 'UserNode' }
+      & Pick<UserNode, 'id'>
       & { joinUsers: (
         { __typename?: 'TalkRoomNodeConnection' }
         & { edges: Array<Maybe<(
@@ -1374,37 +1403,29 @@ export type SearchProfilesQuery = (
   )> }
 );
 
-export type GetJoinRoomMessagesQueryVariables = Exact<{
+export type GetAllTalkRoomsQueryVariables = Exact<{
   joinUserId: Scalars['ID'];
 }>;
 
 
-export type GetJoinRoomMessagesQuery = (
+export type GetAllTalkRoomsQuery = (
   { __typename?: 'Query' }
-  & { allMessages?: Maybe<(
-    { __typename?: 'MessageNodeConnection' }
+  & { allTalkRooms?: Maybe<(
+    { __typename?: 'TalkRoomNodeConnection' }
     & { edges: Array<Maybe<(
-      { __typename?: 'MessageNodeEdge' }
+      { __typename?: 'TalkRoomNodeEdge' }
       & { node?: Maybe<(
-        { __typename?: 'MessageNode' }
-        & Pick<MessageNode, 'id' | 'text' | 'createdAt'>
-        & { talkingRoom: (
-          { __typename?: 'TalkRoomNode' }
-          & Pick<TalkRoomNode, 'id'>
-          & { joinUsers: (
-            { __typename?: 'UserNodeConnection' }
-            & { edges: Array<Maybe<(
-              { __typename?: 'UserNodeEdge' }
-              & { node?: Maybe<(
-                { __typename?: 'UserNode' }
-                & Pick<UserNode, 'id' | 'email'>
-                & { targetUser?: Maybe<(
-                  { __typename?: 'ProfileNode' }
-                  & Pick<ProfileNode, 'id' | 'profileName' | 'profileImage'>
-                )> }
-              )> }
-            )>> }
-          ) }
+        { __typename?: 'TalkRoomNode' }
+        & Pick<TalkRoomNode, 'id'>
+        & { joinUsers: (
+          { __typename?: 'UserNodeConnection' }
+          & { edges: Array<Maybe<(
+            { __typename?: 'UserNodeEdge' }
+            & { node?: Maybe<(
+              { __typename?: 'UserNode' }
+              & Pick<UserNode, 'id' | 'email'>
+            )> }
+          )>> }
         ) }
       )> }
     )>> }
@@ -1594,6 +1615,54 @@ export function useCreateProfileMutation(baseOptions?: Apollo.MutationHookOption
 export type CreateProfileMutationHookResult = ReturnType<typeof useCreateProfileMutation>;
 export type CreateProfileMutationResult = Apollo.MutationResult<CreateProfileMutation>;
 export type CreateProfileMutationOptions = Apollo.BaseMutationOptions<CreateProfileMutation, CreateProfileMutationVariables>;
+export const CreateTalkRoomDocument = gql`
+    mutation CreateTalkRoom($loginUserId: ID!, $opponentUserId: ID!, $talkRoomDescription: String) {
+  createTalkRoom(
+    input: {joinUsers: [$loginUserId, $opponentUserId], talkRoomDescription: $talkRoomDescription}
+  ) {
+    talkRoom {
+      id
+      talkRoomDescription
+      joinUsers {
+        edges {
+          node {
+            id
+            email
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+export type CreateTalkRoomMutationFn = Apollo.MutationFunction<CreateTalkRoomMutation, CreateTalkRoomMutationVariables>;
+
+/**
+ * __useCreateTalkRoomMutation__
+ *
+ * To run a mutation, you first call `useCreateTalkRoomMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateTalkRoomMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createTalkRoomMutation, { data, loading, error }] = useCreateTalkRoomMutation({
+ *   variables: {
+ *      loginUserId: // value for 'loginUserId'
+ *      opponentUserId: // value for 'opponentUserId'
+ *      talkRoomDescription: // value for 'talkRoomDescription'
+ *   },
+ * });
+ */
+export function useCreateTalkRoomMutation(baseOptions?: Apollo.MutationHookOptions<CreateTalkRoomMutation, CreateTalkRoomMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateTalkRoomMutation, CreateTalkRoomMutationVariables>(CreateTalkRoomDocument, options);
+      }
+export type CreateTalkRoomMutationHookResult = ReturnType<typeof useCreateTalkRoomMutation>;
+export type CreateTalkRoomMutationResult = Apollo.MutationResult<CreateTalkRoomMutation>;
+export type CreateTalkRoomMutationOptions = Apollo.BaseMutationOptions<CreateTalkRoomMutation, CreateTalkRoomMutationVariables>;
 export const CreateUserDocument = gql`
     mutation CreateUser($email: String!, $password: String!) {
   createUser(input: {email: $email, password: $password}) {
@@ -2041,6 +2110,7 @@ export const GetProfileDocument = gql`
     wantHear
     problem
     targetUser {
+      id
       joinUsers {
         edges {
           node {
@@ -2185,27 +2255,17 @@ export function useSearchProfilesLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type SearchProfilesQueryHookResult = ReturnType<typeof useSearchProfilesQuery>;
 export type SearchProfilesLazyQueryHookResult = ReturnType<typeof useSearchProfilesLazyQuery>;
 export type SearchProfilesQueryResult = Apollo.QueryResult<SearchProfilesQuery, SearchProfilesQueryVariables>;
-export const GetJoinRoomMessagesDocument = gql`
-    query GetJoinRoomMessages($joinUserId: ID!) {
-  allMessages(talkingRoom_JoinUsers: [$joinUserId]) {
+export const GetAllTalkRoomsDocument = gql`
+    query GetAllTalkRooms($joinUserId: ID!) {
+  allTalkRooms(joinUsers: [$joinUserId]) {
     edges {
       node {
         id
-        text
-        createdAt
-        talkingRoom {
-          id
-          joinUsers {
-            edges {
-              node {
-                id
-                email
-                targetUser {
-                  id
-                  profileName
-                  profileImage
-                }
-              }
+        joinUsers {
+          edges {
+            node {
+              id
+              email
             }
           }
         }
@@ -2216,32 +2276,32 @@ export const GetJoinRoomMessagesDocument = gql`
     `;
 
 /**
- * __useGetJoinRoomMessagesQuery__
+ * __useGetAllTalkRoomsQuery__
  *
- * To run a query within a React component, call `useGetJoinRoomMessagesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetJoinRoomMessagesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetAllTalkRoomsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllTalkRoomsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetJoinRoomMessagesQuery({
+ * const { data, loading, error } = useGetAllTalkRoomsQuery({
  *   variables: {
  *      joinUserId: // value for 'joinUserId'
  *   },
  * });
  */
-export function useGetJoinRoomMessagesQuery(baseOptions: Apollo.QueryHookOptions<GetJoinRoomMessagesQuery, GetJoinRoomMessagesQueryVariables>) {
+export function useGetAllTalkRoomsQuery(baseOptions: Apollo.QueryHookOptions<GetAllTalkRoomsQuery, GetAllTalkRoomsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetJoinRoomMessagesQuery, GetJoinRoomMessagesQueryVariables>(GetJoinRoomMessagesDocument, options);
+        return Apollo.useQuery<GetAllTalkRoomsQuery, GetAllTalkRoomsQueryVariables>(GetAllTalkRoomsDocument, options);
       }
-export function useGetJoinRoomMessagesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetJoinRoomMessagesQuery, GetJoinRoomMessagesQueryVariables>) {
+export function useGetAllTalkRoomsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllTalkRoomsQuery, GetAllTalkRoomsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetJoinRoomMessagesQuery, GetJoinRoomMessagesQueryVariables>(GetJoinRoomMessagesDocument, options);
+          return Apollo.useLazyQuery<GetAllTalkRoomsQuery, GetAllTalkRoomsQueryVariables>(GetAllTalkRoomsDocument, options);
         }
-export type GetJoinRoomMessagesQueryHookResult = ReturnType<typeof useGetJoinRoomMessagesQuery>;
-export type GetJoinRoomMessagesLazyQueryHookResult = ReturnType<typeof useGetJoinRoomMessagesLazyQuery>;
-export type GetJoinRoomMessagesQueryResult = Apollo.QueryResult<GetJoinRoomMessagesQuery, GetJoinRoomMessagesQueryVariables>;
+export type GetAllTalkRoomsQueryHookResult = ReturnType<typeof useGetAllTalkRoomsQuery>;
+export type GetAllTalkRoomsLazyQueryHookResult = ReturnType<typeof useGetAllTalkRoomsLazyQuery>;
+export type GetAllTalkRoomsQueryResult = Apollo.QueryResult<GetAllTalkRoomsQuery, GetAllTalkRoomsQueryVariables>;
 export const GetLoginUserJoinTalkRoomDocument = gql`
     query GetLoginUserJoinTalkRoom($loginUserId: ID!) {
   allTalkRooms(joinUsers: [$loginUserId]) {

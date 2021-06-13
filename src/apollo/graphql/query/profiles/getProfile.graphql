@@ -15,6 +15,7 @@ query GetProfile($profileId: ID!) {
     wantHear
     problem
     targetUser {
+      id
       joinUsers {
         edges {
           node {
