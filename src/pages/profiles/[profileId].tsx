@@ -58,8 +58,9 @@ const ProfileDetail: NextPage = () => {
       return userId ? (userId[0]?.match(opponentUserId) ? true : false) : "";
     });
 
+    // すでにトークルームが存在する場合はトーク画面へ遷移
     if (validateArray?.includes(true)) {
-      alert("すでにトークルームが存在します");
+      router.push("/talk");
       return;
     } else {
       const { data } = await createTalkRoomMutation({

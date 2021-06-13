@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import type { GetStaticProps } from "next";
+import Image from "next/image";
 import { addApolloState, initializeApollo } from "src/apollo/apolloClient";
 import type { GetAllProfilesQuery, GetAllProfilesQueryVariables } from "src/apollo/schema";
 import { GetAllProfilesDocument } from "src/apollo/schema";
@@ -33,9 +34,15 @@ const Index: NextPage<PropsGetAllProfilesQuery<GetAllProfilesQuery>> = (props) =
         </h2>
         <h3 className="py-2 text-xl text-center">憧れの先輩に直接質問する時代</h3>
         <div className="flex justify-center">
-          <div className="mx-10 w-full h-20 text-center bg-white">static image</div>
-          <div className="mx-10 w-full h-20 text-center bg-white">static image</div>
-          <div className="mx-10 w-full h-20 text-center bg-white">static image</div>
+          <div className="mx-10 w-full text-center bg-white">
+            <Image src="/images/top-sample01.png" width={300} height={300}></Image>
+          </div>
+          <div className="mx-10 w-full text-center bg-white">
+            <Image src="/images/top-sample02.png" width={300} height={300}></Image>
+          </div>
+          <div className="mx-10 w-full text-center bg-white">
+            <Image src="/images/top-sample03.png" width={300} height={300}></Image>
+          </div>
         </div>
       </section>
 

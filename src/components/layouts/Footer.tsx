@@ -16,17 +16,17 @@ export const Footer: React.VFC = memo(() => {
           </div>
           <ul className="flex items-center">
             <li className="mx-2">
-              <Link href="/">
+              <Link href="/static/policy">
                 <a>利用規約</a>
               </Link>
             </li>
             <li className="mx-2">
-              <Link href="/">
+              <Link href="/static/about">
                 <a>運営会社</a>
               </Link>
             </li>
             <li className="mx-2">
-              <Link href="/">
+              <Link href="/static/contact">
                 <a>お問い合わせ</a>
               </Link>
             </li>
