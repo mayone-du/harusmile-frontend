@@ -5,10 +5,13 @@ import { useGetLoginUserJoinTalkRoomQuery } from "src/apollo/schema";
 import { useCreateMessageMutation } from "src/apollo/schema";
 import { InitialTalkDetail } from "src/components/talks/InitialTalkDetail";
 import { fixDateFormat } from "src/libs/fixDateFormat";
+import { useRefreshTokens } from "src/libs/hooks/useRefreshTokens";
 import { MEDIAFILE_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
 
 export const TalkWrapper: React.VFC = () => {
   const loginUserData = useReactiveVar(loginUserVar);
+
+  const { handleRefreshToken } = useRefreshTokens();
 
   // ログインユーザーが参加しているトークルームのデータを取得
   const {
@@ -35,7 +38,9 @@ export const TalkWrapper: React.VFC = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputText(e.target.value);
   };
+  // TODO: 送信前にtokenのvalidation
   const handleSubmit = async () => {
+    await handleRefreshToken();
     await createMessageMutation({
       variables: {
         talkingRoomId: openTalkRoomId,
@@ -133,8 +138,11 @@ export const TalkWrapper: React.VFC = () => {
                                 {talkRooms.node?.talkingRoom.edges
                                   .slice(-1)[0]
                                   ?.node?.text.slice(0, 10)}
+
+                                {/* TODO: type narrowing */}
                                 {talkRooms.node?.talkingRoom.edges.slice(-1)[0]?.node?.text
-                                  .length >= 10
+                                  .length !== undefined &&
+                                talkRooms.node.talkingRoom.edges.slice(-1)[0].node.text.length >= 10
                                   ? "..."
                                   : ""}
                               </div>
@@ -192,7 +200,7 @@ export const TalkWrapper: React.VFC = () => {
                     </button>
                   </div>
                   {/* トーク部分 */}
-                  <div className="overflow-y-scroll max-h-screen">
+                  <div className="overflow-y-scroll max-h-96">
                     <div>
                       <ul>
                         {talkRoom.node.talkingRoom.edges.map((message, messageIndex) => {
@@ -236,13 +244,24 @@ export const TalkWrapper: React.VFC = () => {
             <div className="flex items-center">
               <input
                 type="text"
-                className="block p-2 border border-black"
+                className="block p-4 w-5/6 border"
                 placeholder="メッセージを入力"
                 value={inputText}
                 onChange={handleInputChange}
               />
-              <button className="block py-2 px-4 bg-pink-400" onClick={handleSubmit}>
-                送信
+              <button
+                className="flex justify-center items-center p-4 w-1/6 bg-pink-200"
+                onClick={handleSubmit}
+              >
+                <span className="block px-2 text-lg">送信</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="mx-2 w-5 h-5 transform rotate-45"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+                </svg>
               </button>
             </div>
           )}

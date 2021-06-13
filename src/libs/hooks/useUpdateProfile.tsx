@@ -1,20 +1,13 @@
 import { useReactiveVar } from "@apollo/client";
-import { parseCookies, setCookie } from "nookies";
 import { useEffect, useState } from "react";
 import { loginUserVar } from "src/apollo/cache";
-import {
-  useCreateProfileMutation,
-  useRefreshTokensMutation,
-  useRevokeRefreshTokenMutation,
-  useUpdateProfileMutation,
-} from "src/apollo/schema";
-import { calcDate } from "src/libs/calcDate";
+import { useCreateProfileMutation, useUpdateProfileMutation } from "src/apollo/schema";
+import { useRefreshTokens } from "src/libs/hooks/useRefreshTokens";
 
 export const useProfileUpdate = () => {
   const loginUserData = useReactiveVar(loginUserVar);
+  const { handleRefreshToken } = useRefreshTokens();
 
-  const [refreshTokensMutation] = useRefreshTokensMutation();
-  const [revokerefreshTokenMutation] = useRevokeRefreshTokenMutation();
   const [updateProfileMutation] = useUpdateProfileMutation();
   const [createProfileMutation] = useCreateProfileMutation();
   const [inputLoginUserData, setInputLoginUserData] = useState(loginUserData);
@@ -81,34 +74,7 @@ export const useProfileUpdate = () => {
     e.preventDefault();
     try {
       // tokenの確認と更新
-      const cookies = parseCookies();
-      if (!cookies.accessToken && cookies.refreshToken) {
-        const { data } = await refreshTokensMutation({
-          variables: {
-            refreshToken: cookies.refreshToken,
-          },
-        });
-        if (data?.refreshToken) {
-          const oldRefreshToken = cookies.refreshToken;
-
-          // accessTokenをセット
-          setCookie(null, "accessToken", data.refreshToken.token, {
-            path: "/",
-            maxAge: calcDate(data?.refreshToken?.payload.exp),
-          });
-
-          // refreshTokenをセット
-          setCookie(null, "refreshToken", data?.refreshToken?.refreshToken, {
-            path: "/",
-            maxAge: calcDate(data?.refreshToken?.refreshExpiresIn),
-          });
-
-          // 古いrefreshTokenを無効化
-          await revokerefreshTokenMutation({
-            variables: { refreshToken: oldRefreshToken },
-          });
-        }
-      }
+      await handleRefreshToken();
 
       if (loginUserData.isLogin && loginUserData.profileId === "") {
         // Userは作成したが、Profileをまだ作成していない場合
