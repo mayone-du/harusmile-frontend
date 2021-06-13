@@ -5,6 +5,7 @@ import { useGetLoginUserJoinTalkRoomQuery } from "src/apollo/schema";
 import { useCreateMessageMutation } from "src/apollo/schema";
 import { InitialTalkDetail } from "src/components/talks/InitialTalkDetail";
 import { fixDateFormat } from "src/libs/fixDateFormat";
+import { MEDIAFILE_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
 
 export const TalkWrapper: React.VFC = () => {
   const loginUserData = useReactiveVar(loginUserVar);
@@ -112,7 +113,7 @@ export const TalkWrapper: React.VFC = () => {
                           <div className="flex items-center" key={user?.node?.id}>
                             {user?.node?.targetUser?.profileImage ? (
                               <img
-                                src={user.node.targetUser.profileImage}
+                                src={`${MEDIAFILE_API_ENDPOINT}${user.node.targetUser.profileImage}`}
                                 alt=""
                                 className="block w-14 h-14 rounded-full border"
                               />
@@ -129,7 +130,13 @@ export const TalkWrapper: React.VFC = () => {
                               </div>
                               {/* 最後にやり取りしたメッセージ */}
                               <div>
-                                {talkRooms.node?.talkingRoom.edges.slice(-1)[0]?.node?.text}
+                                {talkRooms.node?.talkingRoom.edges
+                                  .slice(-1)[0]
+                                  ?.node?.text.slice(0, 10)}
+                                {talkRooms.node?.talkingRoom.edges.slice(-1)[0]?.node?.text
+                                  .length >= 10
+                                  ? "..."
+                                  : ""}
                               </div>
                             </div>
                           </div>
@@ -166,7 +173,7 @@ export const TalkWrapper: React.VFC = () => {
                             ) : (
                               user?.node?.targetUser?.profileImage !== null && (
                                 <img
-                                  src={user?.node?.targetUser?.profileImage}
+                                  src={`${MEDIAFILE_API_ENDPOINT}${user?.node?.targetUser?.profileImage}`}
                                   alt=""
                                   className="block w-10 h-10 rounded-full border"
                                 />
@@ -185,22 +192,22 @@ export const TalkWrapper: React.VFC = () => {
                     </button>
                   </div>
                   {/* トーク部分 */}
-                  <div className="overflow-y-scroll">
+                  <div className="overflow-y-scroll max-h-screen">
                     <div>
                       <ul>
                         {talkRoom.node.talkingRoom.edges.map((message, messageIndex) => {
                           return (
                             <li
-                              className={`my-4 border flex ${
+                              className={`my-4 flex ${
                                 message?.node?.sender.id === loginUserData.userId
                                   ? "justify-end"
                                   : "justify-start"
                               }`}
                               key={messageIndex}
                             >
-                              <div>
+                              <div className="px-4">
                                 <div
-                                  className={`inline-block p-2 rounded-sm ${
+                                  className={`inline-block py-2 px-4 rounded-3xl ${
                                     message?.node?.sender.id === loginUserData.userId
                                       ? "bg-pink-200"
                                       : "bg-blue-200"
@@ -208,7 +215,10 @@ export const TalkWrapper: React.VFC = () => {
                                 >
                                   {message?.node?.text}
                                 </div>
-                                <div>{fixDateFormat(message?.node?.createdAt)}</div>
+                                {/* 送信時刻 */}
+                                <div className="text-xs text-right text-gray-500">
+                                  {fixDateFormat(message?.node?.createdAt)}
+                                </div>
                               </div>
                             </li>
                           );
@@ -220,20 +230,22 @@ export const TalkWrapper: React.VFC = () => {
               )
             );
           })}
-
           {/* 入力欄や送信ボタン */}
-          <div className="flex items-center">
-            <input
-              type="text"
-              className="block p-2 border border-black"
-              placeholder="メッセージを入力"
-              value={inputText}
-              onChange={handleInputChange}
-            />
-            <button className="block py-2 px-4 bg-pink-400" onClick={handleSubmit}>
-              送信
-            </button>
-          </div>
+          {/* トークルームが選択されていなければ非表示 */}
+          {openTalkRoomId !== "" && (
+            <div className="flex items-center">
+              <input
+                type="text"
+                className="block p-2 border border-black"
+                placeholder="メッセージを入力"
+                value={inputText}
+                onChange={handleInputChange}
+              />
+              <button className="block py-2 px-4 bg-pink-400" onClick={handleSubmit}>
+                送信
+              </button>
+            </div>
+          )}
         </div>
       </div>
 

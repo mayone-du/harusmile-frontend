@@ -63,14 +63,13 @@ const ProfileDetail: NextPage = () => {
       router.push("/talk");
       return;
     } else {
-      const { data } = await createTalkRoomMutation({
+      await createTalkRoomMutation({
         variables: {
           loginUserId: loginUserData.userId,
           opponentUserId: opponentUserId,
           talkRoomDescription: `${loginUserData.profileName} & ${profileData?.profile?.profileName}`,
         },
       });
-      console.log("success", data);
       router.push("/talk");
     }
   };
