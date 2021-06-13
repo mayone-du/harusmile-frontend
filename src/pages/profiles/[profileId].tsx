@@ -66,7 +66,7 @@ const ProfileDetail: NextPage = () => {
         variables: {
           loginUserId: loginUserData.userId,
           opponentUserId: opponentUserId,
-          talkRoomDescription: "",
+          talkRoomDescription: `${loginUserData.profileName} & ${profileData?.profile?.profileName}`,
         },
       });
       console.log("success", data);
@@ -126,9 +126,13 @@ const ProfileDetail: NextPage = () => {
           </section>
           {/* トーク開始を促すボタン */}
           <div>
-            <button className="block p-2 border" onClick={handleTalkRoomCreate}>
-              メッセージを送る
-            </button>
+            {loginUserData.profileId === opponentProfileId ? (
+              "自分のプロフィールです"
+            ) : (
+              <button className="block p-2 border" onClick={handleTalkRoomCreate}>
+                メッセージを送る
+              </button>
+            )}
           </div>
           <section>
             <ul className="py-6">
