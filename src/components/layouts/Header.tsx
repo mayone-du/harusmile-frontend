@@ -29,13 +29,24 @@ export const Header: React.VFC<Props> = memo((props) => {
             {loginUserData.isLogin ? (
               <>
                 <li className="flex items-center px-2 mx-4">
-                  <Link href="/auth/signout">
-                    <a>ログアウト</a>
-                  </Link>
-                </li>
-                <li className="flex items-center px-2 mx-4">
                   <Link href="/talk">
-                    <a>トーク画面</a>
+                    <a className="flex items-center">
+                      <div className="px-2">トーク画面</div>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-6 h-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                        />
+                      </svg>
+                    </a>
                   </Link>
                 </li>
 

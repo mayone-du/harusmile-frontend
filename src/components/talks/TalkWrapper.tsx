@@ -38,8 +38,13 @@ export const TalkWrapper: React.VFC = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputText(e.target.value);
   };
-  // TODO: 送信前にtokenのvalidation
+
   const handleSubmit = async () => {
+    // TODO: 入力欄の検証
+    if (inputText === "") {
+      alert("メッセージを入力してください。");
+      return;
+    }
     await handleRefreshToken();
     await createMessageMutation({
       variables: {

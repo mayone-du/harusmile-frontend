@@ -1,4 +1,6 @@
 import type { NextPage } from "next";
+import Link from "next/link";
+
 import { useGetAllAdressesQuery, useGetAllGendersQuery } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
 import { ThemeChanger } from "src/components/ThemeChanger";
@@ -69,16 +71,18 @@ const Settings: NextPage = () => {
         <form onSubmit={handleSubmit}>
           {loginUserData.isLogin ? (
             <ul>
-              <li>
+              <li className="my-4 mx-auto w-1/2">
+                <div className="text-sm">ユーザーネーム</div>
                 <input
                   type="text"
                   placeholder="profileName"
-                  className="block p-2 border"
+                  className="block p-2 w-full border"
                   value={inputLoginUserData.profileName}
                   onChange={handleProfileNameChange}
                 />
               </li>
-              <li>
+              <li className="my-4 mx-auto w-1/2">
+                <div className="text-sm">自己紹介文</div>
                 <input
                   type="text"
                   placeholder="profileText"
@@ -87,7 +91,8 @@ const Settings: NextPage = () => {
                   onChange={handleProfileTextChange}
                 />
               </li>
-              <li>
+              <li className="my-4 mx-auto w-1/2">
+                <div className="text-sm">電話番号</div>
                 <input
                   type="tel"
                   placeholder="telephoneNumber"
@@ -96,7 +101,8 @@ const Settings: NextPage = () => {
                   onChange={handleTelephoneNumberChange}
                 />
               </li>
-              <li>
+              <li className="my-4 mx-auto w-1/2">
+                <div className="text-sm">学校名</div>
                 <input
                   type="text"
                   placeholder="schoolName"
@@ -139,7 +145,8 @@ const Settings: NextPage = () => {
                   })}
                 </select>
               </li>
-              <li>
+              <li className="my-4 mx-auto w-1/2">
+                <div className="text-sm">年齢</div>
                 <input
                   type="number"
                   max={50}
@@ -150,7 +157,8 @@ const Settings: NextPage = () => {
                   onChange={handleAgeChange}
                 />
               </li>
-              <li>
+              <li className="my-4 mx-auto w-1/2">
+                <div className="text-sm">学部</div>
                 <input
                   type="text"
                   placeholder="undergraduate"
@@ -159,7 +167,8 @@ const Settings: NextPage = () => {
                   onChange={handleUndergraduateChange}
                 />
               </li>
-              <li>
+              <li className="my-4 mx-auto w-1/2">
+                <div className="text-sm">学科</div>
                 <input
                   type="text"
                   placeholder="department"
@@ -168,7 +177,8 @@ const Settings: NextPage = () => {
                   onChange={handleDepartmentChange}
                 />
               </li>
-              <li>
+              <li className="my-4 mx-auto w-1/2">
+                <div className="text-sm">部活動・サークル</div>
                 <input
                   type="text"
                   placeholder="clubActivities"
@@ -177,7 +187,8 @@ const Settings: NextPage = () => {
                   onChange={handleClubActivitiesChange}
                 />
               </li>
-              <li>
+              <li className="my-4 mx-auto w-1/2">
+                <div className="text-sm">入試形式</div>
                 <input
                   type="text"
                   placeholder="admissionFormat"
@@ -186,7 +197,8 @@ const Settings: NextPage = () => {
                   onChange={handleAdmissionFormatChange}
                 />
               </li>
-              <li>
+              <li className="my-4 mx-auto w-1/2">
+                <div className="text-sm">好きな科目</div>
                 <input
                   type="text"
                   placeholder="favoriteSubject"
@@ -195,7 +207,8 @@ const Settings: NextPage = () => {
                   onChange={handleFavoriteSubjectChange}
                 />
               </li>
-              <li>
+              <li className="my-4 mx-auto w-1/2">
+                <div className="text-sm">聞きたいこと</div>
                 <input
                   type="text"
                   placeholder="wantHear"
@@ -204,7 +217,8 @@ const Settings: NextPage = () => {
                   onChange={handleWantHearChange}
                 />
               </li>
-              <li>
+              <li className="my-4 mx-auto w-1/2">
+                <div className="text-sm">悩み</div>
                 <input
                   type="text"
                   placeholder="problem"
@@ -229,7 +243,13 @@ const Settings: NextPage = () => {
             更新する
           </button>
         </form>
-
+        {loginUserData.isLogin && (
+          <li className="flex items-center px-2 mx-4">
+            <Link href="/auth/signout">
+              <a>ログアウト</a>
+            </Link>
+          </li>
+        )}
         <ThemeChanger />
       </Layout>
     </div>
