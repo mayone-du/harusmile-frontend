@@ -26,6 +26,9 @@ export const CollageProfilesWrapper: React.VFC<PropsGetAllProfilesQuery<GetColla
                 admissionFormat={profile?.node?.admissionFormat ? profile.node.admissionFormat : ""}
                 favoriteSubject={profile?.node?.favoriteSubject ? profile.node.favoriteSubject : ""}
                 // tags={profile?.node?.tags ? profile.node.tags : []}
+                isCollageStudent={
+                  profile?.node?.isCollegeStudent ? profile.node.isCollegeStudent : false
+                }
                 stars={
                   profile?.node?.targetUser
                     ? profile.node.targetUser.provider.edges.map((review) => {

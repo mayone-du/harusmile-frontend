@@ -65,6 +65,11 @@ export const useSetLoginUserData = () => {
         problem: queryData?.loginUser?.targetUser?.problem
           ? queryData.loginUser.targetUser?.problem
           : "",
+        stars: queryData?.loginUser?.provider
+          ? queryData.loginUser.provider.edges.map((star) => {
+              return star?.node ? star.node.stars : 0;
+            })
+          : [],
         tags: queryData?.loginUser?.targetUser?.tags.edges
           ? queryData.loginUser?.targetUser?.tags.edges.map((tag) => {
               return tag?.node?.tagName ? tag?.node?.tagName : "";
@@ -91,7 +96,6 @@ export const useSetLoginUserData = () => {
       });
 
       getLoginUserLazyQuery();
-      console.log(queryData?.loginUser?.provider.edges);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

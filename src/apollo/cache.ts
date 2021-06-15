@@ -27,6 +27,7 @@ export const initialLoginUserVar: LoginUser = {
   favoriteSubject: "",
   wantHear: "",
   problem: "",
+  stars: [],
   tags: [],
   followingUsers: [],
   joinTalkRooms: [],

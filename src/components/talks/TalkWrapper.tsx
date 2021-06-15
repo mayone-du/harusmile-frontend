@@ -226,6 +226,9 @@ export const TalkWrapper: React.VFC = () => {
                   <div className="overflow-y-scroll max-h-96">
                     <div>
                       <ul>
+                        {talkRoom.node.talkingRoom.edges.length === 0 && (
+                          <p>トークを開始しましょう</p>
+                        )}
                         {talkRoom.node.talkingRoom.edges.map((message, messageIndex) => {
                           return (
                             <li

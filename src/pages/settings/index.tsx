@@ -67,7 +67,7 @@ const Settings: NextPage = () => {
                   ? "これまでに相談したコウハイの数"
                   : "これまでに相談したセンパイの数"}{" "}
               </h3>
-              <p></p>
+              <p>{loginUserData.stars.length.toString()}</p>
             </div>
           </div>
         </section>

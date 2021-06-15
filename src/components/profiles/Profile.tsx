@@ -14,6 +14,7 @@ type Props = {
   clubActivities: string;
   admissionFormat: string;
   favoriteSubject: string;
+  isCollageStudent: boolean;
   // tags: any;
   stars: any;
 };

@@ -26,6 +26,7 @@ export type LoginUser = {
   favoriteSubject: string;
   wantHear: string;
   problem: string;
+  stars: number[];
   tags: string[];
   followingUsers: {
     followingId: string;

@@ -90,7 +90,12 @@ const ProfileDetail: NextPage = () => {
           </div>
           {/* 右 */}
           <div className="flex flex-col justify-center w-1/2 h-16 font-bold text-center">
-            <h3 className="text-2xl">これまでに相談したセンパイの数</h3>
+            <h3 className="text-2xl">
+              {profileData?.profile?.isCollegeStudent
+                ? "これまでに相談したコウハイの数"
+                : "これまでに相談したセンパイの数"}
+            </h3>
+            <p>{profileData?.profile?.targetUser.provider.edges.length.toString()}</p>
           </div>
         </div>
       )}

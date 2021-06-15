@@ -79,6 +79,11 @@ export const useValidateLoginUser = () => {
         problem: queryData.loginUser?.targetUser?.problem
           ? queryData.loginUser.targetUser?.problem
           : "",
+        stars: queryData.loginUser?.provider
+          ? queryData.loginUser.provider.edges.map((star) => {
+              return star?.node ? star.node.stars : 0;
+            })
+          : [],
         tags: queryData.loginUser?.targetUser?.tags.edges
           ? queryData.loginUser?.targetUser?.tags.edges.map((tag) => {
               return tag?.node?.tagName ? tag?.node?.tagName : "";
