@@ -52,7 +52,7 @@ export const SearchBox: React.VFC = () => {
               {isConditionsOpen && (
                 <div>
                   <ul>
-                    <li>
+                    {/* <li>
                       <label className="flex items-center">
                         <p>ユーザー名で検索</p>
                         <input className="block" type="checkbox" value="profileName" />
@@ -63,15 +63,15 @@ export const SearchBox: React.VFC = () => {
                         <p>学校名で検索</p>
                         <input className="block" type="checkbox" value="schoolName" />
                       </label>
-                    </li>
+                    </li> */}
                     <li>
                       <Link href="/profiles/high-school">
-                        <a>高校生のみを検索</a>
+                        <a className="text-blue-500">高校生のみを検索</a>
                       </Link>
                     </li>
                     <li>
                       <Link href="/profiles/collage">
-                        <a>大学生のみを検索</a>
+                        <a className="text-blue-500">大学生のみを検索</a>
                       </Link>
                     </li>
                   </ul>

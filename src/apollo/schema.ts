@@ -1293,7 +1293,16 @@ export type GetLoginUserQuery = (
   & { loginUser?: Maybe<(
     { __typename?: 'UserNode' }
     & Pick<UserNode, 'id' | 'email'>
-    & { joinUsers: (
+    & { provider: (
+      { __typename?: 'ReviewNodeConnection' }
+      & { edges: Array<Maybe<(
+        { __typename?: 'ReviewNodeEdge' }
+        & { node?: Maybe<(
+          { __typename?: 'ReviewNode' }
+          & Pick<ReviewNode, 'stars'>
+        )> }
+      )>> }
+    ), joinUsers: (
       { __typename?: 'TalkRoomNodeConnection' }
       & { edges: Array<Maybe<(
         { __typename?: 'TalkRoomNodeEdge' }
@@ -2083,6 +2092,13 @@ export const GetLoginUserDocument = gql`
   loginUser {
     id
     email
+    provider {
+      edges {
+        node {
+          stars
+        }
+      }
+    }
     joinUsers {
       edges {
         node {
