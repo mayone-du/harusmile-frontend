@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
 import Link from "next/link";
-
 import { useGetAllAdressesQuery, useGetAllGendersQuery } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
 import { ThemeChanger } from "src/components/ThemeChanger";
@@ -76,20 +75,19 @@ const Settings: NextPage = () => {
                 <input
                   type="text"
                   placeholder="profileName"
-                  className="block p-2 w-full border"
+                  className="block p-2 w-full border-b border-pink-500 focus:outline-none"
                   value={inputLoginUserData.profileName}
                   onChange={handleProfileNameChange}
                 />
               </li>
               <li className="my-4 mx-auto w-1/2">
                 <div className="text-sm">自己紹介文</div>
-                <input
-                  type="text"
+                <textarea
                   placeholder="profileText"
-                  className="block overflow-y-scroll p-2 max-h-32 border"
+                  className="block overflow-y-scroll p-2 w-1/2 max-h-32 border"
                   value={inputLoginUserData.profileText}
                   onChange={handleProfileTextChange}
-                />
+                ></textarea>
               </li>
               <li className="my-4 mx-auto w-1/2">
                 <div className="text-sm">電話番号</div>
@@ -118,7 +116,6 @@ const Settings: NextPage = () => {
                   className="block p-2 border"
                   value={inputLoginUserData.addressId}
                   onChange={handleAddressBlur}
-                  onBlur={handleGenderBlur}
                 >
                   {allAdressesData?.allAddresses?.edges.map((address) => {
                     return (
@@ -134,7 +131,6 @@ const Settings: NextPage = () => {
                   className="block p-2 border"
                   value={inputLoginUserData.genderId}
                   onChange={handleGenderBlur}
-                  onBlur={handleGenderBlur}
                 >
                   {allGendersData?.allGenders?.edges.map((gender) => {
                     return (

@@ -23,7 +23,7 @@ export const useProfileUpdate = () => {
   const handleProfileNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputLoginUserData({ ...inputLoginUserData, profileName: e.target.value });
   };
-  const handleProfileTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleProfileTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputLoginUserData({ ...inputLoginUserData, profileText: e.target.value });
   };
   const handleTelephoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {

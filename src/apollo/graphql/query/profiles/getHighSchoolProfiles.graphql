@@ -1,0 +1,41 @@
+query GetHighSchoolProfiles {
+  highSchoolProfiles {
+    edges {
+      node {
+        id
+        profileName
+        profileText
+        telephoneNumber
+        isCollegeStudent
+        schoolName
+        age
+        createdAt
+        profileImage
+        undergraduate
+        department
+        clubActivities
+        admissionFormat
+        favoriteSubject
+        wantHear
+        problem
+        targetUser {
+          provider {
+            edges {
+              node {
+                stars
+              }
+            }
+          }
+        }
+        selectedGender {
+          id
+          genderName
+        }
+        selectedAddress {
+          id
+          addressName
+        }
+      }
+    }
+  }
+}

@@ -10,16 +10,16 @@ const Results: NextPage = () => {
   const searchKeyword = typeof router.query.keyword === "string" ? router.query.keyword : "";
   const searchCondition = router.query.condition;
 
-  const [searchProfileName, { data: profileNameData }] = useSearchProfilesLazyQuery();
+  const [searchProfileQuery, { data: searchProfileData }] = useSearchProfilesLazyQuery();
 
   useEffect(() => {
     // TODO: 条件や個数によって分岐
     if (searchCondition === "profileName") {
-      searchProfileName({
+      searchProfileQuery({
         variables: { inputProfileName: searchKeyword },
       });
     } else if (searchCondition === "schoolName") {
-      searchProfileName({
+      searchProfileQuery({
         variables: { inputSchoolName: searchKeyword },
       });
     }
@@ -40,9 +40,9 @@ const Results: NextPage = () => {
             : ""}
           の検索結果
         </h2>
-        <p>取得件数: {profileNameData?.allProfiles?.edges.length.toString()}件</p>
+        <p>取得件数: {searchProfileData?.allProfiles?.edges.length.toString()}件</p>
         <section>
-          {profileNameData && <ProfilesWrapper profilesData={profileNameData} />}
+          {searchProfileData && <ProfilesWrapper profilesData={searchProfileData} />}
           {/* {error && <h3>{error.message}</h3>}
           {isLoading && <h3>Loading...</h3>} */}
         </section>
