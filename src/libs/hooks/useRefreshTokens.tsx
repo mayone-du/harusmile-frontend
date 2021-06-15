@@ -39,7 +39,8 @@ export const useRefreshTokens = () => {
         }
       }
     } catch (error) {
-      alert(error);
+      // eslint-disable-next-line no-console
+      console.log(`useRefreshTokensError: ${error}`);
       return;
     }
   };

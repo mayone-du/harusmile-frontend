@@ -1,30 +1,48 @@
 import { useReactiveVar } from "@apollo/client";
+import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
 import { loginUserVar } from "src/apollo/cache";
-import { useGetLoginUserJoinTalkRoomQuery } from "src/apollo/schema";
+import { useGetLoginUserJoinTalkRoomLazyQuery } from "src/apollo/schema";
 import { useCreateMessageMutation } from "src/apollo/schema";
 import { InitialTalkDetail } from "src/components/talks/InitialTalkDetail";
 import { fixDateFormat } from "src/libs/fixDateFormat";
 import { useRefreshTokens } from "src/libs/hooks/useRefreshTokens";
+import { useValidateLoginUser } from "src/libs/hooks/useValidateLoginUser";
 import { MEDIAFILE_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
 
 export const TalkWrapper: React.VFC = () => {
+  const cookies = parseCookies();
+  const { handleRefreshToken } = useRefreshTokens();
   const loginUserData = useReactiveVar(loginUserVar);
 
-  const { handleRefreshToken } = useRefreshTokens();
-
+  const { loginUserData: validatedLoginUserData } = useValidateLoginUser();
   // ログインユーザーが参加しているトークルームのデータを取得
-  const {
-    data: talkRoomsData,
-    // error: messagesError,
-    loading: isLoading,
-  } = useGetLoginUserJoinTalkRoomQuery({
+  const [
+    getLoginUserJoinTalkRoom,
+    {
+      data: talkRoomsData,
+      // error: messagesError,
+      loading: isLoading,
+    },
+  ] = useGetLoginUserJoinTalkRoomLazyQuery({
     fetchPolicy: "network-only",
     pollInterval: 1000 * 60,
     variables: {
       loginUserId: loginUserData.userId,
     },
   });
+
+  useEffect(() => {
+    (async () => {
+      if (validatedLoginUserData.isLogin) {
+        if (!cookies.accessToken) {
+          await handleRefreshToken();
+        }
+      }
+      getLoginUserJoinTalkRoom();
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // どのトークルームを開くかのstate
   const [openTalkRoomId, setOpenTalkRoomId] = useState("");

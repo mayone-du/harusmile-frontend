@@ -91,6 +91,7 @@ export const useSetLoginUserData = () => {
       });
 
       getLoginUserLazyQuery();
+      console.log(queryData?.loginUser?.provider.edges);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -106,10 +106,10 @@ const Settings: NextPage = () => {
                   />
                 </li>
 
-                {/* TODO: selectタグ周りの挙動 */}
-                <li>
+                <li className="my-4 mx-auto w-full">
+                  <div className="mx-auto w-2/3 text-sm">住んでいる場所</div>
                   <select
-                    className="block p-2 border"
+                    className="block p-2 mx-auto w-2/3 border-b border-pink-500 focus:outline-none"
                     value={inputLoginUserData.addressId}
                     onChange={handleAddressBlur}
                     onBlur={handleAddressBlur}
@@ -123,9 +123,10 @@ const Settings: NextPage = () => {
                     })}
                   </select>
                 </li>
-                <li>
+                <li className="my-4 mx-auto w-full">
+                  <div className="mx-auto w-2/3 text-sm">性別</div>
                   <select
-                    className="block p-2 border"
+                    className="block p-2 mx-auto w-2/3 border-b border-pink-500 focus:outline-none"
                     value={inputLoginUserData.genderId}
                     onChange={handleGenderBlur}
                     onBlur={handleGenderBlur}
@@ -146,7 +147,7 @@ const Settings: NextPage = () => {
                     max={50}
                     min={0}
                     placeholder="age"
-                    className="block p-2 border"
+                    className="block p-2 mx-auto w-2/3 border-b border-pink-500 focus:outline-none"
                     value={inputLoginUserData.age}
                     onChange={handleAgeChange}
                   />
@@ -234,12 +235,12 @@ const Settings: NextPage = () => {
                     onChange={handleProblemChange}
                   />
                 </li>
-                <li>
+                <li className="my-4 mx-auto w-full">
                   <div className="mx-auto w-2/3 text-sm">プロフィール画像</div>
                   <input
                     type="file"
                     placeholder="profileImage"
-                    className="block p-2 border"
+                    className="block p-2 mx-auto w-2/3 border-b border-pink-500 focus:outline-none"
                     onChange={handleProfileImageChange}
                   />
                 </li>
@@ -248,9 +249,11 @@ const Settings: NextPage = () => {
           ) : (
             <h3>ログインしてください</h3>
           )}
-          <button className="block py-2 px-8 border" type="submit">
-            更新する
-          </button>
+          <div className="flex justify-center">
+            <button className="block py-2 px-8 rounded-md border border-pink-500" type="submit">
+              更新する
+            </button>
+          </div>
         </form>
         {loginUserData.isLogin && (
           <li className="flex items-center px-2 mx-4">
