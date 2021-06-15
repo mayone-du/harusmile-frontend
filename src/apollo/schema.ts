@@ -1125,10 +1125,10 @@ export type CreateProfileMutation = (
       & Pick<ProfileNode, 'profileName' | 'profileText' | 'isCollegeStudent' | 'schoolName' | 'telephoneNumber' | 'createdAt' | 'profileImage' | 'age' | 'undergraduate' | 'department' | 'clubActivities' | 'admissionFormat' | 'favoriteSubject' | 'wantHear' | 'problem'>
       & { selectedGender: (
         { __typename?: 'GenderNode' }
-        & Pick<GenderNode, 'genderName'>
+        & Pick<GenderNode, 'id' | 'genderName'>
       ), selectedAddress: (
         { __typename?: 'AddressNode' }
-        & Pick<AddressNode, 'addressName'>
+        & Pick<AddressNode, 'id' | 'addressName'>
       ) }
     )> }
   )> }
@@ -1246,7 +1246,14 @@ export type UpdateProfileMutation = (
     { __typename?: 'UpdateProfileMutationPayload' }
     & { profile?: Maybe<(
       { __typename?: 'ProfileNode' }
-      & Pick<ProfileNode, 'profileName' | 'profileText'>
+      & Pick<ProfileNode, 'profileName' | 'profileText' | 'schoolName' | 'age' | 'telephoneNumber' | 'isCollegeStudent' | 'undergraduate' | 'department' | 'clubActivities' | 'admissionFormat' | 'favoriteSubject' | 'wantHear' | 'problem' | 'profileImage'>
+      & { selectedGender: (
+        { __typename?: 'GenderNode' }
+        & Pick<GenderNode, 'id' | 'genderName'>
+      ), selectedAddress: (
+        { __typename?: 'AddressNode' }
+        & Pick<AddressNode, 'id' | 'addressName'>
+      ) }
     )> }
   )> }
 );
@@ -1503,10 +1510,10 @@ export type GetProfileQuery = (
       ) }
     ), selectedGender: (
       { __typename?: 'GenderNode' }
-      & Pick<GenderNode, 'id' | 'genderName'>
+      & Pick<GenderNode, 'genderName'>
     ), selectedAddress: (
       { __typename?: 'AddressNode' }
-      & Pick<AddressNode, 'id' | 'addressName'>
+      & Pick<AddressNode, 'addressName'>
     ) }
   )> }
 );
@@ -1714,9 +1721,11 @@ export const CreateProfileDocument = gql`
       wantHear
       problem
       selectedGender {
+        id
         genderName
       }
       selectedAddress {
+        id
         addressName
       }
     }
@@ -1963,6 +1972,27 @@ export const UpdateProfileDocument = gql`
     profile {
       profileName
       profileText
+      schoolName
+      age
+      telephoneNumber
+      isCollegeStudent
+      schoolName
+      selectedGender {
+        id
+        genderName
+      }
+      selectedAddress {
+        id
+        addressName
+      }
+      undergraduate
+      department
+      clubActivities
+      admissionFormat
+      favoriteSubject
+      wantHear
+      problem
+      profileImage
     }
   }
 }
@@ -2437,11 +2467,9 @@ export const GetProfileDocument = gql`
       }
     }
     selectedGender {
-      id
       genderName
     }
     selectedAddress {
-      id
       addressName
     }
   }

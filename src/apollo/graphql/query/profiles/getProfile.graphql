@@ -46,11 +46,9 @@ query GetProfile($profileId: ID!) {
       }
     }
     selectedGender {
-      id
       genderName
     }
     selectedAddress {
-      id
       addressName
     }
   }

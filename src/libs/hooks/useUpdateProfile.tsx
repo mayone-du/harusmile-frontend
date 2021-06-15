@@ -59,10 +59,10 @@ export const useProfileUpdate = () => {
 
   // 住んでる県と性別のselectタグ用イベントハンドラ
   const handleAddressBlur = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setInputLoginUserData({ ...inputLoginUserData, addressName: e.target.value });
+    setInputLoginUserData({ ...inputLoginUserData, addressId: e.target.value });
   };
   const handleGenderBlur = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setInputLoginUserData({ ...inputLoginUserData, genderName: e.target.value });
+    setInputLoginUserData({ ...inputLoginUserData, genderId: e.target.value });
   };
   // プロフ画像のイベントハンドラ
   const handleProfileImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -87,8 +87,8 @@ export const useProfileUpdate = () => {
               schoolName: inputLoginUserData.schoolName,
               age: inputLoginUserData.age,
               telephoneNumber: inputLoginUserData.telephoneNumber,
-              selectedGender: inputLoginUserData.genderName,
-              selectedAddress: inputLoginUserData.addressName,
+              selectedGender: inputLoginUserData.genderId,
+              selectedAddress: inputLoginUserData.addressId,
               undergraduate: inputLoginUserData.undergraduate,
               department: inputLoginUserData.department,
               clubActivities: inputLoginUserData.clubActivities,
@@ -99,7 +99,44 @@ export const useProfileUpdate = () => {
               profileImage: profileImageFile,
             },
           });
-          alert("Success! : " + data?.createProfile?.profile?.profileName);
+          data?.createProfile?.profile &&
+            loginUserVar({
+              ...loginUserData,
+              profileName: data.createProfile.profile.profileName,
+              profileText: data.createProfile.profile.profileText,
+              isCollegeStudent: data.createProfile.profile.isCollegeStudent,
+              schoolName: data.createProfile.profile.schoolName,
+              age: data.createProfile.profile.age ? data.createProfile.profile.age : 0,
+              telephoneNumber: data.createProfile.profile.telephoneNumber,
+              genderId: data.createProfile.profile.selectedGender.id,
+              genderName: data.createProfile.profile.selectedGender.genderName,
+              addressId: data.createProfile.profile.selectedAddress.id,
+              addressName: data.createProfile.profile.selectedAddress.addressName,
+              undergraduate: data.createProfile.profile.undergraduate
+                ? data.createProfile.profile.undergraduate
+                : "",
+              department: data.createProfile.profile.department
+                ? data.createProfile.profile.department
+                : "",
+              clubActivities: data.createProfile.profile.clubActivities
+                ? data.createProfile.profile.clubActivities
+                : "",
+              admissionFormat: data.createProfile.profile.admissionFormat
+                ? data.createProfile.profile.admissionFormat
+                : "",
+              favoriteSubject: data.createProfile.profile.favoriteSubject
+                ? data.createProfile.profile.favoriteSubject
+                : "",
+              wantHear: data.createProfile.profile.wantHear
+                ? data.createProfile.profile.wantHear
+                : "",
+              problem: data.createProfile.profile.problem ? data.createProfile.profile.problem : "",
+              profileImage: data.createProfile.profile.profileImage
+                ? data.createProfile.profile.profileImage
+                : "",
+            });
+          alert("プロフィールの更新が完了しました。");
+
           // TODO: ログインユーザーのステートreactiveVarの更新;
         } catch (error) {
           alert(error);
@@ -127,7 +164,43 @@ export const useProfileUpdate = () => {
             profileImage: profileImageFile,
           },
         });
-        alert("update success! : " + data?.updateProfile?.profile?.profileName);
+        data?.updateProfile?.profile &&
+          loginUserVar({
+            ...loginUserData,
+            profileName: data.updateProfile.profile.profileName,
+            profileText: data.updateProfile.profile.profileText,
+            isCollegeStudent: data.updateProfile.profile.isCollegeStudent,
+            schoolName: data.updateProfile.profile.schoolName,
+            age: data.updateProfile.profile.age ? data.updateProfile.profile.age : 0,
+            telephoneNumber: data.updateProfile.profile.telephoneNumber,
+            addressId: data.updateProfile.profile.selectedAddress.id,
+            addressName: data.updateProfile.profile.selectedAddress.addressName,
+            genderName: data.updateProfile.profile.selectedGender.genderName,
+            genderId: data.updateProfile.profile.selectedGender.id,
+            undergraduate: data.updateProfile.profile.undergraduate
+              ? data.updateProfile.profile.undergraduate
+              : "",
+            department: data.updateProfile.profile.department
+              ? data.updateProfile.profile.department
+              : "",
+            clubActivities: data.updateProfile.profile.clubActivities
+              ? data.updateProfile.profile.clubActivities
+              : "",
+            admissionFormat: data.updateProfile.profile.admissionFormat
+              ? data.updateProfile.profile.admissionFormat
+              : "",
+            favoriteSubject: data.updateProfile.profile.favoriteSubject
+              ? data.updateProfile.profile.favoriteSubject
+              : "",
+            wantHear: data.updateProfile.profile.wantHear
+              ? data.updateProfile.profile.wantHear
+              : "",
+            problem: data.updateProfile.profile.problem ? data.updateProfile.profile.problem : "",
+            profileImage: data.updateProfile.profile.profileImage
+              ? data.updateProfile.profile.profileImage
+              : "",
+          });
+        alert("プロフィールの更新が完了しました。");
       }
     } catch (error) {
       alert(error);

@@ -90,7 +90,7 @@ const Settings: NextPage = () => {
                   <div className="mx-auto w-2/3 text-sm">自己紹介文</div>
                   <textarea
                     placeholder="profileText"
-                    className="block p-2 mx-auto w-2/3 border-b border-pink-500 focus:outline-none"
+                    className="block p-2 mx-auto w-2/3 border-b border-pink-500 focus:outline-none resize-none"
                     value={inputLoginUserData.profileText}
                     onChange={handleProfileTextChange}
                   ></textarea>
@@ -112,6 +112,7 @@ const Settings: NextPage = () => {
                     className="block p-2 border"
                     value={inputLoginUserData.addressId}
                     onChange={handleAddressBlur}
+                    onBlur={handleAddressBlur}
                   >
                     {allAdressesData?.allAddresses?.edges.map((address) => {
                       return (
@@ -127,6 +128,7 @@ const Settings: NextPage = () => {
                     className="block p-2 border"
                     value={inputLoginUserData.genderId}
                     onChange={handleGenderBlur}
+                    onBlur={handleGenderBlur}
                   >
                     {allGendersData?.allGenders?.edges.map((gender) => {
                       return (

@@ -41,6 +41,27 @@ mutation UpdateProfile(
     profile {
       profileName
       profileText
+      schoolName
+      age
+      telephoneNumber
+      isCollegeStudent
+      schoolName
+      selectedGender {
+        id
+        genderName
+      }
+      selectedAddress {
+        id
+        addressName
+      }
+      undergraduate
+      department
+      clubActivities
+      admissionFormat
+      favoriteSubject
+      wantHear
+      problem
+      profileImage
     }
   }
 }

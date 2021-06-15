@@ -53,9 +53,11 @@ mutation CreateProfile(
       wantHear
       problem
       selectedGender {
+        id
         genderName
       }
       selectedAddress {
+        id
         addressName
       }
     }
