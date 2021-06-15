@@ -70,7 +70,7 @@ export const SearchBox: React.VFC = () => {
                       </Link>
                     </li>
                     <li>
-                      <Link href="/profiles/college">
+                      <Link href="/profiles/collage">
                         <a>大学生のみを検索</a>
                       </Link>
                     </li>
