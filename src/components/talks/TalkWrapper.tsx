@@ -1,15 +1,30 @@
 import { useReactiveVar } from "@apollo/client";
 import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
+import Modal from "react-modal";
 import { loginUserVar } from "src/apollo/cache";
 import { useGetLoginUserJoinTalkRoomLazyQuery } from "src/apollo/schema";
 import { useCreateMessageMutation } from "src/apollo/schema";
 import { InitialTalkDetail } from "src/components/talks/InitialTalkDetail";
+import { SkeletonLoading } from "src/components/talks/SkeletonLoading";
 import { fixDateFormat } from "src/libs/fixDateFormat";
 import { useRefreshTokens } from "src/libs/hooks/useRefreshTokens";
 import { useValidateLoginUser } from "src/libs/hooks/useValidateLoginUser";
 import { MEDIAFILE_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
 
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+  overlay: {
+    background: "rgba(0, 0, 0, 0.3)",
+  },
+};
 export const TalkWrapper: React.VFC = () => {
   const cookies = parseCookies();
   const { handleRefreshToken } = useRefreshTokens();
@@ -73,15 +88,20 @@ export const TalkWrapper: React.VFC = () => {
     setInputText("");
   };
 
-  // TODO: レビューの作成
-  const handleCreateReview = () => {
-    alert("レビュー機能は現在開発中です。");
-  };
-
   useEffect(() => {
     setInputText("");
   }, [openTalkRoomId]);
 
+  // モーダル
+  // TODO: レビューの作成
+  const handleCreateReview = () => {
+    setIsOpen(true);
+  };
+  const [isModalOpen, setIsOpen] = useState(false);
+
+  const handleModalClose = () => {
+    setIsOpen(false);
+  };
   // TODO: トークルームを最新順に並べ替え (Query自体を書き直す必要ありかも？)
 
   // トーク履歴がない場合
@@ -94,28 +114,8 @@ export const TalkWrapper: React.VFC = () => {
       <aside className="block p-4 w-1/3">
         {isLoading && (
           <div>
-            <div className="py-2 px-4 mx-auto w-full border border-gray-100 shadow">
-              <div className="flex space-x-4 animate-pulse">
-                <div className="w-14 h-14 bg-gray-200 rounded-full"></div>
-                <div className="flex-1 py-1 space-y-4">
-                  <div className="w-3/4 h-4 bg-gray-200 rounded"></div>
-                  <div className="space-y-2">
-                    <div className="w-5/6 h-4 bg-gray-200 rounded"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="py-2 px-4 mx-auto w-full border border-gray-100 shadow">
-              <div className="flex space-x-4 animate-pulse">
-                <div className="w-14 h-14 bg-gray-200 rounded-full"></div>
-                <div className="flex-1 py-1 space-y-4">
-                  <div className="w-3/4 h-4 bg-gray-200 rounded"></div>
-                  <div className="space-y-2">
-                    <div className="w-5/6 h-4 bg-gray-200 rounded"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <SkeletonLoading />
+            <SkeletonLoading />
           </div>
         )}
 
@@ -198,6 +198,33 @@ export const TalkWrapper: React.VFC = () => {
                       return (
                         user?.node?.id !== loginUserData.userId && (
                           <div className="flex items-center" key={userIndex}>
+                            {/* レビューモーダル */}
+                            <Modal
+                              isOpen={isModalOpen}
+                              onRequestClose={handleModalClose}
+                              style={customStyles}
+                              contentLabel={`${user?.node?.email} Modal`}
+                            >
+                              <h4>{user?.node?.targetUser?.profileName}にレビューする</h4>
+                              <form>
+                                <input
+                                  type="text"
+                                  className="block p-2 w-full border"
+                                  placeholder="レビューを記載"
+                                />
+                                <input
+                                  type="number"
+                                  max={5}
+                                  min={1}
+                                  className="block p-2 w-full border"
+                                  placeholder="1~5で評価する"
+                                />
+                                <button className="p-2 border" type="submit">
+                                  レビューを送信
+                                </button>
+                              </form>
+                            </Modal>
+
                             {/* 相手のデータのみ表示 */}
                             {user?.node?.targetUser?.profileImage === "" ? (
                               <div className="w-10 h-10 rounded-full border">noimage</div>
