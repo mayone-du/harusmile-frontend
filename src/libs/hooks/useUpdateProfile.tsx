@@ -57,12 +57,18 @@ export const useProfileUpdate = () => {
     setInputLoginUserData({ ...inputLoginUserData, problem: e.target.value });
   };
 
-  // 住んでる県と性別のselectタグ用イベントハンドラ
+  // 住んでる県,性別,学生のselectタグ用イベントハンドラ
   const handleAddressBlur = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setInputLoginUserData({ ...inputLoginUserData, addressId: e.target.value });
   };
   const handleGenderBlur = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setInputLoginUserData({ ...inputLoginUserData, genderId: e.target.value });
+  };
+  const handleStudentBlur = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setInputLoginUserData({
+      ...inputLoginUserData,
+      isCollegeStudent: e.target.value === "true" ? true : false,
+    });
   };
   // プロフ画像のイベントハンドラ
   const handleProfileImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -224,6 +230,7 @@ export const useProfileUpdate = () => {
     handleWantHearChange,
     handleAddressBlur,
     handleGenderBlur,
+    handleStudentBlur,
     handleProfileImageChange,
     handleSubmit,
   };

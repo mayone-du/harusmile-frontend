@@ -30,6 +30,7 @@ const Settings: NextPage = () => {
     handleWantHearChange,
     handleAddressBlur,
     handleGenderBlur,
+    handleStudentBlur,
     handleProfileImageChange,
     handleSubmit,
   } = useProfileUpdate();
@@ -76,6 +77,18 @@ const Settings: NextPage = () => {
           {loginUserData.isLogin ? (
             <ul className="flex">
               <div className="w-full">
+                <li className="my-4 mx-auto w-full">
+                  <div className="mx-auto w-2/3 text-sm">高校生 or 大学生</div>
+                  <select
+                    className="block p-2 mx-auto w-2/3 border-b border-pink-500 focus:outline-none"
+                    value={inputLoginUserData.isCollegeStudent.toString()}
+                    onChange={handleStudentBlur}
+                    onBlur={handleStudentBlur}
+                  >
+                    <option value={"true"}>大学生</option>
+                    <option value={"false"}>高校生</option>
+                  </select>
+                </li>
                 <li className="my-4 mx-auto w-full">
                   <div className="mx-auto w-2/3 text-sm">ユーザーネーム</div>
                   <input
