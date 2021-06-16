@@ -19,7 +19,8 @@
     "nookies": "^2.5.2",
     "nprogress": "^0.2.0",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-modal": "^3.14.3"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.21.5",
