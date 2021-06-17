@@ -1,0 +1,9 @@
+mutation CreateReview($providerId: ID!, $reviewText: String!, $stars: Int!) {
+  createReview(input: { provider: $providerId, reviewText: $reviewText, stars: $stars }) {
+    review {
+      id
+      reviewText
+      stars
+    }
+  }
+}

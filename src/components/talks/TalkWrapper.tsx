@@ -8,23 +8,11 @@ import { useCreateMessageMutation } from "src/apollo/schema";
 import { InitialTalkDetail } from "src/components/talks/InitialTalkDetail";
 import { SkeletonLoading } from "src/components/talks/SkeletonLoading";
 import { fixDateFormat } from "src/libs/fixDateFormat";
+import { useCreateReview } from "src/libs/hooks/useCreateReview";
 import { useRefreshTokens } from "src/libs/hooks/useRefreshTokens";
 import { useValidateLoginUser } from "src/libs/hooks/useValidateLoginUser";
 import { MEDIAFILE_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
 
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-  },
-  overlay: {
-    background: "rgba(0, 0, 0, 0.3)",
-  },
-};
 export const TalkWrapper: React.VFC = () => {
   const cookies = parseCookies();
   const { handleRefreshToken } = useRefreshTokens();
@@ -94,14 +82,18 @@ export const TalkWrapper: React.VFC = () => {
 
   // モーダル
   // TODO: レビューの作成
-  const handleCreateReview = () => {
-    setIsOpen(true);
-  };
-  const [isModalOpen, setIsOpen] = useState(false);
+  const {
+    customStyles,
+    handleModalOpen,
+    handleModalClose,
+    handleCreateReview,
+    isModalOpen,
+    inputRevewText,
+    handleReviewTextChange,
+    inputStars,
+    handleStarsChange,
+  } = useCreateReview();
 
-  const handleModalClose = () => {
-    setIsOpen(false);
-  };
   // TODO: トークルームを最新順に並べ替え (Query自体を書き直す必要ありかも？)
 
   // トーク履歴がない場合
@@ -206,16 +198,26 @@ export const TalkWrapper: React.VFC = () => {
                               contentLabel={`${user?.node?.email} Modal`}
                             >
                               <h4>{user?.node?.targetUser?.profileName}にレビューする</h4>
-                              <form>
+                              <form
+                                // eslint-disable-next-line react/jsx-handler-names
+                                onSubmit={(e: React.ChangeEvent<HTMLFormElement>) => {
+                                  e.preventDefault();
+                                  return user?.node?.id && handleCreateReview(user.node.id);
+                                }}
+                              >
                                 <input
                                   type="text"
                                   className="block p-2 w-full border"
                                   placeholder="レビューを記載"
+                                  value={inputRevewText}
+                                  onChange={handleReviewTextChange}
                                 />
                                 <input
                                   type="number"
                                   max={5}
                                   min={1}
+                                  value={inputStars}
+                                  onChange={handleStarsChange}
                                   className="block p-2 w-full border"
                                   placeholder="1~5で評価する"
                                 />
@@ -245,7 +247,7 @@ export const TalkWrapper: React.VFC = () => {
                         )
                       );
                     })}
-                    <button className="block p-2 bg-yellow-500" onClick={handleCreateReview}>
+                    <button className="block p-2 bg-yellow-500" onClick={handleModalOpen}>
                       レビューを書く
                     </button>
                   </div>
