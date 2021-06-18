@@ -269,13 +269,15 @@ const Settings: NextPage = () => {
           </div>
         </form>
         {loginUserData.isLogin && (
-          <li className="flex items-center px-2 mx-4">
+          <div className="flex items-center justify-center px-2 my-10 mx-4">
             <Link href="/auth/signout">
-              <a>ログアウト</a>
+              <a className="p-2 border rounded-sm ">ログアウト</a>
             </Link>
-          </li>
+          </div>
         )}
-        <ThemeChanger />
+        <div className="py-6">
+          <ThemeChanger />
+        </div>
       </Layout>
     </div>
   );

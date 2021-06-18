@@ -10,11 +10,11 @@ export const ThemeChanger = () => {
   };
   return (
     <div>
-      <div>
-        <button className="border" onClick={handleLight}>
+      <div className="flex items-center justify-center">
+        <button className="border block p-2 rounded-sm" onClick={handleLight}>
           Light
         </button>
-        <button className="border" onClick={handleDark}>
+        <button className="border block p-2 rounded-sm" onClick={handleDark}>
           Dark
         </button>
       </div>

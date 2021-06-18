@@ -93,7 +93,6 @@ export const TalkWrapper: React.VFC = () => {
     inputStars,
     handleStarsChange,
   } = useCreateReview();
-
   // TODO: トークルームを最新順に並べ替え (Query自体を書き直す必要ありかも？)
 
   // トーク履歴がない場合
@@ -102,7 +101,7 @@ export const TalkWrapper: React.VFC = () => {
   }
 
   return (
-    <div className="flex">
+    <div className="md:flex">
       <aside className="block p-4 w-1/3">
         {isLoading && (
           <div>
@@ -140,10 +139,10 @@ export const TalkWrapper: React.VFC = () => {
                             ) : (
                               <div className="w-14 h-14 rounded-full border">img</div>
                             )}
-                            <div>
+                            <div className="px-4 text-left">
                               {/* 相手のプロフィールが設定されていなければemailを返す */}
 
-                              <div className="px-4">
+                              <div>
                                 {user?.node?.targetUser?.profileName
                                   ? user.node.targetUser.profileName
                                   : user?.node?.id !== loginUserData.userId && user?.node?.email}
@@ -153,6 +152,8 @@ export const TalkWrapper: React.VFC = () => {
                                 {talkRooms.node?.talkingRoom.edges
                                   .slice(-1)[0]
                                   ?.node?.text.slice(0, 10)}
+                                {talkRooms.node?.talkingRoom.edges.length === 0 &&
+                                  "トークを始めましょう"}
 
                                 {/* TODO: type narrowing */}
                                 {talkRooms.node?.talkingRoom.edges.slice(-1)[0]?.node?.text
@@ -196,40 +197,59 @@ export const TalkWrapper: React.VFC = () => {
                               onRequestClose={handleModalClose}
                               style={customStyles}
                               contentLabel={`${user?.node?.email} Modal`}
+                              ariaHideApp={false}
                             >
-                              <h4>{user?.node?.targetUser?.profileName}にレビューする</h4>
-                              <form
-                                // eslint-disable-next-line react/jsx-handler-names
-                                onSubmit={(e: React.ChangeEvent<HTMLFormElement>) => {
-                                  e.preventDefault();
-                                  return user?.node?.id && handleCreateReview(user.node.id);
-                                }}
-                              >
-                                <input
-                                  type="text"
-                                  className="block p-2 w-full border"
-                                  placeholder="レビューを記載"
-                                  value={inputRevewText}
-                                  onChange={handleReviewTextChange}
-                                />
-                                <input
-                                  type="number"
-                                  max={5}
-                                  min={1}
-                                  value={inputStars}
-                                  onChange={handleStarsChange}
-                                  className="block p-2 w-full border"
-                                  placeholder="1~5で評価する"
-                                />
-                                <button className="p-2 border" type="submit">
-                                  レビューを送信
-                                </button>
-                              </form>
+                              <div className="py-2 px-12 pb-6 w-96">
+                                <h4 className="py-2 text-lg font-bold">
+                                  {user?.node?.targetUser?.profileName}にレビューする
+                                </h4>
+                                <form
+                                  className="block"
+                                  // eslint-disable-next-line react/jsx-handler-names
+                                  onSubmit={(e: React.ChangeEvent<HTMLFormElement>) => {
+                                    e.preventDefault();
+                                    return user?.node?.id && handleCreateReview(user.node.id);
+                                  }}
+                                >
+                                  <input
+                                    type="text"
+                                    className="block p-2 w-full border"
+                                    placeholder="レビューを記載"
+                                    value={inputRevewText}
+                                    onChange={handleReviewTextChange}
+                                  />
+                                  <input
+                                    type="number"
+                                    max={5}
+                                    min={1}
+                                    value={inputStars}
+                                    onChange={handleStarsChange}
+                                    className="block p-2 w-full border"
+                                    placeholder="1~5で評価する"
+                                  />
+                                  <button className="block p-2 mx-auto mt-4 border" type="submit">
+                                    レビューを送信
+                                  </button>
+                                </form>
+                              </div>
                             </Modal>
 
                             {/* 相手のデータのみ表示 */}
                             {user?.node?.targetUser?.profileImage === "" ? (
-                              <div className="w-10 h-10 rounded-full border">noimage</div>
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="w-10 h-10"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                                />
+                              </svg>
                             ) : (
                               user?.node?.targetUser?.profileImage !== null && (
                                 <img
@@ -239,15 +259,20 @@ export const TalkWrapper: React.VFC = () => {
                                 />
                               )
                             )}
-                            <div className="mx-4">
-                              <p className="text-lg">{user?.node?.targetUser?.profileName}</p>
+                            <div className="px-6">
+                              <p className="text-lg font-bold">
+                                {user?.node?.targetUser?.profileName}
+                              </p>
                               <p>{user?.node?.targetUser?.schoolName}</p>
                             </div>
                           </div>
                         )
                       );
                     })}
-                    <button className="block p-2 bg-yellow-500" onClick={handleModalOpen}>
+                    <button
+                      className="block p-2 text-white bg-yellow-500"
+                      onClick={handleModalOpen}
+                    >
                       レビューを書く
                     </button>
                   </div>
@@ -256,7 +281,7 @@ export const TalkWrapper: React.VFC = () => {
                     <div>
                       <ul>
                         {talkRoom.node.talkingRoom.edges.length === 0 && (
-                          <p>トークを開始しましょう</p>
+                          <p className="py-4 text-center">トークを開始しましょう</p>
                         )}
                         {talkRoom.node.talkingRoom.edges.map((message, messageIndex) => {
                           return (
@@ -311,7 +336,7 @@ export const TalkWrapper: React.VFC = () => {
                 <span className="block px-2 text-lg">送信</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="mx-2 w-5 h-5 transform rotate-45"
+                  className="w-5 h-5 transform rotate-90"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -322,22 +347,6 @@ export const TalkWrapper: React.VFC = () => {
           )}
         </div>
       </div>
-
-      {/* 入力欄や送信ボタン */}
-      {/* <div className="flex items-center">
-        <input
-          type="text"
-          className="block p-2 border border-black"
-          placeholder="メッセージを入力"
-          value={inputText}
-          onChange={handleInputChange}
-        />
-        <button className="block py-2 px-4 bg-pink-400" onClick={handleSubmit}>
-          送信
-        </button>
-      </div> */}
-      {/* </div> */}
     </div>
-    // </div>
   );
 };

@@ -18,7 +18,7 @@ export const useCreateReview = () => {
   };
   const [isModalOpen, setIsOpen] = useState(false);
   const [inputRevewText, setInputRevewText] = useState("");
-  const [inputStars, setInputStars] = useState(0);
+  const [inputStars, setInputStars] = useState("");
 
   const [createReviewMutation] = useCreateReviewMutation();
 
@@ -33,23 +33,27 @@ export const useCreateReview = () => {
     setInputRevewText(e.target.value);
   };
   const handleStarsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputStars(parseFloat(e.target.value));
+    setInputStars(e.target.value);
   };
 
   // レビュー作成
   const handleCreateReview = async (providerId: string) => {
-    console.log(providerId, inputRevewText, inputStars);
-
+    if (inputRevewText === "" || inputStars === "") {
+      alert("レビューを入力してください。");
+      return;
+    }
     try {
       await createReviewMutation({
         variables: {
           providerId: providerId,
           reviewText: inputRevewText,
-          stars: inputStars,
+          stars: parseFloat(inputStars),
         },
       });
+      alert("レビューが送信されました。");
       setInputRevewText("");
-      setInputStars(0);
+      setInputStars("");
+      setIsOpen(false);
     } catch (error) {
       alert(error);
     }
