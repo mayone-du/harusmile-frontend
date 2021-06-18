@@ -40,6 +40,11 @@ query GetProfile($profileId: ID!) {
             customer {
               id
               email
+              targetUser {
+                id
+                profileName
+                profileImage
+              }
             }
           }
         }

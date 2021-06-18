@@ -1522,6 +1522,10 @@ export type GetProfileQuery = (
             & { customer: (
               { __typename?: 'UserNode' }
               & Pick<UserNode, 'id' | 'email'>
+              & { targetUser?: Maybe<(
+                { __typename?: 'ProfileNode' }
+                & Pick<ProfileNode, 'id' | 'profileName' | 'profileImage'>
+              )> }
             ) }
           )> }
         )>> }
@@ -2520,6 +2524,11 @@ export const GetProfileDocument = gql`
             customer {
               id
               email
+              targetUser {
+                id
+                profileName
+                profileImage
+              }
             }
           }
         }

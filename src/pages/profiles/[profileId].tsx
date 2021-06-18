@@ -167,6 +167,27 @@ const ProfileDetail: NextPage = () => {
               </li>
             </ul>
           </section>
+          <section className="py-10">
+            <h2 className="text-center text-xl font-bold">レビュー一覧</h2>
+            {profileData.profile.targetUser.provider.edges.map((review, index) => {
+              return (
+                <div key={index} className="my-4 flex items-center border-b">
+                  <div>
+                    <img
+                      className="block border rounded-full w-20 h-20 object-cover"
+                      src={`${MEDIAFILE_API_ENDPOINT}${review?.node?.customer.targetUser?.profileImage}`}
+                      alt=""
+                    />
+                    <p>{review?.node?.customer.targetUser?.profileName}</p>
+                  </div>
+                  <div>
+                    <div>{review?.node?.reviewText}</div>
+                    <div>{review?.node?.stars.toString()}</div>
+                  </div>
+                </div>
+              );
+            })}
+          </section>
         </div>
       )}
     </Layout>
