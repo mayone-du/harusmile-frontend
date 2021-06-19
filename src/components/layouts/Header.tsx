@@ -1,8 +1,10 @@
 import { useReactiveVar } from "@apollo/client";
 import Image from "next/image";
 import Link from "next/link";
-import { memo, useCallback } from "react";
+import { memo, useCallback, useState } from "react";
+import Modal from "react-modal";
 import { loginUserVar } from "src/apollo/cache";
+import { useGetLoginUserNotificationLazyQuery } from "src/apollo/schema";
 import { MEDIAFILE_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
 
 type Props = {
@@ -10,9 +12,36 @@ type Props = {
 };
 export const Header: React.VFC<Props> = memo((props) => {
   const loginUserData = useReactiveVar(loginUserVar);
-  const handleBellClick = useCallback(() => {
-    alert("通知は現在開発中です");
-  }, []);
+
+  // 通知用モーダル
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const handleNotificationClose = () => {
+    setIsNotificationOpen(false);
+  };
+
+  // モーダル用style
+  const customStyles = {
+    content: {
+      top: "8.2%",
+      left: "auto",
+      right: "8%",
+      bottom: "auto",
+      width: "300px",
+    },
+    overlay: {
+      background: "rgba(255, 255, 255, 0.2)",
+    },
+  };
+
+  const [getNotifications, { data: notificationsData, loading: isLoading }] =
+    useGetLoginUserNotificationLazyQuery({
+      fetchPolicy: "network-only",
+    });
+
+  const handleBellClick = () => {
+    getNotifications();
+    setIsNotificationOpen(true);
+  };
   return (
     <div>
       <header className="px-2 md:px-32 border-b shadow-md">
@@ -104,6 +133,45 @@ export const Header: React.VFC<Props> = memo((props) => {
                       />
                     </svg>
                   </button>
+                  {/* 通知用モーダル */}
+                  <Modal
+                    isOpen={isNotificationOpen}
+                    onRequestClose={handleNotificationClose}
+                    style={customStyles}
+                    contentLabel={`Notification Modal`}
+                    ariaHideApp={false}
+                  >
+                    {/* 通知を表示 */}
+                    <ul>
+                      {<li className="animate-pulse bg-gray-200 w-full h-10"></li>}
+                      {/* {isLoading && <li className="animate-pulse bg-gray-200"></li>} */}
+                      {notificationsData?.loginUserNotifications?.edges.map(
+                        (notification, index) => {
+                          return (
+                            <li
+                              key={index}
+                              className="border-b border-gray-300 flex h-10 px-2 items-center"
+                            >
+                              {notification?.node?.notificator.targetUser?.profileImage ? (
+                                <img
+                                  src={`${MEDIAFILE_API_ENDPOINT}${notification?.node?.notificator.targetUser?.profileImage}`}
+                                  alt=""
+                                  className="border rounded-full object-cover w-8 h-8"
+                                />
+                              ) : (
+                                <div className="border rounded-full object-cover w-8 h-8">none</div>
+                              )}
+
+                              <p>
+                                {notification?.node?.notificator.targetUser?.profileName}さんが
+                                {notification?.node?.notificationType}
+                              </p>
+                            </li>
+                          );
+                        },
+                      )}
+                    </ul>
+                  </Modal>
                 </li>
               </>
             ) : (

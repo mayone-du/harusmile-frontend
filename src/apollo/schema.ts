@@ -101,6 +101,18 @@ export type CreateMessageMutationPayload = {
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
+export type CreateNotificationMutationInput = {
+  receiver: Scalars['ID'];
+  notificationType: Scalars['String'];
+  clientMutationId?: Maybe<Scalars['String']>;
+};
+
+export type CreateNotificationMutationPayload = {
+  __typename?: 'CreateNotificationMutationPayload';
+  notification?: Maybe<NotificationNode>;
+  clientMutationId?: Maybe<Scalars['String']>;
+};
+
 export type CreatePostMutationInput = {
   title: Scalars['String'];
   content: Scalars['String'];
@@ -287,6 +299,8 @@ export type Mutation = {
   createTalkRoom?: Maybe<CreateTalkRoomMutationPayload>;
   createMessage?: Maybe<CreateMessageMutationPayload>;
   createReview?: Maybe<CreateReviewMutationPayload>;
+  createNotification?: Maybe<CreateNotificationMutationPayload>;
+  updateNotification?: Maybe<UpdateNotificationMutationPayload>;
   /** Obtain JSON Web Token mutation */
   tokenAuth?: Maybe<ObtainJsonWebToken>;
   refreshToken?: Maybe<Refresh>;
@@ -339,6 +353,16 @@ export type MutationCreateReviewArgs = {
 };
 
 
+export type MutationCreateNotificationArgs = {
+  input: CreateNotificationMutationInput;
+};
+
+
+export type MutationUpdateNotificationArgs = {
+  input: UpdateNotificationMutationInput;
+};
+
+
 export type MutationTokenAuthArgs = {
   email: Scalars['String'];
   password: Scalars['String'];
@@ -358,6 +382,33 @@ export type MutationRevokeTokenArgs = {
 export type Node = {
   /** The ID of the object. */
   id: Scalars['ID'];
+};
+
+export type NotificationNode = Node & {
+  __typename?: 'NotificationNode';
+  /** The ID of the object. */
+  id: Scalars['ID'];
+  isChecked: Scalars['Boolean'];
+  notificator: UserNode;
+  receiver: UserNode;
+  notificationType: Scalars['String'];
+};
+
+export type NotificationNodeConnection = {
+  __typename?: 'NotificationNodeConnection';
+  /** Pagination data for this connection. */
+  pageInfo: PageInfo;
+  /** Contains the nodes in this connection. */
+  edges: Array<Maybe<NotificationNodeEdge>>;
+};
+
+/** A Relay edge containing a `NotificationNode` and its cursor. */
+export type NotificationNodeEdge = {
+  __typename?: 'NotificationNodeEdge';
+  /** The item at the end of the edge */
+  node?: Maybe<NotificationNode>;
+  /** A cursor for use in pagination */
+  cursor: Scalars['String'];
 };
 
 /** Obtain JSON Web Token mutation */
@@ -502,6 +553,8 @@ export type Query = {
   message?: Maybe<MessageNode>;
   allMessages?: Maybe<MessageNodeConnection>;
   loginUserMessages?: Maybe<MessageNodeConnection>;
+  notification?: Maybe<NotificationNode>;
+  loginUserNotifications?: Maybe<NotificationNodeConnection>;
 };
 
 
@@ -768,6 +821,22 @@ export type QueryLoginUserMessagesArgs = {
   talkingRoom_JoinUsers_Icontains?: Maybe<Array<Maybe<Scalars['ID']>>>;
 };
 
+
+export type QueryNotificationArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryLoginUserNotificationsArgs = {
+  offset?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  after?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  isChecked?: Maybe<Scalars['Boolean']>;
+  receiver?: Maybe<Scalars['ID']>;
+};
+
 export type Refresh = {
   __typename?: 'Refresh';
   payload: Scalars['GenericScalar'];
@@ -916,6 +985,18 @@ export type TalkRoomNodeEdge = {
   cursor: Scalars['String'];
 };
 
+export type UpdateNotificationMutationInput = {
+  id: Scalars['ID'];
+  isChecked: Scalars['Boolean'];
+  clientMutationId?: Maybe<Scalars['String']>;
+};
+
+export type UpdateNotificationMutationPayload = {
+  __typename?: 'UpdateNotificationMutationPayload';
+  notification?: Maybe<NotificationNode>;
+  clientMutationId?: Maybe<Scalars['String']>;
+};
+
 export type UpdatePostMutationInput = {
   id: Scalars['ID'];
   title?: Maybe<Scalars['String']>;
@@ -981,6 +1062,8 @@ export type UserNode = Node & {
   postedUser: PostNodeConnection;
   provider: ReviewNodeConnection;
   customer: ReviewNodeConnection;
+  notificator: NotificationNodeConnection;
+  receiver: NotificationNodeConnection;
 };
 
 
@@ -1077,6 +1160,28 @@ export type UserNodeCustomerArgs = {
   reviewText?: Maybe<Scalars['String']>;
   reviewText_Icontains?: Maybe<Scalars['String']>;
   customerId?: Maybe<Scalars['ID']>;
+};
+
+
+export type UserNodeNotificatorArgs = {
+  offset?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  after?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  isChecked?: Maybe<Scalars['Boolean']>;
+  receiver?: Maybe<Scalars['ID']>;
+};
+
+
+export type UserNodeReceiverArgs = {
+  offset?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  after?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  isChecked?: Maybe<Scalars['Boolean']>;
+  receiver?: Maybe<Scalars['ID']>;
 };
 
 export type UserNodeConnection = {
@@ -1386,6 +1491,31 @@ export type GetLoginUserQuery = (
         )>> }
       ) }
     )> }
+  )> }
+);
+
+export type GetLoginUserNotificationQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetLoginUserNotificationQuery = (
+  { __typename?: 'Query' }
+  & { loginUserNotifications?: Maybe<(
+    { __typename?: 'NotificationNodeConnection' }
+    & { edges: Array<Maybe<(
+      { __typename?: 'NotificationNodeEdge' }
+      & { node?: Maybe<(
+        { __typename?: 'NotificationNode' }
+        & Pick<NotificationNode, 'id' | 'notificationType' | 'isChecked'>
+        & { notificator: (
+          { __typename?: 'UserNode' }
+          & Pick<UserNode, 'id'>
+          & { targetUser?: Maybe<(
+            { __typename?: 'ProfileNode' }
+            & Pick<ProfileNode, 'profileName' | 'profileImage'>
+          )> }
+        ) }
+      )> }
+    )>> }
   )> }
 );
 
@@ -2315,6 +2445,53 @@ export function useGetLoginUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type GetLoginUserQueryHookResult = ReturnType<typeof useGetLoginUserQuery>;
 export type GetLoginUserLazyQueryHookResult = ReturnType<typeof useGetLoginUserLazyQuery>;
 export type GetLoginUserQueryResult = Apollo.QueryResult<GetLoginUserQuery, GetLoginUserQueryVariables>;
+export const GetLoginUserNotificationDocument = gql`
+    query GetLoginUserNotification {
+  loginUserNotifications {
+    edges {
+      node {
+        id
+        notificationType
+        isChecked
+        notificator {
+          id
+          targetUser {
+            profileName
+            profileImage
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetLoginUserNotificationQuery__
+ *
+ * To run a query within a React component, call `useGetLoginUserNotificationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLoginUserNotificationQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLoginUserNotificationQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetLoginUserNotificationQuery(baseOptions?: Apollo.QueryHookOptions<GetLoginUserNotificationQuery, GetLoginUserNotificationQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetLoginUserNotificationQuery, GetLoginUserNotificationQueryVariables>(GetLoginUserNotificationDocument, options);
+      }
+export function useGetLoginUserNotificationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLoginUserNotificationQuery, GetLoginUserNotificationQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetLoginUserNotificationQuery, GetLoginUserNotificationQueryVariables>(GetLoginUserNotificationDocument, options);
+        }
+export type GetLoginUserNotificationQueryHookResult = ReturnType<typeof useGetLoginUserNotificationQuery>;
+export type GetLoginUserNotificationLazyQueryHookResult = ReturnType<typeof useGetLoginUserNotificationLazyQuery>;
+export type GetLoginUserNotificationQueryResult = Apollo.QueryResult<GetLoginUserNotificationQuery, GetLoginUserNotificationQueryVariables>;
 export const GetLoginUserReviewsDocument = gql`
     query GetLoginUserReviews {
   loginUserReviews {

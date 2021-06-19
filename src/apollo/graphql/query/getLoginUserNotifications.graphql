@@ -1,0 +1,18 @@
+query GetLoginUserNotification {
+  loginUserNotifications {
+    edges {
+      node {
+        id
+        notificationType
+        isChecked
+        notificator {
+          id
+          targetUser {
+            profileName
+            profileImage
+          }
+        }
+      }
+    }
+  }
+}
