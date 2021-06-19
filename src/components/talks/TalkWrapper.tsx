@@ -3,15 +3,18 @@ import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { loginUserVar } from "src/apollo/cache";
-import { useGetLoginUserJoinTalkRoomLazyQuery } from "src/apollo/schema";
+import {
+  // useCreateNotificationMutation,
+  useGetLoginUserJoinTalkRoomLazyQuery,
+} from "src/apollo/schema";
 import { useCreateMessageMutation } from "src/apollo/schema";
+import { ProfileImageIcon } from "src/components/ProfileImageIcon";
 import { InitialTalkDetail } from "src/components/talks/InitialTalkDetail";
 import { SkeletonLoading } from "src/components/talks/SkeletonLoading";
 import { fixDateFormat } from "src/libs/fixDateFormat";
 import { useCreateReview } from "src/libs/hooks/useCreateReview";
 import { useRefreshTokens } from "src/libs/hooks/useRefreshTokens";
 import { useValidateLoginUser } from "src/libs/hooks/useValidateLoginUser";
-import { MEDIAFILE_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
 
 export const TalkWrapper: React.VFC = () => {
   const cookies = parseCookies();
@@ -47,7 +50,7 @@ export const TalkWrapper: React.VFC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // どのトークルームを開くかのstate
+  // どのトークルームを開くかのstate ボタンのIDに付与する相手のユーザーID
   const [openTalkRoomId, setOpenTalkRoomId] = useState("");
   const handleOpenTalkRoomChange = (e: React.MouseEvent<HTMLButtonElement>) => {
     setOpenTalkRoomId(e.currentTarget.id);
@@ -59,6 +62,8 @@ export const TalkWrapper: React.VFC = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputText(e.target.value);
   };
+  // 通知作成
+  // const [createNotificationMutation] = useCreateNotificationMutation();
 
   const handleSubmit = async () => {
     // TODO: 入力欄の検証
@@ -73,6 +78,10 @@ export const TalkWrapper: React.VFC = () => {
         text: inputText,
       },
     });
+    // await createNotificationMutation({
+    //   variables: {
+    //   recieverId:
+    // }})
     setInputText("");
   };
 
@@ -130,15 +139,11 @@ export const TalkWrapper: React.VFC = () => {
                         // 自分を除外したプロフィール
                         user?.node?.id !== loginUserData.userId && (
                           <div className="flex items-center" key={user?.node?.id}>
-                            {user?.node?.targetUser?.profileImage ? (
-                              <img
-                                src={`${MEDIAFILE_API_ENDPOINT}${user.node.targetUser.profileImage}`}
-                                alt=""
-                                className="block w-14 h-14 rounded-full border"
-                              />
-                            ) : (
-                              <div className="w-14 h-14 rounded-full border">img</div>
-                            )}
+                            <ProfileImageIcon
+                              className="block w-14 h-14 rounded-full border"
+                              profileImagePath={user?.node?.targetUser?.profileImage}
+                            />
+
                             <div className="px-4 text-left">
                               {/* 相手のプロフィールが設定されていなければemailを返す */}
 
@@ -189,6 +194,7 @@ export const TalkWrapper: React.VFC = () => {
 
                     {talkRoom.node.joinUsers.edges.map((user, userIndex) => {
                       return (
+                        // 相手のプロフィールのみに絞る
                         user?.node?.id !== loginUserData.userId && (
                           <div className="flex items-center" key={userIndex}>
                             {/* レビューモーダル */}
@@ -234,31 +240,10 @@ export const TalkWrapper: React.VFC = () => {
                               </div>
                             </Modal>
 
-                            {/* 相手のデータのみ表示 */}
-                            {user?.node?.targetUser?.profileImage === "" ? (
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="w-10 h-10"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                                />
-                              </svg>
-                            ) : (
-                              user?.node?.targetUser?.profileImage !== null && (
-                                <img
-                                  src={`${MEDIAFILE_API_ENDPOINT}${user?.node?.targetUser?.profileImage}`}
-                                  alt=""
-                                  className="block w-10 h-10 rounded-full border"
-                                />
-                              )
-                            )}
+                            <ProfileImageIcon
+                              className="w-10 h-10"
+                              profileImagePath={user?.node?.targetUser?.profileImage}
+                            />
                             <div className="px-6">
                               <p className="text-lg font-bold">
                                 {user?.node?.targetUser?.profileName}
@@ -283,6 +268,7 @@ export const TalkWrapper: React.VFC = () => {
                         {talkRoom.node.talkingRoom.edges.length === 0 && (
                           <p className="py-4 text-center">トークを開始しましょう</p>
                         )}
+                        {/* トークメッセージ */}
                         {talkRoom.node.talkingRoom.edges.map((message, messageIndex) => {
                           return (
                             <li

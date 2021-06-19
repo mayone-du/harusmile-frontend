@@ -1,0 +1,15 @@
+mutation CreateNotification($recieverId: ID!, $notificationType: String!) {
+  createNotification(input: { receiver: $recieverId, notificationType: $notificationType }) {
+    notification {
+      id
+      isChecked
+      notificator {
+        id
+        targetUser {
+          profileName
+        }
+      }
+      notificationType
+    }
+  }
+}

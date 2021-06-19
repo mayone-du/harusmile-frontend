@@ -1218,6 +1218,31 @@ export type CreateMessageMutation = (
   )> }
 );
 
+export type CreateNotificationMutationVariables = Exact<{
+  recieverId: Scalars['ID'];
+  notificationType: Scalars['String'];
+}>;
+
+
+export type CreateNotificationMutation = (
+  { __typename?: 'Mutation' }
+  & { createNotification?: Maybe<(
+    { __typename?: 'CreateNotificationMutationPayload' }
+    & { notification?: Maybe<(
+      { __typename?: 'NotificationNode' }
+      & Pick<NotificationNode, 'id' | 'isChecked' | 'notificationType'>
+      & { notificator: (
+        { __typename?: 'UserNode' }
+        & Pick<UserNode, 'id'>
+        & { targetUser?: Maybe<(
+          { __typename?: 'ProfileNode' }
+          & Pick<ProfileNode, 'profileName'>
+        )> }
+      ) }
+    )> }
+  )> }
+);
+
 export type CreateProfileMutationVariables = Exact<{
   profileName: Scalars['String'];
   profileText?: Maybe<Scalars['String']>;
@@ -1879,6 +1904,52 @@ export function useCreateMessageMutation(baseOptions?: Apollo.MutationHookOption
 export type CreateMessageMutationHookResult = ReturnType<typeof useCreateMessageMutation>;
 export type CreateMessageMutationResult = Apollo.MutationResult<CreateMessageMutation>;
 export type CreateMessageMutationOptions = Apollo.BaseMutationOptions<CreateMessageMutation, CreateMessageMutationVariables>;
+export const CreateNotificationDocument = gql`
+    mutation CreateNotification($recieverId: ID!, $notificationType: String!) {
+  createNotification(
+    input: {receiver: $recieverId, notificationType: $notificationType}
+  ) {
+    notification {
+      id
+      isChecked
+      notificator {
+        id
+        targetUser {
+          profileName
+        }
+      }
+      notificationType
+    }
+  }
+}
+    `;
+export type CreateNotificationMutationFn = Apollo.MutationFunction<CreateNotificationMutation, CreateNotificationMutationVariables>;
+
+/**
+ * __useCreateNotificationMutation__
+ *
+ * To run a mutation, you first call `useCreateNotificationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateNotificationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createNotificationMutation, { data, loading, error }] = useCreateNotificationMutation({
+ *   variables: {
+ *      recieverId: // value for 'recieverId'
+ *      notificationType: // value for 'notificationType'
+ *   },
+ * });
+ */
+export function useCreateNotificationMutation(baseOptions?: Apollo.MutationHookOptions<CreateNotificationMutation, CreateNotificationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateNotificationMutation, CreateNotificationMutationVariables>(CreateNotificationDocument, options);
+      }
+export type CreateNotificationMutationHookResult = ReturnType<typeof useCreateNotificationMutation>;
+export type CreateNotificationMutationResult = Apollo.MutationResult<CreateNotificationMutation>;
+export type CreateNotificationMutationOptions = Apollo.BaseMutationOptions<CreateNotificationMutation, CreateNotificationMutationVariables>;
 export const CreateProfileDocument = gql`
     mutation CreateProfile($profileName: String!, $profileText: String, $isCollegeStudent: Boolean!, $schoolName: String!, $age: Int, $selectedGender: ID!, $selectedAddress: ID!, $telephoneNumber: String!, $wantHear: String, $problem: String, $undergraduate: String, $department: String, $clubActivities: String, $admissionFormat: String, $favoriteSubject: String, $profileImage: Upload) {
   createProfile(

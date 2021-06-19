@@ -6,6 +6,7 @@ import {
   useGetLoginUserReviewsQuery,
 } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
+import { ProfileImageIcon } from "src/components/ProfileImageIcon";
 import { ThemeChanger } from "src/components/ThemeChanger";
 import { useSetLoginUserData } from "src/libs/hooks/useSetLoginUserData";
 import { useProfileUpdate } from "src/libs/hooks/useUpdateProfile";
@@ -50,15 +51,10 @@ const Settings: NextPage = () => {
           <div className="flex items-center p-4 border shadow-md">
             {/* 左 */}
             <div className="flex items-center w-1/2 border-r">
-              {loginUserData.profileImage ? (
-                <img
-                  src={`${MEDIAFILE_API_ENDPOINT}${loginUserData.profileImage}`}
-                  alt="Profile"
-                  className="block object-cover mx-6 w-32 h-32 rounded-full border"
-                />
-              ) : (
-                <div className="mx-6 w-32 h-32 rounded-full border">null</div>
-              )}
+              <ProfileImageIcon
+                className="block object-cover mx-6 w-32 h-32 rounded-full border"
+                profileImagePath={loginUserData.profileImage}
+              />
 
               <div>
                 <p>{loginUserData.email}</p>

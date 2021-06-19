@@ -1,6 +1,6 @@
 import Link from "next/link";
+import { ProfileImageIcon } from "src/components/ProfileImageIcon";
 import { Stars } from "src/components/profiles/Stars";
-import { MEDIAFILE_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
 
 type Props = {
   profileId: string;
@@ -23,30 +23,10 @@ export const Profile: React.VFC<Props> = (props) => {
     <li className="p-4 md:w-1/3">
       <div className="p-6 border border-t-8 border-pink-200">
         <div className="flex items-center w-full">
-          {/* プロフ画像の有無によって出し分け */}
-          {props.profileImage !== "" ? (
-            <img
-              src={`${MEDIAFILE_API_ENDPOINT}${props.profileImage}`}
-              className="block object-cover w-14 h-14 rounded-full border border-gray-500"
-              alt="Profile"
-            />
-          ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="block w-14 h-14"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-          )}
-
+          <ProfileImageIcon
+            className="block object-cover w-14 h-14 rounded-full border border-gray-500"
+            profileImagePath={props.profileImage}
+          />
           {/* 名前、歳、学校 */}
           <div className="pr-12 pl-6 w-full">
             <div className="flex justify-between items-center">

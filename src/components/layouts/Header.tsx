@@ -1,13 +1,14 @@
 import { useReactiveVar } from "@apollo/client";
 import Image from "next/image";
 import Link from "next/link";
-import { memo, useCallback, useState } from "react";
+import { memo, useState } from "react";
 import Modal from "react-modal";
 import { loginUserVar } from "src/apollo/cache";
 import {
   useGetLoginUserNotificationQuery,
   useUpdateNotificationsMutation,
 } from "src/apollo/schema";
+import { ProfileImageIcon } from "src/components/ProfileImageIcon";
 import { fixDateFormat } from "src/libs/fixDateFormat";
 import { MEDIAFILE_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
 
@@ -105,31 +106,10 @@ export const Header: React.VFC<Props> = memo((props) => {
                 <li className="flex items-center px-2 mx-4">
                   <Link href="/settings">
                     <a>
-                      {/* プロフ画像の設定の有無によって分ける */}
-                      {props.profileImagePath ? (
-                        <div>
-                          <img
-                            src={`${MEDIAFILE_API_ENDPOINT}${props.profileImagePath}`}
-                            alt="Profile"
-                            className="block object-cover mx-2 w-10 h-10 rounded-full border border-gray-500"
-                          />
-                        </div>
-                      ) : (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="w-10 h-10"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                          />
-                        </svg>
-                      )}
+                      <ProfileImageIcon
+                        profileImagePath={props.profileImagePath}
+                        className="block object-cover mx-2 w-10 h-10 rounded-full border border-gray-500"
+                      />
                     </a>
                   </Link>
                   <div>
@@ -156,9 +136,10 @@ export const Header: React.VFC<Props> = memo((props) => {
                       />
                     </svg>
                     {/* 通知のアニメーション */}
-                    {notificationsData?.loginUserNotifications?.edges.length !== 0 && (
-                      <div className="absolute w-2 h-2 animate-ping bg-red-500 rounded-full top-0 right-0"></div>
-                    )}
+                    {notificationsData?.loginUserNotifications &&
+                      notificationsData.loginUserNotifications.edges.length > 0 && (
+                        <div className="absolute w-2 h-2 animate-ping bg-red-500 rounded-full top-0 right-0"></div>
+                      )}
                   </button>
                   {/* 通知用モーダル */}
                   <Modal
