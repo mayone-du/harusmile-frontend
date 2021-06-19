@@ -17,12 +17,6 @@ type Props = {
 export const Header: React.VFC<Props> = memo((props) => {
   const loginUserData = useReactiveVar(loginUserVar);
 
-  // 通知用モーダル
-  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
-  const handleNotificationClose = () => {
-    setIsNotificationOpen(false);
-  };
-
   // モーダル用style
   const customStyles = {
     content: {
@@ -43,10 +37,16 @@ export const Header: React.VFC<Props> = memo((props) => {
   });
   const [updateNotifications] = useUpdateNotificationsMutation();
 
-  // TODO: tokenの検証、通知確認後の処理
-  const handleBellClick = async () => {
-    setIsNotificationOpen(true);
+  // 通知用モーダル
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
+  // TODO: tokenの検証、通知確認後の処理
+  const handleBellClick = () => {
+    setIsNotificationOpen(true);
+  };
+
+  const handleNotificationClose = async () => {
+    setIsNotificationOpen(false);
     // 未読の通知があれば更新する
     if (notificationsData?.loginUserNotifications === undefined) return;
     if (notificationsData.loginUserNotifications?.edges.length === 0) return;
