@@ -1,10 +1,11 @@
 query GetLoginUserNotification {
-  loginUserNotifications {
+  loginUserNotifications(isChecked: false) {
     edges {
       node {
         id
         notificationType
         isChecked
+        createdAt
         notificator {
           id
           targetUser {

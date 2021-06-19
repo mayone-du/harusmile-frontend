@@ -4,7 +4,11 @@ import Link from "next/link";
 import { memo, useCallback, useState } from "react";
 import Modal from "react-modal";
 import { loginUserVar } from "src/apollo/cache";
-import { useGetLoginUserNotificationLazyQuery } from "src/apollo/schema";
+import {
+  useGetLoginUserNotificationQuery,
+  useUpdateNotificationsMutation,
+} from "src/apollo/schema";
+import { fixDateFormat } from "src/libs/fixDateFormat";
 import { MEDIAFILE_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
 
 type Props = {
@@ -33,15 +37,34 @@ export const Header: React.VFC<Props> = memo((props) => {
     },
   };
 
-  const [getNotifications, { data: notificationsData, loading: isLoading }] =
-    useGetLoginUserNotificationLazyQuery({
-      fetchPolicy: "network-only",
-    });
+  const { data: notificationsData } = useGetLoginUserNotificationQuery({
+    fetchPolicy: "network-only",
+    pollInterval: 1000 * 60,
+  });
+  const [updateNotifications] = useUpdateNotificationsMutation();
 
-  const handleBellClick = () => {
-    getNotifications();
+  // TODO: tokenの検証、通知確認後の処理
+  const handleBellClick = async () => {
     setIsNotificationOpen(true);
+
+    // 未読の通知があれば更新する
+    if (notificationsData?.loginUserNotifications === undefined) return;
+    if (notificationsData.loginUserNotifications?.edges.length === 0) return;
+    try {
+      await updateNotifications({
+        variables: {
+          notificationIds: notificationsData?.loginUserNotifications
+            ? notificationsData.loginUserNotifications.edges.map((notification) => {
+                return notification?.node ? notification?.node?.id : "";
+              })
+            : "",
+        },
+      });
+    } catch (error) {
+      alert(error);
+    }
   };
+
   return (
     <div>
       <header className="px-2 md:px-32 border-b shadow-md">
@@ -117,7 +140,7 @@ export const Header: React.VFC<Props> = memo((props) => {
                   </div>
                 </li>
                 <li className="px-4 border-l-2 border-gray-300">
-                  <button className="block" onClick={handleBellClick}>
+                  <button className="block relative focus:outline-none" onClick={handleBellClick}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="block w-10 h-10"
@@ -132,6 +155,10 @@ export const Header: React.VFC<Props> = memo((props) => {
                         d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
                       />
                     </svg>
+                    {/* 通知のアニメーション */}
+                    {notificationsData?.loginUserNotifications?.edges.length !== 0 && (
+                      <div className="absolute w-2 h-2 animate-ping bg-red-500 rounded-full top-0 right-0"></div>
+                    )}
                   </button>
                   {/* 通知用モーダル */}
                   <Modal
@@ -143,8 +170,12 @@ export const Header: React.VFC<Props> = memo((props) => {
                   >
                     {/* 通知を表示 */}
                     <ul>
-                      {<li className="animate-pulse bg-gray-200 w-full h-10"></li>}
-                      {/* {isLoading && <li className="animate-pulse bg-gray-200"></li>} */}
+                      {/* {<li className="animate-pulse bg-gray-200 w-full h-10"></li>} */}
+                      {notificationsData?.loginUserNotifications?.edges.length === 0 && (
+                        <li className="border-b border-gray-300 flex h-10 px-2 items-center">
+                          通知はありません。
+                        </li>
+                      )}
                       {notificationsData?.loginUserNotifications?.edges.map(
                         (notification, index) => {
                           return (
@@ -162,9 +193,18 @@ export const Header: React.VFC<Props> = memo((props) => {
                                 <div className="border rounded-full object-cover w-8 h-8">none</div>
                               )}
 
-                              <p>
-                                {notification?.node?.notificator.targetUser?.profileName}さんが
-                                {notification?.node?.notificationType}
+                              <p className="text-sm">
+                                <span className="font-bold">
+                                  {notification?.node?.notificator.targetUser?.profileName}
+                                </span>
+                                さんが
+                                <span className="font-bold">
+                                  {notification?.node?.notificationType}
+                                </span>
+                                をしました。
+                                <span className="text-xs text-gray-700">
+                                  {fixDateFormat(notification?.node?.createdAt)}
+                                </span>
                               </p>
                             </li>
                           );

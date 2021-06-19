@@ -300,7 +300,7 @@ export type Mutation = {
   createMessage?: Maybe<CreateMessageMutationPayload>;
   createReview?: Maybe<CreateReviewMutationPayload>;
   createNotification?: Maybe<CreateNotificationMutationPayload>;
-  updateNotification?: Maybe<UpdateNotificationMutationPayload>;
+  updateNotifications?: Maybe<UpdateNotificationsMutationPayload>;
   /** Obtain JSON Web Token mutation */
   tokenAuth?: Maybe<ObtainJsonWebToken>;
   refreshToken?: Maybe<Refresh>;
@@ -358,8 +358,8 @@ export type MutationCreateNotificationArgs = {
 };
 
 
-export type MutationUpdateNotificationArgs = {
-  input: UpdateNotificationMutationInput;
+export type MutationUpdateNotificationsArgs = {
+  input: UpdateNotificationsMutationInput;
 };
 
 
@@ -392,6 +392,7 @@ export type NotificationNode = Node & {
   notificator: UserNode;
   receiver: UserNode;
   notificationType: Scalars['String'];
+  createdAt: Scalars['DateTime'];
 };
 
 export type NotificationNodeConnection = {
@@ -985,14 +986,13 @@ export type TalkRoomNodeEdge = {
   cursor: Scalars['String'];
 };
 
-export type UpdateNotificationMutationInput = {
-  id: Scalars['ID'];
-  isChecked: Scalars['Boolean'];
+export type UpdateNotificationsMutationInput = {
+  notificationIds?: Maybe<Array<Maybe<Scalars['ID']>>>;
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
-export type UpdateNotificationMutationPayload = {
-  __typename?: 'UpdateNotificationMutationPayload';
+export type UpdateNotificationsMutationPayload = {
+  __typename?: 'UpdateNotificationsMutationPayload';
   notification?: Maybe<NotificationNode>;
   clientMutationId?: Maybe<Scalars['String']>;
 };
@@ -1359,6 +1359,22 @@ export type RevokeRefreshTokenMutation = (
   )> }
 );
 
+export type UpdateNotificationsMutationVariables = Exact<{
+  notificationIds?: Maybe<Array<Scalars['ID']> | Scalars['ID']>;
+}>;
+
+
+export type UpdateNotificationsMutation = (
+  { __typename?: 'Mutation' }
+  & { updateNotifications?: Maybe<(
+    { __typename?: 'UpdateNotificationsMutationPayload' }
+    & { notification?: Maybe<(
+      { __typename?: 'NotificationNode' }
+      & Pick<NotificationNode, 'id'>
+    )> }
+  )> }
+);
+
 export type UpdateProfileMutationVariables = Exact<{
   id: Scalars['ID'];
   profileName: Scalars['String'];
@@ -1505,7 +1521,7 @@ export type GetLoginUserNotificationQuery = (
       { __typename?: 'NotificationNodeEdge' }
       & { node?: Maybe<(
         { __typename?: 'NotificationNode' }
-        & Pick<NotificationNode, 'id' | 'notificationType' | 'isChecked'>
+        & Pick<NotificationNode, 'id' | 'notificationType' | 'isChecked' | 'createdAt'>
         & { notificator: (
           { __typename?: 'UserNode' }
           & Pick<UserNode, 'id'>
@@ -1746,35 +1762,6 @@ export type SearchProfilesQuery = (
         ), selectedAddress: (
           { __typename?: 'AddressNode' }
           & Pick<AddressNode, 'addressName'>
-        ) }
-      )> }
-    )>> }
-  )> }
-);
-
-export type GetAllTalkRoomsQueryVariables = Exact<{
-  joinUserId: Scalars['ID'];
-}>;
-
-
-export type GetAllTalkRoomsQuery = (
-  { __typename?: 'Query' }
-  & { allTalkRooms?: Maybe<(
-    { __typename?: 'TalkRoomNodeConnection' }
-    & { edges: Array<Maybe<(
-      { __typename?: 'TalkRoomNodeEdge' }
-      & { node?: Maybe<(
-        { __typename?: 'TalkRoomNode' }
-        & Pick<TalkRoomNode, 'id'>
-        & { joinUsers: (
-          { __typename?: 'UserNodeConnection' }
-          & { edges: Array<Maybe<(
-            { __typename?: 'UserNodeEdge' }
-            & { node?: Maybe<(
-              { __typename?: 'UserNode' }
-              & Pick<UserNode, 'id' | 'email'>
-            )> }
-          )>> }
         ) }
       )> }
     )>> }
@@ -2198,6 +2185,41 @@ export function useRevokeRefreshTokenMutation(baseOptions?: Apollo.MutationHookO
 export type RevokeRefreshTokenMutationHookResult = ReturnType<typeof useRevokeRefreshTokenMutation>;
 export type RevokeRefreshTokenMutationResult = Apollo.MutationResult<RevokeRefreshTokenMutation>;
 export type RevokeRefreshTokenMutationOptions = Apollo.BaseMutationOptions<RevokeRefreshTokenMutation, RevokeRefreshTokenMutationVariables>;
+export const UpdateNotificationsDocument = gql`
+    mutation UpdateNotifications($notificationIds: [ID!]) {
+  updateNotifications(input: {notificationIds: $notificationIds}) {
+    notification {
+      id
+    }
+  }
+}
+    `;
+export type UpdateNotificationsMutationFn = Apollo.MutationFunction<UpdateNotificationsMutation, UpdateNotificationsMutationVariables>;
+
+/**
+ * __useUpdateNotificationsMutation__
+ *
+ * To run a mutation, you first call `useUpdateNotificationsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateNotificationsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateNotificationsMutation, { data, loading, error }] = useUpdateNotificationsMutation({
+ *   variables: {
+ *      notificationIds: // value for 'notificationIds'
+ *   },
+ * });
+ */
+export function useUpdateNotificationsMutation(baseOptions?: Apollo.MutationHookOptions<UpdateNotificationsMutation, UpdateNotificationsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateNotificationsMutation, UpdateNotificationsMutationVariables>(UpdateNotificationsDocument, options);
+      }
+export type UpdateNotificationsMutationHookResult = ReturnType<typeof useUpdateNotificationsMutation>;
+export type UpdateNotificationsMutationResult = Apollo.MutationResult<UpdateNotificationsMutation>;
+export type UpdateNotificationsMutationOptions = Apollo.BaseMutationOptions<UpdateNotificationsMutation, UpdateNotificationsMutationVariables>;
 export const UpdateProfileDocument = gql`
     mutation UpdateProfile($id: ID!, $profileName: String!, $profileText: String!, $isCollegeStudent: Boolean!, $schoolName: String!, $age: Int!, $telephoneNumber: String!, $selectedGender: ID!, $selectedAddress: ID!, $undergraduate: String!, $department: String!, $clubActivities: String!, $admissionFormat: String!, $favoriteSubject: String!, $wantHear: String!, $problem: String!, $profileImage: Upload) {
   updateProfile(
@@ -2447,12 +2469,13 @@ export type GetLoginUserLazyQueryHookResult = ReturnType<typeof useGetLoginUserL
 export type GetLoginUserQueryResult = Apollo.QueryResult<GetLoginUserQuery, GetLoginUserQueryVariables>;
 export const GetLoginUserNotificationDocument = gql`
     query GetLoginUserNotification {
-  loginUserNotifications {
+  loginUserNotifications(isChecked: false) {
     edges {
       node {
         id
         notificationType
         isChecked
+        createdAt
         notificator {
           id
           targetUser {
@@ -2911,53 +2934,6 @@ export function useSearchProfilesLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type SearchProfilesQueryHookResult = ReturnType<typeof useSearchProfilesQuery>;
 export type SearchProfilesLazyQueryHookResult = ReturnType<typeof useSearchProfilesLazyQuery>;
 export type SearchProfilesQueryResult = Apollo.QueryResult<SearchProfilesQuery, SearchProfilesQueryVariables>;
-export const GetAllTalkRoomsDocument = gql`
-    query GetAllTalkRooms($joinUserId: ID!) {
-  allTalkRooms(joinUsers: [$joinUserId]) {
-    edges {
-      node {
-        id
-        joinUsers {
-          edges {
-            node {
-              id
-              email
-            }
-          }
-        }
-      }
-    }
-  }
-}
-    `;
-
-/**
- * __useGetAllTalkRoomsQuery__
- *
- * To run a query within a React component, call `useGetAllTalkRoomsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAllTalkRoomsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetAllTalkRoomsQuery({
- *   variables: {
- *      joinUserId: // value for 'joinUserId'
- *   },
- * });
- */
-export function useGetAllTalkRoomsQuery(baseOptions: Apollo.QueryHookOptions<GetAllTalkRoomsQuery, GetAllTalkRoomsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAllTalkRoomsQuery, GetAllTalkRoomsQueryVariables>(GetAllTalkRoomsDocument, options);
-      }
-export function useGetAllTalkRoomsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllTalkRoomsQuery, GetAllTalkRoomsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAllTalkRoomsQuery, GetAllTalkRoomsQueryVariables>(GetAllTalkRoomsDocument, options);
-        }
-export type GetAllTalkRoomsQueryHookResult = ReturnType<typeof useGetAllTalkRoomsQuery>;
-export type GetAllTalkRoomsLazyQueryHookResult = ReturnType<typeof useGetAllTalkRoomsLazyQuery>;
-export type GetAllTalkRoomsQueryResult = Apollo.QueryResult<GetAllTalkRoomsQuery, GetAllTalkRoomsQueryVariables>;
 export const GetLoginUserJoinTalkRoomDocument = gql`
     query GetLoginUserJoinTalkRoom($loginUserId: ID!) {
   allTalkRooms(joinUsers: [$loginUserId]) {

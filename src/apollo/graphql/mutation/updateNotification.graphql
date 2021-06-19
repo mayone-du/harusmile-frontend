@@ -1,0 +1,7 @@
+mutation UpdateNotifications($notificationIds: [ID!]) {
+  updateNotifications(input: { notificationIds: $notificationIds }) {
+    notification {
+      id
+    }
+  }
+}
