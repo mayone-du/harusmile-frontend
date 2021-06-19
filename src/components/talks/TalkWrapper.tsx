@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { loginUserVar } from "src/apollo/cache";
 import {
-  // useCreateNotificationMutation,
+  useCreateNotificationMutation,
   useGetLoginUserJoinTalkRoomLazyQuery,
 } from "src/apollo/schema";
 import { useCreateMessageMutation } from "src/apollo/schema";
 import { ProfileImageIcon } from "src/components/ProfileImageIcon";
 import { InitialTalkDetail } from "src/components/talks/InitialTalkDetail";
+import { Message } from "src/components/talks/Message";
 import { SkeletonLoading } from "src/components/talks/SkeletonLoading";
-import { fixDateFormat } from "src/libs/fixDateFormat";
 import { useCreateReview } from "src/libs/hooks/useCreateReview";
 import { useRefreshTokens } from "src/libs/hooks/useRefreshTokens";
 import { useValidateLoginUser } from "src/libs/hooks/useValidateLoginUser";
@@ -63,9 +63,9 @@ export const TalkWrapper: React.VFC = () => {
     setInputText(e.target.value);
   };
   // 通知作成
-  // const [createNotificationMutation] = useCreateNotificationMutation();
+  const [createNotificationMutation] = useCreateNotificationMutation();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (receiverId: string) => {
     // TODO: 入力欄の検証
     if (inputText === "") {
       alert("メッセージを入力してください。");
@@ -78,10 +78,12 @@ export const TalkWrapper: React.VFC = () => {
         text: inputText,
       },
     });
-    // await createNotificationMutation({
-    //   variables: {
-    //   recieverId:
-    // }})
+    await createNotificationMutation({
+      variables: {
+        recieverId: receiverId,
+        notificationType: "メッセージ",
+      },
+    });
     setInputText("");
   };
 
@@ -271,66 +273,58 @@ export const TalkWrapper: React.VFC = () => {
                         {/* トークメッセージ */}
                         {talkRoom.node.talkingRoom.edges.map((message, messageIndex) => {
                           return (
-                            <li
-                              className={`my-4 flex ${
-                                message?.node?.sender.id === loginUserData.userId
-                                  ? "justify-end"
-                                  : "justify-start"
-                              }`}
+                            <Message
+                              senderId={message?.node ? message.node.sender.id : ""}
+                              loginUserId={loginUserData.userId}
+                              text={message?.node ? message.node.text : ""}
+                              createdAt={message?.node?.createdAt}
                               key={messageIndex}
-                            >
-                              <div className="px-4">
-                                <div
-                                  className={`inline-block py-2 px-4 rounded-3xl ${
-                                    message?.node?.sender.id === loginUserData.userId
-                                      ? "bg-pink-200"
-                                      : "bg-blue-200"
-                                  }`}
-                                >
-                                  {message?.node?.text}
-                                </div>
-                                {/* 送信時刻 */}
-                                <div className="text-xs text-right text-gray-500">
-                                  {fixDateFormat(message?.node?.createdAt)}
-                                </div>
-                              </div>
-                            </li>
+                            />
                           );
                         })}
                       </ul>
                     </div>
                   </div>
+                  {/* 入力欄や送信ボタン */}
+                  {/* トークルームが選択されていなければ非表示 */}
+                  {openTalkRoomId !== "" && (
+                    <div className="flex items-center">
+                      <input
+                        type="text"
+                        className="block p-4 w-5/6 border"
+                        placeholder="メッセージを入力"
+                        value={inputText}
+                        onChange={handleInputChange}
+                      />
+
+                      {/* 引数に相手のuserIdを渡して通知を作成 */}
+                      {talkRoom.node.joinUsers.edges.map((user, userIndex) => {
+                        return user?.node?.id !== loginUserData.userId ? (
+                          <button
+                            key={userIndex}
+                            // eslint-disable-next-line react/jsx-handler-names
+                            onClick={() => {
+                              user?.node && handleSubmit(user.node.id);
+                            }}
+                          >
+                            <span className="block px-2 text-lg">送信</span>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="w-5 h-5 transform rotate-90"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                            >
+                              <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+                            </svg>
+                          </button>
+                        ) : null;
+                      })}
+                    </div>
+                  )}
                 </div>
               )
             );
           })}
-          {/* 入力欄や送信ボタン */}
-          {/* トークルームが選択されていなければ非表示 */}
-          {openTalkRoomId !== "" && (
-            <div className="flex items-center">
-              <input
-                type="text"
-                className="block p-4 w-5/6 border"
-                placeholder="メッセージを入力"
-                value={inputText}
-                onChange={handleInputChange}
-              />
-              <button
-                className="flex justify-center items-center p-4 w-1/6 bg-pink-200"
-                onClick={handleSubmit}
-              >
-                <span className="block px-2 text-lg">送信</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-5 h-5 transform rotate-90"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
-                </svg>
-              </button>
-            </div>
-          )}
         </div>
       </div>
     </div>
