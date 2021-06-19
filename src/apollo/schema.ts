@@ -492,6 +492,7 @@ export type Query = {
   allTags?: Maybe<TagNodeConnection>;
   review?: Maybe<ReviewNode>;
   allReviews?: Maybe<ReviewNodeConnection>;
+  loginUserReviews?: Maybe<ReviewNodeConnection>;
   gender?: Maybe<GenderNode>;
   allGenders?: Maybe<GenderNodeConnection>;
   address?: Maybe<AddressNode>;
@@ -672,6 +673,20 @@ export type QueryAllReviewsArgs = {
   stars?: Maybe<Scalars['Int']>;
   reviewText?: Maybe<Scalars['String']>;
   reviewText_Icontains?: Maybe<Scalars['String']>;
+  customerId?: Maybe<Scalars['ID']>;
+};
+
+
+export type QueryLoginUserReviewsArgs = {
+  offset?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  after?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  stars?: Maybe<Scalars['Int']>;
+  reviewText?: Maybe<Scalars['String']>;
+  reviewText_Icontains?: Maybe<Scalars['String']>;
+  customerId?: Maybe<Scalars['ID']>;
 };
 
 
@@ -1048,6 +1063,7 @@ export type UserNodeProviderArgs = {
   stars?: Maybe<Scalars['Int']>;
   reviewText?: Maybe<Scalars['String']>;
   reviewText_Icontains?: Maybe<Scalars['String']>;
+  customerId?: Maybe<Scalars['ID']>;
 };
 
 
@@ -1060,6 +1076,7 @@ export type UserNodeCustomerArgs = {
   stars?: Maybe<Scalars['Int']>;
   reviewText?: Maybe<Scalars['String']>;
   reviewText_Icontains?: Maybe<Scalars['String']>;
+  customerId?: Maybe<Scalars['ID']>;
 };
 
 export type UserNodeConnection = {
@@ -1369,6 +1386,30 @@ export type GetLoginUserQuery = (
         )>> }
       ) }
     )> }
+  )> }
+);
+
+export type GetLoginUserReviewsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetLoginUserReviewsQuery = (
+  { __typename?: 'Query' }
+  & { loginUserReviews?: Maybe<(
+    { __typename?: 'ReviewNodeConnection' }
+    & { edges: Array<Maybe<(
+      { __typename?: 'ReviewNodeEdge' }
+      & { node?: Maybe<(
+        { __typename?: 'ReviewNode' }
+        & Pick<ReviewNode, 'id' | 'reviewText' | 'stars'>
+        & { customer: (
+          { __typename?: 'UserNode' }
+          & { targetUser?: Maybe<(
+            { __typename?: 'ProfileNode' }
+            & Pick<ProfileNode, 'profileName' | 'profileImage'>
+          )> }
+        ) }
+      )> }
+    )>> }
   )> }
 );
 
@@ -2274,6 +2315,52 @@ export function useGetLoginUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type GetLoginUserQueryHookResult = ReturnType<typeof useGetLoginUserQuery>;
 export type GetLoginUserLazyQueryHookResult = ReturnType<typeof useGetLoginUserLazyQuery>;
 export type GetLoginUserQueryResult = Apollo.QueryResult<GetLoginUserQuery, GetLoginUserQueryVariables>;
+export const GetLoginUserReviewsDocument = gql`
+    query GetLoginUserReviews {
+  loginUserReviews {
+    edges {
+      node {
+        id
+        reviewText
+        stars
+        customer {
+          targetUser {
+            profileName
+            profileImage
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetLoginUserReviewsQuery__
+ *
+ * To run a query within a React component, call `useGetLoginUserReviewsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLoginUserReviewsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLoginUserReviewsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetLoginUserReviewsQuery(baseOptions?: Apollo.QueryHookOptions<GetLoginUserReviewsQuery, GetLoginUserReviewsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetLoginUserReviewsQuery, GetLoginUserReviewsQueryVariables>(GetLoginUserReviewsDocument, options);
+      }
+export function useGetLoginUserReviewsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLoginUserReviewsQuery, GetLoginUserReviewsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetLoginUserReviewsQuery, GetLoginUserReviewsQueryVariables>(GetLoginUserReviewsDocument, options);
+        }
+export type GetLoginUserReviewsQueryHookResult = ReturnType<typeof useGetLoginUserReviewsQuery>;
+export type GetLoginUserReviewsLazyQueryHookResult = ReturnType<typeof useGetLoginUserReviewsLazyQuery>;
+export type GetLoginUserReviewsQueryResult = Apollo.QueryResult<GetLoginUserReviewsQuery, GetLoginUserReviewsQueryVariables>;
 export const GetAllProfilesDocument = gql`
     query GetAllProfiles {
   allProfiles {

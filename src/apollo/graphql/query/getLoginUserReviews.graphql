@@ -1,0 +1,17 @@
+query GetLoginUserReviews {
+  loginUserReviews {
+    edges {
+      node {
+        id
+        reviewText
+        stars
+        customer {
+          targetUser {
+            profileName
+            profileImage
+          }
+        }
+      }
+    }
+  }
+}

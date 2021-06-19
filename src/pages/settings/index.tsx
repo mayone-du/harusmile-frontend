@@ -1,6 +1,10 @@
 import type { NextPage } from "next";
 import Link from "next/link";
-import { useGetAllAdressesQuery, useGetAllGendersQuery } from "src/apollo/schema";
+import {
+  useGetAllAdressesQuery,
+  useGetAllGendersQuery,
+  useGetLoginUserReviewsQuery,
+} from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
 import { ThemeChanger } from "src/components/ThemeChanger";
 import { useSetLoginUserData } from "src/libs/hooks/useSetLoginUserData";
@@ -11,6 +15,7 @@ const Settings: NextPage = () => {
   const { loginUserData } = useSetLoginUserData();
   const { data: allAdressesData } = useGetAllAdressesQuery();
   const { data: allGendersData } = useGetAllGendersQuery();
+  const { data: reviewData } = useGetLoginUserReviewsQuery();
 
   // TODO: プロフィール画像周りのバグ修正
 
@@ -268,6 +273,32 @@ const Settings: NextPage = () => {
             </button>
           </div>
         </form>
+
+        <section>
+          <h2 className="text-2xl font-bold text-center">レビュー</h2>
+          <div>
+            {reviewData?.loginUserReviews?.edges.map((review, index) => {
+              return (
+                <div key={index} className="border my-4 flex items-center">
+                  <div>
+                    <img
+                      src={`${MEDIAFILE_API_ENDPOINT}${review?.node?.customer.targetUser?.profileImage}`}
+                      alt=""
+                      className="border rounded-full w-20 h-20"
+                    />
+                    <div className="font-bold text-lg">
+                      {review?.node?.customer.targetUser?.profileName}
+                    </div>
+                  </div>
+                  <div>
+                    <div>{review?.node?.reviewText}</div>
+                    <div>{review?.node?.stars.toString()}</div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
         {loginUserData.isLogin && (
           <div className="flex items-center justify-center px-2 my-10 mx-4">
             <Link href="/auth/signout">
