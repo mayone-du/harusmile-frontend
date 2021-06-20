@@ -9,7 +9,7 @@ import { ProfilesWrapper } from "src/components/profiles/ProfilesWrapper";
 import { SearchBox } from "src/components/SearchBox";
 
 export const getStaticProps: GetStaticProps = async () => {
-  const apolloClient = initializeApollo(null);
+  const apolloClient = initializeApollo();
   const { data: profilesData } = await apolloClient.query<
     GetAllProfilesQuery,
     GetAllProfilesQueryVariables
@@ -20,9 +20,9 @@ export const getStaticProps: GetStaticProps = async () => {
   return addApolloState(apolloClient, {
     props: {
       profilesData,
-      fallback: false,
+      // fallback: false,
     },
-    revalidate: 60 * 60,
+    // revalidate: 60 * 60,
   });
 };
 
