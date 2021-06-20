@@ -10,7 +10,6 @@ import { ProfileImageIcon } from "src/components/ProfileImageIcon";
 import { ThemeChanger } from "src/components/ThemeChanger";
 import { useSetLoginUserData } from "src/libs/hooks/useSetLoginUserData";
 import { useProfileUpdate } from "src/libs/hooks/useUpdateProfile";
-import { MEDIAFILE_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
 
 const Settings: NextPage = () => {
   const { loginUserData } = useSetLoginUserData();
@@ -277,9 +276,8 @@ const Settings: NextPage = () => {
               return (
                 <div key={index} className="border my-4 flex items-center">
                   <div>
-                    <img
-                      src={`${MEDIAFILE_API_ENDPOINT}${review?.node?.customer.targetUser?.profileImage}`}
-                      alt=""
+                    <ProfileImageIcon
+                      profileImagePath={review?.node?.customer.targetUser?.profileImage}
                       className="border rounded-full w-20 h-20"
                     />
                     <div className="font-bold text-lg">

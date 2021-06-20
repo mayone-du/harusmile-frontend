@@ -108,6 +108,7 @@ export const useProfileUpdate = () => {
           data?.createProfile?.profile &&
             loginUserVar({
               ...loginUserData,
+              profileId: data.createProfile.profile.id,
               profileName: data.createProfile.profile.profileName,
               profileText: data.createProfile.profile.profileText,
               isCollegeStudent: data.createProfile.profile.isCollegeStudent,

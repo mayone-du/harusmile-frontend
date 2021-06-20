@@ -3,15 +3,12 @@ import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { loginUserVar } from "src/apollo/cache";
-import {
-  useCreateNotificationMutation,
-  useGetLoginUserJoinTalkRoomLazyQuery,
-} from "src/apollo/schema";
-import { useCreateMessageMutation } from "src/apollo/schema";
+import { useGetLoginUserJoinTalkRoomLazyQuery } from "src/apollo/schema";
 import { ProfileImageIcon } from "src/components/ProfileImageIcon";
 import { InitialTalkDetail } from "src/components/talks/InitialTalkDetail";
 import { Message } from "src/components/talks/Message";
 import { SkeletonLoading } from "src/components/talks/SkeletonLoading";
+import { useCreateMessages } from "src/libs/hooks/useCreateMessages";
 import { useCreateReview } from "src/libs/hooks/useCreateReview";
 import { useRefreshTokens } from "src/libs/hooks/useRefreshTokens";
 import { useValidateLoginUser } from "src/libs/hooks/useValidateLoginUser";
@@ -57,14 +54,15 @@ export const TalkWrapper: React.VFC = () => {
   };
 
   // メッセージ作成
-  const [createMessageMutation] = useCreateMessageMutation();
-  const [inputText, setInputText] = useState("");
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputText(e.target.value);
-  };
   // 通知作成
-  const [createNotificationMutation] = useCreateNotificationMutation();
 
+  const {
+    createMessageMutation,
+    inputText,
+    setInputText,
+    handleInputChange,
+    createNotificationMutation,
+  } = useCreateMessages();
   const handleSubmit = async (receiverId: string) => {
     // TODO: 入力欄の検証
     if (inputText === "") {
@@ -302,6 +300,7 @@ export const TalkWrapper: React.VFC = () => {
                         return user?.node?.id !== loginUserData.userId ? (
                           <button
                             key={userIndex}
+                            className="flex items-center bg-pink-400 py-4 justify-center text-white w-1/5"
                             // eslint-disable-next-line react/jsx-handler-names
                             onClick={() => {
                               user?.node && handleSubmit(user.node.id);

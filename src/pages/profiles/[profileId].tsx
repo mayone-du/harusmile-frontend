@@ -8,7 +8,7 @@ import {
   useGetProfileQuery,
 } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
-import { MEDIAFILE_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
+import { ProfileImageIcon } from "src/components/ProfileImageIcon";
 
 const ProfileDetail: NextPage = () => {
   const loginUserData = useReactiveVar(loginUserVar);
@@ -107,15 +107,10 @@ const ProfileDetail: NextPage = () => {
             <div className="flex items-center p-4 border shadow-md">
               {/* 左 */}
               <div className="flex items-center w-1/2 border-r">
-                {profileData.profile.profileImage ? (
-                  <img
-                    src={`${MEDIAFILE_API_ENDPOINT}${profileData.profile.profileImage}`}
-                    alt="Profile"
-                    className="block object-cover mx-6 w-32 h-32 rounded-full border"
-                  />
-                ) : (
-                  <div className="mx-6 w-32 h-32 rounded-full border">null</div>
-                )}
+                <ProfileImageIcon
+                  profileImagePath={profileData.profile.profileImage}
+                  className="block object-cover mx-6 w-32 h-32 rounded-full border"
+                />
 
                 <div>
                   <p>{profileData.profile.profileName}</p>
@@ -173,10 +168,9 @@ const ProfileDetail: NextPage = () => {
               return (
                 <div key={index} className="my-4 flex items-center border-b">
                   <div>
-                    <img
+                    <ProfileImageIcon
+                      profileImagePath={review?.node?.customer.targetUser?.profileImage}
                       className="block border rounded-full w-20 h-20 object-cover"
-                      src={`${MEDIAFILE_API_ENDPOINT}${review?.node?.customer.targetUser?.profileImage}`}
-                      alt=""
                     />
                     <p>{review?.node?.customer.targetUser?.profileName}</p>
                   </div>

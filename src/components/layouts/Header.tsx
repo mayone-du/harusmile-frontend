@@ -10,7 +10,7 @@ import {
 } from "src/apollo/schema";
 import { ProfileImageIcon } from "src/components/ProfileImageIcon";
 import { fixDateFormat } from "src/libs/fixDateFormat";
-import { MEDIAFILE_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
+import { useRefreshTokens } from "src/libs/hooks/useRefreshTokens";
 
 type Props = {
   profileImagePath: string;
@@ -32,26 +32,28 @@ export const Header: React.VFC<Props> = memo((props) => {
     },
   };
 
+  // TODO: ポーリングの間隔
   const { data: notificationsData } = useGetLoginUserNotificationQuery({
     fetchPolicy: "network-only",
     pollInterval: 1000 * 60,
   });
   const [updateNotifications] = useUpdateNotificationsMutation();
-
+  const { handleRefreshToken } = useRefreshTokens();
   // 通知用モーダル
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
-  // TODO: tokenの検証、通知確認後の処理
   const handleBellClick = () => {
     setIsNotificationOpen(true);
   };
 
+  // 通知モーダルを閉じるときに更新
   const handleNotificationClose = async () => {
     setIsNotificationOpen(false);
     // 未読の通知があれば更新する
     if (notificationsData?.loginUserNotifications === undefined) return;
     if (notificationsData.loginUserNotifications?.edges.length === 0) return;
     try {
+      await handleRefreshToken();
       await updateNotifications({
         variables: {
           notificationIds: notificationsData?.loginUserNotifications
@@ -135,10 +137,10 @@ export const Header: React.VFC<Props> = memo((props) => {
                         d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
                       />
                     </svg>
-                    {/* 通知のアニメーション */}
+                    {/* 通知マーク */}
                     {notificationsData?.loginUserNotifications &&
                       notificationsData.loginUserNotifications.edges.length > 0 && (
-                        <div className="absolute w-2 h-2 animate-ping bg-red-500 rounded-full top-0 right-0"></div>
+                        <div className="absolute w-2 h-2 bg-red-500 rounded-full top-0 right-0"></div>
                       )}
                   </button>
                   {/* 通知用モーダル */}
@@ -164,15 +166,12 @@ export const Header: React.VFC<Props> = memo((props) => {
                               key={index}
                               className="border-b border-gray-300 flex h-10 px-2 items-center"
                             >
-                              {notification?.node?.notificator.targetUser?.profileImage ? (
-                                <img
-                                  src={`${MEDIAFILE_API_ENDPOINT}${notification?.node?.notificator.targetUser?.profileImage}`}
-                                  alt=""
-                                  className="border rounded-full object-cover w-8 h-8"
-                                />
-                              ) : (
-                                <div className="border rounded-full object-cover w-8 h-8">none</div>
-                              )}
+                              <ProfileImageIcon
+                                className="border rounded-full object-cover w-8 h-8"
+                                profileImagePath={
+                                  notification?.node?.notificator?.targetUser?.profileImage
+                                }
+                              />
 
                               <p className="text-sm">
                                 <span className="font-bold">

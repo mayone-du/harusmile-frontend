@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { useCreateReviewMutation } from "src/apollo/schema";
+import {
+  useCreateNotificationMutation,
+  useCreateReviewMutation,
+  useRefreshTokensMutation,
+} from "src/apollo/schema";
+import { useRefreshTokens } from "src/libs/hooks/useRefreshTokens";
 
 export const useCreateReview = () => {
   // モーダル用style
@@ -21,7 +26,8 @@ export const useCreateReview = () => {
   const [inputStars, setInputStars] = useState("");
 
   const [createReviewMutation] = useCreateReviewMutation();
-
+  const [createNotificationMutation] = useCreateNotificationMutation();
+  const { handleRefreshToken } = useRefreshTokens();
   const handleModalOpen = () => {
     setIsOpen(true);
   };
@@ -42,12 +48,20 @@ export const useCreateReview = () => {
       alert("レビューを入力してください。");
       return;
     }
+
     try {
+      await handleRefreshToken();
       await createReviewMutation({
         variables: {
           providerId: providerId,
           reviewText: inputRevewText,
           stars: parseFloat(inputStars),
+        },
+      });
+      await createNotificationMutation({
+        variables: {
+          recieverId: providerId,
+          notificationType: "レビュー",
         },
       });
       alert("レビューが送信されました。");

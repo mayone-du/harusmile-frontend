@@ -1269,7 +1269,7 @@ export type CreateProfileMutation = (
     { __typename?: 'CreateProfileMutationPayload' }
     & { profile?: Maybe<(
       { __typename?: 'ProfileNode' }
-      & Pick<ProfileNode, 'profileName' | 'profileText' | 'isCollegeStudent' | 'schoolName' | 'telephoneNumber' | 'createdAt' | 'profileImage' | 'age' | 'undergraduate' | 'department' | 'clubActivities' | 'admissionFormat' | 'favoriteSubject' | 'wantHear' | 'problem'>
+      & Pick<ProfileNode, 'id' | 'profileName' | 'profileText' | 'isCollegeStudent' | 'schoolName' | 'telephoneNumber' | 'createdAt' | 'profileImage' | 'age' | 'undergraduate' | 'department' | 'clubActivities' | 'admissionFormat' | 'favoriteSubject' | 'wantHear' | 'problem'>
       & { selectedGender: (
         { __typename?: 'GenderNode' }
         & Pick<GenderNode, 'id' | 'genderName'>
@@ -1956,6 +1956,7 @@ export const CreateProfileDocument = gql`
     input: {profileName: $profileName, profileText: $profileText, isCollegeStudent: $isCollegeStudent, schoolName: $schoolName, age: $age, selectedGender: $selectedGender, selectedAddress: $selectedAddress, telephoneNumber: $telephoneNumber, wantHear: $wantHear, problem: $problem, undergraduate: $undergraduate, department: $department, clubActivities: $clubActivities, admissionFormat: $admissionFormat, favoriteSubject: $favoriteSubject, profileImage: $profileImage}
   ) {
     profile {
+      id
       profileName
       profileText
       isCollegeStudent

@@ -37,6 +37,7 @@ mutation CreateProfile(
     }
   ) {
     profile {
+      id
       profileName
       profileText
       isCollegeStudent
