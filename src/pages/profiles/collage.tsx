@@ -15,9 +15,11 @@ export const getStaticProps: GetStaticProps = async () => {
   });
 
   return addApolloState(apolloClient, {
-    props: { profilesData },
+    props: {
+      profilesData,
+      fallback: false,
+    },
     revalidate: 60 * 60,
-    fallback: false,
   });
 };
 type PropsGetAllProfilesQuery<T> = {
