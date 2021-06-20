@@ -143,8 +143,6 @@ export const useProfileUpdate = () => {
                 : "",
             });
           alert("プロフィールの更新が完了しました。");
-
-          // TODO: ログインユーザーのステートreactiveVarの更新;
         } catch (error) {
           alert(error);
           return;

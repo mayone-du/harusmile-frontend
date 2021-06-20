@@ -19,7 +19,7 @@ export const useSearch = () => {
     });
   };
 
-  // TODO: 検索条件が変更されたときのハンドラ
+  // TODO: 検索条件が変更されたときのハンドラ（チェックボックスとかで検索条件を絞ったりできるように）
 
   const handleSearch = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();

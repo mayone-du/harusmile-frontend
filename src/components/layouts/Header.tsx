@@ -32,10 +32,9 @@ export const Header: React.VFC<Props> = memo((props) => {
     },
   };
 
-  // TODO: ポーリングの間隔
   const { data: notificationsData } = useGetLoginUserNotificationQuery({
     fetchPolicy: "network-only",
-    pollInterval: 1000 * 60,
+    pollInterval: 1000,
   });
   const [updateNotifications] = useUpdateNotificationsMutation();
   const { handleRefreshToken } = useRefreshTokens();

@@ -64,7 +64,6 @@ export const TalkWrapper: React.VFC = () => {
     createNotificationMutation,
   } = useCreateMessages();
   const handleSubmit = async (receiverId: string) => {
-    // TODO: 入力欄の検証
     if (inputText === "") {
       alert("メッセージを入力してください。");
       return;
@@ -90,7 +89,6 @@ export const TalkWrapper: React.VFC = () => {
   }, [openTalkRoomId, setInputText]);
 
   // モーダル
-  // TODO: レビューの作成
   const {
     customStyles,
     handleModalOpen,

@@ -1,4 +1,5 @@
 import { useReactiveVar } from "@apollo/client";
+import { parseCookies } from "nookies";
 import { useEffect } from "react";
 import { loginUserVar } from "src/apollo/cache";
 import { useGetLoginUserLazyQuery } from "src/apollo/schema";
@@ -10,10 +11,12 @@ export const useValidateLoginUser = () => {
   const { handleRefreshToken } = useRefreshTokens();
   const [getLoginUserLazyQuery, { data: queryData }] = useGetLoginUserLazyQuery();
 
+  const cookies = parseCookies();
   useEffect(
     () => {
       (async () => {
         await handleRefreshToken();
+        if (loginUserData.isLogin === false && !cookies.refreshToken) return;
         getLoginUserLazyQuery();
       })();
     },

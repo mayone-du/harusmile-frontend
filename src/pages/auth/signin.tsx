@@ -8,12 +8,12 @@ const SignIn: NextPage = () => {
     useAuth();
   return (
     <Layout metaTitle="SignIn">
-      <h2 className="text-5xl">ログイン</h2>
-      <form className="border" onSubmit={handleSignIn}>
+      <h2 className="text-5xl text-center py-10 mt-6">ログイン</h2>
+      <form onSubmit={handleSignIn}>
         <div>
           <input
             type="email"
-            className="border"
+            className="border focus:outline-none block w-1/3 p-2 rounded-sm mx-auto"
             placeholder="email"
             value={inputEmail}
             onChange={handleEmailChange}
@@ -22,25 +22,27 @@ const SignIn: NextPage = () => {
         <div>
           <input
             type="password"
-            className="border"
+            className="border focus:outline-none block w-1/3 p-2 rounded-sm mx-auto"
             placeholder="password"
             value={inputPassword}
             onChange={handlePasswordChange}
           />
         </div>
-        <button className="border" type="submit">
-          SignIn
+        <button className="border block w-1/6 p-2 rounded-sm my-4 mx-auto" type="submit">
+          ログイン
         </button>
       </form>
-      <div>
-        <Link href="/auth/signup">
-          <a>SignUp</a>
-        </Link>
-      </div>
-      <div>
-        <Link href="/auth/signout">
-          <a>SignOut</a>
-        </Link>
+      <div className="flex items-center justify-center">
+        <div>
+          <Link href="/auth/signup">
+            <a className="block p-2 border">新規登録はこちら</a>
+          </Link>
+        </div>
+        <div>
+          <Link href="/auth/signout">
+            <a className="block p-2 border">ログアウトはこちら</a>
+          </Link>
+        </div>
       </div>
     </Layout>
   );
