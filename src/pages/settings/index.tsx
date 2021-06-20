@@ -7,6 +7,7 @@ import {
 } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
 import { ProfileImageIcon } from "src/components/ProfileImageIcon";
+import { Input } from "src/components/profiles/Input";
 import { ThemeChanger } from "src/components/ThemeChanger";
 import { useSetLoginUserData } from "src/libs/hooks/useSetLoginUserData";
 import { useProfileUpdate } from "src/libs/hooks/useUpdateProfile";
@@ -90,13 +91,12 @@ const Settings: NextPage = () => {
                   </select>
                 </li>
                 <li className="my-4 mx-auto w-full">
-                  <div className="mx-auto w-2/3 text-sm">ユーザーネーム</div>
-                  <input
+                  <Input
                     type="text"
                     placeholder="profileName"
-                    className="block p-2 mx-auto w-2/3 border-b border-pink-500 focus:outline-none"
                     value={inputLoginUserData.profileName}
                     onChange={handleProfileNameChange}
+                    label="ユーザーネーム"
                   />
                 </li>
                 <li className="my-4 mx-auto w-full">
@@ -109,13 +109,12 @@ const Settings: NextPage = () => {
                   ></textarea>
                 </li>
                 <li className="my-4 mx-auto w-full">
-                  <div className="mx-auto w-2/3 text-sm">電話番号</div>
-                  <input
+                  <Input
                     type="tel"
                     placeholder="telephoneNumber"
-                    className="block p-2 mx-auto w-2/3 border-b border-pink-500 focus:outline-none"
                     value={inputLoginUserData.telephoneNumber}
                     onChange={handleTelephoneNumberChange}
+                    label="電話番号"
                   />
                 </li>
 
@@ -154,98 +153,91 @@ const Settings: NextPage = () => {
                   </select>
                 </li>
                 <li className="my-4 mx-auto w-full">
-                  <div className="mx-auto w-2/3 text-sm">年齢</div>
-                  <input
+                  <Input
                     type="number"
                     max={50}
                     min={0}
                     placeholder="age"
-                    className="block p-2 mx-auto w-2/3 border-b border-pink-500 focus:outline-none"
                     value={inputLoginUserData.age}
                     onChange={handleAgeChange}
+                    label="年齢"
                   />
                 </li>
               </div>
 
               <div className="w-full">
                 <li className="my-4 mx-auto w-full">
-                  <div className="mx-auto w-2/3 text-sm">学校名</div>
-                  <input
+                  <Input
                     type="text"
                     placeholder="schoolName"
-                    className="block p-2 mx-auto w-2/3 border-b border-pink-500 focus:outline-none"
                     value={inputLoginUserData.schoolName}
                     onChange={handleSchoolNameChange}
+                    label="学校名"
                   />
                 </li>
                 <li className="my-4 mx-auto w-full">
-                  <div className="mx-auto w-2/3 text-sm">学部</div>
-                  <input
+                  <Input
                     type="text"
                     placeholder="undergraduate"
-                    className="block p-2 mx-auto w-2/3 border-b border-pink-500 focus:outline-none"
                     value={inputLoginUserData.undergraduate}
                     onChange={handleUndergraduateChange}
+                    label="学部"
                   />
                 </li>
                 <li className="my-4 mx-auto w-full">
-                  <div className="mx-auto w-2/3 text-sm">学科</div>
-                  <input
+                  <Input
                     type="text"
                     placeholder="department"
                     className="block p-2 mx-auto w-2/3 border-b border-pink-500 focus:outline-none"
                     value={inputLoginUserData.department}
                     onChange={handleDepartmentChange}
+                    label="学科"
                   />
                 </li>
                 <li className="my-4 mx-auto w-full">
-                  <div className="mx-auto w-2/3 text-sm">部活動・サークル</div>
-                  <input
+                  <Input
                     type="text"
                     placeholder="clubActivities"
-                    className="block p-2 mx-auto w-2/3 border-b border-pink-500 focus:outline-none"
                     value={inputLoginUserData.clubActivities}
                     onChange={handleClubActivitiesChange}
+                    label="部活動・サークル"
                   />
                 </li>
                 <li className="my-4 mx-auto w-full">
-                  <div className="mx-auto w-2/3 text-sm">入試形式</div>
-                  <input
+                  <Input
                     type="text"
                     placeholder="admissionFormat"
                     className="block p-2 mx-auto w-2/3 border-b border-pink-500 focus:outline-none"
                     value={inputLoginUserData.admissionFormat}
                     onChange={handleAdmissionFormatChange}
+                    label="入試形態"
                   />
                 </li>
                 <li className="my-4 mx-auto w-full">
-                  <div className="mx-auto w-2/3 text-sm">好きな科目</div>
-                  <input
+                  <Input
                     type="text"
                     placeholder="favoriteSubject"
-                    className="block p-2 mx-auto w-2/3 border-b border-pink-500 focus:outline-none"
                     value={inputLoginUserData.favoriteSubject}
                     onChange={handleFavoriteSubjectChange}
+                    label="好きな科目"
                   />
                 </li>
                 <li className="my-4 mx-auto w-full">
-                  <div className="mx-auto w-2/3 text-sm">聞きたいこと</div>
-                  <input
+                  <Input
                     type="text"
                     placeholder="wantHear"
-                    className="block p-2 mx-auto w-2/3 border-b border-pink-500 focus:outline-none"
                     value={inputLoginUserData.wantHear}
                     onChange={handleWantHearChange}
+                    label="聞きたいこと"
                   />
                 </li>
                 <li className="my-4 mx-auto w-full">
-                  <div className="mx-auto w-2/3 text-sm">悩み</div>
-                  <input
+                  <Input
                     type="text"
                     placeholder="problem"
-                    className="block p-2 mx-auto w-2/3 border-b border-pink-500 focus:outline-none"
                     value={inputLoginUserData.problem}
                     onChange={handleProblemChange}
+                    label="悩み"
                   />
                 </li>
                 <li className="my-4 mx-auto w-full">
@@ -269,6 +261,7 @@ const Settings: NextPage = () => {
           </div>
         </form>
 
+        {/* レビュー */}
         <section>
           <h2 className="text-2xl font-bold text-center">レビュー</h2>
           <div>

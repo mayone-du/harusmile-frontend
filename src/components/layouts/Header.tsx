@@ -110,7 +110,7 @@ export const Header: React.VFC<Props> = memo((props) => {
                     <a>
                       <ProfileImageIcon
                         profileImagePath={props.profileImagePath}
-                        className="block object-cover mx-2 w-10 h-10 rounded-full border border-gray-500"
+                        className="block object-cover mx-2 w-10 h-10 rounded-full border"
                       />
                     </a>
                   </Link>
