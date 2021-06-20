@@ -1,6 +1,5 @@
 import { useRouter } from "next/dist/client/router";
 import { destroyCookie, parseCookies } from "nookies";
-import { initialLoginUserVar, loginUserVar } from "src/apollo/cache";
 
 export const SignOut: React.VFC = () => {
   const router = useRouter();
@@ -8,9 +7,8 @@ export const SignOut: React.VFC = () => {
     const cookies = parseCookies();
     if (cookies.accessToken) destroyCookie(null, "accessToken", { path: "/", maxAge: -1 });
     if (cookies.refreshToken) destroyCookie(null, "refreshToken", { path: "/", maxAge: -1 });
-    loginUserVar(initialLoginUserVar);
     alert("ログアウトしました。");
-    router.push("/");
+    router.reload();
   };
   return (
     <div>
