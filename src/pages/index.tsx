@@ -1,10 +1,7 @@
 import type { NextPage } from "next";
 import type { GetStaticProps } from "next";
 import Image from "next/image";
-import {
-  // addApolloState,
-  initializeApollo,
-} from "src/apollo/apolloClient";
+import { addApolloState, initializeApollo } from "src/apollo/apolloClient";
 import type { GetAllProfilesQuery, GetAllProfilesQueryVariables } from "src/apollo/schema";
 import { GetAllProfilesDocument } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
@@ -20,14 +17,14 @@ export const getStaticProps: GetStaticProps = async () => {
     query: GetAllProfilesDocument,
   });
 
-  return { props: { profilesData: profilesData } };
-  // return addApolloState(apolloClient, {
-  //   props: {
-  //     profilesData,
-  //     // fallback: false,
-  //   },
-  //   // revalidate: 60 * 60,
-  // });
+  // return { props: { profilesData: profilesData } };
+  return addApolloState(apolloClient, {
+    props: {
+      profilesData,
+      // fallback: false,
+    },
+    revalidate: 60 * 60,
+  });
 };
 
 type PropsGetAllProfilesQuery<T> = {
