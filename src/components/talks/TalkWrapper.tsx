@@ -161,11 +161,11 @@ export const TalkWrapper: React.VFC = () => {
                                   "トークを始めましょう"}
 
                                 {/* TODO: type narrowing */}
-                                {talkRooms.node?.talkingRoom.edges.slice(-1)[0]?.node?.text
+                                {/* {talkRooms.node?.talkingRoom.edges.slice(-1)[0]?.node?.text
                                   .length !== undefined &&
                                 talkRooms.node.talkingRoom.edges.slice(-1)[0].node.text.length >= 10
                                   ? "..."
-                                  : ""}
+                                  : ""} */}
                               </div>
                             </div>
                           </div>
