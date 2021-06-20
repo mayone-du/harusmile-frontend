@@ -29,11 +29,11 @@ type PropsGetAllProfilesQuery<T> = {
 const Index: NextPage<PropsGetAllProfilesQuery<GetAllProfilesQuery>> = (props) => {
   return (
     <Layout metaTitle="Index Page">
-      <section className="py-10 mt-10 mb-20 bg-pink-50 rounded-xl">
-        <h2 className="py-10 text-4xl font-bold text-center text-gray-600 dark:text-white">
+      <section className="py-10 mt-10 md:mb-20 mb-8 bg-pink-50 rounded-xl">
+        <h2 className="md:py-10 py-4 md:text-4xl text-xl font-bold text-center text-gray-600 dark:text-white">
           全く新しい大学受験メンタリングの形
         </h2>
-        <h3 className="py-4 text-2xl font-bold text-center text-gray-500">
+        <h3 className="py-4 md:text-2xl text-lg font-bold text-center text-gray-500">
           憧れの先輩に直接質問する時代
         </h3>
         <div className="flex justify-center">

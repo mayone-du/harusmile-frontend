@@ -41,6 +41,7 @@
   - GraphQL にフラグメントを追加？
   - 使用していない GraphQL の削除や最適化
   - テストコード
+  - useCallBack / useMemo の使用
 - その他細かいタスクなど
   - title タグの設定や SEO 全般
   - UI の構築

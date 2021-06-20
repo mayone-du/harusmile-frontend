@@ -24,7 +24,7 @@ export const Profile: React.VFC<Props> = (props) => {
       <div className="p-6 border border-t-8 border-pink-200">
         <div className="flex items-center w-full">
           <ProfileImageIcon
-            className="block object-cover w-14 h-14 rounded-full border border-gray-500"
+            className="block object-cover w-14 h-14 rounded-full border"
             profileImagePath={props.profileImage}
           />
           {/* 名前、歳、学校 */}

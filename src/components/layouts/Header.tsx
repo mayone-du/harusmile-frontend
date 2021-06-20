@@ -83,10 +83,10 @@ export const Header: React.VFC<Props> = memo((props) => {
             {/* ログインしている場合 */}
             {loginUserData.isLogin ? (
               <>
-                <li className="flex items-center px-2 mx-4">
+                <li className="flex items-center px-2 md:mx-4 mx-2">
                   <Link href="/talk">
                     <a className="flex items-center">
-                      <div className="px-2">トーク画面</div>
+                      <div className="px-2 hidden md:block">トーク画面</div>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="w-6 h-6"
@@ -105,27 +105,27 @@ export const Header: React.VFC<Props> = memo((props) => {
                   </Link>
                 </li>
 
-                <li className="flex items-center px-2 mx-4">
+                <li className="flex items-center px-2 md:mx-4 mx-2">
                   <Link href="/settings">
                     <a>
                       <ProfileImageIcon
                         profileImagePath={props.profileImagePath}
-                        className="block object-cover mx-2 w-10 h-10 rounded-full border"
+                        className="block object-cover mx-2 md:w-10 md:h-10 w-6 h-6 rounded-full border"
                       />
                     </a>
                   </Link>
-                  <div>
+                  <div className="md:block hidden">
                     <p className="text-sm">
                       {loginUserData.isCollegeStudent ? "大学生" : "高校生"}
                     </p>
-                    <p className="text-sm">{loginUserData.email}</p>
+                    <p className="md:text-sm text-xs">{loginUserData.email}</p>
                   </div>
                 </li>
                 <li className="px-4 border-l-2 border-gray-300">
                   <button className="block relative focus:outline-none" onClick={handleBellClick}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="block w-10 h-10"
+                      className="block md:w-10 md:h-10 w-6 h-6"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"

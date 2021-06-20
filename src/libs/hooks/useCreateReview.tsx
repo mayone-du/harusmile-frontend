@@ -1,9 +1,5 @@
 import { useState } from "react";
-import {
-  useCreateNotificationMutation,
-  useCreateReviewMutation,
-  useRefreshTokensMutation,
-} from "src/apollo/schema";
+import { useCreateNotificationMutation, useCreateReviewMutation } from "src/apollo/schema";
 import { useRefreshTokens } from "src/libs/hooks/useRefreshTokens";
 
 export const useCreateReview = () => {

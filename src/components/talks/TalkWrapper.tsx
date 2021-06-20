@@ -87,7 +87,7 @@ export const TalkWrapper: React.VFC = () => {
 
   useEffect(() => {
     setInputText("");
-  }, [openTalkRoomId]);
+  }, [openTalkRoomId, setInputText]);
 
   // モーダル
   // TODO: レビューの作成
@@ -111,7 +111,7 @@ export const TalkWrapper: React.VFC = () => {
 
   return (
     <div className="md:flex">
-      <aside className="block p-4 w-1/3">
+      <aside className="block md:p-4 mt-4 md:w-1/3 w-full">
         {isLoading && (
           <div>
             <SkeletonLoading />
@@ -128,7 +128,9 @@ export const TalkWrapper: React.VFC = () => {
                 {/* {talkRooms?.node?.talkingRoom.edges.slice(-1)[0]?.node?.sender.email} */}
                 {talkRooms?.node?.id ? (
                   <button
-                    className="flex items-center py-2 px-4 w-full focus:outline-none"
+                    className={`flex items-center py-2 md:px-4 px-2 w-full focus:outline-none ${
+                      openTalkRoomId === talkRooms.node.id && "bg-pink-100"
+                    }`}
                     value={talkRooms.node.id}
                     onClick={handleOpenTalkRoomChange}
                     id={talkRooms.node.id}
@@ -182,14 +184,14 @@ export const TalkWrapper: React.VFC = () => {
         </ul>
       </aside>
 
-      <div className="p-4 w-2/3">
+      <div className="md:p-4 md:mt-0 mt-4 md:w-2/3 w-full">
         <div>
           {/* トークルーム詳細 */}
           {talkRoomsData?.allTalkRooms?.edges.map((talkRoom, talkRoomIndex) => {
             return (
               openTalkRoomId === talkRoom?.node?.id && (
                 <div className="border shadow-md" key={talkRoomIndex}>
-                  <div className="flex justify-between items-center py-2 px-10 border-b border-gray-500">
+                  <div className="flex justify-between items-center py-2 md:px-10 px-4 border-b border-gray-500">
                     {/* 会話相手のプロフィール */}
 
                     {talkRoom.node.joinUsers.edges.map((user, userIndex) => {
@@ -300,13 +302,13 @@ export const TalkWrapper: React.VFC = () => {
                         return user?.node?.id !== loginUserData.userId ? (
                           <button
                             key={userIndex}
-                            className="flex items-center bg-pink-400 py-4 justify-center text-white w-1/5"
+                            className="flex items-center bg-pink-400 md:py-4 py-2 justify-center text-white w-1/5"
                             // eslint-disable-next-line react/jsx-handler-names
                             onClick={() => {
                               user?.node && handleSubmit(user.node.id);
                             }}
                           >
-                            <span className="block px-2 text-lg">送信</span>
+                            <span className="block px-2 md:text-lg text-sm md:py-0 py-2">送信</span>
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               className="w-5 h-5 transform rotate-90"

@@ -5,7 +5,7 @@ import { memo } from "react";
 export const Footer: React.VFC = memo(() => {
   return (
     <div>
-      <footer className="px-32 border-t-2 border-gray-700">
+      <footer className="md:px-32 px-2 border-t-2 border-gray-700">
         <nav className="flex justify-between items-center">
           <div>
             <Link href="/">
@@ -14,7 +14,7 @@ export const Footer: React.VFC = memo(() => {
               </a>
             </Link>
           </div>
-          <ul className="flex items-center">
+          <ul className="flex items-center md:text-base text-xs">
             <li className="mx-2">
               <Link href="/static/policy">
                 <a>利用規約</a>
