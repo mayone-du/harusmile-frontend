@@ -15,7 +15,7 @@ const ProfileDetail: NextPage = () => {
 
   // 開いてる相手のプロフィールのIDからデータを取得
   const router = useRouter();
-  const opponentProfileId = router.asPath.replace("/profiles/", "");
+  const opponentProfileId = router.asPath.replace("/profiles/detail/", "");
   const { data: profileData, loading: isLoading } = useGetProfileQuery({
     variables: { profileId: opponentProfileId },
   });

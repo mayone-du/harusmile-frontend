@@ -96,7 +96,7 @@ export const Profile: React.VFC<Props> = (props) => {
         </dl>
 
         <div>
-          <Link href={`/profiles/${props.profileId}`}>
+          <Link href={`/profiles/detail/${props.profileId}`}>
             <a className="block py-2 px-4 my-6 mx-auto w-2/3 text-center rounded-lg border border-pink-200">
               詳細を見る
             </a>
