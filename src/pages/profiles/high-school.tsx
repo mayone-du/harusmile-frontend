@@ -1,5 +1,8 @@
 import type { GetStaticProps, NextPage } from "next";
-import { addApolloState, initializeApollo } from "src/apollo/apolloClient";
+import {
+  // addApolloState,
+  initializeApollo,
+} from "src/apollo/apolloClient";
 import type {
   GetHighSchoolProfilesQuery,
   GetHighSchoolProfilesQueryVariables,
@@ -17,13 +20,14 @@ export const getStaticProps: GetStaticProps = async () => {
     query: GetHighSchoolProfilesDocument,
   });
 
-  return addApolloState(apolloClient, {
-    props: {
-      profilesData,
-      // fallback: false,
-    },
-    // revalidate: 60 * 60,
-  });
+  return { props: { profilesData: profilesData } };
+  // return addApolloState(apolloClient, {
+  //   props: {
+  //     profilesData,
+  //     // fallback: false,
+  //   },
+  //   // revalidate: 60 * 60,
+  // });
 };
 type PropsGetAllProfilesQuery<T> = {
   profilesData: T;

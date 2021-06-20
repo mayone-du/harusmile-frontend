@@ -1,5 +1,8 @@
 import type { GetStaticProps, NextPage } from "next";
-import { addApolloState, initializeApollo } from "src/apollo/apolloClient";
+import {
+  // addApolloState,
+  initializeApollo,
+} from "src/apollo/apolloClient";
 import type { GetCollageProfilesQuery, GetCollageProfilesQueryVariables } from "src/apollo/schema";
 import { GetCollageProfilesDocument } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
@@ -14,13 +17,14 @@ export const getStaticProps: GetStaticProps = async () => {
     query: GetCollageProfilesDocument,
   });
 
-  return addApolloState(apolloClient, {
-    props: {
-      profilesData,
-      // fallback: false,
-    },
-    // revalidate: 60 * 60,
-  });
+  return { props: { profilesData: profilesData } };
+  // return addApolloState(apolloClient, {
+  //   props: {
+  //     profilesData,
+  //     // fallback: false,
+  //   },
+  //   // revalidate: 60 * 60,
+  // });
 };
 type PropsGetAllProfilesQuery<T> = {
   profilesData: T;

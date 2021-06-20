@@ -20,7 +20,7 @@ export const getStaticProps: GetStaticProps = async () => {
     query: GetAllProfilesDocument,
   });
 
-  return { props: profilesData };
+  return { props: { profilesData: profilesData } };
   // return addApolloState(apolloClient, {
   //   props: {
   //     profilesData,
