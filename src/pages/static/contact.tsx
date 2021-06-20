@@ -28,7 +28,6 @@ const Contact: NextPage = () => {
       `,
     };
     const slack_webhook_url = process.env.NEXT_PUBLIC_SLACK_WEBHOOK_URL;
-    console.log(slack_webhook_url);
 
     try {
       slack_webhook_url &&
