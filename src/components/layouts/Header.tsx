@@ -34,7 +34,7 @@ export const Header: React.VFC<Props> = memo((props) => {
 
   const { data: notificationsData } = useGetLoginUserNotificationQuery({
     fetchPolicy: "network-only",
-    pollInterval: 1000,
+    pollInterval: 1000 * 5,
   });
   const [updateNotifications] = useUpdateNotificationsMutation();
   const { handleRefreshToken } = useRefreshTokens();
