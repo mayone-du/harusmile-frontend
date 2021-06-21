@@ -113,14 +113,14 @@ export const BottomNavigation: React.VFC<Props> = (props) => {
         ) : (
           <ul className="flex items-center justify-around">
             <li>
-              <Link href="/">
+              <Link href="/auth/signin">
                 <a className="block py-2 px-6 rounded-3xl border-2 border-blue-600 text-blue-600 font-bold">
                   ログイン
                 </a>
               </Link>
             </li>
             <li>
-              <Link href="/">
+              <Link href="/auth/signup">
                 <a className="block py-2 px-6 rounded-3xl border bg-blue-600 text-white font-bold">
                   新規登録
                 </a>
