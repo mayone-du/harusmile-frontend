@@ -10,6 +10,10 @@ const Talk: NextPage = () => {
   const router = useRouter();
   const loginUserData = useReactiveVar(loginUserVar);
   useEffect(() => {
+    if (!loginUserData.isLogin) {
+      alert("ログイン後に使用可能です。");
+      router.push("/");
+    }
     if (loginUserData.isLogin && loginUserData.profileName === "") {
       alert("プロフィールを設定してください。");
       router.push("/settings");

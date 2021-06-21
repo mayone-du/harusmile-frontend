@@ -1,5 +1,7 @@
 import type { NextPage } from "next";
+import { useRouter } from "next/dist/client/router";
 import Link from "next/link";
+import { useEffect } from "react";
 import { useGetLoginUserReviewsQuery } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
 import { ProfileImageIcon } from "src/components/ProfileImageIcon";
@@ -7,8 +9,17 @@ import { ThemeChanger } from "src/components/ThemeChanger";
 import { useSetLoginUserData } from "src/libs/hooks/useSetLoginUserData";
 
 const ProfilesIndex: NextPage = () => {
+  const router = useRouter();
   const { loginUserData } = useSetLoginUserData();
   const { data: reviewData } = useGetLoginUserReviewsQuery();
+
+  useEffect(() => {
+    if (!loginUserData.isLogin) {
+      alert("ログイン後に使用可能です。");
+      router.push("/");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>
