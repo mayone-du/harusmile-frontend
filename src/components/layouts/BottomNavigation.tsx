@@ -97,7 +97,7 @@ export const BottomNavigation: React.VFC = () => {
           </li>
           {/* プロフィール */}
           <li className="w-1/5">
-            <Link href="/settings">
+            <Link href="/profiles">
               <a className="flex flex-col items-center">
                 <ProfileImageIcon className="w-6 h-6" profileImagePath="" />
                 <span className="block text-xs text-gray-600">プロフィール</span>

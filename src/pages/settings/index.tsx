@@ -44,15 +44,13 @@ const Settings: NextPage = () => {
   return (
     <div>
       <Layout metaTitle="settings">
-        <h2 className="py-10 text-3xl text-center">Settings</h2>
-
-        <section>
+        <section className="pt-6">
           {/* 枠 */}
-          <div className="flex items-center p-4 border shadow-md">
+          <div className="md:flex items-center p-4 border shadow-md">
             {/* 左 */}
-            <div className="flex items-center w-1/2 border-r">
+            <div className="flex items-center md:w-1/2 w-full md:border-r">
               <ProfileImageIcon
-                className="block object-cover mx-6 w-32 h-32 rounded-full border"
+                className="block object-cover mx-6 md:w-32 md:h-32 w-10 h-10 rounded-full border"
                 profileImagePath={loginUserData.profileImage}
               />
 
@@ -62,7 +60,7 @@ const Settings: NextPage = () => {
               </div>
             </div>
             {/* 右 */}
-            <div className="flex flex-col justify-center w-1/2 h-16 font-bold text-center">
+            <div className="hidden md:flex flex-col justify-center w-1/2 h-16 font-bold text-center">
               <h3>
                 {" "}
                 {loginUserData.isCollegeStudent

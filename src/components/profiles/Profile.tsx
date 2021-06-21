@@ -97,8 +97,23 @@ export const Profile: React.VFC<Props> = (props) => {
 
         <div>
           <Link href={`/profiles/detail/${props.profileId}`}>
-            <a className="block py-2 px-4 md:my-6 my-2 mx-auto md:w-2/3 w-5/6 text-center text-pink-400 rounded-3xl border border-pink-400 md:text-base text-xs">
-              詳細を見る
+            <a className="flex items-center justify-center py-2 px-4 md:my-6 my-2 mx-auto md:w-2/3 w-6/7 text-pink-400 rounded-3xl border border-pink-400 md:text-base text-xs">
+              <span className="block">詳細を見る</span>
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4 ml-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
             </a>
           </Link>
         </div>
