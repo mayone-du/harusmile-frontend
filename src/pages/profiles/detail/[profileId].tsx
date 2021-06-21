@@ -37,6 +37,10 @@ const ProfileDetail: NextPage = () => {
   // 相手と自分が含まれているトークルームがなければ作成
   // 自分が参加しているTalkRoomsの中に相手のユーザーIDがあればトークルームは作成せず、なければ作成
   const handleTalkRoomCreate = async () => {
+    if (!loginUserData.isLogin) {
+      alert("ログインが必要です。");
+      return;
+    }
     // ログインユーザーが参加してるトークルームのユーザーID（自分含む）
     const userIds = joinTalkRoomsData?.allTalkRooms?.edges.map((talkRoom) => {
       return talkRoom?.node?.joinUsers.edges.map((user) => {
