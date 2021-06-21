@@ -4,7 +4,7 @@ import { Layout } from "src/components/layouts/Layout";
 const About: NextPage = () => {
   return (
     <div>
-      <Layout metaTitle="About">
+      <Layout metaTitle="ハルスマイル | 運営">
         <h2 className="text-5xl">About</h2>
       </Layout>
     </div>

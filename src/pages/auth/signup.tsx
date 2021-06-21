@@ -7,7 +7,7 @@ const SignUp: NextPage = () => {
   const { inputEmail, inputPassword, handleEmailChange, handlePasswordChange, handleSignUp } =
     useAuth();
   return (
-    <Layout metaTitle="SignUp">
+    <Layout metaTitle="ハルスマイル | 新規登録">
       <h2 className="text-5xl text-center py-10 mt-6">新規登録</h2>
       <form onSubmit={handleSignUp}>
         <div>

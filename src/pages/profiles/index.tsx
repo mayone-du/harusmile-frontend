@@ -12,7 +12,7 @@ const ProfilesIndex: NextPage = () => {
 
   return (
     <div>
-      <Layout metaTitle="settings">
+      <Layout metaTitle="ハルスマイル | プロフィール">
         <section className="pt-6">
           {/* 枠 */}
           <div className="md:flex items-center p-4 border shadow-md">

@@ -43,7 +43,7 @@ const Settings: NextPage = () => {
 
   return (
     <div>
-      <Layout metaTitle="settings">
+      <Layout metaTitle="ハルスマイル | 設定画面">
         <section className="pt-6">
           {/* 枠 */}
           <div className="md:flex items-center p-4 border shadow-md">

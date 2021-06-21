@@ -28,7 +28,7 @@ const Results: NextPage = () => {
 
   return (
     <div>
-      <Layout metaTitle={searchKeyword}>
+      <Layout metaTitle={`${searchKeyword}の検索結果`}>
         <h2 className="py-4 text-2xl text-center">
           {'"'}
           {searchKeyword}

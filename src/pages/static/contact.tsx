@@ -50,7 +50,7 @@ const Contact: NextPage = () => {
   };
   return (
     <div>
-      <Layout metaTitle="Contact">
+      <Layout metaTitle="ハルスマイル | お問い合わせ">
         <h2 className="text-3xl text-center py-10">Contact</h2>
         <form onSubmit={handleSubmit}>
           <input

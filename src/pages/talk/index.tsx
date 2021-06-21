@@ -19,7 +19,7 @@ const Talk: NextPage = () => {
 
   return (
     <div>
-      <Layout metaTitle="Talk Page">
+      <Layout metaTitle="ハルスマイル | トーク一覧">
         <TalkWrapper />
       </Layout>
     </div>

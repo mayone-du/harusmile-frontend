@@ -79,7 +79,7 @@ const ProfileDetail: NextPage = () => {
   };
 
   return (
-    <Layout metaTitle="profile detail">
+    <Layout metaTitle={`${profileData?.profile?.profileName} のプロフィール`}>
       <h2 className="py-4 text-3xl text-center">Profile Detail</h2>
 
       {isLoading && (

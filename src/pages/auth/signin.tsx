@@ -7,7 +7,7 @@ const SignIn: NextPage = () => {
   const { inputEmail, inputPassword, handleEmailChange, handlePasswordChange, handleSignIn } =
     useAuth();
   return (
-    <Layout metaTitle="SignIn">
+    <Layout metaTitle="ハルスマイル | ログイン">
       <h2 className="text-5xl text-center py-10 mt-6">ログイン</h2>
       <form onSubmit={handleSignIn}>
         <div>

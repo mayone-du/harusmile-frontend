@@ -32,7 +32,7 @@ type PropsGetAllProfilesQuery<T> = {
 };
 const Index: NextPage<PropsGetAllProfilesQuery<GetAllProfilesQuery>> = (props) => {
   return (
-    <Layout metaTitle="Index Page">
+    <Layout metaTitle="ハルスマイル | 大学生と高校生のマッチングサービス">
       <section className="md:py-10 py-4 md:mt-10 mt-8 md:mb-20 mb-8 bg-pink-50 rounded-xl">
         <h2 className="md:py-10 py-4 md:text-4xl text-xl font-bold text-center text-gray-600 dark:text-white">
           全く新しい大学受験メンタリングの形
