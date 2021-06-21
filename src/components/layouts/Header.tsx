@@ -8,6 +8,7 @@ import {
   useGetLoginUserNotificationQuery,
   useUpdateNotificationsMutation,
 } from "src/apollo/schema";
+import { BottomNavigation } from "src/components/layouts/BottomNavigation";
 import { ProfileImageIcon } from "src/components/ProfileImageIcon";
 import { fixDateFormat } from "src/libs/fixDateFormat";
 import { useRefreshTokens } from "src/libs/hooks/useRefreshTokens";
@@ -213,6 +214,8 @@ export const Header: React.VFC<Props> = memo((props) => {
           </ul>
         </nav>
       </header>
+      {/* スマホ時 */}
+      <BottomNavigation />
     </div>
   );
 });

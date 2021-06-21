@@ -3,7 +3,7 @@ export const Stars: React.VFC = () => {
     <div className={`overflow-hidden flex items-center`}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="w-8 h-8"
+        className="md:w-8 md:h-8 w-4 h-4"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -17,7 +17,7 @@ export const Stars: React.VFC = () => {
       </svg>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="w-8 h-8"
+        className="md:w-8 md:h-8 w-4 h-4"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -31,7 +31,7 @@ export const Stars: React.VFC = () => {
       </svg>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="w-8 h-8"
+        className="md:w-8 md:h-8 w-4 h-4"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -45,7 +45,7 @@ export const Stars: React.VFC = () => {
       </svg>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="w-8 h-8"
+        className="md:w-8 md:h-8 w-4 h-4"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -59,7 +59,7 @@ export const Stars: React.VFC = () => {
       </svg>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="w-8 h-8"
+        className="md:w-8 md:h-8 w-4 h-4"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"

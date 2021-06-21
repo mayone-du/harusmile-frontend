@@ -20,33 +20,33 @@ type Props = {
 };
 export const Profile: React.VFC<Props> = (props) => {
   return (
-    <li className="p-4 md:w-1/3">
-      <div className="p-6 border border-t-8 border-pink-200">
+    <li className="md:p-4 p-2 md:w-1/3 w-1/2">
+      <div className="md:p-6 p-2 border border-t-8 border-pink-200">
         <div className="flex items-center w-full">
           <ProfileImageIcon
-            className="block object-cover w-14 h-14 rounded-full border"
+            className="block object-cover md:w-14 md:h-14 w-8 h-8 rounded-full border"
             profileImagePath={props.profileImage}
           />
           {/* 名前、歳、学校 */}
-          <div className="pr-12 pl-6 w-full">
+          <div className="md:pr-12 pr-2 md:pl-6 pl-2 w-full">
             <div className="flex justify-between items-center">
-              <div className="text-2xl font-bold">{props.profileName}</div>
-              <div> {props.age.toString()}歳</div>
+              <div className="md:text-2xl text-base font-bold">{props.profileName}</div>
+              <p className="text-xs md:text-base"> {props.age.toString()}歳</p>
             </div>
 
-            <div className="text-gray-600">{props.schoolName}</div>
+            <div className="text-gray-600 md:text-base text-xs">{props.schoolName}</div>
           </div>
         </div>
 
         {/* プロフィールテキスト */}
-        <div className="p-4 text-sm text-gray-600">{props.profileText}</div>
+        <div className="md:p-4 p-2 md:text-sm text-xs text-gray-600">{props.profileText}</div>
 
         {/* 星 */}
         <div className="flex justify-between items-center py-4 border-b border-gray-400">
           <div>
             <Stars />
           </div>
-          <div>
+          <div className="md:text-base text-xs">
             {/* 配列の数字の平均を出し、少数第二位を四捨五入 */}
             {(
               Math.round(
@@ -55,7 +55,7 @@ export const Profile: React.VFC<Props> = (props) => {
                 }, 0) * 10,
               ) / 10
             ).toString()}{" "}
-            / 5<span className="text-black">(合計{props.stars.length.toString()}件)</span>
+            / 5<span className="text-black">({props.stars.length.toString()}件)</span>
           </div>
         </div>
 
@@ -72,7 +72,7 @@ export const Profile: React.VFC<Props> = (props) => {
         </ul> */}
 
         {/* 学校詳細 */}
-        <dl className="px-4 pt-4">
+        <dl className="md:px-4 md:pt-4 px-2 pt-2 md:text-base text-xs">
           <div className="flex items-center">
             <dt className="w-1/2">学部</dt>
             <dd className="w-1/2">{props.undergraduate}</dd>
@@ -97,7 +97,7 @@ export const Profile: React.VFC<Props> = (props) => {
 
         <div>
           <Link href={`/profiles/detail/${props.profileId}`}>
-            <a className="block py-2 px-4 my-6 mx-auto w-2/3 text-center rounded-lg border border-pink-200">
+            <a className="block py-2 px-4 md:my-6 my-2 mx-auto md:w-2/3 w-5/6 text-center text-pink-400 rounded-3xl border border-pink-400 md:text-base text-xs">
               詳細を見る
             </a>
           </Link>

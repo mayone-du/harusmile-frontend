@@ -33,7 +33,7 @@ type PropsGetAllProfilesQuery<T> = {
 const Index: NextPage<PropsGetAllProfilesQuery<GetAllProfilesQuery>> = (props) => {
   return (
     <Layout metaTitle="Index Page">
-      <section className="py-10 mt-10 md:mb-20 mb-8 bg-pink-50 rounded-xl">
+      <section className="md:py-10 py-4 md:mt-10 mt-8 md:mb-20 mb-8 bg-pink-50 rounded-xl">
         <h2 className="md:py-10 py-4 md:text-4xl text-xl font-bold text-center text-gray-600 dark:text-white">
           全く新しい大学受験メンタリングの形
         </h2>
@@ -56,18 +56,18 @@ const Index: NextPage<PropsGetAllProfilesQuery<GetAllProfilesQuery>> = (props) =
       {/* 検索窓 */}
       <SearchBox />
 
-      <section className="pb-20">
+      <section className="md:pb-20 pb-6">
         <h2 className="flex justify-center items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="mx-6 w-12 h-12 text-gray-600"
+            className="mx-6 md:w-12 md:h-12 w-6 h-6 text-gray-600"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
           >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
-          <div className="py-10 text-4xl font-bold text-center text-gray-600 dark:text-white">
+          <div className="md:py-10 py-4 md:text-5xl text-lg font-bold text-center text-gray-600 dark:text-white">
             一覧から探す
           </div>
         </h2>

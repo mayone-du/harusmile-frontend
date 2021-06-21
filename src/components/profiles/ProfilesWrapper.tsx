@@ -9,7 +9,7 @@ export const ProfilesWrapper: React.VFC<PropsGetAllProfilesQuery<GetAllProfilesQ
 ) => {
   if (props.profilesData === undefined) return <div>undefined</div>;
   return (
-    <ul className="md:flex md:flex-wrap">
+    <ul className="flex flex-wrap">
       {props.profilesData.allProfiles &&
         props.profilesData.allProfiles.edges.map((profile) => {
           return (
