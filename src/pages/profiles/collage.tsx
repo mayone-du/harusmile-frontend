@@ -20,7 +20,7 @@ export const getStaticProps: GetStaticProps = async () => {
       profilesData,
       // fallback: false,
     },
-    revalidate: 1000 * 60,
+    revalidate: 5, // 5seconds
   });
 };
 type PropsGetAllProfilesQuery<T> = {
