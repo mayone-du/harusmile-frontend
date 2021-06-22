@@ -4,6 +4,7 @@ import { ProfileImageIcon } from "src/components/ProfileImageIcon";
 
 type Props = {
   isLogin: boolean;
+  isCollegeStudent: boolean;
 };
 export const BottomNavigation: React.VFC<Props> = (props) => {
   return (
@@ -58,27 +59,52 @@ export const BottomNavigation: React.VFC<Props> = (props) => {
               </Link>
             </li>
             {/* 中央 */}
-            <li className="w-1/5 relative">
-              <Link href="/">
-                <a className="flex flex-col items-center justify-center bg-blue-600 rounded-full w-20 h-20 absolute -top-16 left-1/2 transform -translate-x-1/2 shadow-md">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-10 w-10 text-white"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                    />
-                  </svg>
-                  <span className="block text-xs text-white">プラン作成</span>
-                </a>
-              </Link>
-            </li>
+            {props.isCollegeStudent ? (
+              <li className="w-1/5 relative">
+                <Link href="/">
+                  <a className="flex flex-col items-center justify-center bg-blue-600 rounded-full w-20 h-20 absolute -top-16 left-1/2 transform -translate-x-1/2 shadow-md">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-10 w-10 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                      />
+                    </svg>
+                    <span className="block text-xs text-white">プラン作成</span>
+                  </a>
+                </Link>
+              </li>
+            ) : (
+              <li className="w-1/5 relative">
+                <Link href="/">
+                  <a className="flex flex-col items-center justify-center bg-blue-600 rounded-full w-20 h-20 absolute -top-16 left-1/2 transform -translate-x-1/2 shadow-md">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-10 w-10 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                      />
+                    </svg>
+                    <span className="block text-xs text-white">検索</span>
+                  </a>
+                </Link>
+              </li>
+            )}
+
             {/* お知らせ */}
             <li className="w-1/5">
               <NotificationButton />

@@ -23,9 +23,10 @@ export const NotificationButton: React.VFC = () => {
     },
   };
 
+  // 本番時のみ5秒ごとにポーリング
   const { data: notificationsData } = useGetLoginUserNotificationQuery({
     fetchPolicy: "network-only",
-    pollInterval: 1000 * 5,
+    pollInterval: process.env.NODE_ENV === "development" ? 1000 * 60 : 1000 * 5,
   });
   const [updateNotifications] = useUpdateNotificationsMutation();
   const { handleRefreshToken } = useRefreshTokens();

@@ -136,7 +136,10 @@ export const Header: React.VFC<Props> = memo((props) => {
         </nav>
       </header>
       {/* スマホ時 */}
-      <BottomNavigation isLogin={loginUserData.isLogin} />
+      <BottomNavigation
+        isLogin={loginUserData.isLogin}
+        isCollegeStudent={loginUserData.isCollegeStudent}
+      />
     </div>
   );
 });

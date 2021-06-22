@@ -29,7 +29,8 @@ export const TalkWrapper: React.VFC = () => {
     },
   ] = useGetLoginUserJoinTalkRoomLazyQuery({
     fetchPolicy: "network-only",
-    pollInterval: 1000 * 60,
+    // 本番時のみ5秒ごとにポーリング
+    pollInterval: process.env.NODE_ENV === "development" ? 1000 * 60 : 1000 * 5,
     variables: {
       loginUserId: loginUserData.userId,
     },
