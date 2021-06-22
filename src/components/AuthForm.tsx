@@ -28,6 +28,7 @@ export const AuthForm: React.VFC<Props> = (props) => {
           placeholder="email"
           value={inputEmail}
           onChange={handleEmailChange}
+          autoComplete="email"
         />
       </div>
       <div>
@@ -37,6 +38,7 @@ export const AuthForm: React.VFC<Props> = (props) => {
           placeholder="password"
           value={inputPassword}
           onChange={handlePasswordChange}
+          autoComplete="current-password"
         />
       </div>
       <button className="border block md:w-1/6 w-1/3 p-2 rounded-sm my-4 mx-auto" type="submit">
