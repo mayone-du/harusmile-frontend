@@ -1,0 +1,14 @@
+query GetPlan($planId: ID!) {
+  plan(id: $planId) {
+    id
+    title
+    content
+    price
+    planAuthor {
+      id
+      targetUser {
+        profileName
+      }
+    }
+  }
+}

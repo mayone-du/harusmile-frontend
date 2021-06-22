@@ -1,6 +1,7 @@
 import { useReactiveVar } from "@apollo/client";
 import type { NextPage } from "next";
 import { useRouter } from "next/dist/client/router";
+import Link from "next/link";
 import { loginUserVar } from "src/apollo/cache";
 import {
   useCreateTalkRoomMutation,
@@ -31,8 +32,6 @@ const ProfileDetail: NextPage = () => {
   });
 
   const [createTalkRoomMutation] = useCreateTalkRoomMutation();
-
-  // TODO: リファクタ＆自分にも作れるから修正＆成功後、失敗後のハンドリング
 
   // 相手と自分が含まれているトークルームがなければ作成
   // 自分が参加しているTalkRoomsの中に相手のユーザーIDがあればトークルームは作成せず、なければ作成
@@ -132,16 +131,7 @@ const ProfileDetail: NextPage = () => {
               </div>
             </div>
           </section>
-          {/* トーク開始を促すボタン */}
-          <div>
-            {loginUserData.profileId === opponentProfileId ? (
-              "自分のプロフィールです"
-            ) : (
-              <button className="block p-2 border" onClick={handleTalkRoomCreate}>
-                メッセージを送る
-              </button>
-            )}
-          </div>
+
           <section>
             <ul className="py-6">
               <li className="py-2 mx-40 border-b-2 border-pink-100">
@@ -175,13 +165,17 @@ const ProfileDetail: NextPage = () => {
             <h2>プラン一覧</h2>
             <div>
               <ul>
-                {profileData.profile.targetUser.planAuthor.edges.length ? (
+                {profileData.profile.targetUser.planAuthor.edges ? (
                   profileData.profile.targetUser.planAuthor.edges.map((plan, index) => {
                     return (
                       <li key={index}>
-                        <div>{plan?.node?.title}</div>
-                        <div>{plan?.node?.content}</div>
-                        <div>{plan?.node?.price.toString()}</div>
+                        <Link href={plan?.node?.id ? `/plans/${plan.node.id}` : ""}>
+                          <a>
+                            <div>{plan?.node?.title}</div>
+                            <div>{plan?.node?.content}</div>
+                            <div>{plan?.node?.price.toString()}</div>
+                          </a>
+                        </Link>
                       </li>
                     );
                   })
@@ -189,6 +183,16 @@ const ProfileDetail: NextPage = () => {
                   <div>no plans</div>
                 )}
               </ul>
+              {/* トーク開始を促すボタン */}
+              <div>
+                {loginUserData.profileId === opponentProfileId ? (
+                  "自分のプロフィールです"
+                ) : (
+                  <button className="block p-2 border" onClick={handleTalkRoomCreate}>
+                    メッセージを送る
+                  </button>
+                )}
+              </div>
             </div>
           </section>
           <section className="py-10">

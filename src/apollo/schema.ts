@@ -1620,6 +1620,27 @@ export type GetLoginUserReviewsQuery = (
   )> }
 );
 
+export type GetPlanQueryVariables = Exact<{
+  planId: Scalars['ID'];
+}>;
+
+
+export type GetPlanQuery = (
+  { __typename?: 'Query' }
+  & { plan?: Maybe<(
+    { __typename?: 'PlanNode' }
+    & Pick<PlanNode, 'id' | 'title' | 'content' | 'price'>
+    & { planAuthor: (
+      { __typename?: 'UserNode' }
+      & Pick<UserNode, 'id'>
+      & { targetUser?: Maybe<(
+        { __typename?: 'ProfileNode' }
+        & Pick<ProfileNode, 'profileName'>
+      )> }
+    ) }
+  )> }
+);
+
 export type GetAllProfilesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -2679,6 +2700,50 @@ export function useGetLoginUserReviewsLazyQuery(baseOptions?: Apollo.LazyQueryHo
 export type GetLoginUserReviewsQueryHookResult = ReturnType<typeof useGetLoginUserReviewsQuery>;
 export type GetLoginUserReviewsLazyQueryHookResult = ReturnType<typeof useGetLoginUserReviewsLazyQuery>;
 export type GetLoginUserReviewsQueryResult = Apollo.QueryResult<GetLoginUserReviewsQuery, GetLoginUserReviewsQueryVariables>;
+export const GetPlanDocument = gql`
+    query GetPlan($planId: ID!) {
+  plan(id: $planId) {
+    id
+    title
+    content
+    price
+    planAuthor {
+      id
+      targetUser {
+        profileName
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetPlanQuery__
+ *
+ * To run a query within a React component, call `useGetPlanQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPlanQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPlanQuery({
+ *   variables: {
+ *      planId: // value for 'planId'
+ *   },
+ * });
+ */
+export function useGetPlanQuery(baseOptions: Apollo.QueryHookOptions<GetPlanQuery, GetPlanQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPlanQuery, GetPlanQueryVariables>(GetPlanDocument, options);
+      }
+export function useGetPlanLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPlanQuery, GetPlanQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPlanQuery, GetPlanQueryVariables>(GetPlanDocument, options);
+        }
+export type GetPlanQueryHookResult = ReturnType<typeof useGetPlanQuery>;
+export type GetPlanLazyQueryHookResult = ReturnType<typeof useGetPlanLazyQuery>;
+export type GetPlanQueryResult = Apollo.QueryResult<GetPlanQuery, GetPlanQueryVariables>;
 export const GetAllProfilesDocument = gql`
     query GetAllProfiles {
   allProfiles {

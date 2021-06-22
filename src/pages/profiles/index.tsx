@@ -46,7 +46,7 @@ const ProfilesIndex: NextPage = () => {
           </div>
         </section>
 
-        {!loginUserData.isCollegeStudent && (
+        {loginUserData.isCollegeStudent && (
           <div>
             {/* プラン一覧 */}
             <section>
