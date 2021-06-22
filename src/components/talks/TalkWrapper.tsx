@@ -3,7 +3,7 @@ import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { loginUserVar } from "src/apollo/cache";
-import { useGetLoginUserJoinTalkRoomLazyQuery } from "src/apollo/schema";
+import { useGetLoginUserTalkRoomsLazyQuery } from "src/apollo/schema";
 import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { InitialTalkDetail } from "src/components/talks/InitialTalkDetail";
 import { Message } from "src/components/talks/Message";
@@ -21,19 +21,16 @@ export const TalkWrapper: React.VFC = () => {
   const { loginUserData: validatedLoginUserData } = useValidateLoginUser();
   // ログインユーザーが参加しているトークルームのデータを取得
   const [
-    getLoginUserJoinTalkRoom,
+    getLoginUserTalkRooms,
     {
       data: talkRoomsData,
       // error: messagesError,
       loading: isLoading,
     },
-  ] = useGetLoginUserJoinTalkRoomLazyQuery({
+  ] = useGetLoginUserTalkRoomsLazyQuery({
     fetchPolicy: "network-only",
     // 本番時のみ5秒ごとにポーリング
     pollInterval: process.env.NODE_ENV === "development" ? 1000 * 60 : 1000 * 5,
-    variables: {
-      loginUserId: loginUserData.userId,
-    },
   });
 
   useEffect(() => {
@@ -43,7 +40,7 @@ export const TalkWrapper: React.VFC = () => {
           await handleRefreshToken();
         }
       }
-      getLoginUserJoinTalkRoom();
+      getLoginUserTalkRooms();
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -104,7 +101,7 @@ export const TalkWrapper: React.VFC = () => {
   // TODO: トークルームを最新順に並べ替え (Query自体を書き直す必要ありかも？)
 
   // トーク履歴がない場合
-  if (talkRoomsData?.allTalkRooms?.edges.length === 0) {
+  if (talkRoomsData?.loginUserTalkRooms?.edges.length === 0) {
     return <InitialTalkDetail />;
   }
 
@@ -120,7 +117,7 @@ export const TalkWrapper: React.VFC = () => {
 
         {/* <div>{messagesError && messagesError.message}</div> */}
         <ul className="border shadow-md">
-          {talkRoomsData?.allTalkRooms?.edges.map((talkRooms, index) => {
+          {talkRoomsData?.loginUserTalkRooms?.edges.map((talkRooms, index) => {
             return (
               // 自分が参加しているトークルームの一覧を返す
               <li className="border-t border-b" key={index}>
@@ -135,44 +132,36 @@ export const TalkWrapper: React.VFC = () => {
                     id={talkRooms.node.id}
                   >
                     {/* トークルームの相手を表示 */}
-                    {talkRooms.node.joinUsers.edges.map((user) => {
-                      return (
-                        // 自分を除外したプロフィール
-                        user?.node?.id !== loginUserData.userId && (
-                          <div className="flex items-center" key={user?.node?.id}>
-                            <ProfileImageIcon
-                              className="block w-14 h-14 rounded-full border"
-                              profileImagePath={user?.node?.targetUser?.profileImage}
-                            />
+                    {talkRooms.node.opponentUser && (
+                      // 自分を除外したプロフィール
+                      <div className="flex items-center">
+                        <ProfileImageIcon
+                          className="block w-14 h-14 rounded-full border"
+                          profileImagePath={talkRooms.node.opponentUser.targetUser?.profileImage}
+                        />
 
-                            <div className="px-4 text-left">
-                              {/* 相手のプロフィールが設定されていなければemailを返す */}
+                        <div className="px-4 text-left">
+                          {/* 相手のプロフィールが設定されていなければemailを返す */}
 
-                              <div>
-                                {user?.node?.targetUser?.profileName
-                                  ? user.node.targetUser.profileName
-                                  : user?.node?.id !== loginUserData.userId && user?.node?.email}
-                              </div>
-                              {/* 最後にやり取りしたメッセージ */}
-                              <div>
-                                {talkRooms.node?.talkingRoom.edges
-                                  .slice(-1)[0]
-                                  ?.node?.text.slice(0, 10)}
-                                {talkRooms.node?.talkingRoom.edges.length === 0 &&
-                                  "トークを始めましょう"}
+                          <div>{talkRooms.node.opponentUser.email}</div>
+                          {/* 最後にやり取りしたメッセージ */}
+                          <div>
+                            {talkRooms.node?.talkingRoom.edges
+                              .slice(-1)[0]
+                              ?.node?.text.slice(0, 10)}
+                            {talkRooms.node?.talkingRoom.edges.length === 0 &&
+                              "トークを始めましょう"}
 
-                                {/* TODO: type narrowing */}
-                                {/* {talkRooms.node?.talkingRoom.edges.slice(-1)[0]?.node?.text
+                            {/* TODO: type narrowing */}
+                            {/* {talkRooms.node?.talkingRoom.edges.slice(-1)[0]?.node?.text
                                   .length !== undefined &&
                                 talkRooms.node.talkingRoom.edges.slice(-1)[0].node.text.length >= 10
                                   ? "..."
                                   : ""} */}
-                              </div>
-                            </div>
                           </div>
-                        )
-                      );
-                    })}
+                        </div>
+                      </div>
+                    )}
                   </button>
                 ) : (
                   <div>error</div>
@@ -186,75 +175,74 @@ export const TalkWrapper: React.VFC = () => {
       <div className="md:p-4 md:mt-0 mt-4 md:w-2/3 w-full">
         <div>
           {/* トークルーム詳細 */}
-          {talkRoomsData?.allTalkRooms?.edges.map((talkRoom, talkRoomIndex) => {
+          {talkRoomsData?.loginUserTalkRooms?.edges.map((talkRoom, talkRoomIndex) => {
             return (
               openTalkRoomId === talkRoom?.node?.id && (
                 <div className="border shadow-md" key={talkRoomIndex}>
                   <div className="flex justify-between items-center py-2 md:px-10 px-4 border-b border-gray-500">
                     {/* 会話相手のプロフィール */}
 
-                    {talkRoom.node.joinUsers.edges.map((user, userIndex) => {
-                      return (
-                        // 相手のプロフィールのみに絞る
-                        user?.node?.id !== loginUserData.userId && (
-                          <div className="flex items-center" key={userIndex}>
-                            {/* レビューモーダル */}
-                            <Modal
-                              isOpen={isModalOpen}
-                              onRequestClose={handleModalClose}
-                              style={customStyles}
-                              contentLabel={`${user?.node?.email} Modal`}
-                              ariaHideApp={false}
+                    {talkRoom.node.opponentUser && (
+                      // 相手のプロフィールのみに絞る
+                      <div className="flex items-center">
+                        {/* レビューモーダル */}
+                        <Modal
+                          isOpen={isModalOpen}
+                          onRequestClose={handleModalClose}
+                          style={customStyles}
+                          contentLabel={`${talkRoom?.node?.opponentUser.email} Modal`}
+                          ariaHideApp={false}
+                        >
+                          <div className="py-2 px-12 pb-6 w-96">
+                            <h4 className="py-2 text-lg font-bold">
+                              {talkRoom?.node?.opponentUser?.targetUser?.profileName}にレビューする
+                            </h4>
+                            <form
+                              className="block"
+                              // eslint-disable-next-line react/jsx-handler-names
+                              onSubmit={(e: React.ChangeEvent<HTMLFormElement>) => {
+                                e.preventDefault();
+                                return (
+                                  talkRoom.node?.opponentUser?.id &&
+                                  handleCreateReview(talkRoom.node.opponentUser.id)
+                                );
+                              }}
                             >
-                              <div className="py-2 px-12 pb-6 w-96">
-                                <h4 className="py-2 text-lg font-bold">
-                                  {user?.node?.targetUser?.profileName}にレビューする
-                                </h4>
-                                <form
-                                  className="block"
-                                  // eslint-disable-next-line react/jsx-handler-names
-                                  onSubmit={(e: React.ChangeEvent<HTMLFormElement>) => {
-                                    e.preventDefault();
-                                    return user?.node?.id && handleCreateReview(user.node.id);
-                                  }}
-                                >
-                                  <input
-                                    type="text"
-                                    className="block p-2 w-full border"
-                                    placeholder="レビューを記載"
-                                    value={inputRevewText}
-                                    onChange={handleReviewTextChange}
-                                  />
-                                  <input
-                                    type="number"
-                                    max={5}
-                                    min={1}
-                                    value={inputStars}
-                                    onChange={handleStarsChange}
-                                    className="block p-2 w-full border"
-                                    placeholder="1~5で評価する"
-                                  />
-                                  <button className="block p-2 mx-auto mt-4 border" type="submit">
-                                    レビューを送信
-                                  </button>
-                                </form>
-                              </div>
-                            </Modal>
-
-                            <ProfileImageIcon
-                              className="w-10 h-10"
-                              profileImagePath={user?.node?.targetUser?.profileImage}
-                            />
-                            <div className="px-6">
-                              <p className="text-lg font-bold">
-                                {user?.node?.targetUser?.profileName}
-                              </p>
-                              <p>{user?.node?.targetUser?.schoolName}</p>
-                            </div>
+                              <input
+                                type="text"
+                                className="block p-2 w-full border"
+                                placeholder="レビューを記載"
+                                value={inputRevewText}
+                                onChange={handleReviewTextChange}
+                              />
+                              <input
+                                type="number"
+                                max={5}
+                                min={1}
+                                value={inputStars}
+                                onChange={handleStarsChange}
+                                className="block p-2 w-full border"
+                                placeholder="1~5で評価する"
+                              />
+                              <button className="block p-2 mx-auto mt-4 border" type="submit">
+                                レビューを送信
+                              </button>
+                            </form>
                           </div>
-                        )
-                      );
-                    })}
+                        </Modal>
+
+                        <ProfileImageIcon
+                          className="w-10 h-10"
+                          profileImagePath={talkRoom.node.opponentUser.targetUser?.profileImage}
+                        />
+                        <div className="px-6">
+                          <p className="text-lg font-bold">
+                            {talkRoom.node.opponentUser.targetUser?.profileName}
+                          </p>
+                          <p>{talkRoom?.node?.opponentUser?.targetUser?.schoolName}</p>
+                        </div>
+                      </div>
+                    )}
                     <button
                       className="block p-2 text-white bg-yellow-500"
                       onClick={handleModalOpen}
@@ -297,28 +285,26 @@ export const TalkWrapper: React.VFC = () => {
                       />
 
                       {/* 引数に相手のuserIdを渡して通知を作成 */}
-                      {talkRoom.node.joinUsers.edges.map((user, userIndex) => {
-                        return user?.node?.id !== loginUserData.userId ? (
-                          <button
-                            key={userIndex}
-                            className="flex items-center bg-pink-400 md:py-4 py-2 justify-center text-white w-1/5"
-                            // eslint-disable-next-line react/jsx-handler-names
-                            onClick={() => {
-                              user?.node && handleSubmit(user.node.id);
-                            }}
+                      {talkRoom.node.opponentUser && (
+                        <button
+                          className="flex items-center bg-pink-400 md:py-4 py-2 justify-center text-white w-1/5"
+                          // eslint-disable-next-line react/jsx-handler-names
+                          onClick={() => {
+                            talkRoom.node?.opponentUser?.id &&
+                              handleSubmit(talkRoom.node.opponentUser.id);
+                          }}
+                        >
+                          <span className="block px-2 md:text-lg text-sm md:py-0 py-2">送信</span>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="w-5 h-5 transform rotate-90"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
                           >
-                            <span className="block px-2 md:text-lg text-sm md:py-0 py-2">送信</span>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="w-5 h-5 transform rotate-90"
-                              viewBox="0 0 20 20"
-                              fill="currentColor"
-                            >
-                              <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
-                            </svg>
-                          </button>
-                        ) : null;
-                      })}
+                            <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+                          </svg>
+                        </button>
+                      )}
                     </div>
                   )}
                 </div>

@@ -565,6 +565,7 @@ export type Query = {
   allAddresses?: Maybe<AddressNodeConnection>;
   talkRoom?: Maybe<TalkRoomNode>;
   allTalkRooms?: Maybe<TalkRoomNodeConnection>;
+  loginUserTalkRooms?: Maybe<TalkRoomNodeConnection>;
   message?: Maybe<MessageNode>;
   allMessages?: Maybe<MessageNodeConnection>;
   loginUserMessages?: Maybe<MessageNodeConnection>;
@@ -813,6 +814,16 @@ export type QueryTalkRoomArgs = {
 
 
 export type QueryAllTalkRoomsArgs = {
+  offset?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  after?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  selectedPlan?: Maybe<Scalars['ID']>;
+};
+
+
+export type QueryLoginUserTalkRoomsArgs = {
   offset?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   after?: Maybe<Scalars['String']>;
@@ -1836,6 +1847,47 @@ export type GetAllTalkRoomsQuery = (
             )> }
           )>> }
         ) }
+      )> }
+    )>> }
+  )> }
+);
+
+export type GetLoginUserTalkRoomsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetLoginUserTalkRoomsQuery = (
+  { __typename?: 'Query' }
+  & { loginUserTalkRooms?: Maybe<(
+    { __typename?: 'TalkRoomNodeConnection' }
+    & { edges: Array<Maybe<(
+      { __typename?: 'TalkRoomNodeEdge' }
+      & { node?: Maybe<(
+        { __typename?: 'TalkRoomNode' }
+        & Pick<TalkRoomNode, 'id'>
+        & { selectedPlan?: Maybe<(
+          { __typename?: 'PlanNode' }
+          & Pick<PlanNode, 'title' | 'content' | 'price'>
+        )>, talkingRoom: (
+          { __typename?: 'MessageNodeConnection' }
+          & { edges: Array<Maybe<(
+            { __typename?: 'MessageNodeEdge' }
+            & { node?: Maybe<(
+              { __typename?: 'MessageNode' }
+              & Pick<MessageNode, 'id' | 'text' | 'createdAt'>
+              & { sender: (
+                { __typename?: 'UserNode' }
+                & Pick<UserNode, 'id'>
+              ) }
+            )> }
+          )>> }
+        ), opponentUser?: Maybe<(
+          { __typename?: 'UserNode' }
+          & Pick<UserNode, 'id' | 'email'>
+          & { targetUser?: Maybe<(
+            { __typename?: 'ProfileNode' }
+            & Pick<ProfileNode, 'id' | 'profileName' | 'profileImage' | 'schoolName'>
+          )> }
+        )> }
       )> }
     )>> }
   )> }
@@ -3100,6 +3152,71 @@ export function useGetAllTalkRoomsLazyQuery(baseOptions?: Apollo.LazyQueryHookOp
 export type GetAllTalkRoomsQueryHookResult = ReturnType<typeof useGetAllTalkRoomsQuery>;
 export type GetAllTalkRoomsLazyQueryHookResult = ReturnType<typeof useGetAllTalkRoomsLazyQuery>;
 export type GetAllTalkRoomsQueryResult = Apollo.QueryResult<GetAllTalkRoomsQuery, GetAllTalkRoomsQueryVariables>;
+export const GetLoginUserTalkRoomsDocument = gql`
+    query GetLoginUserTalkRooms {
+  loginUserTalkRooms {
+    edges {
+      node {
+        id
+        selectedPlan {
+          title
+          content
+          price
+        }
+        talkingRoom {
+          edges {
+            node {
+              id
+              text
+              createdAt
+              sender {
+                id
+              }
+            }
+          }
+        }
+        opponentUser {
+          id
+          email
+          targetUser {
+            id
+            profileName
+            profileImage
+            schoolName
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetLoginUserTalkRoomsQuery__
+ *
+ * To run a query within a React component, call `useGetLoginUserTalkRoomsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLoginUserTalkRoomsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLoginUserTalkRoomsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetLoginUserTalkRoomsQuery(baseOptions?: Apollo.QueryHookOptions<GetLoginUserTalkRoomsQuery, GetLoginUserTalkRoomsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetLoginUserTalkRoomsQuery, GetLoginUserTalkRoomsQueryVariables>(GetLoginUserTalkRoomsDocument, options);
+      }
+export function useGetLoginUserTalkRoomsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLoginUserTalkRoomsQuery, GetLoginUserTalkRoomsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetLoginUserTalkRoomsQuery, GetLoginUserTalkRoomsQueryVariables>(GetLoginUserTalkRoomsDocument, options);
+        }
+export type GetLoginUserTalkRoomsQueryHookResult = ReturnType<typeof useGetLoginUserTalkRoomsQuery>;
+export type GetLoginUserTalkRoomsLazyQueryHookResult = ReturnType<typeof useGetLoginUserTalkRoomsLazyQuery>;
+export type GetLoginUserTalkRoomsQueryResult = Apollo.QueryResult<GetLoginUserTalkRoomsQuery, GetLoginUserTalkRoomsQueryVariables>;
 export const GetTalkRoomDocument = gql`
     query GetTalkRoom($talkRoomId: ID!) {
   talkRoom(id: $talkRoomId) {

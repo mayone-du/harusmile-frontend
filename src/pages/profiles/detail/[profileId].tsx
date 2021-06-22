@@ -1,82 +1,17 @@
-import { useReactiveVar } from "@apollo/client";
 import type { NextPage } from "next";
 import { useRouter } from "next/dist/client/router";
 import Link from "next/link";
-import { loginUserVar } from "src/apollo/cache";
-import {
-  useCreateTalkRoomMutation,
-  useGetLoginUserJoinTalkRoomQuery,
-  useGetProfileQuery,
-} from "src/apollo/schema";
+import { useGetProfileQuery } from "src/apollo/schema";
 import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { Layout } from "src/components/layouts/Layout";
 
 const ProfileDetail: NextPage = () => {
-  const loginUserData = useReactiveVar(loginUserVar);
-
   // 開いてる相手のプロフィールのIDからデータを取得
   const router = useRouter();
   const opponentProfileId = router.asPath.replace("/profiles/detail/", "");
   const { data: profileData, loading: isLoading } = useGetProfileQuery({
     variables: { profileId: opponentProfileId },
   });
-
-  const opponentUserId = profileData?.profile?.targetUser.id
-    ? profileData.profile.targetUser.id
-    : "";
-
-  const { data: joinTalkRoomsData } = useGetLoginUserJoinTalkRoomQuery({
-    variables: {
-      loginUserId: loginUserData.userId,
-    },
-  });
-
-  const [createTalkRoomMutation] = useCreateTalkRoomMutation();
-
-  // 相手と自分が含まれているトークルームがなければ作成
-  // 自分が参加しているTalkRoomsの中に相手のユーザーIDがあればトークルームは作成せず、なければ作成
-  const handleTalkRoomCreate = async () => {
-    if (!loginUserData.isLogin) {
-      alert("ログインが必要です。");
-      return;
-    }
-    // ログインユーザーが参加してるトークルームのユーザーID（自分含む）
-    const userIds = joinTalkRoomsData?.allTalkRooms?.edges.map((talkRoom) => {
-      return talkRoom?.node?.joinUsers.edges.map((user) => {
-        return user?.node?.id;
-      });
-    });
-    // ログインユーザーが参加してるトークルームの相手のユーザーID
-    const loginUserTalkRoomOpponentUserIds = userIds?.map((user) => {
-      if (user) {
-        const newArray = user.filter((item) => {
-          return item && !item.match(loginUserData.userId);
-        });
-        return newArray;
-      }
-    });
-
-    // ログインユーザーが参加しているトークルームの相手のユーザーIDと、開いてるページのユーザーIDがマッチするかを検証
-    const validateArray = loginUserTalkRoomOpponentUserIds?.map((userId) => {
-      return userId ? (userId[0]?.match(opponentUserId) ? true : false) : "";
-    });
-
-    // すでにトークルームが存在する場合はトーク画面へ遷移
-    if (validateArray?.includes(true)) {
-      router.push("/talk");
-      return;
-    } else {
-      await createTalkRoomMutation({
-        variables: {
-          loginUserId: loginUserData.userId,
-          opponentUserId: opponentUserId,
-          selectedPlanId: "",
-          talkRoomDescription: `${loginUserData.profileName} & ${profileData?.profile?.profileName}`,
-        },
-      });
-      router.push("/talk");
-    }
-  };
 
   return (
     <Layout
@@ -183,16 +118,6 @@ const ProfileDetail: NextPage = () => {
                   <div>no plans</div>
                 )}
               </ul>
-              {/* トーク開始を促すボタン */}
-              <div>
-                {loginUserData.profileId === opponentProfileId ? (
-                  "自分のプロフィールです"
-                ) : (
-                  <button className="block p-2 border" onClick={handleTalkRoomCreate}>
-                    メッセージを送る
-                  </button>
-                )}
-              </div>
             </div>
           </section>
           <section className="py-10">

@@ -1,0 +1,36 @@
+query GetLoginUserTalkRooms {
+  loginUserTalkRooms {
+    edges {
+      node {
+        id
+        selectedPlan {
+          title
+          content
+          price
+        }
+        talkingRoom {
+          edges {
+            node {
+              id
+              text
+              createdAt
+              sender {
+                id
+              }
+            }
+          }
+        }
+        opponentUser {
+          id
+          email
+          targetUser {
+            id
+            profileName
+            profileImage
+            schoolName
+          }
+        }
+      }
+    }
+  }
+}

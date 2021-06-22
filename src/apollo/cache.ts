@@ -30,6 +30,5 @@ export const initialLoginUserVar: LoginUser = {
   stars: [],
   tags: [],
   followingUsers: [],
-  joinTalkRooms: [],
 };
 export const loginUserVar = makeVar<LoginUser>(initialLoginUserVar);

@@ -105,11 +105,6 @@ export const useValidateLoginUser = () => {
               };
             })
           : [],
-        joinTalkRooms: queryData.loginUser?.joinUsers
-          ? queryData.loginUser.joinUsers.edges.map((user) => {
-              return user?.node?.id ? user.node.id : "";
-            })
-          : [],
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

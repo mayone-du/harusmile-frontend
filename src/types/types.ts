@@ -33,5 +33,4 @@ export type LoginUser = {
     followingName: string;
     followingImage: string;
   }[];
-  joinTalkRooms: string[];
 };
