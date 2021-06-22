@@ -22,7 +22,7 @@ const PlanDetail: NextPage = () => {
   });
 
   const [createTalkRoomMutation] = useCreateTalkRoomMutation();
-  // TODO: トークルームの作成とバリデーション
+  // TODO: トークルームの作成とバリデーション 要検証
   const handleCreateTalkRoom = async () => {
     const isValidatedArray = talkRoomIds?.map((ids) => {
       // プランのIDとユーザーのIDがどちらも含まれている（既にトークルームが存在している）場合にはtrueを返す
@@ -31,7 +31,6 @@ const PlanDetail: NextPage = () => {
       }
       return false;
     });
-    console.log(isValidatedArray);
 
     if (isValidatedArray?.includes(true)) {
       alert("すでに存在します。");
@@ -58,9 +57,13 @@ const PlanDetail: NextPage = () => {
       <div>{planData?.plan?.title}</div>
       <div>{planData?.plan?.content}</div>
       <div>{planData?.plan?.price.toString()}円</div>
-      <button className="p-2 border" onClick={handleCreateTalkRoom}>
-        トークルームを作成する
-      </button>
+      {loginUserData.isCollegeStudent ? (
+        <div>高校生のみメッセージを送れます</div>
+      ) : (
+        <button className="p-2 border" onClick={handleCreateTalkRoom}>
+          トークルームを作成する
+        </button>
+      )}
     </Layout>
   );
 };

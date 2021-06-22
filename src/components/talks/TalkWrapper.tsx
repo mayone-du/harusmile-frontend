@@ -142,6 +142,7 @@ export const TalkWrapper: React.VFC = () => {
                         <div className="px-4 text-left">
                           {/* 相手のプロフィールが設定されていなければemailを返す */}
 
+                          {/* TODO: 説明用コメント */}
                           <div>
                             {talkRooms.node.opponentUser.id === loginUserData.userId
                               ? talkRooms.node.selectedPlan?.planAuthor.targetUser?.profileName
@@ -185,72 +186,78 @@ export const TalkWrapper: React.VFC = () => {
                   <div className="flex justify-between items-center py-2 md:px-10 px-4 border-b border-gray-500">
                     {/* 会話相手のプロフィール */}
 
-                    {talkRoom.node.opponentUser && (
-                      <div className="flex items-center">
-                        {/* レビューモーダル */}
-                        <Modal
-                          isOpen={isModalOpen}
-                          onRequestClose={handleModalClose}
-                          style={customStyles}
-                          contentLabel={`${talkRoom?.node?.opponentUser.email} Modal`}
-                          ariaHideApp={false}
-                        >
-                          <div className="py-2 px-12 pb-6 w-96">
-                            <h4 className="py-2 text-lg font-bold">
-                              {talkRoom?.node?.opponentUser?.targetUser?.profileName}にレビューする
-                            </h4>
-                            <form
-                              className="block"
-                              // eslint-disable-next-line react/jsx-handler-names
-                              onSubmit={(e: React.ChangeEvent<HTMLFormElement>) => {
-                                e.preventDefault();
-                                return (
-                                  talkRoom.node?.opponentUser?.id &&
-                                  handleCreateReview(talkRoom.node.opponentUser.id)
-                                );
-                              }}
-                            >
-                              <input
-                                type="text"
-                                className="block p-2 w-full border"
-                                placeholder="レビューを記載"
-                                value={inputRevewText}
-                                onChange={handleReviewTextChange}
-                              />
-                              <input
-                                type="number"
-                                max={5}
-                                min={1}
-                                value={inputStars}
-                                onChange={handleStarsChange}
-                                className="block p-2 w-full border"
-                                placeholder="1~5で評価する"
-                              />
-                              <button className="block p-2 mx-auto mt-4 border" type="submit">
-                                レビューを送信
-                              </button>
-                            </form>
-                          </div>
-                        </Modal>
+                    {/* {talkRoom.node.opponentUser && ( */}
+                    <div className="flex items-center">
+                      {/* レビューモーダル */}
+                      <Modal
+                        isOpen={isModalOpen}
+                        onRequestClose={handleModalClose}
+                        style={customStyles}
+                        contentLabel={`${talkRoom?.node?.opponentUser?.email} Modal`}
+                        ariaHideApp={false}
+                      >
+                        <div className="py-2 px-12 pb-6 w-96">
+                          <h4 className="py-2 text-lg font-bold">
+                            {talkRoom?.node?.opponentUser?.targetUser?.profileName}にレビューする
+                          </h4>
+                          <form
+                            className="block"
+                            // eslint-disable-next-line react/jsx-handler-names
+                            onSubmit={(e: React.ChangeEvent<HTMLFormElement>) => {
+                              e.preventDefault();
+                              return (
+                                talkRoom.node?.opponentUser?.id &&
+                                handleCreateReview(talkRoom.node.opponentUser.id)
+                              );
+                            }}
+                          >
+                            <input
+                              type="text"
+                              className="block p-2 w-full border"
+                              placeholder="レビューを記載"
+                              value={inputRevewText}
+                              onChange={handleReviewTextChange}
+                            />
+                            <input
+                              type="number"
+                              max={5}
+                              min={1}
+                              value={inputStars}
+                              onChange={handleStarsChange}
+                              className="block p-2 w-full border"
+                              placeholder="1~5で評価する"
+                            />
 
-                        <ProfileImageIcon
-                          className="w-10 h-10"
-                          profileImagePath={talkRoom.node.opponentUser.targetUser?.profileImage}
-                        />
-                        <div className="px-6">
-                          <p className="text-lg font-bold">
-                            {talkRoom.node.opponentUser.targetUser?.profileName}
-                          </p>
-                          <p>{talkRoom?.node?.opponentUser?.targetUser?.schoolName}</p>
+                            <button className="block p-2 mx-auto mt-4 border" type="submit">
+                              レビューを送信
+                            </button>
+                          </form>
                         </div>
+                      </Modal>
+
+                      <ProfileImageIcon
+                        className="w-10 h-10"
+                        profileImagePath={talkRoom?.node?.opponentUser?.targetUser?.profileImage}
+                      />
+                      <div className="px-6">
+                        <p className="text-lg font-bold">
+                          {talkRoom?.node?.opponentUser?.targetUser?.profileName}
+                        </p>
+                        <p>{talkRoom?.node?.opponentUser?.targetUser?.schoolName}</p>
                       </div>
+                    </div>
+                    {/* )} */}
+
+                    {loginUserData.isCollegeStudent ? (
+                      <div>高校生のみレビューができます</div>
+                    ) : (
+                      <button
+                        className="block p-2 text-white bg-yellow-500"
+                        onClick={handleModalOpen}
+                      >
+                        レビューを書く
+                      </button>
                     )}
-                    <button
-                      className="block p-2 text-white bg-yellow-500"
-                      onClick={handleModalOpen}
-                    >
-                      レビューを書く
-                    </button>
                   </div>
                   {/* トーク部分 */}
                   <div className="overflow-y-scroll max-h-96">
