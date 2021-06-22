@@ -4,7 +4,7 @@ import {
   useGetLoginUserNotificationQuery,
   useUpdateNotificationsMutation,
 } from "src/apollo/schema";
-import { ProfileImageIcon } from "src/components/ProfileImageIcon";
+import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { fixDateFormat } from "src/libs/fixDateFormat";
 import { useRefreshTokens } from "src/libs/hooks/useRefreshTokens";
 

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ProfileImageIcon } from "src/components/ProfileImageIcon";
+import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { Stars } from "src/components/profiles/Stars";
 
 type Props = {

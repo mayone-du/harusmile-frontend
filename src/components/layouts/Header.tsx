@@ -3,9 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { memo } from "react";
 import { loginUserVar } from "src/apollo/cache";
+import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
+import { TalkSvg } from "src/components/icons/svgs/TalkSvg";
 import { BottomNavigation } from "src/components/layouts/BottomNavigation";
 import { NotificationButton } from "src/components/layouts/NotificationButton";
-import { ProfileImageIcon } from "src/components/ProfileImageIcon";
 
 type Props = {
   profileImagePath: string;
@@ -34,20 +35,7 @@ export const Header: React.VFC<Props> = memo((props) => {
                   <Link href="/talk">
                     <a className="flex items-center">
                       <div className="px-2 hidden md:block">トーク画面</div>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="w-6 h-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                        />
-                      </svg>
+                      <TalkSvg className="h-10 w-10 text-white" />
                     </a>
                   </Link>
                 </li>

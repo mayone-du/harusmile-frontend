@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SearchSvg } from "src/components/icons/svgs/SearchSvg";
 import { useSearch } from "src/libs/hooks/useSearch";
 
 export const SearchBox: React.VFC = () => {
@@ -27,20 +28,7 @@ export const SearchBox: React.VFC = () => {
                 onChange={handleSearchKeywordChange}
               />
               <button className="md:p-4 p-2 bg-white border-t border-r border-b">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-6 h-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
+                <SearchSvg className="w-6 h-6" />
               </button>
             </form>
 

@@ -7,8 +7,8 @@ import {
   useGetLoginUserJoinTalkRoomQuery,
   useGetProfileQuery,
 } from "src/apollo/schema";
+import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { Layout } from "src/components/layouts/Layout";
-import { ProfileImageIcon } from "src/components/ProfileImageIcon";
 
 const ProfileDetail: NextPage = () => {
   const loginUserData = useReactiveVar(loginUserVar);

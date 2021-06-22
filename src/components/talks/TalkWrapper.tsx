@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { loginUserVar } from "src/apollo/cache";
 import { useGetLoginUserJoinTalkRoomLazyQuery } from "src/apollo/schema";
-import { ProfileImageIcon } from "src/components/ProfileImageIcon";
+import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { InitialTalkDetail } from "src/components/talks/InitialTalkDetail";
 import { Message } from "src/components/talks/Message";
 import { SkeletonLoading } from "src/components/talks/SkeletonLoading";
