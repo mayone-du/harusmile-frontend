@@ -113,17 +113,17 @@ export type CreateNotificationMutationPayload = {
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
-export type CreatePostMutationInput = {
+export type CreatePlanMutationInput = {
   title: Scalars['String'];
   content: Scalars['String'];
-  postImage?: Maybe<Scalars['Upload']>;
+  planImage?: Maybe<Scalars['Upload']>;
   isPublished: Scalars['Boolean'];
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
-export type CreatePostMutationPayload = {
-  __typename?: 'CreatePostMutationPayload';
-  post?: Maybe<PostNode>;
+export type CreatePlanMutationPayload = {
+  __typename?: 'CreatePlanMutationPayload';
+  plan?: Maybe<PlanNode>;
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
@@ -169,6 +169,7 @@ export type CreateReviewMutationPayload = {
 export type CreateTalkRoomMutationInput = {
   talkRoomDescription?: Maybe<Scalars['String']>;
   joinUsers?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  selectedPlan: Scalars['ID'];
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
@@ -191,14 +192,14 @@ export type CreateUserMutationPayload = {
 };
 
 
-export type DeletePostMutationInput = {
+export type DeletePlanMutationInput = {
   id: Scalars['ID'];
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
-export type DeletePostMutationPayload = {
-  __typename?: 'DeletePostMutationPayload';
-  post?: Maybe<PostNode>;
+export type DeletePlanMutationPayload = {
+  __typename?: 'DeletePlanMutationPayload';
+  plan?: Maybe<PlanNode>;
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
@@ -293,9 +294,9 @@ export type Mutation = {
   createUser?: Maybe<CreateUserMutationPayload>;
   createProfile?: Maybe<CreateProfileMutationPayload>;
   updateProfile?: Maybe<UpdateProfileMutationPayload>;
-  createPost?: Maybe<CreatePostMutationPayload>;
-  updatePost?: Maybe<UpdatePostMutationPayload>;
-  deletePost?: Maybe<DeletePostMutationPayload>;
+  createPlan?: Maybe<CreatePlanMutationPayload>;
+  updatePlan?: Maybe<UpdatePlanMutationPayload>;
+  deletePlan?: Maybe<DeletePlanMutationPayload>;
   createTalkRoom?: Maybe<CreateTalkRoomMutationPayload>;
   createMessage?: Maybe<CreateMessageMutationPayload>;
   createReview?: Maybe<CreateReviewMutationPayload>;
@@ -323,18 +324,18 @@ export type MutationUpdateProfileArgs = {
 };
 
 
-export type MutationCreatePostArgs = {
-  input: CreatePostMutationInput;
+export type MutationCreatePlanArgs = {
+  input: CreatePlanMutationInput;
 };
 
 
-export type MutationUpdatePostArgs = {
-  input: UpdatePostMutationInput;
+export type MutationUpdatePlanArgs = {
+  input: UpdatePlanMutationInput;
 };
 
 
-export type MutationDeletePostArgs = {
-  input: DeletePostMutationInput;
+export type MutationDeletePlanArgs = {
+  input: DeletePlanMutationInput;
 };
 
 
@@ -434,32 +435,45 @@ export type PageInfo = {
   endCursor?: Maybe<Scalars['String']>;
 };
 
-export type PostNode = Node & {
-  __typename?: 'PostNode';
+export type PlanNode = Node & {
+  __typename?: 'PlanNode';
   /** The ID of the object. */
   id: Scalars['ID'];
-  postedUser: UserNode;
+  planAuthor: UserNode;
   title: Scalars['String'];
   content: Scalars['String'];
-  postImage?: Maybe<Scalars['String']>;
+  planImage?: Maybe<Scalars['String']>;
   isPublished: Scalars['Boolean'];
   publishedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
+  price: Scalars['Int'];
+  selectedPlan: TalkRoomNodeConnection;
 };
 
-export type PostNodeConnection = {
-  __typename?: 'PostNodeConnection';
+
+export type PlanNodeSelectedPlanArgs = {
+  offset?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  after?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  joinUsers?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  joinUsers_Icontains?: Maybe<Array<Maybe<Scalars['ID']>>>;
+};
+
+export type PlanNodeConnection = {
+  __typename?: 'PlanNodeConnection';
   /** Pagination data for this connection. */
   pageInfo: PageInfo;
   /** Contains the nodes in this connection. */
-  edges: Array<Maybe<PostNodeEdge>>;
+  edges: Array<Maybe<PlanNodeEdge>>;
 };
 
-/** A Relay edge containing a `PostNode` and its cursor. */
-export type PostNodeEdge = {
-  __typename?: 'PostNodeEdge';
+/** A Relay edge containing a `PlanNode` and its cursor. */
+export type PlanNodeEdge = {
+  __typename?: 'PlanNodeEdge';
   /** The item at the end of the edge */
-  node?: Maybe<PostNode>;
+  node?: Maybe<PlanNode>;
   /** A cursor for use in pagination */
   cursor: Scalars['String'];
 };
@@ -538,8 +552,9 @@ export type Query = {
   allProfiles?: Maybe<ProfileNodeConnection>;
   highSchoolProfiles?: Maybe<ProfileNodeConnection>;
   collageProfiles?: Maybe<ProfileNodeConnection>;
-  post?: Maybe<PostNode>;
-  allPosts?: Maybe<PostNodeConnection>;
+  plan?: Maybe<PlanNode>;
+  allPlans?: Maybe<PlanNodeConnection>;
+  loginUserPlans?: Maybe<PlanNodeConnection>;
   tag?: Maybe<TagNode>;
   allTags?: Maybe<TagNodeConnection>;
   review?: Maybe<ReviewNode>;
@@ -679,12 +694,12 @@ export type QueryCollageProfilesArgs = {
 };
 
 
-export type QueryPostArgs = {
+export type QueryPlanArgs = {
   id: Scalars['ID'];
 };
 
 
-export type QueryAllPostsArgs = {
+export type QueryAllPlansArgs = {
   offset?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   after?: Maybe<Scalars['String']>;
@@ -694,6 +709,23 @@ export type QueryAllPostsArgs = {
   title_Icontains?: Maybe<Scalars['String']>;
   content?: Maybe<Scalars['String']>;
   content_Icontains?: Maybe<Scalars['String']>;
+  isPublished?: Maybe<Scalars['Boolean']>;
+  price?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryLoginUserPlansArgs = {
+  offset?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  after?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  title?: Maybe<Scalars['String']>;
+  title_Icontains?: Maybe<Scalars['String']>;
+  content?: Maybe<Scalars['String']>;
+  content_Icontains?: Maybe<Scalars['String']>;
+  isPublished?: Maybe<Scalars['Boolean']>;
+  price?: Maybe<Scalars['Int']>;
 };
 
 
@@ -942,6 +974,7 @@ export type TalkRoomNode = Node & {
   id: Scalars['ID'];
   talkRoomDescription?: Maybe<Scalars['String']>;
   joinUsers: UserNodeConnection;
+  selectedPlan?: Maybe<PlanNode>;
   talkingRoom: MessageNodeConnection;
 };
 
@@ -997,18 +1030,18 @@ export type UpdateNotificationsMutationPayload = {
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
-export type UpdatePostMutationInput = {
+export type UpdatePlanMutationInput = {
   id: Scalars['ID'];
   title?: Maybe<Scalars['String']>;
   content?: Maybe<Scalars['String']>;
-  postImage?: Maybe<Scalars['Upload']>;
+  planImage?: Maybe<Scalars['Upload']>;
   isPublished?: Maybe<Scalars['Boolean']>;
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
-export type UpdatePostMutationPayload = {
-  __typename?: 'UpdatePostMutationPayload';
-  post?: Maybe<PostNode>;
+export type UpdatePlanMutationPayload = {
+  __typename?: 'UpdatePlanMutationPayload';
+  plan?: Maybe<PlanNode>;
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
@@ -1055,39 +1088,15 @@ export type UserNode = Node & {
   isStaff: Scalars['Boolean'];
   firstName?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
-  joinUsers: TalkRoomNodeConnection;
-  sender: MessageNodeConnection;
   targetUser?: Maybe<ProfileNode>;
   followingUsers: ProfileNodeConnection;
-  postedUser: PostNodeConnection;
+  planAuthor: PlanNodeConnection;
   provider: ReviewNodeConnection;
   customer: ReviewNodeConnection;
   notificator: NotificationNodeConnection;
   receiver: NotificationNodeConnection;
-};
-
-
-export type UserNodeJoinUsersArgs = {
-  offset?: Maybe<Scalars['Int']>;
-  before?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  joinUsers?: Maybe<Array<Maybe<Scalars['ID']>>>;
-  joinUsers_Icontains?: Maybe<Array<Maybe<Scalars['ID']>>>;
-};
-
-
-export type UserNodeSenderArgs = {
-  offset?: Maybe<Scalars['Int']>;
-  before?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  text?: Maybe<Scalars['String']>;
-  text_Icontains?: Maybe<Scalars['String']>;
-  talkingRoom_JoinUsers?: Maybe<Array<Maybe<Scalars['ID']>>>;
-  talkingRoom_JoinUsers_Icontains?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  joinUsers: TalkRoomNodeConnection;
+  sender: MessageNodeConnection;
 };
 
 
@@ -1124,7 +1133,7 @@ export type UserNodeFollowingUsersArgs = {
 };
 
 
-export type UserNodePostedUserArgs = {
+export type UserNodePlanAuthorArgs = {
   offset?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   after?: Maybe<Scalars['String']>;
@@ -1134,6 +1143,8 @@ export type UserNodePostedUserArgs = {
   title_Icontains?: Maybe<Scalars['String']>;
   content?: Maybe<Scalars['String']>;
   content_Icontains?: Maybe<Scalars['String']>;
+  isPublished?: Maybe<Scalars['Boolean']>;
+  price?: Maybe<Scalars['Int']>;
 };
 
 
@@ -1182,6 +1193,30 @@ export type UserNodeReceiverArgs = {
   last?: Maybe<Scalars['Int']>;
   isChecked?: Maybe<Scalars['Boolean']>;
   receiver?: Maybe<Scalars['ID']>;
+};
+
+
+export type UserNodeJoinUsersArgs = {
+  offset?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  after?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  joinUsers?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  joinUsers_Icontains?: Maybe<Array<Maybe<Scalars['ID']>>>;
+};
+
+
+export type UserNodeSenderArgs = {
+  offset?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  after?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  text?: Maybe<Scalars['String']>;
+  text_Icontains?: Maybe<Scalars['String']>;
+  talkingRoom_JoinUsers?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  talkingRoom_JoinUsers_Icontains?: Maybe<Array<Maybe<Scalars['ID']>>>;
 };
 
 export type UserNodeConnection = {
@@ -1302,6 +1337,7 @@ export type CreateReviewMutation = (
 export type CreateTalkRoomMutationVariables = Exact<{
   loginUserId: Scalars['ID'];
   opponentUserId: Scalars['ID'];
+  selectedPlanId: Scalars['ID'];
   talkRoomDescription?: Maybe<Scalars['String']>;
 }>;
 
@@ -1705,7 +1741,16 @@ export type GetProfileQuery = (
     & { targetUser: (
       { __typename?: 'UserNode' }
       & Pick<UserNode, 'id'>
-      & { joinUsers: (
+      & { planAuthor: (
+        { __typename?: 'PlanNodeConnection' }
+        & { edges: Array<Maybe<(
+          { __typename?: 'PlanNodeEdge' }
+          & { node?: Maybe<(
+            { __typename?: 'PlanNode' }
+            & Pick<PlanNode, 'id' | 'title' | 'content' | 'isPublished' | 'price'>
+          )> }
+        )>> }
+      ), joinUsers: (
         { __typename?: 'TalkRoomNodeConnection' }
         & { edges: Array<Maybe<(
           { __typename?: 'TalkRoomNodeEdge' }
@@ -2067,9 +2112,9 @@ export type CreateReviewMutationHookResult = ReturnType<typeof useCreateReviewMu
 export type CreateReviewMutationResult = Apollo.MutationResult<CreateReviewMutation>;
 export type CreateReviewMutationOptions = Apollo.BaseMutationOptions<CreateReviewMutation, CreateReviewMutationVariables>;
 export const CreateTalkRoomDocument = gql`
-    mutation CreateTalkRoom($loginUserId: ID!, $opponentUserId: ID!, $talkRoomDescription: String) {
+    mutation CreateTalkRoom($loginUserId: ID!, $opponentUserId: ID!, $selectedPlanId: ID!, $talkRoomDescription: String) {
   createTalkRoom(
-    input: {joinUsers: [$loginUserId, $opponentUserId], talkRoomDescription: $talkRoomDescription}
+    input: {joinUsers: [$loginUserId, $opponentUserId], selectedPlan: $selectedPlanId, talkRoomDescription: $talkRoomDescription}
   ) {
     talkRoom {
       id
@@ -2103,6 +2148,7 @@ export type CreateTalkRoomMutationFn = Apollo.MutationFunction<CreateTalkRoomMut
  *   variables: {
  *      loginUserId: // value for 'loginUserId'
  *      opponentUserId: // value for 'opponentUserId'
+ *      selectedPlanId: // value for 'selectedPlanId'
  *      talkRoomDescription: // value for 'talkRoomDescription'
  *   },
  * });
@@ -2859,6 +2905,17 @@ export const GetProfileDocument = gql`
     problem
     targetUser {
       id
+      planAuthor {
+        edges {
+          node {
+            id
+            title
+            content
+            isPublished
+            price
+          }
+        }
+      }
       joinUsers {
         edges {
           node {

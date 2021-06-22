@@ -16,6 +16,17 @@ query GetProfile($profileId: ID!) {
     problem
     targetUser {
       id
+      planAuthor {
+        edges {
+          node {
+            id
+            title
+            content
+            isPublished
+            price
+          }
+        }
+      }
       joinUsers {
         edges {
           node {

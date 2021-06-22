@@ -50,10 +50,10 @@ const ProfileDetail: NextPage = () => {
     // ログインユーザーが参加してるトークルームの相手のユーザーID
     const loginUserTalkRoomOpponentUserIds = userIds?.map((user) => {
       if (user) {
-        const newArry = user.filter((item) => {
+        const newArray = user.filter((item) => {
           return item && !item.match(loginUserData.userId);
         });
-        return newArry;
+        return newArray;
       }
     });
 
@@ -71,6 +71,7 @@ const ProfileDetail: NextPage = () => {
         variables: {
           loginUserId: loginUserData.userId,
           opponentUserId: opponentUserId,
+          selectedPlanId: "",
           talkRoomDescription: `${loginUserData.profileName} & ${profileData?.profile?.profileName}`,
         },
       });
@@ -168,6 +169,27 @@ const ProfileDetail: NextPage = () => {
                 {profileData.profile.problem}
               </li>
             </ul>
+          </section>
+          {/* プラン一覧 */}
+          <section className="py-10">
+            <h2>プラン一覧</h2>
+            <div>
+              <ul>
+                {profileData.profile.targetUser.planAuthor.edges.length ? (
+                  profileData.profile.targetUser.planAuthor.edges.map((plan, index) => {
+                    return (
+                      <li key={index}>
+                        <div>{plan?.node?.title}</div>
+                        <div>{plan?.node?.content}</div>
+                        <div>{plan?.node?.price.toString()}</div>
+                      </li>
+                    );
+                  })
+                ) : (
+                  <div>no plans</div>
+                )}
+              </ul>
+            </div>
           </section>
           <section className="py-10">
             <h2 className="text-center text-xl font-bold">レビュー一覧</h2>
