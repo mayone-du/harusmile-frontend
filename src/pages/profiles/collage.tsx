@@ -28,7 +28,10 @@ type PropsGetAllProfilesQuery<T> = {
 };
 const Collage: NextPage<PropsGetAllProfilesQuery<GetCollageProfilesQuery>> = (props) => {
   return (
-    <Layout metaTitle="ハルスマイル | 大学生プロフィール一覧">
+    <Layout
+      spHeaderTitle="大学生プロフィール一覧"
+      metaTitle="ハルスマイル | 大学生プロフィール一覧"
+    >
       <p className="py-10 px-2 text-xl text-center">
         大学生のプロフィール：{props.profilesData?.collageProfiles?.edges.length.toString()}件
       </p>

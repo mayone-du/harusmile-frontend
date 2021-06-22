@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/dist/client/router";
 import Link from "next/link";
+import { parseCookies } from "nookies";
 import { useEffect } from "react";
 import { useGetLoginUserReviewsQuery } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
@@ -12,9 +13,9 @@ const ProfilesIndex: NextPage = () => {
   const router = useRouter();
   const { loginUserData } = useSetLoginUserData();
   const { data: reviewData } = useGetLoginUserReviewsQuery();
-
+  const cookies = parseCookies();
   useEffect(() => {
-    if (!loginUserData.isLogin) {
+    if (!cookies.refreshToken) {
       alert("ログイン後に使用可能です。");
       router.push("/");
     }
@@ -23,7 +24,7 @@ const ProfilesIndex: NextPage = () => {
 
   return (
     <div>
-      <Layout metaTitle="ハルスマイル | プロフィール">
+      <Layout spHeaderTitle="プロフィール" metaTitle="ハルスマイル | プロフィール">
         <section className="pt-6">
           {/* 枠 */}
           <div className="md:flex items-center p-4 border shadow-md">

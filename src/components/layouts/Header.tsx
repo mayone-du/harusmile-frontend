@@ -9,6 +9,7 @@ import { ProfileImageIcon } from "src/components/ProfileImageIcon";
 
 type Props = {
   profileImagePath: string;
+  spHeaderTitle: string;
 };
 export const Header: React.VFC<Props> = memo((props) => {
   const loginUserData = useReactiveVar(loginUserVar);
@@ -93,9 +94,9 @@ export const Header: React.VFC<Props> = memo((props) => {
         </nav>
 
         {/* スマホ時 */}
-        <nav className="flex md:hidden items-center">
-          <Link href="/">
-            <a className="flex">
+        <nav className="flex md:hidden items-center relative">
+          {/* <Link href="/">
+            <a className="flex w-1/3">
               <Image
                 width={120}
                 height={40}
@@ -104,13 +105,15 @@ export const Header: React.VFC<Props> = memo((props) => {
                 src="/images/logo.png"
               />
             </a>
-          </Link>
-          <h2>ページタイトル</h2>
+          </Link> */}
+          <h2 className="font-bold text-center w-full py-2 text-xl text-gray-700">
+            {props.spHeaderTitle}
+          </h2>
           <Link href="/settings">
-            <a className="block">
+            <a className="block absolute right-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
+                className="h-8 w-8"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

@@ -6,6 +6,7 @@ import { useValidateLoginUser } from "src/libs/hooks/useValidateLoginUser";
 
 type Props = {
   metaTitle: string;
+  spHeaderTitle: string;
 };
 
 export const Layout: React.FC<Props> = memo((props) => {
@@ -16,7 +17,7 @@ export const Layout: React.FC<Props> = memo((props) => {
       <Head>
         <title>{props.metaTitle}</title>
       </Head>
-      <Header profileImagePath={loginUserData.profileImage} />
+      <Header spHeaderTitle={props.spHeaderTitle} profileImagePath={loginUserData.profileImage} />
       <main className="mx-2 md:mx-32">{props.children}</main>
       <Footer />
     </div>

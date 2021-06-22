@@ -5,7 +5,7 @@ import { Layout } from "src/components/layouts/Layout";
 
 const SignUp: NextPage = () => {
   return (
-    <Layout metaTitle="ハルスマイル | 新規登録">
+    <Layout spHeaderTitle="新規登録" metaTitle="ハルスマイル | 新規登録">
       <h2 className="text-5xl text-center py-10 mt-6">新規登録</h2>
       <AuthForm pageContext="signup" />
       <div className="flex items-center justify-center my-8">

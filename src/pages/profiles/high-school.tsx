@@ -32,7 +32,10 @@ type PropsGetAllProfilesQuery<T> = {
 
 const HighSchool: NextPage<PropsGetAllProfilesQuery<GetHighSchoolProfilesQuery>> = (props) => {
   return (
-    <Layout metaTitle="ハルスマイル | 高校生プロフィール一覧">
+    <Layout
+      spHeaderTitle="高校生プロフィール一覧"
+      metaTitle="ハルスマイル | 高校生プロフィール一覧"
+    >
       <p className="py-10 px-2 text-xl text-center">
         高校生のプロフィール: {props.profilesData?.highSchoolProfiles?.edges.length.toString()}件
       </p>

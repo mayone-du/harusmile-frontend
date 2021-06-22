@@ -5,7 +5,7 @@ import { SignOut as SignOutComponent } from "src/components/SignOut";
 const SignOut: NextPage = () => {
   return (
     <div>
-      <Layout metaTitle="ハルスマイル | ログアウト">
+      <Layout spHeaderTitle="ログアウト" metaTitle="ハルスマイル | ログアウト">
         <div className="flex justify-center items-center min-h-screen">
           <SignOutComponent />
         </div>

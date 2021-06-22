@@ -43,7 +43,7 @@ const Settings: NextPage = () => {
 
   return (
     <div>
-      <Layout metaTitle="ハルスマイル | 設定画面">
+      <Layout spHeaderTitle="プロフィール編集" metaTitle="ハルスマイル | 設定画面">
         <section className="pt-6">
           {/* 枠 */}
           <div className="md:flex items-center p-4 border shadow-md">
