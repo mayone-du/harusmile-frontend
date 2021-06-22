@@ -32,7 +32,7 @@ export const Header: React.VFC<Props> = memo((props) => {
             {loginUserData.isLogin ? (
               <>
                 <li className="flex items-center px-2 md:mx-4 mx-2">
-                  <Link href="/talk">
+                  <Link href="/talks">
                     <a className="flex items-center">
                       <div className="px-2 hidden md:block">トーク画面</div>
                       <TalkSvg className="h-10 w-10 text-white" />

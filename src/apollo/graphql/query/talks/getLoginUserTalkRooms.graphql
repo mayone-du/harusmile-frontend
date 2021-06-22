@@ -4,9 +4,16 @@ query GetLoginUserTalkRooms {
       node {
         id
         selectedPlan {
+          id
           title
           content
           price
+          planAuthor {
+            id
+            targetUser {
+              profileName
+            }
+          }
         }
         talkingRoom {
           edges {

@@ -139,11 +139,14 @@ export const TalkWrapper: React.VFC = () => {
                           className="block w-14 h-14 rounded-full border"
                           profileImagePath={talkRooms.node.opponentUser.targetUser?.profileImage}
                         />
-
                         <div className="px-4 text-left">
                           {/* 相手のプロフィールが設定されていなければemailを返す */}
 
-                          <div>{talkRooms.node.opponentUser.email}</div>
+                          <div>
+                            {talkRooms.node.opponentUser.id === loginUserData.userId
+                              ? talkRooms.node.selectedPlan?.planAuthor.targetUser?.profileName
+                              : talkRooms.node.opponentUser.targetUser?.profileName}
+                          </div>
                           {/* 最後にやり取りしたメッセージ */}
                           <div>
                             {talkRooms.node?.talkingRoom.edges
@@ -183,7 +186,6 @@ export const TalkWrapper: React.VFC = () => {
                     {/* 会話相手のプロフィール */}
 
                     {talkRoom.node.opponentUser && (
-                      // 相手のプロフィールのみに絞る
                       <div className="flex items-center">
                         {/* レビューモーダル */}
                         <Modal
@@ -253,6 +255,10 @@ export const TalkWrapper: React.VFC = () => {
                   {/* トーク部分 */}
                   <div className="overflow-y-scroll max-h-96">
                     <div>
+                      <div>
+                        プランのタイトル：{talkRoom.node.selectedPlan?.title} <br /> 料金：
+                        {talkRoom.node.selectedPlan?.price.toString()}
+                      </div>
                       <ul>
                         {talkRoom.node.talkingRoom.edges.length === 0 && (
                           <p className="py-4 text-center">トークを開始しましょう</p>

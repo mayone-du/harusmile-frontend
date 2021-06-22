@@ -29,7 +29,7 @@ export const BottomNavigation: React.VFC<Props> = (props) => {
             </li>
             {/* メッセージ */}
             <li className="w-1/5">
-              <Link href="/talk">
+              <Link href="/talks">
                 <a className="flex flex-col items-center">
                   <TalkSvg className="h-6 w-6" />
                   <span className="block text-xs text-gray-600">メッセージ</span>

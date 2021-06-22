@@ -1866,7 +1866,15 @@ export type GetLoginUserTalkRoomsQuery = (
         & Pick<TalkRoomNode, 'id'>
         & { selectedPlan?: Maybe<(
           { __typename?: 'PlanNode' }
-          & Pick<PlanNode, 'title' | 'content' | 'price'>
+          & Pick<PlanNode, 'id' | 'title' | 'content' | 'price'>
+          & { planAuthor: (
+            { __typename?: 'UserNode' }
+            & Pick<UserNode, 'id'>
+            & { targetUser?: Maybe<(
+              { __typename?: 'ProfileNode' }
+              & Pick<ProfileNode, 'profileName'>
+            )> }
+          ) }
         )>, talkingRoom: (
           { __typename?: 'MessageNodeConnection' }
           & { edges: Array<Maybe<(
@@ -3159,9 +3167,16 @@ export const GetLoginUserTalkRoomsDocument = gql`
       node {
         id
         selectedPlan {
+          id
           title
           content
           price
+          planAuthor {
+            id
+            targetUser {
+              profileName
+            }
+          }
         }
         talkingRoom {
           edges {
