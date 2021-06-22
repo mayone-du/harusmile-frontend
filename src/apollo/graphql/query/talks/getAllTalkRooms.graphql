@@ -1,0 +1,28 @@
+query GetAllTalkRooms {
+  allTalkRooms {
+    edges {
+      node {
+        id
+        talkRoomDescription
+        selectedPlan {
+          id
+          title
+          content
+        }
+        talkingRoom {
+          edges {
+            node {
+              id
+              text
+              createdAt
+              sender {
+                id
+                email
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

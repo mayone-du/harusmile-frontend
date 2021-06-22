@@ -1,12 +1,7 @@
-mutation CreateTalkRoom(
-  $loginUserId: ID!
-  $opponentUserId: ID!
-  $selectedPlanId: ID!
-  $talkRoomDescription: String
-) {
+mutation CreateTalkRoom($opponentUserId: ID!, $selectedPlanId: ID!, $talkRoomDescription: String) {
   createTalkRoom(
     input: {
-      joinUsers: [$loginUserId, $opponentUserId]
+      opponentUser: $opponentUserId
       selectedPlan: $selectedPlanId
       talkRoomDescription: $talkRoomDescription
     }
@@ -14,14 +9,6 @@ mutation CreateTalkRoom(
     talkRoom {
       id
       talkRoomDescription
-      joinUsers {
-        edges {
-          node {
-            id
-            email
-          }
-        }
-      }
     }
   }
 }

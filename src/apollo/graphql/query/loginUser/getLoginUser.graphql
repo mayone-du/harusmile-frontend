@@ -9,10 +9,13 @@ query GetLoginUser {
         }
       }
     }
-    joinUsers {
+    planAuthor {
       edges {
         node {
           id
+          title
+          content
+          price
         }
       }
     }

@@ -168,8 +168,8 @@ export type CreateReviewMutationPayload = {
 
 export type CreateTalkRoomMutationInput = {
   talkRoomDescription?: Maybe<Scalars['String']>;
-  joinUsers?: Maybe<Array<Maybe<Scalars['ID']>>>;
   selectedPlan: Scalars['ID'];
+  opponentUser: Scalars['ID'];
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
@@ -457,8 +457,7 @@ export type PlanNodeSelectedPlanArgs = {
   after?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
-  joinUsers?: Maybe<Array<Maybe<Scalars['ID']>>>;
-  joinUsers_Icontains?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  selectedPlan?: Maybe<Scalars['ID']>;
 };
 
 export type PlanNodeConnection = {
@@ -819,8 +818,7 @@ export type QueryAllTalkRoomsArgs = {
   after?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
-  joinUsers?: Maybe<Array<Maybe<Scalars['ID']>>>;
-  joinUsers_Icontains?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  selectedPlan?: Maybe<Scalars['ID']>;
 };
 
 
@@ -837,8 +835,6 @@ export type QueryAllMessagesArgs = {
   last?: Maybe<Scalars['Int']>;
   text?: Maybe<Scalars['String']>;
   text_Icontains?: Maybe<Scalars['String']>;
-  talkingRoom_JoinUsers?: Maybe<Array<Maybe<Scalars['ID']>>>;
-  talkingRoom_JoinUsers_Icontains?: Maybe<Array<Maybe<Scalars['ID']>>>;
 };
 
 
@@ -850,8 +846,6 @@ export type QueryLoginUserMessagesArgs = {
   last?: Maybe<Scalars['Int']>;
   text?: Maybe<Scalars['String']>;
   text_Icontains?: Maybe<Scalars['String']>;
-  talkingRoom_JoinUsers?: Maybe<Array<Maybe<Scalars['ID']>>>;
-  talkingRoom_JoinUsers_Icontains?: Maybe<Array<Maybe<Scalars['ID']>>>;
 };
 
 
@@ -973,20 +967,9 @@ export type TalkRoomNode = Node & {
   /** The ID of the object. */
   id: Scalars['ID'];
   talkRoomDescription?: Maybe<Scalars['String']>;
-  joinUsers: UserNodeConnection;
   selectedPlan?: Maybe<PlanNode>;
+  opponentUser?: Maybe<UserNode>;
   talkingRoom: MessageNodeConnection;
-};
-
-
-export type TalkRoomNodeJoinUsersArgs = {
-  offset?: Maybe<Scalars['Int']>;
-  before?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  email?: Maybe<Scalars['String']>;
-  email_Icontains?: Maybe<Scalars['String']>;
 };
 
 
@@ -998,8 +981,6 @@ export type TalkRoomNodeTalkingRoomArgs = {
   last?: Maybe<Scalars['Int']>;
   text?: Maybe<Scalars['String']>;
   text_Icontains?: Maybe<Scalars['String']>;
-  talkingRoom_JoinUsers?: Maybe<Array<Maybe<Scalars['ID']>>>;
-  talkingRoom_JoinUsers_Icontains?: Maybe<Array<Maybe<Scalars['ID']>>>;
 };
 
 export type TalkRoomNodeConnection = {
@@ -1095,7 +1076,7 @@ export type UserNode = Node & {
   customer: ReviewNodeConnection;
   notificator: NotificationNodeConnection;
   receiver: NotificationNodeConnection;
-  joinUsers: TalkRoomNodeConnection;
+  opponentUser: TalkRoomNodeConnection;
   sender: MessageNodeConnection;
 };
 
@@ -1196,14 +1177,13 @@ export type UserNodeReceiverArgs = {
 };
 
 
-export type UserNodeJoinUsersArgs = {
+export type UserNodeOpponentUserArgs = {
   offset?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   after?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
-  joinUsers?: Maybe<Array<Maybe<Scalars['ID']>>>;
-  joinUsers_Icontains?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  selectedPlan?: Maybe<Scalars['ID']>;
 };
 
 
@@ -1215,8 +1195,6 @@ export type UserNodeSenderArgs = {
   last?: Maybe<Scalars['Int']>;
   text?: Maybe<Scalars['String']>;
   text_Icontains?: Maybe<Scalars['String']>;
-  talkingRoom_JoinUsers?: Maybe<Array<Maybe<Scalars['ID']>>>;
-  talkingRoom_JoinUsers_Icontains?: Maybe<Array<Maybe<Scalars['ID']>>>;
 };
 
 export type UserNodeConnection = {
@@ -1335,7 +1313,6 @@ export type CreateReviewMutation = (
 );
 
 export type CreateTalkRoomMutationVariables = Exact<{
-  loginUserId: Scalars['ID'];
   opponentUserId: Scalars['ID'];
   selectedPlanId: Scalars['ID'];
   talkRoomDescription?: Maybe<Scalars['String']>;
@@ -1349,16 +1326,6 @@ export type CreateTalkRoomMutation = (
     & { talkRoom?: Maybe<(
       { __typename?: 'TalkRoomNode' }
       & Pick<TalkRoomNode, 'id' | 'talkRoomDescription'>
-      & { joinUsers: (
-        { __typename?: 'UserNodeConnection' }
-        & { edges: Array<Maybe<(
-          { __typename?: 'UserNodeEdge' }
-          & { node?: Maybe<(
-            { __typename?: 'UserNode' }
-            & Pick<UserNode, 'id' | 'email'>
-          )> }
-        )>> }
-      ) }
     )> }
   )> }
 );
@@ -1526,13 +1493,13 @@ export type GetLoginUserQuery = (
           & Pick<ReviewNode, 'stars'>
         )> }
       )>> }
-    ), joinUsers: (
-      { __typename?: 'TalkRoomNodeConnection' }
+    ), planAuthor: (
+      { __typename?: 'PlanNodeConnection' }
       & { edges: Array<Maybe<(
-        { __typename?: 'TalkRoomNodeEdge' }
+        { __typename?: 'PlanNodeEdge' }
         & { node?: Maybe<(
-          { __typename?: 'TalkRoomNode' }
-          & Pick<TalkRoomNode, 'id'>
+          { __typename?: 'PlanNode' }
+          & Pick<PlanNode, 'id' | 'title' | 'content' | 'price'>
         )> }
       )>> }
     ), targetUser?: Maybe<(
@@ -1771,25 +1738,6 @@ export type GetProfileQuery = (
             & Pick<PlanNode, 'id' | 'title' | 'content' | 'isPublished' | 'price'>
           )> }
         )>> }
-      ), joinUsers: (
-        { __typename?: 'TalkRoomNodeConnection' }
-        & { edges: Array<Maybe<(
-          { __typename?: 'TalkRoomNodeEdge' }
-          & { node?: Maybe<(
-            { __typename?: 'TalkRoomNode' }
-            & Pick<TalkRoomNode, 'id'>
-            & { joinUsers: (
-              { __typename?: 'UserNodeConnection' }
-              & { edges: Array<Maybe<(
-                { __typename?: 'UserNodeEdge' }
-                & { node?: Maybe<(
-                  { __typename?: 'UserNode' }
-                  & Pick<UserNode, 'id' | 'email'>
-                )> }
-              )>> }
-            ) }
-          )> }
-        )>> }
       ), provider: (
         { __typename?: 'ReviewNodeConnection' }
         & { edges: Array<Maybe<(
@@ -1859,12 +1807,10 @@ export type SearchProfilesQuery = (
   )> }
 );
 
-export type GetLoginUserJoinTalkRoomQueryVariables = Exact<{
-  loginUserId: Scalars['ID'];
-}>;
+export type GetAllTalkRoomsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetLoginUserJoinTalkRoomQuery = (
+export type GetAllTalkRoomsQuery = (
   { __typename?: 'Query' }
   & { allTalkRooms?: Maybe<(
     { __typename?: 'TalkRoomNodeConnection' }
@@ -1873,20 +1819,10 @@ export type GetLoginUserJoinTalkRoomQuery = (
       & { node?: Maybe<(
         { __typename?: 'TalkRoomNode' }
         & Pick<TalkRoomNode, 'id' | 'talkRoomDescription'>
-        & { joinUsers: (
-          { __typename?: 'UserNodeConnection' }
-          & { edges: Array<Maybe<(
-            { __typename?: 'UserNodeEdge' }
-            & { node?: Maybe<(
-              { __typename?: 'UserNode' }
-              & Pick<UserNode, 'id' | 'email'>
-              & { targetUser?: Maybe<(
-                { __typename?: 'ProfileNode' }
-                & Pick<ProfileNode, 'profileName' | 'profileImage' | 'schoolName'>
-              )> }
-            )> }
-          )>> }
-        ), talkingRoom: (
+        & { selectedPlan?: Maybe<(
+          { __typename?: 'PlanNode' }
+          & Pick<PlanNode, 'id' | 'title' | 'content'>
+        )>, talkingRoom: (
           { __typename?: 'MessageNodeConnection' }
           & { edges: Array<Maybe<(
             { __typename?: 'MessageNodeEdge' }
@@ -2133,21 +2069,13 @@ export type CreateReviewMutationHookResult = ReturnType<typeof useCreateReviewMu
 export type CreateReviewMutationResult = Apollo.MutationResult<CreateReviewMutation>;
 export type CreateReviewMutationOptions = Apollo.BaseMutationOptions<CreateReviewMutation, CreateReviewMutationVariables>;
 export const CreateTalkRoomDocument = gql`
-    mutation CreateTalkRoom($loginUserId: ID!, $opponentUserId: ID!, $selectedPlanId: ID!, $talkRoomDescription: String) {
+    mutation CreateTalkRoom($opponentUserId: ID!, $selectedPlanId: ID!, $talkRoomDescription: String) {
   createTalkRoom(
-    input: {joinUsers: [$loginUserId, $opponentUserId], selectedPlan: $selectedPlanId, talkRoomDescription: $talkRoomDescription}
+    input: {opponentUser: $opponentUserId, selectedPlan: $selectedPlanId, talkRoomDescription: $talkRoomDescription}
   ) {
     talkRoom {
       id
       talkRoomDescription
-      joinUsers {
-        edges {
-          node {
-            id
-            email
-          }
-        }
-      }
     }
   }
 }
@@ -2167,7 +2095,6 @@ export type CreateTalkRoomMutationFn = Apollo.MutationFunction<CreateTalkRoomMut
  * @example
  * const [createTalkRoomMutation, { data, loading, error }] = useCreateTalkRoomMutation({
  *   variables: {
- *      loginUserId: // value for 'loginUserId'
  *      opponentUserId: // value for 'opponentUserId'
  *      selectedPlanId: // value for 'selectedPlanId'
  *      talkRoomDescription: // value for 'talkRoomDescription'
@@ -2524,10 +2451,13 @@ export const GetLoginUserDocument = gql`
         }
       }
     }
-    joinUsers {
+    planAuthor {
       edges {
         node {
           id
+          title
+          content
+          price
         }
       }
     }
@@ -2981,21 +2911,6 @@ export const GetProfileDocument = gql`
           }
         }
       }
-      joinUsers {
-        edges {
-          node {
-            id
-            joinUsers {
-              edges {
-                node {
-                  id
-                  email
-                }
-              }
-            }
-          }
-        }
-      }
       provider {
         edges {
           node {
@@ -3128,25 +3043,17 @@ export function useSearchProfilesLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type SearchProfilesQueryHookResult = ReturnType<typeof useSearchProfilesQuery>;
 export type SearchProfilesLazyQueryHookResult = ReturnType<typeof useSearchProfilesLazyQuery>;
 export type SearchProfilesQueryResult = Apollo.QueryResult<SearchProfilesQuery, SearchProfilesQueryVariables>;
-export const GetLoginUserJoinTalkRoomDocument = gql`
-    query GetLoginUserJoinTalkRoom($loginUserId: ID!) {
-  allTalkRooms(joinUsers: [$loginUserId]) {
+export const GetAllTalkRoomsDocument = gql`
+    query GetAllTalkRooms {
+  allTalkRooms {
     edges {
       node {
         id
         talkRoomDescription
-        joinUsers {
-          edges {
-            node {
-              id
-              email
-              targetUser {
-                profileName
-                profileImage
-                schoolName
-              }
-            }
-          }
+        selectedPlan {
+          id
+          title
+          content
         }
         talkingRoom {
           edges {
@@ -3168,32 +3075,31 @@ export const GetLoginUserJoinTalkRoomDocument = gql`
     `;
 
 /**
- * __useGetLoginUserJoinTalkRoomQuery__
+ * __useGetAllTalkRoomsQuery__
  *
- * To run a query within a React component, call `useGetLoginUserJoinTalkRoomQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetLoginUserJoinTalkRoomQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetAllTalkRoomsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllTalkRoomsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetLoginUserJoinTalkRoomQuery({
+ * const { data, loading, error } = useGetAllTalkRoomsQuery({
  *   variables: {
- *      loginUserId: // value for 'loginUserId'
  *   },
  * });
  */
-export function useGetLoginUserJoinTalkRoomQuery(baseOptions: Apollo.QueryHookOptions<GetLoginUserJoinTalkRoomQuery, GetLoginUserJoinTalkRoomQueryVariables>) {
+export function useGetAllTalkRoomsQuery(baseOptions?: Apollo.QueryHookOptions<GetAllTalkRoomsQuery, GetAllTalkRoomsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetLoginUserJoinTalkRoomQuery, GetLoginUserJoinTalkRoomQueryVariables>(GetLoginUserJoinTalkRoomDocument, options);
+        return Apollo.useQuery<GetAllTalkRoomsQuery, GetAllTalkRoomsQueryVariables>(GetAllTalkRoomsDocument, options);
       }
-export function useGetLoginUserJoinTalkRoomLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLoginUserJoinTalkRoomQuery, GetLoginUserJoinTalkRoomQueryVariables>) {
+export function useGetAllTalkRoomsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllTalkRoomsQuery, GetAllTalkRoomsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetLoginUserJoinTalkRoomQuery, GetLoginUserJoinTalkRoomQueryVariables>(GetLoginUserJoinTalkRoomDocument, options);
+          return Apollo.useLazyQuery<GetAllTalkRoomsQuery, GetAllTalkRoomsQueryVariables>(GetAllTalkRoomsDocument, options);
         }
-export type GetLoginUserJoinTalkRoomQueryHookResult = ReturnType<typeof useGetLoginUserJoinTalkRoomQuery>;
-export type GetLoginUserJoinTalkRoomLazyQueryHookResult = ReturnType<typeof useGetLoginUserJoinTalkRoomLazyQuery>;
-export type GetLoginUserJoinTalkRoomQueryResult = Apollo.QueryResult<GetLoginUserJoinTalkRoomQuery, GetLoginUserJoinTalkRoomQueryVariables>;
+export type GetAllTalkRoomsQueryHookResult = ReturnType<typeof useGetAllTalkRoomsQuery>;
+export type GetAllTalkRoomsLazyQueryHookResult = ReturnType<typeof useGetAllTalkRoomsLazyQuery>;
+export type GetAllTalkRoomsQueryResult = Apollo.QueryResult<GetAllTalkRoomsQuery, GetAllTalkRoomsQueryVariables>;
 export const GetTalkRoomDocument = gql`
     query GetTalkRoom($talkRoomId: ID!) {
   talkRoom(id: $talkRoomId) {

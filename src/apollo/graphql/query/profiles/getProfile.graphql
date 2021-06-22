@@ -27,21 +27,6 @@ query GetProfile($profileId: ID!) {
           }
         }
       }
-      joinUsers {
-        edges {
-          node {
-            id
-            joinUsers {
-              edges {
-                node {
-                  id
-                  email
-                }
-              }
-            }
-          }
-        }
-      }
       provider {
         edges {
           node {
