@@ -29,8 +29,12 @@ const ProfileDetail: NextPage = () => {
             <NormalProfile
               targetProfileId={targetProfileId}
               targetProfileName={profileData.profile.profileName}
-              targetProfileText={profileData.profile.profileText}
-              targetSchoolName={profileData.profile.schoolName}
+              targetProfileText={
+                profileData.profile.profileText ? profileData.profile.profileText : ""
+              }
+              targetSchoolName={
+                profileData.profile.schoolName ? profileData.profile.schoolName : ""
+              }
               targetAge={profileData.profile.age ? profileData.profile.age : 0}
               targetUndergraduate={
                 profileData?.profile?.undergraduate ? profileData.profile.undergraduate : ""

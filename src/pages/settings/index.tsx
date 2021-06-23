@@ -119,6 +119,11 @@ const Settings: NextPage = () => {
                     onChange={handleAddressBlur}
                     onBlur={handleAddressBlur}
                   >
+                    {inputLoginUserData.addressId === "" && (
+                      <option value={""} disabled>
+                        未設定
+                      </option>
+                    )}
                     {allAdressesData?.allAddresses?.edges.map((address) => {
                       return (
                         <option key={address?.node?.id} value={address?.node?.id}>
@@ -136,6 +141,11 @@ const Settings: NextPage = () => {
                     onChange={handleGenderBlur}
                     onBlur={handleGenderBlur}
                   >
+                    {inputLoginUserData.genderId === "" && (
+                      <option value={""} disabled>
+                        未設定
+                      </option>
+                    )}
                     {allGendersData?.allGenders?.edges.map((gender) => {
                       return (
                         <option key={gender?.node?.id} value={gender?.node?.id}>

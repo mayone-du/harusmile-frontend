@@ -29,18 +29,18 @@ export const useSetLoginUserData = () => {
           : "",
         isCollegeStudent: queryData?.loginUser?.targetUser?.isCollegeStudent ? true : false,
         schoolName: queryData?.loginUser?.targetUser?.schoolName
-          ? queryData.loginUser.targetUser?.schoolName
+          ? queryData.loginUser.targetUser.schoolName
           : "",
-        genderId: queryData?.loginUser?.targetUser?.selectedGender.id
+        genderId: queryData?.loginUser?.targetUser?.selectedGender?.id
           ? queryData.loginUser.targetUser.selectedGender.id
           : "",
-        genderName: queryData?.loginUser?.targetUser?.selectedGender.genderName
-          ? queryData.loginUser.targetUser?.selectedGender.genderName
+        genderName: queryData?.loginUser?.targetUser?.selectedGender?.genderName
+          ? queryData.loginUser.targetUser.selectedGender.genderName
           : "",
-        addressId: queryData?.loginUser?.targetUser?.selectedAddress.id
+        addressId: queryData?.loginUser?.targetUser?.selectedAddress?.id
           ? queryData.loginUser.targetUser.selectedAddress.id
           : "",
-        addressName: queryData?.loginUser?.targetUser?.selectedAddress.addressName
+        addressName: queryData?.loginUser?.targetUser?.selectedAddress?.addressName
           ? queryData.loginUser.targetUser?.selectedAddress.addressName
           : "",
         age: queryData?.loginUser?.targetUser?.age ? queryData.loginUser.targetUser?.age : 0,

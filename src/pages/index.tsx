@@ -6,7 +6,7 @@ import type { GetCollegeProfilesQuery, GetCollegeProfilesQueryVariables } from "
 import { GetCollegeProfilesDocument } from "src/apollo/schema";
 import { CheckSvg } from "src/components/icons/svgs/CheckSvg";
 import { Layout } from "src/components/layouts/Layout";
-import { ProfilesWrapper } from "src/components/profiles/ProfilesWrapper";
+import { CollegeProfilesWrapper } from "src/components/profiles/CollegeProfilesWrapper";
 import { SearchBox } from "src/components/SearchBox";
 
 // 大学生一覧
@@ -65,7 +65,7 @@ const Index: NextPage<PropsGetCollegeProfilesQuery<GetCollegeProfilesQuery>> = (
             一覧から探す
           </div>
         </h2>
-        <ProfilesWrapper profilesData={props.profilesData} />
+        <CollegeProfilesWrapper profilesData={props.profilesData} />
       </section>
     </Layout>
   );

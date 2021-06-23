@@ -10,9 +10,11 @@ export const AuthForm: React.VFC<Props> = (props) => {
     handleSetCollegeStudent,
     handleSetHighSchoolStudent,
     inputProfileName,
+    inputSchoolName,
     inputEmail,
     inputPassword,
     handleProfileNameChange,
+    handleSchoolNameChange,
     handleEmailChange,
     handlePasswordChange,
     handleSignIn,
@@ -27,41 +29,51 @@ export const AuthForm: React.VFC<Props> = (props) => {
   };
   return (
     <form onSubmit={handleAuth}>
-      <div>
-        {/* ローディング */}
-        {isLoading && <div>loading</div>}
-        {props.pageContext === "signup" && (
+      {/* ローディング */}
+      {isLoading && <div>loading</div>}
+      {props.pageContext === "signup" && (
+        <div>
+          <input
+            type="text"
+            className="border focus:outline-none block md:w-1/3 w-2/3 p-2 rounded-sm mx-auto"
+            placeholder="username"
+            value={inputProfileName}
+            onChange={handleProfileNameChange}
+            autoComplete="name"
+          />
+          <div className="flex items-center justify-center">
+            <button
+              type="button"
+              onClick={handleSetCollegeStudent}
+              className={`focus:outline-none py-2 px-4 block border ${
+                isCollegeStudent && "bg-pink-400"
+              }`}
+            >
+              大学生で登録
+            </button>
+            <button
+              type="button"
+              onClick={handleSetHighSchoolStudent}
+              className={`focus:outline-none py-2 px-4 block border ${
+                isCollegeStudent || "bg-pink-400"
+              }`}
+            >
+              高校生で登録
+            </button>
+          </div>
           <div>
             <input
               type="text"
               className="border focus:outline-none block md:w-1/3 w-2/3 p-2 rounded-sm mx-auto"
-              placeholder="username"
-              value={inputProfileName}
-              onChange={handleProfileNameChange}
-              autoComplete="name"
+              placeholder="schoolName"
+              value={inputSchoolName}
+              onChange={handleSchoolNameChange}
             />
-            <div className="flex items-center justify-center">
-              <button
-                type="button"
-                onClick={handleSetCollegeStudent}
-                className={`focus:outline-none py-2 px-4 block border ${
-                  isCollegeStudent && "bg-pink-400"
-                }`}
-              >
-                大学生で登録
-              </button>
-              <button
-                type="button"
-                onClick={handleSetHighSchoolStudent}
-                className={`focus:outline-none py-2 px-4 block border ${
-                  isCollegeStudent || "bg-pink-400"
-                }`}
-              >
-                高校生で登録
-              </button>
-            </div>
           </div>
-        )}
+        </div>
+      )}
+
+      <div>
         <input
           type="email"
           className="border focus:outline-none block md:w-1/3 w-2/3 p-2 rounded-sm mx-auto"

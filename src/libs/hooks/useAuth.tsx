@@ -18,6 +18,7 @@ export const useAuth = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isCollegeStudent, setIsCollegeStudent] = useState(false);
   const [inputProfileName, setInputProfileName] = useState("");
+  const [inputSchoolName, setInputSchoolName] = useState("");
   const [inputEmail, setInputEmail] = useState("");
   const [inputPassword, setInputPassword] = useState("");
 
@@ -29,6 +30,9 @@ export const useAuth = () => {
   }, []);
   const handleProfileNameChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setInputProfileName(event.target.value);
+  }, []);
+  const handleSchoolNameChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputSchoolName(event.target.value);
   }, []);
   const handleEmailChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setInputEmail(event.target.value);
@@ -43,6 +47,10 @@ export const useAuth = () => {
       alert("ユーザーネームを入力してください。");
       return { isFormError: true };
     }
+    if (inputSchoolName === "") {
+      alert("学校名を入力してください。");
+      return { isFormError: true };
+    }
     // メールアドレスが空文字
     if (inputEmail === "") {
       alert("正しい形式でメールアドレスを入力してください。");
@@ -54,13 +62,14 @@ export const useAuth = () => {
     } else {
       return { isFormError: false };
     }
-  }, [inputProfileName, inputEmail, inputPassword]);
+  }, [inputProfileName, inputSchoolName, inputEmail, inputPassword]);
 
   // signIn
   const handleSignIn = async (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     // 入力欄の検証を避けるために値をセット。ログインには必要ない。
     setInputProfileName("default");
+    setInputSchoolName("default");
     const { isFormError } = validateInputs();
 
     if (!isFormError) {
@@ -138,6 +147,7 @@ export const useAuth = () => {
           variables: {
             profileName: inputProfileName,
             isCollegeStudent: isCollegeStudent,
+            schoolName: inputSchoolName,
           },
         });
         setIsLoading(false);
@@ -156,11 +166,10 @@ export const useAuth = () => {
     handleSetCollegeStudent,
     handleSetHighSchoolStudent,
     inputProfileName,
-    setInputProfileName,
+    inputSchoolName,
+    handleSchoolNameChange,
     inputEmail,
-    setInputEmail,
     inputPassword,
-    setInputPassword,
     handleProfileNameChange,
     handleEmailChange,
     handlePasswordChange,

@@ -2,7 +2,7 @@ mutation CreateProfile(
   $profileName: String!
   $profileText: String
   $isCollegeStudent: Boolean!
-  $schoolName: String
+  $schoolName: String!
   $age: Int
   $selectedGender: ID
   $selectedAddress: ID

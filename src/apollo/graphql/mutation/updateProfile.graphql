@@ -1,20 +1,20 @@
 mutation UpdateProfile(
   $id: ID!
   $profileName: String!
-  $profileText: String!
-  $isCollegeStudent: Boolean!
-  $schoolName: String!
-  $age: Int!
-  $telephoneNumber: String!
+  $profileText: String
+  $isCollegeStudent: Boolean
+  $schoolName: String
+  $age: Int
+  $telephoneNumber: String
   $selectedGender: ID!
   $selectedAddress: ID!
-  $undergraduate: String!
-  $department: String!
-  $clubActivities: String!
-  $admissionFormat: String!
-  $favoriteSubject: String!
-  $wantHear: String!
-  $problem: String!
+  $undergraduate: String
+  $department: String
+  $clubActivities: String
+  $admissionFormat: String
+  $favoriteSubject: String
+  $wantHear: String
+  $problem: String
   $profileImage: Upload
 ) {
   updateProfile(

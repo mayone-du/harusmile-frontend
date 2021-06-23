@@ -77,6 +77,11 @@ export const useProfileUpdate = () => {
   // 送信用関数
   const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // エラーチェック
+    if (inputLoginUserData.addressId === "" || inputLoginUserData.genderId === "") {
+      alert("住所と性別は必須です。");
+      return;
+    }
     try {
       // tokenの確認と更新
       await handleRefreshToken();
@@ -106,15 +111,29 @@ export const useProfileUpdate = () => {
         loginUserVar({
           ...loginUserData,
           profileName: data.updateProfile.profile.profileName,
-          profileText: data.updateProfile.profile.profileText,
+          profileText: data.updateProfile.profile.profileText
+            ? data.updateProfile.profile.profileText
+            : "",
           isCollegeStudent: data.updateProfile.profile.isCollegeStudent,
-          schoolName: data.updateProfile.profile.schoolName,
+          schoolName: data.updateProfile.profile.schoolName
+            ? data.updateProfile.profile.schoolName
+            : "",
           age: data.updateProfile.profile.age ? data.updateProfile.profile.age : 0,
-          telephoneNumber: data.updateProfile.profile.telephoneNumber,
-          addressId: data.updateProfile.profile.selectedAddress.id,
-          addressName: data.updateProfile.profile.selectedAddress.addressName,
-          genderName: data.updateProfile.profile.selectedGender.genderName,
-          genderId: data.updateProfile.profile.selectedGender.id,
+          telephoneNumber: data.updateProfile.profile.telephoneNumber
+            ? data.updateProfile.profile.telephoneNumber
+            : "",
+          addressId: data.updateProfile.profile.selectedAddress?.id
+            ? data.updateProfile.profile.selectedAddress.id
+            : "",
+          addressName: data.updateProfile.profile.selectedAddress?.addressName
+            ? data.updateProfile.profile.selectedAddress?.addressName
+            : "",
+          genderName: data.updateProfile.profile.selectedGender?.genderName
+            ? data.updateProfile.profile.selectedGender.genderName
+            : "",
+          genderId: data.updateProfile.profile.selectedGender?.id
+            ? data.updateProfile.profile.selectedGender.id
+            : "",
           undergraduate: data.updateProfile.profile.undergraduate
             ? data.updateProfile.profile.undergraduate
             : "",

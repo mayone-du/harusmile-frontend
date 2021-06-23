@@ -131,7 +131,7 @@ export type CreateProfileMutationInput = {
   profileName: Scalars['String'];
   profileText?: Maybe<Scalars['String']>;
   isCollegeStudent: Scalars['Boolean'];
-  schoolName?: Maybe<Scalars['String']>;
+  schoolName: Scalars['String'];
   age?: Maybe<Scalars['Int']>;
   selectedGender?: Maybe<Scalars['ID']>;
   selectedAddress?: Maybe<Scalars['ID']>;
@@ -482,11 +482,11 @@ export type ProfileNode = Node & {
   /** The ID of the object. */
   id: Scalars['ID'];
   targetUser: UserNode;
-  telephoneNumber: Scalars['String'];
+  telephoneNumber?: Maybe<Scalars['String']>;
   profileName: Scalars['String'];
-  profileText: Scalars['String'];
+  profileText?: Maybe<Scalars['String']>;
   isCollegeStudent: Scalars['Boolean'];
-  schoolName: Scalars['String'];
+  schoolName?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
   profileImage?: Maybe<Scalars['String']>;
   age?: Maybe<Scalars['Int']>;
@@ -498,8 +498,8 @@ export type ProfileNode = Node & {
   wantHear?: Maybe<Scalars['String']>;
   problem?: Maybe<Scalars['String']>;
   followingUsers: UserNodeConnection;
-  selectedAddress: AddressNode;
-  selectedGender: GenderNode;
+  selectedAddress?: Maybe<AddressNode>;
+  selectedGender?: Maybe<GenderNode>;
   tags: TagNodeConnection;
 };
 
@@ -1040,22 +1040,22 @@ export type UpdatePlanMutationPayload = {
 export type UpdateProfileMutationInput = {
   id: Scalars['ID'];
   profileName: Scalars['String'];
-  profileText: Scalars['String'];
-  isCollegeStudent: Scalars['Boolean'];
-  schoolName: Scalars['String'];
-  age: Scalars['Int'];
+  profileText?: Maybe<Scalars['String']>;
+  isCollegeStudent?: Maybe<Scalars['Boolean']>;
+  schoolName?: Maybe<Scalars['String']>;
+  age?: Maybe<Scalars['Int']>;
   selectedGender: Scalars['ID'];
   selectedAddress: Scalars['ID'];
-  telephoneNumber: Scalars['String'];
-  wantHear: Scalars['String'];
-  problem: Scalars['String'];
+  telephoneNumber?: Maybe<Scalars['String']>;
+  wantHear?: Maybe<Scalars['String']>;
+  problem?: Maybe<Scalars['String']>;
   followingUsers?: Maybe<Array<Maybe<Scalars['ID']>>>;
   tags?: Maybe<Array<Maybe<Scalars['ID']>>>;
-  undergraduate: Scalars['String'];
-  department: Scalars['String'];
-  clubActivities: Scalars['String'];
-  admissionFormat: Scalars['String'];
-  favoriteSubject: Scalars['String'];
+  undergraduate?: Maybe<Scalars['String']>;
+  department?: Maybe<Scalars['String']>;
+  clubActivities?: Maybe<Scalars['String']>;
+  admissionFormat?: Maybe<Scalars['String']>;
+  favoriteSubject?: Maybe<Scalars['String']>;
   profileImage?: Maybe<Scalars['Upload']>;
   clientMutationId?: Maybe<Scalars['String']>;
 };
@@ -1271,7 +1271,7 @@ export type CreateProfileMutationVariables = Exact<{
   profileName: Scalars['String'];
   profileText?: Maybe<Scalars['String']>;
   isCollegeStudent: Scalars['Boolean'];
-  schoolName?: Maybe<Scalars['String']>;
+  schoolName: Scalars['String'];
   age?: Maybe<Scalars['Int']>;
   selectedGender?: Maybe<Scalars['ID']>;
   selectedAddress?: Maybe<Scalars['ID']>;
@@ -1294,13 +1294,13 @@ export type CreateProfileMutation = (
     & { profile?: Maybe<(
       { __typename?: 'ProfileNode' }
       & Pick<ProfileNode, 'id' | 'profileName' | 'profileText' | 'isCollegeStudent' | 'schoolName' | 'telephoneNumber' | 'createdAt' | 'profileImage' | 'age' | 'undergraduate' | 'department' | 'clubActivities' | 'admissionFormat' | 'favoriteSubject' | 'wantHear' | 'problem'>
-      & { selectedGender: (
+      & { selectedGender?: Maybe<(
         { __typename?: 'GenderNode' }
         & Pick<GenderNode, 'id' | 'genderName'>
-      ), selectedAddress: (
+      )>, selectedAddress?: Maybe<(
         { __typename?: 'AddressNode' }
         & Pick<AddressNode, 'id' | 'addressName'>
-      ) }
+      )> }
     )> }
   )> }
 );
@@ -1417,20 +1417,20 @@ export type UpdateNotificationsMutation = (
 export type UpdateProfileMutationVariables = Exact<{
   id: Scalars['ID'];
   profileName: Scalars['String'];
-  profileText: Scalars['String'];
-  isCollegeStudent: Scalars['Boolean'];
-  schoolName: Scalars['String'];
-  age: Scalars['Int'];
-  telephoneNumber: Scalars['String'];
+  profileText?: Maybe<Scalars['String']>;
+  isCollegeStudent?: Maybe<Scalars['Boolean']>;
+  schoolName?: Maybe<Scalars['String']>;
+  age?: Maybe<Scalars['Int']>;
+  telephoneNumber?: Maybe<Scalars['String']>;
   selectedGender: Scalars['ID'];
   selectedAddress: Scalars['ID'];
-  undergraduate: Scalars['String'];
-  department: Scalars['String'];
-  clubActivities: Scalars['String'];
-  admissionFormat: Scalars['String'];
-  favoriteSubject: Scalars['String'];
-  wantHear: Scalars['String'];
-  problem: Scalars['String'];
+  undergraduate?: Maybe<Scalars['String']>;
+  department?: Maybe<Scalars['String']>;
+  clubActivities?: Maybe<Scalars['String']>;
+  admissionFormat?: Maybe<Scalars['String']>;
+  favoriteSubject?: Maybe<Scalars['String']>;
+  wantHear?: Maybe<Scalars['String']>;
+  problem?: Maybe<Scalars['String']>;
   profileImage?: Maybe<Scalars['Upload']>;
 }>;
 
@@ -1442,13 +1442,13 @@ export type UpdateProfileMutation = (
     & { profile?: Maybe<(
       { __typename?: 'ProfileNode' }
       & Pick<ProfileNode, 'profileName' | 'profileText' | 'schoolName' | 'age' | 'telephoneNumber' | 'isCollegeStudent' | 'undergraduate' | 'department' | 'clubActivities' | 'admissionFormat' | 'favoriteSubject' | 'wantHear' | 'problem' | 'profileImage'>
-      & { selectedGender: (
+      & { selectedGender?: Maybe<(
         { __typename?: 'GenderNode' }
         & Pick<GenderNode, 'id' | 'genderName'>
-      ), selectedAddress: (
+      )>, selectedAddress?: Maybe<(
         { __typename?: 'AddressNode' }
         & Pick<AddressNode, 'id' | 'addressName'>
-      ) }
+      )> }
     )> }
   )> }
 );
@@ -1529,13 +1529,13 @@ export type GetLoginUserQuery = (
             )> }
           )> }
         )>> }
-      ), selectedGender: (
+      ), selectedGender?: Maybe<(
         { __typename?: 'GenderNode' }
         & Pick<GenderNode, 'id' | 'genderName'>
-      ), selectedAddress: (
+      )>, selectedAddress?: Maybe<(
         { __typename?: 'AddressNode' }
         & Pick<AddressNode, 'id' | 'addressName'>
-      ), tags: (
+      )>, tags: (
         { __typename?: 'TagNodeConnection' }
         & { edges: Array<Maybe<(
           { __typename?: 'TagNodeEdge' }
@@ -1660,13 +1660,13 @@ export type GetAllProfilesQuery = (
               )> }
             )>> }
           ) }
-        ), selectedGender: (
+        ), selectedGender?: Maybe<(
           { __typename?: 'GenderNode' }
           & Pick<GenderNode, 'genderName'>
-        ), selectedAddress: (
+        )>, selectedAddress?: Maybe<(
           { __typename?: 'AddressNode' }
           & Pick<AddressNode, 'addressName'>
-        ) }
+        )> }
       )> }
     )>> }
   )> }
@@ -1696,13 +1696,13 @@ export type GetCollegeProfilesQuery = (
               )> }
             )>> }
           ) }
-        ), selectedGender: (
+        ), selectedGender?: Maybe<(
           { __typename?: 'GenderNode' }
           & Pick<GenderNode, 'id' | 'genderName'>
-        ), selectedAddress: (
+        )>, selectedAddress?: Maybe<(
           { __typename?: 'AddressNode' }
           & Pick<AddressNode, 'id' | 'addressName'>
-        ) }
+        )> }
       )> }
     )>> }
   )> }
@@ -1732,13 +1732,13 @@ export type GetHighSchoolProfilesQuery = (
               )> }
             )>> }
           ) }
-        ), selectedGender: (
+        ), selectedGender?: Maybe<(
           { __typename?: 'GenderNode' }
           & Pick<GenderNode, 'id' | 'genderName'>
-        ), selectedAddress: (
+        )>, selectedAddress?: Maybe<(
           { __typename?: 'AddressNode' }
           & Pick<AddressNode, 'id' | 'addressName'>
-        ) }
+        )> }
       )> }
     )>> }
   )> }
@@ -1784,13 +1784,13 @@ export type GetProfileQuery = (
           )> }
         )>> }
       ) }
-    ), selectedGender: (
+    ), selectedGender?: Maybe<(
       { __typename?: 'GenderNode' }
       & Pick<GenderNode, 'genderName'>
-    ), selectedAddress: (
+    )>, selectedAddress?: Maybe<(
       { __typename?: 'AddressNode' }
       & Pick<AddressNode, 'addressName'>
-    ) }
+    )> }
   )> }
 );
 
@@ -1823,13 +1823,13 @@ export type SearchProfilesQuery = (
               )> }
             )>> }
           ) }
-        ), selectedGender: (
+        ), selectedGender?: Maybe<(
           { __typename?: 'GenderNode' }
           & Pick<GenderNode, 'genderName'>
-        ), selectedAddress: (
+        )>, selectedAddress?: Maybe<(
           { __typename?: 'AddressNode' }
           & Pick<AddressNode, 'addressName'>
-        ) }
+        )> }
       )> }
     )>> }
   )> }
@@ -2030,7 +2030,7 @@ export type CreateNotificationMutationHookResult = ReturnType<typeof useCreateNo
 export type CreateNotificationMutationResult = Apollo.MutationResult<CreateNotificationMutation>;
 export type CreateNotificationMutationOptions = Apollo.BaseMutationOptions<CreateNotificationMutation, CreateNotificationMutationVariables>;
 export const CreateProfileDocument = gql`
-    mutation CreateProfile($profileName: String!, $profileText: String, $isCollegeStudent: Boolean!, $schoolName: String, $age: Int, $selectedGender: ID, $selectedAddress: ID, $telephoneNumber: String, $wantHear: String, $problem: String, $undergraduate: String, $department: String, $clubActivities: String, $admissionFormat: String, $favoriteSubject: String, $profileImage: Upload) {
+    mutation CreateProfile($profileName: String!, $profileText: String, $isCollegeStudent: Boolean!, $schoolName: String!, $age: Int, $selectedGender: ID, $selectedAddress: ID, $telephoneNumber: String, $wantHear: String, $problem: String, $undergraduate: String, $department: String, $clubActivities: String, $admissionFormat: String, $favoriteSubject: String, $profileImage: Upload) {
   createProfile(
     input: {profileName: $profileName, profileText: $profileText, isCollegeStudent: $isCollegeStudent, schoolName: $schoolName, age: $age, selectedGender: $selectedGender, selectedAddress: $selectedAddress, telephoneNumber: $telephoneNumber, wantHear: $wantHear, problem: $problem, undergraduate: $undergraduate, department: $department, clubActivities: $clubActivities, admissionFormat: $admissionFormat, favoriteSubject: $favoriteSubject, profileImage: $profileImage}
   ) {
@@ -2364,7 +2364,7 @@ export type UpdateNotificationsMutationHookResult = ReturnType<typeof useUpdateN
 export type UpdateNotificationsMutationResult = Apollo.MutationResult<UpdateNotificationsMutation>;
 export type UpdateNotificationsMutationOptions = Apollo.BaseMutationOptions<UpdateNotificationsMutation, UpdateNotificationsMutationVariables>;
 export const UpdateProfileDocument = gql`
-    mutation UpdateProfile($id: ID!, $profileName: String!, $profileText: String!, $isCollegeStudent: Boolean!, $schoolName: String!, $age: Int!, $telephoneNumber: String!, $selectedGender: ID!, $selectedAddress: ID!, $undergraduate: String!, $department: String!, $clubActivities: String!, $admissionFormat: String!, $favoriteSubject: String!, $wantHear: String!, $problem: String!, $profileImage: Upload) {
+    mutation UpdateProfile($id: ID!, $profileName: String!, $profileText: String, $isCollegeStudent: Boolean, $schoolName: String, $age: Int, $telephoneNumber: String, $selectedGender: ID!, $selectedAddress: ID!, $undergraduate: String, $department: String, $clubActivities: String, $admissionFormat: String, $favoriteSubject: String, $wantHear: String, $problem: String, $profileImage: Upload) {
   updateProfile(
     input: {id: $id, profileName: $profileName, profileText: $profileText, isCollegeStudent: $isCollegeStudent, schoolName: $schoolName, age: $age, telephoneNumber: $telephoneNumber, selectedGender: $selectedGender, selectedAddress: $selectedAddress, undergraduate: $undergraduate, department: $department, clubActivities: $clubActivities, admissionFormat: $admissionFormat, favoriteSubject: $favoriteSubject, wantHear: $wantHear, problem: $problem, profileImage: $profileImage}
   ) {
