@@ -1,16 +1,16 @@
-import type { GetCollageProfilesQuery } from "src/apollo/schema";
+import type { GetCollegeProfilesQuery } from "src/apollo/schema";
 import { Profile } from "src/components/profiles/Profile";
 
 type PropsGetAllProfilesQuery<T> = {
   profilesData: T;
 };
-export const CollageProfilesWrapper: React.VFC<PropsGetAllProfilesQuery<GetCollageProfilesQuery>> =
+export const CollegeProfilesWrapper: React.VFC<PropsGetAllProfilesQuery<GetCollegeProfilesQuery>> =
   (props) => {
     if (props.profilesData === undefined) return <div>undefined</div>;
     return (
       <ul className="flex flex-wrap">
-        {props.profilesData.collageProfiles &&
-          props.profilesData.collageProfiles.edges.map((profile) => {
+        {props.profilesData.collegeProfiles &&
+          props.profilesData.collegeProfiles.edges.map((profile) => {
             return (
               <Profile
                 key={profile?.node?.id}
@@ -26,7 +26,7 @@ export const CollageProfilesWrapper: React.VFC<PropsGetAllProfilesQuery<GetColla
                 admissionFormat={profile?.node?.admissionFormat ? profile.node.admissionFormat : ""}
                 favoriteSubject={profile?.node?.favoriteSubject ? profile.node.favoriteSubject : ""}
                 // tags={profile?.node?.tags ? profile.node.tags : []}
-                isCollageStudent={
+                isCollegeStudent={
                   profile?.node?.isCollegeStudent ? profile.node.isCollegeStudent : false
                 }
                 stars={

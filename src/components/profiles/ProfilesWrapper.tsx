@@ -26,7 +26,7 @@ export const ProfilesWrapper: React.VFC<PropsGetAllProfilesQuery<GetAllProfilesQ
               clubActivities={profile?.node?.clubActivities ? profile.node.clubActivities : ""}
               admissionFormat={profile?.node?.admissionFormat ? profile.node.admissionFormat : ""}
               favoriteSubject={profile?.node?.favoriteSubject ? profile.node.favoriteSubject : ""}
-              isCollageStudent={
+              isCollegeStudent={
                 profile?.node?.isCollegeStudent ? profile.node.isCollegeStudent : false
               }
               // tags={profile?.node?.tags ? profile.node.tags : []}

@@ -13,6 +13,7 @@ query GetPlan($planId: ID!) {
       targetUser {
         profileName
         profileImage
+        isCollegeStudent
       }
     }
   }

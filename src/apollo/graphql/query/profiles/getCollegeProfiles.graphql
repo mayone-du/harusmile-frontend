@@ -1,5 +1,5 @@
-query GetCollageProfiles {
-  collageProfiles {
+query GetCollegeProfiles {
+  collegeProfiles {
     edges {
       node {
         id

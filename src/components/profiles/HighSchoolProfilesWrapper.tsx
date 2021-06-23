@@ -27,7 +27,7 @@ export const HighSchoolProfilesWrapper: React.VFC<
               admissionFormat={profile?.node?.admissionFormat ? profile.node.admissionFormat : ""}
               favoriteSubject={profile?.node?.favoriteSubject ? profile.node.favoriteSubject : ""}
               // tags={profile?.node?.tags ? profile.node.tags : []}
-              isCollageStudent={
+              isCollegeStudent={
                 profile?.node?.isCollegeStudent ? profile.node.isCollegeStudent : false
               }
               stars={

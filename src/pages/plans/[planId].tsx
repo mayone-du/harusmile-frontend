@@ -60,19 +60,23 @@ const PlanDetail: NextPage = () => {
 
   return (
     <Layout metaTitle="ハルスマイル | プラン詳細" spHeaderTitle="プラン詳細">
-      <div>このプランの作成者：{planData?.plan?.planAuthor.targetUser?.profileName}</div>
-      <div>{planData?.plan?.title}</div>
-      <div>{planData?.plan?.content}</div>
-      <div>{planData?.plan?.price.toString()}円</div>
-      {loginUserData.isCollegeStudent ? (
-        <div>高校生のみメッセージを送れます</div>
-      ) : (
-        <button className="p-2 border" onClick={handleCreateTalkRoom}>
-          トークルームを作成する
-        </button>
-      )}
-      {planData?.plan?.planAuthor.id === loginUserData.userId && (
-        <button className="border p-2">編集する</button>
+      {planData?.plan?.planAuthor?.targetUser?.isCollegeStudent && (
+        <div>
+          <div>このプランの作成者：{planData?.plan?.planAuthor.targetUser?.profileName}</div>
+          <div>{planData?.plan?.title}</div>
+          <div>{planData?.plan?.content}</div>
+          <div>{planData?.plan?.price.toString()}円</div>
+          {loginUserData.isCollegeStudent ? (
+            <div>高校生のみメッセージを送れます</div>
+          ) : (
+            <button className="p-2 border" onClick={handleCreateTalkRoom}>
+              トークルームを作成する
+            </button>
+          )}
+          {planData?.plan?.planAuthor.id === loginUserData.userId && (
+            <button className="border p-2">編集する</button>
+          )}
+        </div>
       )}
     </Layout>
   );

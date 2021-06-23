@@ -14,7 +14,7 @@ type Props = {
   clubActivities: string;
   admissionFormat: string;
   favoriteSubject: string;
-  isCollageStudent: boolean;
+  isCollegeStudent: boolean;
   // tags: any;
   stars: any;
 };
@@ -38,7 +38,7 @@ export const Profile: React.VFC<Props> = (props) => {
         {/* プロフィールテキスト */}
         <div className="md:p-4 p-2 md:text-sm text-xs text-gray-600">{props.profileText}</div>
 
-        {props.isCollageStudent && (
+        {props.isCollegeStudent && (
           <div>
             {/* レビュー */}
             <div className="flex justify-between items-center py-4 border-b border-gray-400">

@@ -550,7 +550,7 @@ export type Query = {
   profile?: Maybe<ProfileNode>;
   allProfiles?: Maybe<ProfileNodeConnection>;
   highSchoolProfiles?: Maybe<ProfileNodeConnection>;
-  collageProfiles?: Maybe<ProfileNodeConnection>;
+  collegeProfiles?: Maybe<ProfileNodeConnection>;
   plan?: Maybe<PlanNode>;
   allPlans?: Maybe<PlanNodeConnection>;
   loginUserPlans?: Maybe<PlanNodeConnection>;
@@ -661,7 +661,7 @@ export type QueryHighSchoolProfilesArgs = {
 };
 
 
-export type QueryCollageProfilesArgs = {
+export type QueryCollegeProfilesArgs = {
   offset?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   after?: Maybe<Scalars['String']>;
@@ -1630,7 +1630,7 @@ export type GetPlanQuery = (
       & Pick<UserNode, 'id'>
       & { targetUser?: Maybe<(
         { __typename?: 'ProfileNode' }
-        & Pick<ProfileNode, 'profileName' | 'profileImage'>
+        & Pick<ProfileNode, 'profileName' | 'profileImage' | 'isCollegeStudent'>
       )> }
     ) }
   )> }
@@ -1672,12 +1672,12 @@ export type GetAllProfilesQuery = (
   )> }
 );
 
-export type GetCollageProfilesQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetCollegeProfilesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetCollageProfilesQuery = (
+export type GetCollegeProfilesQuery = (
   { __typename?: 'Query' }
-  & { collageProfiles?: Maybe<(
+  & { collegeProfiles?: Maybe<(
     { __typename?: 'ProfileNodeConnection' }
     & { edges: Array<Maybe<(
       { __typename?: 'ProfileNodeEdge' }
@@ -2768,6 +2768,7 @@ export const GetPlanDocument = gql`
       targetUser {
         profileName
         profileImage
+        isCollegeStudent
       }
     }
   }
@@ -2868,9 +2869,9 @@ export function useGetAllProfilesLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type GetAllProfilesQueryHookResult = ReturnType<typeof useGetAllProfilesQuery>;
 export type GetAllProfilesLazyQueryHookResult = ReturnType<typeof useGetAllProfilesLazyQuery>;
 export type GetAllProfilesQueryResult = Apollo.QueryResult<GetAllProfilesQuery, GetAllProfilesQueryVariables>;
-export const GetCollageProfilesDocument = gql`
-    query GetCollageProfiles {
-  collageProfiles {
+export const GetCollegeProfilesDocument = gql`
+    query GetCollegeProfiles {
+  collegeProfiles {
     edges {
       node {
         id
@@ -2913,31 +2914,31 @@ export const GetCollageProfilesDocument = gql`
     `;
 
 /**
- * __useGetCollageProfilesQuery__
+ * __useGetCollegeProfilesQuery__
  *
- * To run a query within a React component, call `useGetCollageProfilesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetCollageProfilesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetCollegeProfilesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCollegeProfilesQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetCollageProfilesQuery({
+ * const { data, loading, error } = useGetCollegeProfilesQuery({
  *   variables: {
  *   },
  * });
  */
-export function useGetCollageProfilesQuery(baseOptions?: Apollo.QueryHookOptions<GetCollageProfilesQuery, GetCollageProfilesQueryVariables>) {
+export function useGetCollegeProfilesQuery(baseOptions?: Apollo.QueryHookOptions<GetCollegeProfilesQuery, GetCollegeProfilesQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetCollageProfilesQuery, GetCollageProfilesQueryVariables>(GetCollageProfilesDocument, options);
+        return Apollo.useQuery<GetCollegeProfilesQuery, GetCollegeProfilesQueryVariables>(GetCollegeProfilesDocument, options);
       }
-export function useGetCollageProfilesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCollageProfilesQuery, GetCollageProfilesQueryVariables>) {
+export function useGetCollegeProfilesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCollegeProfilesQuery, GetCollegeProfilesQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetCollageProfilesQuery, GetCollageProfilesQueryVariables>(GetCollageProfilesDocument, options);
+          return Apollo.useLazyQuery<GetCollegeProfilesQuery, GetCollegeProfilesQueryVariables>(GetCollegeProfilesDocument, options);
         }
-export type GetCollageProfilesQueryHookResult = ReturnType<typeof useGetCollageProfilesQuery>;
-export type GetCollageProfilesLazyQueryHookResult = ReturnType<typeof useGetCollageProfilesLazyQuery>;
-export type GetCollageProfilesQueryResult = Apollo.QueryResult<GetCollageProfilesQuery, GetCollageProfilesQueryVariables>;
+export type GetCollegeProfilesQueryHookResult = ReturnType<typeof useGetCollegeProfilesQuery>;
+export type GetCollegeProfilesLazyQueryHookResult = ReturnType<typeof useGetCollegeProfilesLazyQuery>;
+export type GetCollegeProfilesQueryResult = Apollo.QueryResult<GetCollegeProfilesQuery, GetCollegeProfilesQueryVariables>;
 export const GetHighSchoolProfilesDocument = gql`
     query GetHighSchoolProfiles {
   highSchoolProfiles {

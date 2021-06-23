@@ -62,8 +62,13 @@ export const SearchBox: React.VFC = () => {
                       </Link>
                     </li>
                     <li>
-                      <Link href="/profiles/collage">
+                      <Link href="/profiles/college">
                         <a className="text-blue-500">大学生のみを検索</a>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/profiles/allProfiles">
+                        <a className="text-blue-500">すべてのプロフィールを検索</a>
                       </Link>
                     </li>
                   </ul>

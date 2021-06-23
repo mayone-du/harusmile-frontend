@@ -33,7 +33,7 @@ const AllProfiles: NextPage<PropsGetAllProfilesQuery<GetAllProfilesQuery>> = (pr
       metaTitle="ハルスマイル | 大学生プロフィール一覧"
     >
       <p className="py-10 px-2 text-xl text-center">
-        大学生のプロフィール：{props.profilesData?.allProfiles?.edges.length.toString()}件
+        すべてのプロフィール：{props.profilesData?.allProfiles?.edges.length.toString()}件
       </p>
 
       <section>
