@@ -8,7 +8,7 @@ export const CollageProfilesWrapper: React.VFC<PropsGetAllProfilesQuery<GetColla
   (props) => {
     if (props.profilesData === undefined) return <div>undefined</div>;
     return (
-      <ul className="md:flex md:flex-wrap">
+      <ul className="flex flex-wrap">
         {props.profilesData.collageProfiles &&
           props.profilesData.collageProfiles.edges.map((profile) => {
             return (

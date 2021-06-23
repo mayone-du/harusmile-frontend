@@ -69,51 +69,56 @@ const ProfileDetail: NextPage = () => {
           </section>
 
           {/* プラン一覧 */}
-          <section className="py-10">
-            <h2 className="bg-gray-200 p-2 text-sm">プラン一覧</h2>
+          {profileData.profile.isCollegeStudent && (
             <div>
-              <ul>
-                {profileData.profile.targetUser.planAuthor.edges ? (
-                  profileData.profile.targetUser.planAuthor.edges.map((plan, index) => {
-                    return (
-                      plan?.node && (
-                        <Plan
-                          key={index}
-                          planId={plan.node.id}
-                          title={plan.node.title}
-                          content={plan.node.content}
-                          price={plan.node.price}
-                          planImage={plan.node.planImage ? plan.node.planImage : ""}
-                        />
-                      )
-                    );
-                  })
-                ) : (
-                  <div>no plans</div>
-                )}
-              </ul>
-            </div>
-          </section>
-          <section className="py-10">
-            <h2 className="text-center text-xl font-bold">レビュー一覧</h2>
-            {profileData.profile.targetUser.provider.edges.map((review, index) => {
-              return (
-                <div key={index} className="my-4 flex items-center border-b">
-                  <div>
-                    <ProfileImageIcon
-                      profileImagePath={review?.node?.customer.targetUser?.profileImage}
-                      className="block border rounded-full w-20 h-20 object-cover"
-                    />
-                    <p>{review?.node?.customer.targetUser?.profileName}</p>
-                  </div>
-                  <div>
-                    <div>{review?.node?.reviewText}</div>
-                    <div>{review?.node?.stars.toString()}</div>
-                  </div>
+              <section className="py-10">
+                <h2 className="bg-gray-200 p-2 text-sm">プラン一覧</h2>
+                <div>
+                  <ul>
+                    {profileData.profile.targetUser.planAuthor.edges ? (
+                      profileData.profile.targetUser.planAuthor.edges.map((plan, index) => {
+                        return (
+                          plan?.node && (
+                            <Plan
+                              key={index}
+                              planId={plan.node.id}
+                              title={plan.node.title}
+                              content={plan.node.content}
+                              price={plan.node.price}
+                              planImage={plan.node.planImage ? plan.node.planImage : ""}
+                            />
+                          )
+                        );
+                      })
+                    ) : (
+                      <div>no plans</div>
+                    )}
+                  </ul>
                 </div>
-              );
-            })}
-          </section>
+              </section>
+
+              <section className="py-10">
+                <h2 className="text-center text-xl font-bold">レビュー一覧</h2>
+                {profileData.profile.targetUser.provider.edges.map((review, index) => {
+                  return (
+                    <div key={index} className="my-4 flex items-center border-b">
+                      <div>
+                        <ProfileImageIcon
+                          profileImagePath={review?.node?.customer.targetUser?.profileImage}
+                          className="block border rounded-full w-20 h-20 object-cover"
+                        />
+                        <p>{review?.node?.customer.targetUser?.profileName}</p>
+                      </div>
+                      <div>
+                        <div>{review?.node?.reviewText}</div>
+                        <div>{review?.node?.stars.toString()}</div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </section>
+            </div>
+          )}
         </div>
       )}
     </Layout>

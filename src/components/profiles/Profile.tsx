@@ -38,26 +38,28 @@ export const Profile: React.VFC<Props> = (props) => {
         {/* プロフィールテキスト */}
         <div className="md:p-4 p-2 md:text-sm text-xs text-gray-600">{props.profileText}</div>
 
-        {/* 星 */}
-        <div className="flex justify-between items-center py-4 border-b border-gray-400">
+        {props.isCollageStudent && (
           <div>
-            <Stars />
-          </div>
-          <div className="md:text-base text-xs">
-            {/* 配列の数字の平均を出し、少数第二位を四捨五入 */}
-            {(
-              Math.round(
-                props.stars.reduce((prev: number, current: number) => {
-                  return prev + current / props.stars.length;
-                }, 0) * 10,
-              ) / 10
-            ).toString()}{" "}
-            / 5<span className="text-black">({props.stars.length.toString()}件)</span>
-          </div>
-        </div>
+            {/* レビュー */}
+            <div className="flex justify-between items-center py-4 border-b border-gray-400">
+              <div>
+                <Stars />
+              </div>
+              <div className="md:text-base text-xs">
+                {/* 配列の数字の平均を出し、少数第二位を四捨五入 */}
+                {(
+                  Math.round(
+                    props.stars.reduce((prev: number, current: number) => {
+                      return prev + current / props.stars.length;
+                    }, 0) * 10,
+                  ) / 10
+                ).toString()}{" "}
+                / 5<span className="text-black">({props.stars.length.toString()}件)</span>
+              </div>
+            </div>
 
-        {/* tags */}
-        {/* <ul>
+            {/* tags */}
+            {/* <ul>
           <div className="text-lg">Tags</div>
           {props.tags.edges.map((tag: any, index: any) => {
             return (
@@ -68,29 +70,31 @@ export const Profile: React.VFC<Props> = (props) => {
           })}
         </ul> */}
 
-        {/* 学校詳細 */}
-        <dl className="md:px-4 md:pt-4 px-2 pt-2 md:text-base text-xs">
-          <div className="flex items-center">
-            <dt className="w-1/2">学部</dt>
-            <dd className="w-1/2">{props.undergraduate}</dd>
+            {/* 学校詳細 */}
+            <dl className="md:px-4 md:pt-4 px-2 pt-2 md:text-base text-xs">
+              <div className="flex items-center">
+                <dt className="w-1/2">学部</dt>
+                <dd className="w-1/2">{props.undergraduate}</dd>
+              </div>
+              <div className="flex items-center">
+                <dt className="w-1/2">学科</dt>
+                <dd className="w-1/2">{props.department}</dd>
+              </div>
+              <div className="flex items-center">
+                <dt className="w-1/2">部活</dt>
+                <dd className="w-1/2">{props.clubActivities}</dd>
+              </div>
+              <div className="flex items-center">
+                <dt className="w-1/2">入学形式</dt>
+                <dd className="w-1/2">{props.admissionFormat}</dd>
+              </div>
+              <div className="flex items-center">
+                <dt className="w-1/2">好きな科目</dt>
+                <dd className="w-1/2">{props.favoriteSubject}</dd>
+              </div>
+            </dl>
           </div>
-          <div className="flex items-center">
-            <dt className="w-1/2">学科</dt>
-            <dd className="w-1/2">{props.department}</dd>
-          </div>
-          <div className="flex items-center">
-            <dt className="w-1/2">部活</dt>
-            <dd className="w-1/2">{props.clubActivities}</dd>
-          </div>
-          <div className="flex items-center">
-            <dt className="w-1/2">入学形式</dt>
-            <dd className="w-1/2">{props.admissionFormat}</dd>
-          </div>
-          <div className="flex items-center">
-            <dt className="w-1/2">好きな科目</dt>
-            <dd className="w-1/2">{props.favoriteSubject}</dd>
-          </div>
-        </dl>
+        )}
 
         <div>
           <Link href={`/profiles/detail/${props.profileId}`}>

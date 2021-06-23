@@ -2,20 +2,21 @@ import type { NextPage } from "next";
 import type { GetStaticProps } from "next";
 import Image from "next/image";
 import { addApolloState, initializeApollo } from "src/apollo/apolloClient";
-import type { GetAllProfilesQuery, GetAllProfilesQueryVariables } from "src/apollo/schema";
-import { GetAllProfilesDocument } from "src/apollo/schema";
+import type { GetCollageProfilesQuery, GetCollageProfilesQueryVariables } from "src/apollo/schema";
+import { GetCollageProfilesDocument } from "src/apollo/schema";
 import { CheckSvg } from "src/components/icons/svgs/CheckSvg";
 import { Layout } from "src/components/layouts/Layout";
 import { ProfilesWrapper } from "src/components/profiles/ProfilesWrapper";
 import { SearchBox } from "src/components/SearchBox";
 
+// 大学生一覧
 export const getStaticProps: GetStaticProps = async () => {
   const apolloClient = initializeApollo();
   const { data: profilesData } = await apolloClient.query<
-    GetAllProfilesQuery,
-    GetAllProfilesQueryVariables
+    GetCollageProfilesQuery,
+    GetCollageProfilesQueryVariables
   >({
-    query: GetAllProfilesDocument,
+    query: GetCollageProfilesDocument,
   });
 
   // return { props: { profilesData: profilesData } };
@@ -28,10 +29,10 @@ export const getStaticProps: GetStaticProps = async () => {
   });
 };
 
-type PropsGetAllProfilesQuery<T> = {
+type PropsGetCollageProfilesQuery<T> = {
   profilesData: T;
 };
-const Index: NextPage<PropsGetAllProfilesQuery<GetAllProfilesQuery>> = (props) => {
+const Index: NextPage<PropsGetCollageProfilesQuery<GetCollageProfilesQuery>> = (props) => {
   return (
     <Layout spHeaderTitle="ホーム" metaTitle="ハルスマイル | 大学生と高校生のマッチングサービス">
       <section className="md:py-10 py-4 md:mt-10 md:mb-20 my-4 bg-pink-50 rounded-xl">

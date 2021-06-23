@@ -9,7 +9,7 @@ export const HighSchoolProfilesWrapper: React.VFC<
 > = (props) => {
   if (props.profilesData === undefined) return <div>undefined</div>;
   return (
-    <ul className="md:flex md:flex-wrap">
+    <ul className="flex flex-wrap">
       {props.profilesData.highSchoolProfiles &&
         props.profilesData.highSchoolProfiles.edges.map((profile) => {
           return (
