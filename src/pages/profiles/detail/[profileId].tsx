@@ -5,6 +5,7 @@ import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { Layout } from "src/components/layouts/Layout";
 import { NormalProfile } from "src/components/profiles/NormalProfile";
 import { Plan } from "src/components/profiles/Plan";
+import { ProfileLoading } from "src/components/profiles/ProfileLoading";
 
 const ProfileDetail: NextPage = () => {
   // 開いてる相手のプロフィールのIDからデータを取得
@@ -20,27 +21,7 @@ const ProfileDetail: NextPage = () => {
       metaTitle={`${profileData?.profile?.profileName} のプロフィール`}
     >
       {/* スケルトンローディング */}
-      {isLoading && (
-        <div className="flex items-center p-4 border shadow-md">
-          {/* 左 */}
-          <div className="flex items-center w-1/2 border-r">
-            <div className="mx-6 w-32 h-32 bg-gray-100 rounded-full border animate-pulse"></div>
-            <div>
-              <div className="my-2 w-52 h-6 bg-gray-100 animate-pulse"></div>
-              <div className="my-2 w-52 h-6 bg-gray-100 animate-pulse"></div>
-            </div>
-          </div>
-          {/* 右 */}
-          <div className="flex flex-col justify-center w-1/2 h-16 font-bold text-center">
-            <h3 className="text-2xl">
-              {profileData?.profile?.isCollegeStudent
-                ? "これまでに相談したコウハイの数"
-                : "これまでに相談したセンパイの数"}
-            </h3>
-            <p>{profileData?.profile?.targetUser.provider.edges.length.toString()}</p>
-          </div>
-        </div>
-      )}
+      {isLoading && <ProfileLoading />}
 
       {profileData?.profile && (
         <div>
