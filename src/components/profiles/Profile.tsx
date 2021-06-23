@@ -20,7 +20,7 @@ type Props = {
 };
 export const Profile: React.VFC<Props> = (props) => {
   return (
-    <li className="md:p-4 p-2 md:w-1/3 w-1/2">
+    <li className="md:p-4 p-1 md:w-1/3 w-1/2">
       <div className="md:p-6 p-2 border border-t-8 border-pink-200">
         <div className="flex items-center w-full">
           <ProfileImageIcon
@@ -29,11 +29,8 @@ export const Profile: React.VFC<Props> = (props) => {
           />
           {/* 名前、歳、学校 */}
           <div className="md:pr-12 pr-2 md:pl-6 pl-2 w-full">
-            <div className="flex justify-between items-center">
-              <div className="md:text-2xl text-base font-bold">{props.profileName}</div>
-              <p className="text-xs md:text-base"> {props.age.toString()}歳</p>
-            </div>
-
+            <div className="md:text-2xl text-sm font-bold">{props.profileName}</div>
+            <p className="text-xs md:text-base"> {props.age.toString()}歳</p>
             <div className="text-gray-600 md:text-base text-xs">{props.schoolName}</div>
           </div>
         </div>

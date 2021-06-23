@@ -241,7 +241,10 @@ export const TalkWrapper: React.VFC = () => {
                       />
                       <div className="px-6">
                         <p className="text-lg font-bold">
-                          {talkRoom?.node?.opponentUser?.targetUser?.profileName}
+                          {/* トークルームのプラン作成者が自分と同じだったら相手のプロフィールを表示 */}
+                          {talkRoom?.node?.selectedPlan?.planAuthor.id === loginUserData.userId
+                            ? talkRoom.node.opponentUser?.targetUser?.profileName
+                            : talkRoom.node.selectedPlan?.planAuthor.targetUser?.profileName}
                         </p>
                         <p>{talkRoom?.node?.opponentUser?.targetUser?.schoolName}</p>
                       </div>
@@ -303,8 +306,24 @@ export const TalkWrapper: React.VFC = () => {
                           className="flex items-center bg-pink-400 md:py-4 py-2 justify-center text-white w-1/5"
                           // eslint-disable-next-line react/jsx-handler-names
                           onClick={() => {
-                            talkRoom.node?.opponentUser?.id &&
-                              handleSubmit(talkRoom.node.opponentUser.id);
+                            {
+                              /* トークルームのプラン作成者が自分と同じだったら相手のプロフィールを表示 */
+                            }
+                            if (
+                              talkRoom?.node?.selectedPlan?.planAuthor.id === loginUserData.userId
+                            ) {
+                              handleSubmit(
+                                talkRoom?.node?.opponentUser?.id
+                                  ? talkRoom.node.opponentUser.id
+                                  : "",
+                              );
+                            } else {
+                              handleSubmit(
+                                talkRoom?.node?.selectedPlan?.planAuthor?.id
+                                  ? talkRoom.node.selectedPlan.planAuthor.id
+                                  : "",
+                              );
+                            }
                           }}
                         >
                           <span className="block px-2 md:text-lg text-sm md:py-0 py-2">送信</span>

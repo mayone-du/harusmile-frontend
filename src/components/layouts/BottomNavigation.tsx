@@ -21,7 +21,7 @@ export const BottomNavigation: React.VFC<Props> = (props) => {
             {/* ホーム */}
             <li className="w-1/5">
               <Link href="/">
-                <a className="flex flex-col items-center">
+                <a className={`flex flex-col items-center`}>
                   <HomeSvg className="h-6 w-6" />
                   <span className="block text-xs text-gray-600">ホーム</span>
                 </a>

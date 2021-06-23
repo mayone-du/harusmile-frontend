@@ -63,7 +63,7 @@ export const NotificationButton: React.VFC = () => {
   return (
     <div>
       <button
-        className="md:block w-full flex flex-col items-center relative focus:outline-none"
+        className={`md:block w-full flex flex-col items-center relative focus:outline-none`}
         onClick={handleBellClick}
       >
         <svg
@@ -84,7 +84,7 @@ export const NotificationButton: React.VFC = () => {
         {/* 通知マーク */}
         {notificationsData?.loginUserNotifications &&
           notificationsData.loginUserNotifications.edges.length > 0 && (
-            <div className="absolute w-2 h-2 bg-red-500 rounded-full top-0 right-0"></div>
+            <div className="absolute w-2 h-2 bg-red-500 rounded-full top-0 md:right-0 right-4"></div>
           )}
       </button>
       {/* 通知用モーダル */}

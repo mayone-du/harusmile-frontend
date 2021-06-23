@@ -64,6 +64,9 @@ const PlanDetail: NextPage = () => {
           トークルームを作成する
         </button>
       )}
+      {planData?.plan?.planAuthor.id === loginUserData.userId && (
+        <button className="border p-2">編集する</button>
+      )}
     </Layout>
   );
 };
