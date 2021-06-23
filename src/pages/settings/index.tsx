@@ -168,71 +168,76 @@ const Settings: NextPage = () => {
                     label="学校名"
                   />
                 </li>
-                <li className="my-4 mx-auto w-full">
-                  <Input
-                    type="text"
-                    placeholder="undergraduate"
-                    value={inputLoginUserData.undergraduate}
-                    onChange={handleUndergraduateChange}
-                    label="学部"
-                  />
-                </li>
-                <li className="my-4 mx-auto w-full">
-                  <Input
-                    type="text"
-                    placeholder="department"
-                    className="block p-2 mx-auto w-2/3 border-b border-pink-500 focus:outline-none"
-                    value={inputLoginUserData.department}
-                    onChange={handleDepartmentChange}
-                    label="学科"
-                  />
-                </li>
-                <li className="my-4 mx-auto w-full">
-                  <Input
-                    type="text"
-                    placeholder="clubActivities"
-                    value={inputLoginUserData.clubActivities}
-                    onChange={handleClubActivitiesChange}
-                    label="部活動・サークル"
-                  />
-                </li>
-                <li className="my-4 mx-auto w-full">
-                  <Input
-                    type="text"
-                    placeholder="admissionFormat"
-                    className="block p-2 mx-auto w-2/3 border-b border-pink-500 focus:outline-none"
-                    value={inputLoginUserData.admissionFormat}
-                    onChange={handleAdmissionFormatChange}
-                    label="入試形態"
-                  />
-                </li>
-                <li className="my-4 mx-auto w-full">
-                  <Input
-                    type="text"
-                    placeholder="favoriteSubject"
-                    value={inputLoginUserData.favoriteSubject}
-                    onChange={handleFavoriteSubjectChange}
-                    label="好きな科目"
-                  />
-                </li>
-                <li className="my-4 mx-auto w-full">
-                  <Input
-                    type="text"
-                    placeholder="wantHear"
-                    value={inputLoginUserData.wantHear}
-                    onChange={handleWantHearChange}
-                    label="聞きたいこと"
-                  />
-                </li>
-                <li className="my-4 mx-auto w-full">
-                  <Input
-                    type="text"
-                    placeholder="problem"
-                    value={inputLoginUserData.problem}
-                    onChange={handleProblemChange}
-                    label="悩み"
-                  />
-                </li>
+                {loginUserData.isCollegeStudent && (
+                  <div>
+                    <li className="my-4 mx-auto w-full">
+                      <Input
+                        type="text"
+                        placeholder="undergraduate"
+                        value={inputLoginUserData.undergraduate}
+                        onChange={handleUndergraduateChange}
+                        label="学部"
+                      />
+                    </li>
+                    <li className="my-4 mx-auto w-full">
+                      <Input
+                        type="text"
+                        placeholder="department"
+                        className="block p-2 mx-auto w-2/3 border-b border-pink-500 focus:outline-none"
+                        value={inputLoginUserData.department}
+                        onChange={handleDepartmentChange}
+                        label="学科"
+                      />
+                    </li>
+                    <li className="my-4 mx-auto w-full">
+                      <Input
+                        type="text"
+                        placeholder="clubActivities"
+                        value={inputLoginUserData.clubActivities}
+                        onChange={handleClubActivitiesChange}
+                        label="部活動・サークル"
+                      />
+                    </li>
+                    <li className="my-4 mx-auto w-full">
+                      <Input
+                        type="text"
+                        placeholder="admissionFormat"
+                        className="block p-2 mx-auto w-2/3 border-b border-pink-500 focus:outline-none"
+                        value={inputLoginUserData.admissionFormat}
+                        onChange={handleAdmissionFormatChange}
+                        label="入試形態"
+                      />
+                    </li>
+                    <li className="my-4 mx-auto w-full">
+                      <Input
+                        type="text"
+                        placeholder="favoriteSubject"
+                        value={inputLoginUserData.favoriteSubject}
+                        onChange={handleFavoriteSubjectChange}
+                        label="好きな科目"
+                      />
+                    </li>
+                    <li className="my-4 mx-auto w-full">
+                      <Input
+                        type="text"
+                        placeholder="wantHear"
+                        value={inputLoginUserData.wantHear}
+                        onChange={handleWantHearChange}
+                        label="聞きたいこと"
+                      />
+                    </li>
+                    <li className="my-4 mx-auto w-full">
+                      <Input
+                        type="text"
+                        placeholder="problem"
+                        value={inputLoginUserData.problem}
+                        onChange={handleProblemChange}
+                        label="悩み"
+                      />
+                    </li>
+                  </div>
+                )}
+
                 <li className="my-4 mx-auto w-full">
                   <div className="mx-auto w-2/3 text-sm">プロフィール画像</div>
                   <input

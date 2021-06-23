@@ -11,7 +11,7 @@ type Props = {
 };
 export const Plan: React.VFC<Props> = (props) => {
   return (
-    <li>
+    <li className="my-2">
       <Link href={`/plans/${props.planId}`}>
         <a
           className={`border flex items-center ${
@@ -19,16 +19,16 @@ export const Plan: React.VFC<Props> = (props) => {
           }`}
         >
           {props.planImage === "" ? (
-            <PencilSvg className="w-12 h-12 border" />
+            <PencilSvg className="w-12 h-12 mx-2" />
           ) : (
             <img
               src={`${MEDIAFILE_API_ENDPOINT}${props.planImage}`}
-              className="w-8 h-8 block"
+              className="w-12 h-12 block object-cover"
               alt=""
             />
           )}
 
-          <div className="px-4">
+          <div className="pl-2">
             <div className="font-bold">{props.title}</div>
             <div className="text-xs text-gray-500">{props.content}</div>
             <div>{props.price.toString()}円</div>

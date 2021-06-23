@@ -26,7 +26,7 @@ export const NormalProfile: React.VFC<Props> = (props) => {
         </p>
         {loginUserData.profileId === props.targetProfileId && (
           <Link href="/settings">
-            <a className="p-2 bg-pink-400">編集</a>
+            <a className="py-2 px-4 text-white text-sm bg-pink-400">編集</a>
           </Link>
         )}
       </div>

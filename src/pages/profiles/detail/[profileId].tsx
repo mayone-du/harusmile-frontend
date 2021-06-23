@@ -79,7 +79,7 @@ const ProfileDetail: NextPage = () => {
               </section>
 
               <section className="py-10">
-                <h2 className="text-center text-xl font-bold">レビュー一覧</h2>
+                <h2 className="text-center p-2 text-gray-600 text-xl font-bold">レビュー一覧</h2>
                 {profileData.profile.targetUser.provider.edges.map((review, index) => {
                   return (
                     <div key={index} className="my-4 flex items-center border-b">
