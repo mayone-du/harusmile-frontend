@@ -57,18 +57,22 @@ const ProfilesIndex: NextPage = () => {
                   </Link>
                 </div>
                 <ul>
-                  {plansData?.loginUserPlans?.edges.map((plan, index) => {
-                    return (
-                      <Plan
-                        key={index}
-                        planId={plan?.node?.id ? plan.node.id : ""}
-                        title={plan?.node?.title ? plan.node.title : ""}
-                        content={plan?.node?.content ? plan.node.content : ""}
-                        price={plan?.node?.price ? plan.node.price : 0}
-                        planImage={plan?.node?.planImage ? plan.node.planImage : ""}
-                      />
-                    );
-                  })}
+                  {plansData?.loginUserPlans && plansData.loginUserPlans.edges.length > 0 ? (
+                    plansData.loginUserPlans.edges.map((plan, index) => {
+                      return (
+                        <Plan
+                          key={index}
+                          planId={plan?.node?.id ? plan.node.id : ""}
+                          title={plan?.node?.title ? plan.node.title : ""}
+                          content={plan?.node?.content ? plan.node.content : ""}
+                          price={plan?.node?.price ? plan.node.price : 0}
+                          planImage={plan?.node?.planImage ? plan.node.planImage : ""}
+                        />
+                      );
+                    })
+                  ) : (
+                    <div>プランはまだ作成していません。</div>
+                  )}
                 </ul>
               </section>
 

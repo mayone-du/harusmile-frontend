@@ -9,6 +9,7 @@ import { NotificationButton } from "src/components/layouts/NotificationButton";
 type Props = {
   isLogin: boolean;
   isCollegeStudent: boolean;
+  profileImagePath: string;
 };
 export const BottomNavigation: React.VFC<Props> = (props) => {
   return (
@@ -60,7 +61,7 @@ export const BottomNavigation: React.VFC<Props> = (props) => {
             <li className="w-1/5">
               <Link href="/profiles">
                 <a className="flex flex-col items-center">
-                  <ProfileImageIcon className="w-6 h-6" profileImagePath="" />
+                  <ProfileImageIcon className="w-6 h-6" profileImagePath={props.profileImagePath} />
                   <span className="block text-xs text-gray-600">プロフィール</span>
                 </a>
               </Link>

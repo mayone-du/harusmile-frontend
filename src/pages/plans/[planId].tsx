@@ -60,7 +60,7 @@ const PlanDetail: NextPage = () => {
 
   return (
     <Layout metaTitle="ハルスマイル | プラン詳細" spHeaderTitle="プラン詳細">
-      {planData?.plan?.planAuthor?.targetUser?.isCollegeStudent && (
+      {planData?.plan?.planAuthor?.targetUser?.isCollegeStudent ? (
         <div>
           <div>このプランの作成者：{planData?.plan?.planAuthor.targetUser?.profileName}</div>
           <div>{planData?.plan?.title}</div>
@@ -77,6 +77,8 @@ const PlanDetail: NextPage = () => {
             <button className="border p-2">編集する</button>
           )}
         </div>
+      ) : (
+        <div>現在閉鎖中のプランです。</div>
       )}
     </Layout>
   );
