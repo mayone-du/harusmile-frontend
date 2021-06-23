@@ -19,6 +19,7 @@ const ProfileDetail: NextPage = () => {
       spHeaderTitle="プロフィール詳細"
       metaTitle={`${profileData?.profile?.profileName} のプロフィール`}
     >
+      {/* スケルトンローディング */}
       {isLoading && (
         <div className="flex items-center p-4 border shadow-md">
           {/* 左 */}
@@ -43,7 +44,7 @@ const ProfileDetail: NextPage = () => {
 
       {profileData?.profile && (
         <div>
-          <section>
+          <section className="py-4">
             <NormalProfile
               targetProfileId={targetProfileId}
               targetProfileName={profileData.profile.profileName}
@@ -69,7 +70,7 @@ const ProfileDetail: NextPage = () => {
 
           {/* プラン一覧 */}
           <section className="py-10">
-            <h2>プラン一覧</h2>
+            <h2 className="bg-gray-200 p-2 text-sm">プラン一覧</h2>
             <div>
               <ul>
                 {profileData.profile.targetUser.planAuthor.edges ? (
@@ -82,6 +83,7 @@ const ProfileDetail: NextPage = () => {
                           title={plan.node.title}
                           content={plan.node.content}
                           price={plan.node.price}
+                          planImage={plan.node.planImage ? plan.node.planImage : ""}
                         />
                       )
                     );

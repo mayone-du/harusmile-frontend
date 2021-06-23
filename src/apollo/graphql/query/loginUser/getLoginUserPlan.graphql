@@ -6,6 +6,10 @@ query GetLoginUserPlans {
         title
         content
         price
+        planImage
+        isPublished
+        publishedAt
+        createdAt
       }
     }
   }

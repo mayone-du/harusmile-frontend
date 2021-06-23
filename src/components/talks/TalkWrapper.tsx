@@ -116,7 +116,7 @@ export const TalkWrapper: React.VFC = () => {
         )}
 
         {/* <div>{messagesError && messagesError.message}</div> */}
-        <ul className="border shadow-md">
+        <ul className="border shadow-md max-h-72 overflow-y-scroll">
           {talkRoomsData?.loginUserTalkRooms?.edges.map((talkRooms, index) => {
             return (
               // 自分が参加しているトークルームの一覧を返す
@@ -127,7 +127,6 @@ export const TalkWrapper: React.VFC = () => {
                     className={`flex items-center py-2 md:px-4 px-2 w-full focus:outline-none ${
                       openTalkRoomId === talkRooms.node.id && "bg-pink-100"
                     }`}
-                    value={talkRooms.node.id}
                     onClick={handleOpenTalkRoomChange}
                     id={talkRooms.node.id}
                   >
@@ -183,7 +182,7 @@ export const TalkWrapper: React.VFC = () => {
             return (
               openTalkRoomId === talkRoom?.node?.id && (
                 <div className="border shadow-md" key={talkRoomIndex}>
-                  <div className="flex justify-between items-center py-2 md:px-10 px-4 border-b border-gray-500">
+                  <div className="flex justify-between items-center p-2 md:px-10 border-b border-gray-500">
                     {/* 会話相手のプロフィール */}
 
                     {/* {talkRoom.node.opponentUser && ( */}
@@ -197,7 +196,7 @@ export const TalkWrapper: React.VFC = () => {
                         ariaHideApp={false}
                       >
                         <div className="py-2 px-12 pb-6 w-96">
-                          <h4 className="py-2 text-lg font-bold">
+                          <h4 className="py-2 md:text-lg text-base font-bold">
                             {talkRoom?.node?.opponentUser?.targetUser?.profileName}にレビューする
                           </h4>
                           <form
@@ -239,7 +238,7 @@ export const TalkWrapper: React.VFC = () => {
                         className="w-10 h-10"
                         profileImagePath={talkRoom?.node?.opponentUser?.targetUser?.profileImage}
                       />
-                      <div className="px-6">
+                      <div className="md:px-6 px-2">
                         <p className="text-lg font-bold">
                           {/* トークルームのプラン作成者が自分と同じだったら相手のプロフィールを表示 */}
                           {talkRoom?.node?.selectedPlan?.planAuthor.id === loginUserData.userId
@@ -251,11 +250,9 @@ export const TalkWrapper: React.VFC = () => {
                     </div>
                     {/* )} */}
 
-                    {loginUserData.isCollegeStudent ? (
-                      <div>高校生のみレビューができます</div>
-                    ) : (
+                    {!loginUserData.isCollegeStudent && (
                       <button
-                        className="block p-2 text-white bg-yellow-500"
+                        className="block md:text-base text-sm p-2 text-white bg-yellow-500"
                         onClick={handleModalOpen}
                       >
                         レビューを書く
@@ -265,9 +262,13 @@ export const TalkWrapper: React.VFC = () => {
                   {/* トーク部分 */}
                   <div className="overflow-y-scroll max-h-96">
                     <div>
-                      <div>
-                        プランのタイトル：{talkRoom.node.selectedPlan?.title} <br /> 料金：
-                        {talkRoom.node.selectedPlan?.price.toString()}
+                      <div className="border m-2">
+                        <p>プランのタイトル：{talkRoom.node.selectedPlan?.title}</p>
+
+                        <p>
+                          料金：
+                          {talkRoom.node.selectedPlan?.price.toString()}
+                        </p>
                       </div>
                       <ul>
                         {talkRoom.node.talkingRoom.edges.length === 0 && (

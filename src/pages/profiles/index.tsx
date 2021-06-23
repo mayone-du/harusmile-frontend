@@ -65,6 +65,7 @@ const ProfilesIndex: NextPage = () => {
                         title={plan?.node?.title ? plan.node.title : ""}
                         content={plan?.node?.content ? plan.node.content : ""}
                         price={plan?.node?.price ? plan.node.price : 0}
+                        planImage={plan?.node?.planImage ? plan.node.planImage : ""}
                       />
                     );
                   })}

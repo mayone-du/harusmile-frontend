@@ -1585,7 +1585,7 @@ export type GetLoginUserPlansQuery = (
       { __typename?: 'PlanNodeEdge' }
       & { node?: Maybe<(
         { __typename?: 'PlanNode' }
-        & Pick<PlanNode, 'id' | 'title' | 'content' | 'price'>
+        & Pick<PlanNode, 'id' | 'title' | 'content' | 'price' | 'planImage' | 'isPublished' | 'publishedAt' | 'createdAt'>
       )> }
     )>> }
   )> }
@@ -1624,13 +1624,13 @@ export type GetPlanQuery = (
   { __typename?: 'Query' }
   & { plan?: Maybe<(
     { __typename?: 'PlanNode' }
-    & Pick<PlanNode, 'id' | 'title' | 'content' | 'price'>
+    & Pick<PlanNode, 'id' | 'title' | 'content' | 'price' | 'planImage' | 'isPublished' | 'createdAt' | 'publishedAt'>
     & { planAuthor: (
       { __typename?: 'UserNode' }
       & Pick<UserNode, 'id'>
       & { targetUser?: Maybe<(
         { __typename?: 'ProfileNode' }
-        & Pick<ProfileNode, 'profileName'>
+        & Pick<ProfileNode, 'profileName' | 'profileImage'>
       )> }
     ) }
   )> }
@@ -1763,7 +1763,7 @@ export type GetProfileQuery = (
           { __typename?: 'PlanNodeEdge' }
           & { node?: Maybe<(
             { __typename?: 'PlanNode' }
-            & Pick<PlanNode, 'id' | 'title' | 'content' | 'isPublished' | 'price'>
+            & Pick<PlanNode, 'id' | 'title' | 'content' | 'isPublished' | 'price' | 'publishedAt' | 'createdAt' | 'planImage'>
           )> }
         )>> }
       ), provider: (
@@ -2670,6 +2670,10 @@ export const GetLoginUserPlansDocument = gql`
         title
         content
         price
+        planImage
+        isPublished
+        publishedAt
+        createdAt
       }
     }
   }
@@ -2755,10 +2759,15 @@ export const GetPlanDocument = gql`
     title
     content
     price
+    planImage
+    isPublished
+    createdAt
+    publishedAt
     planAuthor {
       id
       targetUser {
         profileName
+        profileImage
       }
     }
   }
@@ -3026,6 +3035,9 @@ export const GetProfileDocument = gql`
             content
             isPublished
             price
+            publishedAt
+            createdAt
+            planImage
           }
         }
       }

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CheckSvg } from "src/components/icons/svgs/CheckSvg";
 import { SearchSvg } from "src/components/icons/svgs/SearchSvg";
 import { useSearch } from "src/libs/hooks/useSearch";
 
@@ -13,10 +14,13 @@ export const SearchBox: React.VFC = () => {
   return (
     <div>
       <section className="md:pb-20 pb-6">
-        <h2 className="md:py-10 py-4 md:text-5xl text-lg font-bold text-center text-gray-700 dark:text-white">
-          条件から探す
+        <h2 className="flex justify-center items-center">
+          <CheckSvg className="md:mx-6 mx-2 md:w-12 md:h-12 w-6 h-6 text-gray-600" />
+          <div className="md:py-10 py-4 md:text-5xl text-lg font-bold text-center text-gray-600 dark:text-white">
+            条件から探す
+          </div>
         </h2>
-        <div className="mx-2 md:mx-32">
+        <div className="md:mx-32">
           <div className="md:py-10 py-4 md:px-6 px-2 bg-blue-100">
             <p className="md:text-base text-sm">フリーワード検索</p>
             <form className="flex items-center" onSubmit={handleSearch}>

@@ -4,10 +4,15 @@ query GetPlan($planId: ID!) {
     title
     content
     price
+    planImage
+    isPublished
+    createdAt
+    publishedAt
     planAuthor {
       id
       targetUser {
         profileName
+        profileImage
       }
     }
   }

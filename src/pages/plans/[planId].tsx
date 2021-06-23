@@ -8,6 +8,7 @@ import {
   useGetPlanQuery,
 } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
+import { useRefreshTokens } from "src/libs/hooks/useRefreshTokens";
 
 const PlanDetail: NextPage = () => {
   const loginUserData = useReactiveVar(loginUserVar);
@@ -15,15 +16,22 @@ const PlanDetail: NextPage = () => {
   const planId = router.asPath.replace("/plans/", "");
   const { data: planData } = useGetPlanQuery({ variables: { planId: planId } });
   const { data: loginUserTalkRoomsData } = useGetLoginUserTalkRoomsQuery();
-
-  // 参加しているトークルームのplanIdとuserIdを使って、同じものがあるか比較
-  const talkRoomIds = loginUserTalkRoomsData?.loginUserTalkRooms?.edges.map((talkRoom) => {
-    return [talkRoom?.node?.selectedPlan?.id, talkRoom?.node?.opponentUser?.id];
-  });
-
+  const { handleRefreshToken } = useRefreshTokens();
   const [createTalkRoomMutation] = useCreateTalkRoomMutation();
+
   // TODO: トークルームの作成とバリデーション 要検証
   const handleCreateTalkRoom = async () => {
+    await handleRefreshToken();
+    // 参加しているトークルームのplanIdとuserIdを使って、同じものがあるか比較
+    const talkRoomIds = loginUserTalkRoomsData?.loginUserTalkRooms?.edges.map((talkRoom) => {
+      return [talkRoom?.node?.selectedPlan?.id, talkRoom?.node?.opponentUser?.id];
+    });
+
+    if (talkRoomIds === undefined) {
+      alert("何らかのエラーが発生しました。運営にお問い合わせください。");
+      return;
+    }
+
     const isValidatedArray = talkRoomIds?.map((ids) => {
       // プランのIDとユーザーのIDがどちらも含まれている（既にトークルームが存在している）場合にはtrueを返す
       if (ids.includes(loginUserData.userId) && ids.includes(planId)) {

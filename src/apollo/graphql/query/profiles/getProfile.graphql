@@ -24,6 +24,9 @@ query GetProfile($profileId: ID!) {
             content
             isPublished
             price
+            publishedAt
+            createdAt
+            planImage
           }
         }
       }

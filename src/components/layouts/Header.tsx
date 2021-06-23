@@ -17,7 +17,7 @@ export const Header: React.VFC<Props> = memo((props) => {
 
   return (
     <div>
-      <header className="px-2 md:px-32 border-b shadow-md">
+      <header className="px-2 md:px-32 md:py-0 py-2 border-b shadow-md">
         {/* PC時 */}
         <nav className="md:flex hidden justify-between items-center">
           <div className="mx-2">

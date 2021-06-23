@@ -21,7 +21,9 @@ export const NormalProfile: React.VFC<Props> = (props) => {
   return (
     <div>
       <div className="flex items-center justify-between bg-gray-200">
-        <p className="p-2 text-sm text-gray-600">基本情報</p>
+        <p className="p-2 text-sm text-gray-600">
+          基本情報 {loginUserData.isCollegeStudent ? "（大学生）" : "（高校生）"}
+        </p>
         {loginUserData.profileId === props.targetProfileId && (
           <Link href="/settings">
             <a className="p-2 bg-pink-400">編集</a>
@@ -44,9 +46,16 @@ export const NormalProfile: React.VFC<Props> = (props) => {
         <p>{props.targetProfileText}</p>
       </div>
       <ul>
+        {/* 大学生かによって表示するデータを変更 */}
+        {loginUserData.isCollegeStudent && (
+          <li className="flex items-center">
+            <div>学部：</div>
+            <div>{props.targetUndergraduate}</div>
+          </li>
+        )}
         <li className="flex items-center">
-          <div>学部：</div>
-          <div>{props.targetUndergraduate}</div>
+          <div>悩んでいること</div>
+          <div>{props.targetProblem}</div>
         </li>
       </ul>
     </div>
