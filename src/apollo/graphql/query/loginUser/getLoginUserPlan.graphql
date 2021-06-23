@@ -1,0 +1,12 @@
+query GetLoginUserPlans {
+  loginUserPlans {
+    edges {
+      node {
+        id
+        title
+        content
+        price
+      }
+    }
+  }
+}

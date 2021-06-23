@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
-import { AddSvg } from "src/components/icons/svgs/AddSvg";
 import { HomeSvg } from "src/components/icons/svgs/HomeSvg";
 import { SearchSvg } from "src/components/icons/svgs/SearchSvg";
 import { TalkSvg } from "src/components/icons/svgs/TalkSvg";
+import { CreatePlanButton } from "src/components/layouts/CreatePlanButton";
 import { NotificationButton } from "src/components/layouts/NotificationButton";
 
 type Props = {
@@ -14,7 +14,7 @@ export const BottomNavigation: React.VFC<Props> = (props) => {
   return (
     <div>
       {/* スマホ時 */}
-      <nav className="md:hidden fixed border py-2 bottom-0 w-full z-50 bg-white">
+      <nav className="md:hidden fixed border py-2 bottom-0 w-full z-10 bg-white">
         {/* ログイン時 */}
         {props.isLogin ? (
           <ul className="flex items-center justify-around">
@@ -39,12 +39,7 @@ export const BottomNavigation: React.VFC<Props> = (props) => {
             {/* 中央 */}
             {props.isCollegeStudent ? (
               <li className="w-1/5 relative">
-                <Link href="/">
-                  <a className="flex flex-col items-center justify-center bg-blue-600 rounded-full w-20 h-20 absolute -top-16 left-1/2 transform -translate-x-1/2 shadow-md">
-                    <AddSvg className="h-10 w-10 text-white" />
-                    <span className="block text-xs text-white">プラン作成</span>
-                  </a>
-                </Link>
+                <CreatePlanButton />
               </li>
             ) : (
               <li className="w-1/5 relative">

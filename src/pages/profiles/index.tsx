@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useGetLoginUserReviewsQuery } from "src/apollo/schema";
 import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { Layout } from "src/components/layouts/Layout";
+import { NormalProfile } from "src/components/profiles/NormalProfile";
 import { ThemeChanger } from "src/components/ThemeChanger";
 import { useSetLoginUserData } from "src/libs/hooks/useSetLoginUserData";
 
@@ -26,24 +27,19 @@ const ProfilesIndex: NextPage = () => {
     <div>
       <Layout spHeaderTitle="プロフィール" metaTitle="ハルスマイル | プロフィール">
         <section className="pt-6">
-          <div className="flex items-center justify-between bg-gray-200">
-            <p className="px-2">基本情報</p>
-            <Link href="/settings">
-              <a className="px-2 bg-pink-400">編集</a>
-            </Link>
-          </div>
-          <div className="flex items-center justify-center">
-            <ProfileImageIcon profileImagePath="" className="w-20 h-20" />
-            <div>
-              <h3>{loginUserData.profileName}</h3>
-              <h4>{loginUserData.schoolName}</h4>
-              <p>{loginUserData.age}</p>
-            </div>
-          </div>
-          <div className="border my-4">
-            <h4 className="text-center font-bold py-2">一言コメント</h4>
-            <p>{loginUserData.profileText}</p>
-          </div>
+          <NormalProfile
+            targetProfileId={loginUserData.profileId}
+            targetProfileName={loginUserData.profileName}
+            targetProfileText={loginUserData.profileText}
+            targetSchoolName={loginUserData.schoolName}
+            targetAge={loginUserData.age}
+            targetUndergraduate={loginUserData.undergraduate}
+            targetDepartment={loginUserData.department}
+            targetClubActivities={loginUserData.clubActivities}
+            targetFavoriteSubject={loginUserData.favoriteSubject}
+            targetWantHear={loginUserData.wantHear}
+            targetProblem={loginUserData.problem}
+          />
         </section>
 
         {loginUserData.isCollegeStudent && (
