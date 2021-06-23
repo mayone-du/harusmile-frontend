@@ -15,9 +15,20 @@ export const useAuth = () => {
   const [createUserMutation] = useCreateUserMutation();
   const [getTokensMutation] = useGetTokensMutation();
   const [createProfileMutation] = useCreateProfileMutation();
+  const [isCollegeStudent, setIsCollegeStudent] = useState(false);
+  const [inputProfileName, setInputProfileName] = useState("");
   const [inputEmail, setInputEmail] = useState("");
   const [inputPassword, setInputPassword] = useState("");
 
+  const handleSetCollegeStudent = useCallback(() => {
+    setIsCollegeStudent(true);
+  }, []);
+  const handleSetHighSchoolStudent = useCallback(() => {
+    setIsCollegeStudent(false);
+  }, []);
+  const handleProfileNameChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputProfileName(event.target.value);
+  }, []);
   const handleEmailChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setInputEmail(event.target.value);
   }, []);
@@ -27,6 +38,10 @@ export const useAuth = () => {
 
   // 入力欄のバリデーション
   const validateInputs = useCallback((): { isFormError: boolean } => {
+    if (inputProfileName === "") {
+      alert("ユーザーネームを入力してください。");
+      return { isFormError: true };
+    }
     // メールアドレスが空文字
     if (inputEmail === "") {
       alert("正しい形式でメールアドレスを入力してください。");
@@ -38,7 +53,7 @@ export const useAuth = () => {
     } else {
       return { isFormError: false };
     }
-  }, [inputEmail, inputPassword]);
+  }, [inputProfileName, inputEmail, inputPassword]);
 
   // signIn
   const handleSignIn = async (event: React.ChangeEvent<HTMLFormElement>) => {
@@ -66,8 +81,10 @@ export const useAuth = () => {
         }
 
         loginUserVar(initialLoginUserVar);
+        setInputProfileName("");
         setInputEmail("");
         setInputPassword("");
+        alert("ログインが完了しました。");
         await router.push("/");
         router.reload();
       } catch (error) {
@@ -112,13 +129,13 @@ export const useAuth = () => {
         // プロフィールを作成
         await createProfileMutation({
           variables: {
-            profileName: "おためしです。。。。。。。",
-            isCollegeStudent: true,
+            profileName: inputProfileName,
+            isCollegeStudent: isCollegeStudent,
           },
         });
 
         await router.push("/");
-        alert("ログインしました。");
+        alert("登録が完了しました。");
         router.reload();
       } catch (error) {
         alert(error);
@@ -127,10 +144,16 @@ export const useAuth = () => {
     }
   };
   return {
+    isCollegeStudent,
+    handleSetCollegeStudent,
+    handleSetHighSchoolStudent,
+    inputProfileName,
+    setInputProfileName,
     inputEmail,
     setInputEmail,
     inputPassword,
     setInputPassword,
+    handleProfileNameChange,
     handleEmailChange,
     handlePasswordChange,
     handleSignUp,
