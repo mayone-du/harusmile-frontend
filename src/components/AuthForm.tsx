@@ -5,6 +5,7 @@ type Props = {
 };
 export const AuthForm: React.VFC<Props> = (props) => {
   const {
+    isLoading,
     isCollegeStudent,
     handleSetCollegeStudent,
     handleSetHighSchoolStudent,
@@ -27,6 +28,8 @@ export const AuthForm: React.VFC<Props> = (props) => {
   return (
     <form onSubmit={handleAuth}>
       <div>
+        {/* ローディング */}
+        {isLoading && <div>loading</div>}
         {props.pageContext === "signup" && (
           <div>
             <input

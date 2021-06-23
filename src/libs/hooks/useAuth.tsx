@@ -15,6 +15,7 @@ export const useAuth = () => {
   const [createUserMutation] = useCreateUserMutation();
   const [getTokensMutation] = useGetTokensMutation();
   const [createProfileMutation] = useCreateProfileMutation();
+  const [isLoading, setIsLoading] = useState(false);
   const [isCollegeStudent, setIsCollegeStudent] = useState(false);
   const [inputProfileName, setInputProfileName] = useState("");
   const [inputEmail, setInputEmail] = useState("");
@@ -58,10 +59,13 @@ export const useAuth = () => {
   // signIn
   const handleSignIn = async (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
+    // 入力欄の検証を避けるために値をセット。ログインには必要ない。
+    setInputProfileName("default");
     const { isFormError } = validateInputs();
 
     if (!isFormError) {
       try {
+        setIsLoading(true);
         const { data: tokenData } = await getTokensMutation({
           variables: {
             email: inputEmail,
@@ -84,10 +88,12 @@ export const useAuth = () => {
         setInputProfileName("");
         setInputEmail("");
         setInputPassword("");
+        setIsLoading(false);
         alert("ログインが完了しました。");
         await router.push("/");
         router.reload();
       } catch (error) {
+        setIsLoading(false);
         alert(error);
         return;
       }
@@ -101,6 +107,7 @@ export const useAuth = () => {
     const { isFormError } = validateInputs();
     if (!isFormError) {
       try {
+        setIsLoading(true);
         await createUserMutation({ variables: { email: inputEmail, password: inputPassword } });
 
         // サインイン
@@ -133,7 +140,7 @@ export const useAuth = () => {
             isCollegeStudent: isCollegeStudent,
           },
         });
-
+        setIsLoading(false);
         await router.push("/");
         alert("登録が完了しました。");
         router.reload();
@@ -144,6 +151,7 @@ export const useAuth = () => {
     }
   };
   return {
+    isLoading,
     isCollegeStudent,
     handleSetCollegeStudent,
     handleSetHighSchoolStudent,
