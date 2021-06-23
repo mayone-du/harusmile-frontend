@@ -2,7 +2,11 @@ import { useRouter } from "next/dist/client/router";
 import { setCookie } from "nookies";
 import { useCallback, useState } from "react";
 import { initialLoginUserVar, loginUserVar } from "src/apollo/cache";
-import { useCreateUserMutation, useGetTokensMutation } from "src/apollo/schema";
+import {
+  useCreateProfileMutation,
+  useCreateUserMutation,
+  useGetTokensMutation,
+} from "src/apollo/schema";
 import { calcDate } from "src/libs/calcDate";
 
 export const useAuth = () => {
@@ -10,6 +14,7 @@ export const useAuth = () => {
 
   const [createUserMutation] = useCreateUserMutation();
   const [getTokensMutation] = useGetTokensMutation();
+  const [createProfileMutation] = useCreateProfileMutation();
   const [inputEmail, setInputEmail] = useState("");
   const [inputPassword, setInputPassword] = useState("");
 
@@ -78,10 +83,47 @@ export const useAuth = () => {
 
     const { isFormError } = validateInputs();
     if (!isFormError) {
-      await createUserMutation({ variables: { email: inputEmail, password: inputPassword } });
-      await handleSignIn(event);
-      setInputEmail("");
-      setInputPassword("");
+      try {
+        await createUserMutation({ variables: { email: inputEmail, password: inputPassword } });
+
+        // サインイン
+        const { data: tokenData } = await getTokensMutation({
+          variables: {
+            email: inputEmail,
+            password: inputPassword,
+          },
+        });
+
+        if (tokenData?.tokenAuth) {
+          setCookie(null, "accessToken", tokenData.tokenAuth.token, {
+            path: "/",
+            maxAge: calcDate(tokenData.tokenAuth.payload.exp),
+          });
+          setCookie(null, "refreshToken", tokenData.tokenAuth.refreshToken, {
+            path: "/",
+            maxAge: calcDate(tokenData.tokenAuth.refreshExpiresIn),
+          });
+        }
+
+        loginUserVar(initialLoginUserVar);
+        setInputEmail("");
+        setInputPassword("");
+
+        // プロフィールを作成
+        await createProfileMutation({
+          variables: {
+            profileName: "おためしです。。。。。。。",
+            isCollegeStudent: true,
+          },
+        });
+
+        await router.push("/");
+        alert("ログインしました。");
+        router.reload();
+      } catch (error) {
+        alert(error);
+        return;
+      }
     }
   };
   return {

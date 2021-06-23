@@ -131,11 +131,11 @@ export type CreateProfileMutationInput = {
   profileName: Scalars['String'];
   profileText?: Maybe<Scalars['String']>;
   isCollegeStudent: Scalars['Boolean'];
-  schoolName: Scalars['String'];
+  schoolName?: Maybe<Scalars['String']>;
   age?: Maybe<Scalars['Int']>;
-  selectedGender: Scalars['ID'];
-  selectedAddress: Scalars['ID'];
-  telephoneNumber: Scalars['String'];
+  selectedGender?: Maybe<Scalars['ID']>;
+  selectedAddress?: Maybe<Scalars['ID']>;
+  telephoneNumber?: Maybe<Scalars['String']>;
   wantHear?: Maybe<Scalars['String']>;
   problem?: Maybe<Scalars['String']>;
   undergraduate?: Maybe<Scalars['String']>;
@@ -1271,11 +1271,11 @@ export type CreateProfileMutationVariables = Exact<{
   profileName: Scalars['String'];
   profileText?: Maybe<Scalars['String']>;
   isCollegeStudent: Scalars['Boolean'];
-  schoolName: Scalars['String'];
+  schoolName?: Maybe<Scalars['String']>;
   age?: Maybe<Scalars['Int']>;
-  selectedGender: Scalars['ID'];
-  selectedAddress: Scalars['ID'];
-  telephoneNumber: Scalars['String'];
+  selectedGender?: Maybe<Scalars['ID']>;
+  selectedAddress?: Maybe<Scalars['ID']>;
+  telephoneNumber?: Maybe<Scalars['String']>;
   wantHear?: Maybe<Scalars['String']>;
   problem?: Maybe<Scalars['String']>;
   undergraduate?: Maybe<Scalars['String']>;
@@ -2030,7 +2030,7 @@ export type CreateNotificationMutationHookResult = ReturnType<typeof useCreateNo
 export type CreateNotificationMutationResult = Apollo.MutationResult<CreateNotificationMutation>;
 export type CreateNotificationMutationOptions = Apollo.BaseMutationOptions<CreateNotificationMutation, CreateNotificationMutationVariables>;
 export const CreateProfileDocument = gql`
-    mutation CreateProfile($profileName: String!, $profileText: String, $isCollegeStudent: Boolean!, $schoolName: String!, $age: Int, $selectedGender: ID!, $selectedAddress: ID!, $telephoneNumber: String!, $wantHear: String, $problem: String, $undergraduate: String, $department: String, $clubActivities: String, $admissionFormat: String, $favoriteSubject: String, $profileImage: Upload) {
+    mutation CreateProfile($profileName: String!, $profileText: String, $isCollegeStudent: Boolean!, $schoolName: String, $age: Int, $selectedGender: ID, $selectedAddress: ID, $telephoneNumber: String, $wantHear: String, $problem: String, $undergraduate: String, $department: String, $clubActivities: String, $admissionFormat: String, $favoriteSubject: String, $profileImage: Upload) {
   createProfile(
     input: {profileName: $profileName, profileText: $profileText, isCollegeStudent: $isCollegeStudent, schoolName: $schoolName, age: $age, selectedGender: $selectedGender, selectedAddress: $selectedAddress, telephoneNumber: $telephoneNumber, wantHear: $wantHear, problem: $problem, undergraduate: $undergraduate, department: $department, clubActivities: $clubActivities, admissionFormat: $admissionFormat, favoriteSubject: $favoriteSubject, profileImage: $profileImage}
   ) {

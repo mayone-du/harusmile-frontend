@@ -2,11 +2,11 @@ mutation CreateProfile(
   $profileName: String!
   $profileText: String
   $isCollegeStudent: Boolean!
-  $schoolName: String!
+  $schoolName: String
   $age: Int
-  $selectedGender: ID!
-  $selectedAddress: ID!
-  $telephoneNumber: String!
+  $selectedGender: ID
+  $selectedAddress: ID
+  $telephoneNumber: String
   $wantHear: String
   $problem: String
   $undergraduate: String
