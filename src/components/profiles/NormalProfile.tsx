@@ -45,17 +45,31 @@ export const NormalProfile: React.VFC<Props> = (props) => {
         <h4 className="text-center font-bold py-2">一言コメント</h4>
         <p>{props.targetProfileText}</p>
       </div>
-      <ul>
+      <ul className="break-words">
         {/* 大学生かによって表示するデータを変更 */}
         {loginUserData.isCollegeStudent && (
-          <li className="flex items-center">
-            <div>学部：</div>
-            <div>{props.targetUndergraduate}</div>
-          </li>
+          <div>
+            <li className="flex items-center border-b">
+              <div className="text-xs w-1/3 text-gray-600">学部</div>
+              <div className="px-2 w-2/3">{props.targetUndergraduate}</div>
+            </li>
+            <li className="flex items-center border-b">
+              <div className="text-xs w-1/3 text-gray-600">学科</div>
+              <div className="px-2 w-2/3">{props.targetDepartment}</div>
+            </li>
+            <li className="flex items-center border-b">
+              <div className="text-xs w-1/3 text-gray-600">部活動・サークル</div>
+              <div className="px-2 w-2/3">{props.targetClubActivities}</div>
+            </li>
+          </div>
         )}
-        <li className="flex items-center">
-          <div>悩んでいること</div>
-          <div>{props.targetProblem}</div>
+        <li className="flex items-center border-b">
+          <div className="text-xs w-1/3 text-gray-600">聞きたいこと</div>
+          <div className="px-2 w-2/3">{props.targetWantHear}</div>
+        </li>
+        <li className="flex items-center border-b">
+          <div className="text-xs w-1/3 text-gray-600">悩んでいること</div>
+          <div className="px-2 w-2/3">{props.targetProblem}</div>
         </li>
       </ul>
     </div>

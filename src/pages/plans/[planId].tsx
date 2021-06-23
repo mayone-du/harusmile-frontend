@@ -19,7 +19,6 @@ const PlanDetail: NextPage = () => {
   const { handleRefreshToken } = useRefreshTokens();
   const [createTalkRoomMutation] = useCreateTalkRoomMutation();
 
-  // TODO: トークルームの作成とバリデーション 要検証
   const handleCreateTalkRoom = async () => {
     await handleRefreshToken();
     // 参加しているトークルームのplanIdとuserIdを使って、同じものがあるか比較
