@@ -1,0 +1,24 @@
+mutation CreatePlan(
+  $title: String!
+  $content: String!
+  $price: Int!
+  $isPublished: Boolean!
+  $planImage: Upload
+) {
+  createPlan(
+    input: {
+      title: $title
+      content: $content
+      price: $price
+      isPublished: $isPublished
+      planImage: $planImage
+    }
+  ) {
+    plan {
+      id
+      title
+      content
+      price
+    }
+  }
+}

@@ -3,28 +3,50 @@ import type { NextPage } from "next";
 import { loginUserVar } from "src/apollo/cache";
 import { useGetLoginUserPlansQuery } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
+import { useCreatePlan } from "src/libs/hooks/useCreatePlan";
 
 const PlansIndex: NextPage = () => {
   // プラン一覧の表示
   const { data } = useGetLoginUserPlansQuery();
   const loginUserData = useReactiveVar(loginUserVar);
 
+  const {
+    inputTitle,
+    inputContent,
+    inputPrice,
+    handleTitleChange,
+    handleContentChange,
+    handlePriceChange,
+    handlePlanCreate,
+  } = useCreatePlan();
   // TODO: プランの作成
-  const handlePlanCreate = async (e: React.ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  };
+
   return (
     <Layout metaTitle="マイプラン一覧" spHeaderTitle="マイプラン一覧">
       {loginUserData.isCollegeStudent && (
-        <div>
+        <div className="py-8">
           <form onSubmit={handlePlanCreate}>
-            <input type="text" className="border p-2 block w-full" placeholder="プランタイトル" />
+            <input
+              type="text"
+              className="border p-2 block w-full"
+              value={inputTitle}
+              onChange={handleTitleChange}
+              placeholder="プランタイトル"
+            />
+            <textarea
+              value={inputContent}
+              onChange={handleContentChange}
+              className="block border p-2 resize-none"
+              placeholder="内容"
+            ></textarea>
             <input
               type="number"
               min={0}
               max={50000}
               className="border p-2 block w-full"
               placeholder="金額を入力"
+              value={inputPrice}
+              onChange={handlePriceChange}
             />
             <button
               type="submit"

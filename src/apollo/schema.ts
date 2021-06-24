@@ -118,6 +118,7 @@ export type CreatePlanMutationInput = {
   content: Scalars['String'];
   planImage?: Maybe<Scalars['Upload']>;
   isPublished: Scalars['Boolean'];
+  price: Scalars['Int'];
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
@@ -1027,6 +1028,7 @@ export type UpdatePlanMutationInput = {
   title?: Maybe<Scalars['String']>;
   content?: Maybe<Scalars['String']>;
   planImage?: Maybe<Scalars['Upload']>;
+  price: Scalars['Int'];
   isPublished?: Maybe<Scalars['Boolean']>;
   clientMutationId?: Maybe<Scalars['String']>;
 };
@@ -1263,6 +1265,26 @@ export type CreateNotificationMutation = (
           & Pick<ProfileNode, 'profileName'>
         )> }
       ) }
+    )> }
+  )> }
+);
+
+export type CreatePlanMutationVariables = Exact<{
+  title: Scalars['String'];
+  content: Scalars['String'];
+  price: Scalars['Int'];
+  isPublished: Scalars['Boolean'];
+  planImage?: Maybe<Scalars['Upload']>;
+}>;
+
+
+export type CreatePlanMutation = (
+  { __typename?: 'Mutation' }
+  & { createPlan?: Maybe<(
+    { __typename?: 'CreatePlanMutationPayload' }
+    & { plan?: Maybe<(
+      { __typename?: 'PlanNode' }
+      & Pick<PlanNode, 'id' | 'title' | 'content' | 'price'>
     )> }
   )> }
 );
@@ -2029,6 +2051,50 @@ export function useCreateNotificationMutation(baseOptions?: Apollo.MutationHookO
 export type CreateNotificationMutationHookResult = ReturnType<typeof useCreateNotificationMutation>;
 export type CreateNotificationMutationResult = Apollo.MutationResult<CreateNotificationMutation>;
 export type CreateNotificationMutationOptions = Apollo.BaseMutationOptions<CreateNotificationMutation, CreateNotificationMutationVariables>;
+export const CreatePlanDocument = gql`
+    mutation CreatePlan($title: String!, $content: String!, $price: Int!, $isPublished: Boolean!, $planImage: Upload) {
+  createPlan(
+    input: {title: $title, content: $content, price: $price, isPublished: $isPublished, planImage: $planImage}
+  ) {
+    plan {
+      id
+      title
+      content
+      price
+    }
+  }
+}
+    `;
+export type CreatePlanMutationFn = Apollo.MutationFunction<CreatePlanMutation, CreatePlanMutationVariables>;
+
+/**
+ * __useCreatePlanMutation__
+ *
+ * To run a mutation, you first call `useCreatePlanMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePlanMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPlanMutation, { data, loading, error }] = useCreatePlanMutation({
+ *   variables: {
+ *      title: // value for 'title'
+ *      content: // value for 'content'
+ *      price: // value for 'price'
+ *      isPublished: // value for 'isPublished'
+ *      planImage: // value for 'planImage'
+ *   },
+ * });
+ */
+export function useCreatePlanMutation(baseOptions?: Apollo.MutationHookOptions<CreatePlanMutation, CreatePlanMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreatePlanMutation, CreatePlanMutationVariables>(CreatePlanDocument, options);
+      }
+export type CreatePlanMutationHookResult = ReturnType<typeof useCreatePlanMutation>;
+export type CreatePlanMutationResult = Apollo.MutationResult<CreatePlanMutation>;
+export type CreatePlanMutationOptions = Apollo.BaseMutationOptions<CreatePlanMutation, CreatePlanMutationVariables>;
 export const CreateProfileDocument = gql`
     mutation CreateProfile($profileName: String!, $profileText: String, $isCollegeStudent: Boolean!, $schoolName: String!, $age: Int, $selectedGender: ID, $selectedAddress: ID, $telephoneNumber: String, $wantHear: String, $problem: String, $undergraduate: String, $department: String, $clubActivities: String, $admissionFormat: String, $favoriteSubject: String, $profileImage: Upload) {
   createProfile(
