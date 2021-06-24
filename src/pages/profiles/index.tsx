@@ -8,7 +8,7 @@ import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { Layout } from "src/components/layouts/Layout";
 import { NormalProfile } from "src/components/profiles/NormalProfile";
 import { Plan } from "src/components/profiles/Plan";
-import { useSetLoginUserData } from "src/libs/hooks/useSetLoginUserData";
+import { useSetLoginUserData } from "src/libs/hooks/users/useSetLoginUserData";
 
 const ProfilesIndex: NextPage = () => {
   const router = useRouter();
@@ -49,7 +49,7 @@ const ProfilesIndex: NextPage = () => {
           {/* ユーザーが大学生ならプランとレビューを表示 */}
           {loginUserData.isCollegeStudent && (
             <div>
-              <section>
+              <section className="py-10">
                 <div className="flex items-center justify-between bg-gray-200">
                   <p className="px-2 text-gray-600 text-sm">プラン一覧</p>
                   <Link href="/">

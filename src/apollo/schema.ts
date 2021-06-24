@@ -1269,64 +1269,6 @@ export type CreateNotificationMutation = (
   )> }
 );
 
-export type CreatePlanMutationVariables = Exact<{
-  title: Scalars['String'];
-  content: Scalars['String'];
-  price: Scalars['Int'];
-  isPublished: Scalars['Boolean'];
-  planImage?: Maybe<Scalars['Upload']>;
-}>;
-
-
-export type CreatePlanMutation = (
-  { __typename?: 'Mutation' }
-  & { createPlan?: Maybe<(
-    { __typename?: 'CreatePlanMutationPayload' }
-    & { plan?: Maybe<(
-      { __typename?: 'PlanNode' }
-      & Pick<PlanNode, 'id' | 'title' | 'content' | 'price'>
-    )> }
-  )> }
-);
-
-export type CreateProfileMutationVariables = Exact<{
-  profileName: Scalars['String'];
-  profileText?: Maybe<Scalars['String']>;
-  isCollegeStudent: Scalars['Boolean'];
-  schoolName: Scalars['String'];
-  age?: Maybe<Scalars['Int']>;
-  selectedGender?: Maybe<Scalars['ID']>;
-  selectedAddress?: Maybe<Scalars['ID']>;
-  telephoneNumber?: Maybe<Scalars['String']>;
-  wantHear?: Maybe<Scalars['String']>;
-  problem?: Maybe<Scalars['String']>;
-  undergraduate?: Maybe<Scalars['String']>;
-  department?: Maybe<Scalars['String']>;
-  clubActivities?: Maybe<Scalars['String']>;
-  admissionFormat?: Maybe<Scalars['String']>;
-  favoriteSubject?: Maybe<Scalars['String']>;
-  profileImage?: Maybe<Scalars['Upload']>;
-}>;
-
-
-export type CreateProfileMutation = (
-  { __typename?: 'Mutation' }
-  & { createProfile?: Maybe<(
-    { __typename?: 'CreateProfileMutationPayload' }
-    & { profile?: Maybe<(
-      { __typename?: 'ProfileNode' }
-      & Pick<ProfileNode, 'id' | 'profileName' | 'profileText' | 'isCollegeStudent' | 'schoolName' | 'telephoneNumber' | 'createdAt' | 'profileImage' | 'age' | 'undergraduate' | 'department' | 'clubActivities' | 'admissionFormat' | 'favoriteSubject' | 'wantHear' | 'problem'>
-      & { selectedGender?: Maybe<(
-        { __typename?: 'GenderNode' }
-        & Pick<GenderNode, 'id' | 'genderName'>
-      )>, selectedAddress?: Maybe<(
-        { __typename?: 'AddressNode' }
-        & Pick<AddressNode, 'id' | 'addressName'>
-      )> }
-    )> }
-  )> }
-);
-
 export type CreateReviewMutationVariables = Exact<{
   providerId: Scalars['ID'];
   reviewText: Scalars['String'];
@@ -1376,6 +1318,119 @@ export type CreateUserMutation = (
     & { user?: Maybe<(
       { __typename?: 'UserNode' }
       & Pick<UserNode, 'id' | 'email'>
+    )> }
+  )> }
+);
+
+export type CreatePlanMutationVariables = Exact<{
+  title: Scalars['String'];
+  content: Scalars['String'];
+  price: Scalars['Int'];
+  isPublished: Scalars['Boolean'];
+  planImage?: Maybe<Scalars['Upload']>;
+}>;
+
+
+export type CreatePlanMutation = (
+  { __typename?: 'Mutation' }
+  & { createPlan?: Maybe<(
+    { __typename?: 'CreatePlanMutationPayload' }
+    & { plan?: Maybe<(
+      { __typename?: 'PlanNode' }
+      & Pick<PlanNode, 'id' | 'title' | 'content' | 'price'>
+    )> }
+  )> }
+);
+
+export type DeletePlanMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type DeletePlanMutation = (
+  { __typename?: 'Mutation' }
+  & { deletePlan?: Maybe<(
+    { __typename?: 'DeletePlanMutationPayload' }
+    & { plan?: Maybe<(
+      { __typename?: 'PlanNode' }
+      & Pick<PlanNode, 'id'>
+    )> }
+  )> }
+);
+
+export type CreateProfileMutationVariables = Exact<{
+  profileName: Scalars['String'];
+  profileText?: Maybe<Scalars['String']>;
+  isCollegeStudent: Scalars['Boolean'];
+  schoolName: Scalars['String'];
+  age?: Maybe<Scalars['Int']>;
+  selectedGender?: Maybe<Scalars['ID']>;
+  selectedAddress?: Maybe<Scalars['ID']>;
+  telephoneNumber?: Maybe<Scalars['String']>;
+  wantHear?: Maybe<Scalars['String']>;
+  problem?: Maybe<Scalars['String']>;
+  undergraduate?: Maybe<Scalars['String']>;
+  department?: Maybe<Scalars['String']>;
+  clubActivities?: Maybe<Scalars['String']>;
+  admissionFormat?: Maybe<Scalars['String']>;
+  favoriteSubject?: Maybe<Scalars['String']>;
+  profileImage?: Maybe<Scalars['Upload']>;
+}>;
+
+
+export type CreateProfileMutation = (
+  { __typename?: 'Mutation' }
+  & { createProfile?: Maybe<(
+    { __typename?: 'CreateProfileMutationPayload' }
+    & { profile?: Maybe<(
+      { __typename?: 'ProfileNode' }
+      & Pick<ProfileNode, 'id' | 'profileName' | 'profileText' | 'isCollegeStudent' | 'schoolName' | 'telephoneNumber' | 'createdAt' | 'profileImage' | 'age' | 'undergraduate' | 'department' | 'clubActivities' | 'admissionFormat' | 'favoriteSubject' | 'wantHear' | 'problem'>
+      & { selectedGender?: Maybe<(
+        { __typename?: 'GenderNode' }
+        & Pick<GenderNode, 'id' | 'genderName'>
+      )>, selectedAddress?: Maybe<(
+        { __typename?: 'AddressNode' }
+        & Pick<AddressNode, 'id' | 'addressName'>
+      )> }
+    )> }
+  )> }
+);
+
+export type UpdateProfileMutationVariables = Exact<{
+  id: Scalars['ID'];
+  profileName: Scalars['String'];
+  profileText?: Maybe<Scalars['String']>;
+  isCollegeStudent?: Maybe<Scalars['Boolean']>;
+  schoolName?: Maybe<Scalars['String']>;
+  age?: Maybe<Scalars['Int']>;
+  telephoneNumber?: Maybe<Scalars['String']>;
+  selectedGender: Scalars['ID'];
+  selectedAddress: Scalars['ID'];
+  undergraduate?: Maybe<Scalars['String']>;
+  department?: Maybe<Scalars['String']>;
+  clubActivities?: Maybe<Scalars['String']>;
+  admissionFormat?: Maybe<Scalars['String']>;
+  favoriteSubject?: Maybe<Scalars['String']>;
+  wantHear?: Maybe<Scalars['String']>;
+  problem?: Maybe<Scalars['String']>;
+  profileImage?: Maybe<Scalars['Upload']>;
+}>;
+
+
+export type UpdateProfileMutation = (
+  { __typename?: 'Mutation' }
+  & { updateProfile?: Maybe<(
+    { __typename?: 'UpdateProfileMutationPayload' }
+    & { profile?: Maybe<(
+      { __typename?: 'ProfileNode' }
+      & Pick<ProfileNode, 'profileName' | 'profileText' | 'schoolName' | 'age' | 'telephoneNumber' | 'isCollegeStudent' | 'undergraduate' | 'department' | 'clubActivities' | 'admissionFormat' | 'favoriteSubject' | 'wantHear' | 'problem' | 'profileImage'>
+      & { selectedGender?: Maybe<(
+        { __typename?: 'GenderNode' }
+        & Pick<GenderNode, 'id' | 'genderName'>
+      )>, selectedAddress?: Maybe<(
+        { __typename?: 'AddressNode' }
+        & Pick<AddressNode, 'id' | 'addressName'>
+      )> }
     )> }
   )> }
 );
@@ -1432,45 +1487,6 @@ export type UpdateNotificationsMutation = (
     & { notification?: Maybe<(
       { __typename?: 'NotificationNode' }
       & Pick<NotificationNode, 'id'>
-    )> }
-  )> }
-);
-
-export type UpdateProfileMutationVariables = Exact<{
-  id: Scalars['ID'];
-  profileName: Scalars['String'];
-  profileText?: Maybe<Scalars['String']>;
-  isCollegeStudent?: Maybe<Scalars['Boolean']>;
-  schoolName?: Maybe<Scalars['String']>;
-  age?: Maybe<Scalars['Int']>;
-  telephoneNumber?: Maybe<Scalars['String']>;
-  selectedGender: Scalars['ID'];
-  selectedAddress: Scalars['ID'];
-  undergraduate?: Maybe<Scalars['String']>;
-  department?: Maybe<Scalars['String']>;
-  clubActivities?: Maybe<Scalars['String']>;
-  admissionFormat?: Maybe<Scalars['String']>;
-  favoriteSubject?: Maybe<Scalars['String']>;
-  wantHear?: Maybe<Scalars['String']>;
-  problem?: Maybe<Scalars['String']>;
-  profileImage?: Maybe<Scalars['Upload']>;
-}>;
-
-
-export type UpdateProfileMutation = (
-  { __typename?: 'Mutation' }
-  & { updateProfile?: Maybe<(
-    { __typename?: 'UpdateProfileMutationPayload' }
-    & { profile?: Maybe<(
-      { __typename?: 'ProfileNode' }
-      & Pick<ProfileNode, 'profileName' | 'profileText' | 'schoolName' | 'age' | 'telephoneNumber' | 'isCollegeStudent' | 'undergraduate' | 'department' | 'clubActivities' | 'admissionFormat' | 'favoriteSubject' | 'wantHear' | 'problem' | 'profileImage'>
-      & { selectedGender?: Maybe<(
-        { __typename?: 'GenderNode' }
-        & Pick<GenderNode, 'id' | 'genderName'>
-      )>, selectedAddress?: Maybe<(
-        { __typename?: 'AddressNode' }
-        & Pick<AddressNode, 'id' | 'addressName'>
-      )> }
     )> }
   )> }
 );
@@ -2051,125 +2067,6 @@ export function useCreateNotificationMutation(baseOptions?: Apollo.MutationHookO
 export type CreateNotificationMutationHookResult = ReturnType<typeof useCreateNotificationMutation>;
 export type CreateNotificationMutationResult = Apollo.MutationResult<CreateNotificationMutation>;
 export type CreateNotificationMutationOptions = Apollo.BaseMutationOptions<CreateNotificationMutation, CreateNotificationMutationVariables>;
-export const CreatePlanDocument = gql`
-    mutation CreatePlan($title: String!, $content: String!, $price: Int!, $isPublished: Boolean!, $planImage: Upload) {
-  createPlan(
-    input: {title: $title, content: $content, price: $price, isPublished: $isPublished, planImage: $planImage}
-  ) {
-    plan {
-      id
-      title
-      content
-      price
-    }
-  }
-}
-    `;
-export type CreatePlanMutationFn = Apollo.MutationFunction<CreatePlanMutation, CreatePlanMutationVariables>;
-
-/**
- * __useCreatePlanMutation__
- *
- * To run a mutation, you first call `useCreatePlanMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreatePlanMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createPlanMutation, { data, loading, error }] = useCreatePlanMutation({
- *   variables: {
- *      title: // value for 'title'
- *      content: // value for 'content'
- *      price: // value for 'price'
- *      isPublished: // value for 'isPublished'
- *      planImage: // value for 'planImage'
- *   },
- * });
- */
-export function useCreatePlanMutation(baseOptions?: Apollo.MutationHookOptions<CreatePlanMutation, CreatePlanMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreatePlanMutation, CreatePlanMutationVariables>(CreatePlanDocument, options);
-      }
-export type CreatePlanMutationHookResult = ReturnType<typeof useCreatePlanMutation>;
-export type CreatePlanMutationResult = Apollo.MutationResult<CreatePlanMutation>;
-export type CreatePlanMutationOptions = Apollo.BaseMutationOptions<CreatePlanMutation, CreatePlanMutationVariables>;
-export const CreateProfileDocument = gql`
-    mutation CreateProfile($profileName: String!, $profileText: String, $isCollegeStudent: Boolean!, $schoolName: String!, $age: Int, $selectedGender: ID, $selectedAddress: ID, $telephoneNumber: String, $wantHear: String, $problem: String, $undergraduate: String, $department: String, $clubActivities: String, $admissionFormat: String, $favoriteSubject: String, $profileImage: Upload) {
-  createProfile(
-    input: {profileName: $profileName, profileText: $profileText, isCollegeStudent: $isCollegeStudent, schoolName: $schoolName, age: $age, selectedGender: $selectedGender, selectedAddress: $selectedAddress, telephoneNumber: $telephoneNumber, wantHear: $wantHear, problem: $problem, undergraduate: $undergraduate, department: $department, clubActivities: $clubActivities, admissionFormat: $admissionFormat, favoriteSubject: $favoriteSubject, profileImage: $profileImage}
-  ) {
-    profile {
-      id
-      profileName
-      profileText
-      isCollegeStudent
-      schoolName
-      telephoneNumber
-      createdAt
-      profileImage
-      age
-      undergraduate
-      department
-      clubActivities
-      admissionFormat
-      favoriteSubject
-      wantHear
-      problem
-      selectedGender {
-        id
-        genderName
-      }
-      selectedAddress {
-        id
-        addressName
-      }
-    }
-  }
-}
-    `;
-export type CreateProfileMutationFn = Apollo.MutationFunction<CreateProfileMutation, CreateProfileMutationVariables>;
-
-/**
- * __useCreateProfileMutation__
- *
- * To run a mutation, you first call `useCreateProfileMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateProfileMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createProfileMutation, { data, loading, error }] = useCreateProfileMutation({
- *   variables: {
- *      profileName: // value for 'profileName'
- *      profileText: // value for 'profileText'
- *      isCollegeStudent: // value for 'isCollegeStudent'
- *      schoolName: // value for 'schoolName'
- *      age: // value for 'age'
- *      selectedGender: // value for 'selectedGender'
- *      selectedAddress: // value for 'selectedAddress'
- *      telephoneNumber: // value for 'telephoneNumber'
- *      wantHear: // value for 'wantHear'
- *      problem: // value for 'problem'
- *      undergraduate: // value for 'undergraduate'
- *      department: // value for 'department'
- *      clubActivities: // value for 'clubActivities'
- *      admissionFormat: // value for 'admissionFormat'
- *      favoriteSubject: // value for 'favoriteSubject'
- *      profileImage: // value for 'profileImage'
- *   },
- * });
- */
-export function useCreateProfileMutation(baseOptions?: Apollo.MutationHookOptions<CreateProfileMutation, CreateProfileMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateProfileMutation, CreateProfileMutationVariables>(CreateProfileDocument, options);
-      }
-export type CreateProfileMutationHookResult = ReturnType<typeof useCreateProfileMutation>;
-export type CreateProfileMutationResult = Apollo.MutationResult<CreateProfileMutation>;
-export type CreateProfileMutationOptions = Apollo.BaseMutationOptions<CreateProfileMutation, CreateProfileMutationVariables>;
 export const CreateReviewDocument = gql`
     mutation CreateReview($providerId: ID!, $reviewText: String!, $stars: Int!) {
   createReview(
@@ -2288,6 +2185,235 @@ export function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
 export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
 export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
+export const CreatePlanDocument = gql`
+    mutation CreatePlan($title: String!, $content: String!, $price: Int!, $isPublished: Boolean!, $planImage: Upload) {
+  createPlan(
+    input: {title: $title, content: $content, price: $price, isPublished: $isPublished, planImage: $planImage}
+  ) {
+    plan {
+      id
+      title
+      content
+      price
+    }
+  }
+}
+    `;
+export type CreatePlanMutationFn = Apollo.MutationFunction<CreatePlanMutation, CreatePlanMutationVariables>;
+
+/**
+ * __useCreatePlanMutation__
+ *
+ * To run a mutation, you first call `useCreatePlanMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePlanMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPlanMutation, { data, loading, error }] = useCreatePlanMutation({
+ *   variables: {
+ *      title: // value for 'title'
+ *      content: // value for 'content'
+ *      price: // value for 'price'
+ *      isPublished: // value for 'isPublished'
+ *      planImage: // value for 'planImage'
+ *   },
+ * });
+ */
+export function useCreatePlanMutation(baseOptions?: Apollo.MutationHookOptions<CreatePlanMutation, CreatePlanMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreatePlanMutation, CreatePlanMutationVariables>(CreatePlanDocument, options);
+      }
+export type CreatePlanMutationHookResult = ReturnType<typeof useCreatePlanMutation>;
+export type CreatePlanMutationResult = Apollo.MutationResult<CreatePlanMutation>;
+export type CreatePlanMutationOptions = Apollo.BaseMutationOptions<CreatePlanMutation, CreatePlanMutationVariables>;
+export const DeletePlanDocument = gql`
+    mutation DeletePlan($id: ID!) {
+  deletePlan(input: {id: $id}) {
+    plan {
+      id
+    }
+  }
+}
+    `;
+export type DeletePlanMutationFn = Apollo.MutationFunction<DeletePlanMutation, DeletePlanMutationVariables>;
+
+/**
+ * __useDeletePlanMutation__
+ *
+ * To run a mutation, you first call `useDeletePlanMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeletePlanMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deletePlanMutation, { data, loading, error }] = useDeletePlanMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeletePlanMutation(baseOptions?: Apollo.MutationHookOptions<DeletePlanMutation, DeletePlanMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeletePlanMutation, DeletePlanMutationVariables>(DeletePlanDocument, options);
+      }
+export type DeletePlanMutationHookResult = ReturnType<typeof useDeletePlanMutation>;
+export type DeletePlanMutationResult = Apollo.MutationResult<DeletePlanMutation>;
+export type DeletePlanMutationOptions = Apollo.BaseMutationOptions<DeletePlanMutation, DeletePlanMutationVariables>;
+export const CreateProfileDocument = gql`
+    mutation CreateProfile($profileName: String!, $profileText: String, $isCollegeStudent: Boolean!, $schoolName: String!, $age: Int, $selectedGender: ID, $selectedAddress: ID, $telephoneNumber: String, $wantHear: String, $problem: String, $undergraduate: String, $department: String, $clubActivities: String, $admissionFormat: String, $favoriteSubject: String, $profileImage: Upload) {
+  createProfile(
+    input: {profileName: $profileName, profileText: $profileText, isCollegeStudent: $isCollegeStudent, schoolName: $schoolName, age: $age, selectedGender: $selectedGender, selectedAddress: $selectedAddress, telephoneNumber: $telephoneNumber, wantHear: $wantHear, problem: $problem, undergraduate: $undergraduate, department: $department, clubActivities: $clubActivities, admissionFormat: $admissionFormat, favoriteSubject: $favoriteSubject, profileImage: $profileImage}
+  ) {
+    profile {
+      id
+      profileName
+      profileText
+      isCollegeStudent
+      schoolName
+      telephoneNumber
+      createdAt
+      profileImage
+      age
+      undergraduate
+      department
+      clubActivities
+      admissionFormat
+      favoriteSubject
+      wantHear
+      problem
+      selectedGender {
+        id
+        genderName
+      }
+      selectedAddress {
+        id
+        addressName
+      }
+    }
+  }
+}
+    `;
+export type CreateProfileMutationFn = Apollo.MutationFunction<CreateProfileMutation, CreateProfileMutationVariables>;
+
+/**
+ * __useCreateProfileMutation__
+ *
+ * To run a mutation, you first call `useCreateProfileMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateProfileMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createProfileMutation, { data, loading, error }] = useCreateProfileMutation({
+ *   variables: {
+ *      profileName: // value for 'profileName'
+ *      profileText: // value for 'profileText'
+ *      isCollegeStudent: // value for 'isCollegeStudent'
+ *      schoolName: // value for 'schoolName'
+ *      age: // value for 'age'
+ *      selectedGender: // value for 'selectedGender'
+ *      selectedAddress: // value for 'selectedAddress'
+ *      telephoneNumber: // value for 'telephoneNumber'
+ *      wantHear: // value for 'wantHear'
+ *      problem: // value for 'problem'
+ *      undergraduate: // value for 'undergraduate'
+ *      department: // value for 'department'
+ *      clubActivities: // value for 'clubActivities'
+ *      admissionFormat: // value for 'admissionFormat'
+ *      favoriteSubject: // value for 'favoriteSubject'
+ *      profileImage: // value for 'profileImage'
+ *   },
+ * });
+ */
+export function useCreateProfileMutation(baseOptions?: Apollo.MutationHookOptions<CreateProfileMutation, CreateProfileMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateProfileMutation, CreateProfileMutationVariables>(CreateProfileDocument, options);
+      }
+export type CreateProfileMutationHookResult = ReturnType<typeof useCreateProfileMutation>;
+export type CreateProfileMutationResult = Apollo.MutationResult<CreateProfileMutation>;
+export type CreateProfileMutationOptions = Apollo.BaseMutationOptions<CreateProfileMutation, CreateProfileMutationVariables>;
+export const UpdateProfileDocument = gql`
+    mutation UpdateProfile($id: ID!, $profileName: String!, $profileText: String, $isCollegeStudent: Boolean, $schoolName: String, $age: Int, $telephoneNumber: String, $selectedGender: ID!, $selectedAddress: ID!, $undergraduate: String, $department: String, $clubActivities: String, $admissionFormat: String, $favoriteSubject: String, $wantHear: String, $problem: String, $profileImage: Upload) {
+  updateProfile(
+    input: {id: $id, profileName: $profileName, profileText: $profileText, isCollegeStudent: $isCollegeStudent, schoolName: $schoolName, age: $age, telephoneNumber: $telephoneNumber, selectedGender: $selectedGender, selectedAddress: $selectedAddress, undergraduate: $undergraduate, department: $department, clubActivities: $clubActivities, admissionFormat: $admissionFormat, favoriteSubject: $favoriteSubject, wantHear: $wantHear, problem: $problem, profileImage: $profileImage}
+  ) {
+    profile {
+      profileName
+      profileText
+      schoolName
+      age
+      telephoneNumber
+      isCollegeStudent
+      schoolName
+      selectedGender {
+        id
+        genderName
+      }
+      selectedAddress {
+        id
+        addressName
+      }
+      undergraduate
+      department
+      clubActivities
+      admissionFormat
+      favoriteSubject
+      wantHear
+      problem
+      profileImage
+    }
+  }
+}
+    `;
+export type UpdateProfileMutationFn = Apollo.MutationFunction<UpdateProfileMutation, UpdateProfileMutationVariables>;
+
+/**
+ * __useUpdateProfileMutation__
+ *
+ * To run a mutation, you first call `useUpdateProfileMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateProfileMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateProfileMutation, { data, loading, error }] = useUpdateProfileMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      profileName: // value for 'profileName'
+ *      profileText: // value for 'profileText'
+ *      isCollegeStudent: // value for 'isCollegeStudent'
+ *      schoolName: // value for 'schoolName'
+ *      age: // value for 'age'
+ *      telephoneNumber: // value for 'telephoneNumber'
+ *      selectedGender: // value for 'selectedGender'
+ *      selectedAddress: // value for 'selectedAddress'
+ *      undergraduate: // value for 'undergraduate'
+ *      department: // value for 'department'
+ *      clubActivities: // value for 'clubActivities'
+ *      admissionFormat: // value for 'admissionFormat'
+ *      favoriteSubject: // value for 'favoriteSubject'
+ *      wantHear: // value for 'wantHear'
+ *      problem: // value for 'problem'
+ *      profileImage: // value for 'profileImage'
+ *   },
+ * });
+ */
+export function useUpdateProfileMutation(baseOptions?: Apollo.MutationHookOptions<UpdateProfileMutation, UpdateProfileMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateProfileMutation, UpdateProfileMutationVariables>(UpdateProfileDocument, options);
+      }
+export type UpdateProfileMutationHookResult = ReturnType<typeof useUpdateProfileMutation>;
+export type UpdateProfileMutationResult = Apollo.MutationResult<UpdateProfileMutation>;
+export type UpdateProfileMutationOptions = Apollo.BaseMutationOptions<UpdateProfileMutation, UpdateProfileMutationVariables>;
 export const GetTokensDocument = gql`
     mutation GetTokens($email: String!, $password: String!) {
   tokenAuth(email: $email, password: $password) {
@@ -2429,81 +2555,6 @@ export function useUpdateNotificationsMutation(baseOptions?: Apollo.MutationHook
 export type UpdateNotificationsMutationHookResult = ReturnType<typeof useUpdateNotificationsMutation>;
 export type UpdateNotificationsMutationResult = Apollo.MutationResult<UpdateNotificationsMutation>;
 export type UpdateNotificationsMutationOptions = Apollo.BaseMutationOptions<UpdateNotificationsMutation, UpdateNotificationsMutationVariables>;
-export const UpdateProfileDocument = gql`
-    mutation UpdateProfile($id: ID!, $profileName: String!, $profileText: String, $isCollegeStudent: Boolean, $schoolName: String, $age: Int, $telephoneNumber: String, $selectedGender: ID!, $selectedAddress: ID!, $undergraduate: String, $department: String, $clubActivities: String, $admissionFormat: String, $favoriteSubject: String, $wantHear: String, $problem: String, $profileImage: Upload) {
-  updateProfile(
-    input: {id: $id, profileName: $profileName, profileText: $profileText, isCollegeStudent: $isCollegeStudent, schoolName: $schoolName, age: $age, telephoneNumber: $telephoneNumber, selectedGender: $selectedGender, selectedAddress: $selectedAddress, undergraduate: $undergraduate, department: $department, clubActivities: $clubActivities, admissionFormat: $admissionFormat, favoriteSubject: $favoriteSubject, wantHear: $wantHear, problem: $problem, profileImage: $profileImage}
-  ) {
-    profile {
-      profileName
-      profileText
-      schoolName
-      age
-      telephoneNumber
-      isCollegeStudent
-      schoolName
-      selectedGender {
-        id
-        genderName
-      }
-      selectedAddress {
-        id
-        addressName
-      }
-      undergraduate
-      department
-      clubActivities
-      admissionFormat
-      favoriteSubject
-      wantHear
-      problem
-      profileImage
-    }
-  }
-}
-    `;
-export type UpdateProfileMutationFn = Apollo.MutationFunction<UpdateProfileMutation, UpdateProfileMutationVariables>;
-
-/**
- * __useUpdateProfileMutation__
- *
- * To run a mutation, you first call `useUpdateProfileMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateProfileMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateProfileMutation, { data, loading, error }] = useUpdateProfileMutation({
- *   variables: {
- *      id: // value for 'id'
- *      profileName: // value for 'profileName'
- *      profileText: // value for 'profileText'
- *      isCollegeStudent: // value for 'isCollegeStudent'
- *      schoolName: // value for 'schoolName'
- *      age: // value for 'age'
- *      telephoneNumber: // value for 'telephoneNumber'
- *      selectedGender: // value for 'selectedGender'
- *      selectedAddress: // value for 'selectedAddress'
- *      undergraduate: // value for 'undergraduate'
- *      department: // value for 'department'
- *      clubActivities: // value for 'clubActivities'
- *      admissionFormat: // value for 'admissionFormat'
- *      favoriteSubject: // value for 'favoriteSubject'
- *      wantHear: // value for 'wantHear'
- *      problem: // value for 'problem'
- *      profileImage: // value for 'profileImage'
- *   },
- * });
- */
-export function useUpdateProfileMutation(baseOptions?: Apollo.MutationHookOptions<UpdateProfileMutation, UpdateProfileMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateProfileMutation, UpdateProfileMutationVariables>(UpdateProfileDocument, options);
-      }
-export type UpdateProfileMutationHookResult = ReturnType<typeof useUpdateProfileMutation>;
-export type UpdateProfileMutationResult = Apollo.MutationResult<UpdateProfileMutation>;
-export type UpdateProfileMutationOptions = Apollo.BaseMutationOptions<UpdateProfileMutation, UpdateProfileMutationVariables>;
 export const GetAllAdressesDocument = gql`
     query GetAllAdresses {
   allAddresses {

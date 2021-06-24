@@ -2,7 +2,7 @@ import Head from "next/head";
 import { memo } from "react";
 import { Footer } from "src/components/layouts/Footer";
 import { Header } from "src/components/layouts/Header";
-import { useValidateLoginUser } from "src/libs/hooks/useValidateLoginUser";
+import { useValidateLoginUser } from "src/libs/hooks/users/useValidateLoginUser";
 
 type Props = {
   metaTitle: string;

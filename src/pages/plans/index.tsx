@@ -4,11 +4,11 @@ import { loginUserVar } from "src/apollo/cache";
 import { useGetLoginUserPlansQuery } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
 import { Plan } from "src/components/profiles/Plan";
-import { useCreatePlan } from "src/libs/hooks/useCreatePlan";
+import { useCreatePlan } from "src/libs/hooks/plans/useCreatePlan";
 
 const PlansIndex: NextPage = () => {
   // プラン一覧の表示
-  const { data } = useGetLoginUserPlansQuery();
+  const { data } = useGetLoginUserPlansQuery({ fetchPolicy: "network-only" });
   const loginUserData = useReactiveVar(loginUserVar);
 
   const {

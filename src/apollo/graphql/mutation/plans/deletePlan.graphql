@@ -1,0 +1,7 @@
+mutation DeletePlan($id: ID!) {
+  deletePlan(input: { id: $id }) {
+    plan {
+      id
+    }
+  }
+}

@@ -11,7 +11,7 @@ import { SkeletonLoading } from "src/components/talks/SkeletonLoading";
 import { useCreateMessages } from "src/libs/hooks/useCreateMessages";
 import { useCreateReview } from "src/libs/hooks/useCreateReview";
 import { useRefreshTokens } from "src/libs/hooks/useRefreshTokens";
-import { useValidateLoginUser } from "src/libs/hooks/useValidateLoginUser";
+import { useValidateLoginUser } from "src/libs/hooks/users/useValidateLoginUser";
 
 export const TalkWrapper: React.VFC = () => {
   const cookies = parseCookies();

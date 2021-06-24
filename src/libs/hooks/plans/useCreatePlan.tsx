@@ -1,11 +1,16 @@
 import { useCallback, useState } from "react";
-import { useCreatePlanMutation } from "src/apollo/schema";
+import { GetLoginUserPlansDocument, useCreatePlanMutation } from "src/apollo/schema";
+import { useRefreshTokens } from "src/libs/hooks/useRefreshTokens";
 
 export const useCreatePlan = () => {
   const [inputTitle, setInputTitle] = useState("");
   const [inputContent, setInputContent] = useState("");
   const [inputPrice, setInputPrice] = useState("");
-  const [createPlanMutation] = useCreatePlanMutation();
+  const [createPlanMutation] = useCreatePlanMutation({
+    refetchQueries: [{ query: GetLoginUserPlansDocument }],
+  });
+
+  const { handleRefreshToken } = useRefreshTokens();
 
   const handleTitleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setInputTitle(event.target.value);
@@ -34,6 +39,7 @@ export const useCreatePlan = () => {
       return;
     }
     try {
+      await handleRefreshToken();
       await createPlanMutation({
         variables: {
           title: inputTitle,

@@ -5,7 +5,7 @@ import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { Layout } from "src/components/layouts/Layout";
 import { Input } from "src/components/profiles/Input";
 import { ThemeChanger } from "src/components/ThemeChanger";
-import { useSetLoginUserData } from "src/libs/hooks/useSetLoginUserData";
+import { useSetLoginUserData } from "src/libs/hooks/users/useSetLoginUserData";
 import { useProfileUpdate } from "src/libs/hooks/useUpdateProfile";
 
 const Settings: NextPage = () => {

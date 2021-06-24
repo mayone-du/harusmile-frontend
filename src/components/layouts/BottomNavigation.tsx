@@ -65,7 +65,7 @@ export const BottomNavigation: React.VFC<Props> = (props) => {
                     className="w-6 h-6 rounded-full object-cover"
                     profileImagePath={props.profileImagePath}
                   />
-                  <span className="block text-xs text-gray-600">プロフィール</span>
+                  <span className="block text-xs text-gray-600">マイページ</span>
                 </a>
               </Link>
             </li>

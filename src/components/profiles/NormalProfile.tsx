@@ -42,7 +42,7 @@ export const NormalProfile: React.VFC<Props> = (props) => {
             {props.targetSchoolName === "" ? "学校名：未設定" : props.targetSchoolName}
           </p>
           <p className="text-xs text-gray-600">
-            {props.targetAge === 0 ? "年齢：未設定" : `${props.targetAge.toString}歳`}
+            {props.targetAge === 0 ? "年齢：未設定" : `${props.targetAge.toString()}歳`}
           </p>
         </div>
       </div>
@@ -58,25 +58,25 @@ export const NormalProfile: React.VFC<Props> = (props) => {
         {/* 大学生かによって表示するデータを変更 */}
         {loginUserData.isCollegeStudent && (
           <div>
-            <li className="flex items-center border-b">
+            <li className="flex items-center border-b p-1">
               <div className="text-xs w-1/3 text-gray-600">学部</div>
               <div className="px-2 w-2/3">{props.targetUndergraduate}</div>
             </li>
-            <li className="flex items-center border-b">
+            <li className="flex items-center border-b p-1">
               <div className="text-xs w-1/3 text-gray-600">学科</div>
               <div className="px-2 w-2/3">{props.targetDepartment}</div>
             </li>
-            <li className="flex items-center border-b">
+            <li className="flex items-center border-b p-1">
               <div className="text-xs w-1/3 text-gray-600">部活動・サークル</div>
               <div className="px-2 w-2/3">{props.targetClubActivities}</div>
             </li>
           </div>
         )}
-        <li className="flex items-center border-b py-1">
+        <li className="flex items-center border-b p-1">
           <div className="text-xs w-1/3 text-gray-600">聞きたいこと</div>
           <div className="px-2 w-2/3">{props.targetWantHear}</div>
         </li>
-        <li className="flex items-center border-b py-1">
+        <li className="flex items-center border-b p-1">
           <div className="text-xs w-1/3 text-gray-600">悩んでいること</div>
           <div className="px-2 w-2/3">{props.targetProblem}</div>
         </li>
