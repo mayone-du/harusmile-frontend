@@ -16,8 +16,8 @@ export const NotificationButton: React.VFC = () => {
       left: "50%",
       right: "auto",
       bottom: "auto",
-      width: "300px",
-      transform: "translate(-50%, -50%)",
+      width: "330px",
+      transform: "translateX(-50%)",
     },
     overlay: {
       background: "rgba(255, 255, 255, 0.6)",
@@ -97,7 +97,7 @@ export const NotificationButton: React.VFC = () => {
         ariaHideApp={false}
       >
         {/* 通知を表示 */}
-        <ul>
+        <ul className="max-h-80 overflow-y-scroll">
           {/* {<li className="animate-pulse bg-gray-200 w-full h-10"></li>} */}
           {notificationsData?.loginUserNotifications?.edges.length === 0 && (
             <li className="border-b border-gray-300 flex h-10 px-2 items-center">
@@ -106,7 +106,10 @@ export const NotificationButton: React.VFC = () => {
           )}
           {notificationsData?.loginUserNotifications?.edges.map((notification, index) => {
             return (
-              <li key={index} className="border-b border-gray-300 flex h-12 px-1 my-2 items-center">
+              <li
+                key={index}
+                className="border-b border-gray-300 flex h-12 px-1 my-2 items-center relative"
+              >
                 <ProfileImageIcon
                   className="border rounded-full object-cover w-10 h-10 mx-2"
                   profileImagePath={notification?.node?.notificator?.targetUser?.profileImage}
@@ -119,7 +122,7 @@ export const NotificationButton: React.VFC = () => {
                   さんから
                   <span className="font-bold">{notification?.node?.notificationType}</span>
                   が送られました。
-                  <span className="text-xs text-gray-700">
+                  <span className="text-xs text-gray-500 absolute right-2 bottom-1">
                     {fixDateFormat(notification?.node?.createdAt)}
                   </span>
                 </p>

@@ -8,6 +8,7 @@ import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { InitialTalkDetail } from "src/components/talks/InitialTalkDetail";
 import { Message } from "src/components/talks/Message";
 import { SkeletonLoading } from "src/components/talks/SkeletonLoading";
+import { fixDateFormat } from "src/libs/fixDateFormat";
 import { useCreateMessages } from "src/libs/hooks/useCreateMessages";
 import { useCreateReview } from "src/libs/hooks/useCreateReview";
 import { useRefreshTokens } from "src/libs/hooks/useRefreshTokens";
@@ -120,7 +121,7 @@ export const TalkWrapper: React.VFC = () => {
           {talkRoomsData?.loginUserTalkRooms?.edges.map((talkRooms, index) => {
             return (
               // 自分が参加しているトークルームの一覧を返す
-              <li className="border-t border-b" key={index}>
+              <li className="border-t border-b relative" key={index}>
                 {/* {talkRooms?.node?.talkingRoom.edges.slice(-1)[0]?.node?.sender.email} */}
                 {talkRooms?.node?.id ? (
                   <button
@@ -139,9 +140,7 @@ export const TalkWrapper: React.VFC = () => {
                           profileImagePath={talkRooms.node.opponentUser.targetUser?.profileImage}
                         />
                         <div className="px-4 text-left">
-                          {/* 相手のプロフィールが設定されていなければemailを返す */}
-
-                          {/* TODO: 説明用コメント */}
+                          {/* 自分以外のプロフィールを表示 */}
                           <div>
                             {talkRooms.node.opponentUser.id === loginUserData.userId
                               ? talkRooms.node.selectedPlan?.planAuthor.targetUser?.profileName
@@ -161,6 +160,13 @@ export const TalkWrapper: React.VFC = () => {
                                 talkRooms.node.talkingRoom.edges.slice(-1)[0].node.text.length >= 10
                                   ? "..."
                                   : ""} */}
+                            {talkRooms.node?.talkingRoom.edges.length !== 0 && (
+                              <span className="absolute text-gray-500 text-xs right-4 bottom-4">
+                                {fixDateFormat(
+                                  talkRooms.node?.talkingRoom.edges.slice(-1)[0]?.node?.createdAt,
+                                )}
+                              </span>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -250,6 +256,7 @@ export const TalkWrapper: React.VFC = () => {
                     </div>
                     {/* )} */}
 
+                    {/* 高校生のみレビューを書ける */}
                     {!loginUserData.isCollegeStudent && (
                       <button
                         className="block md:text-base text-sm p-2 text-white bg-yellow-500"

@@ -52,7 +52,7 @@ const ProfilesIndex: NextPage = () => {
               <section className="py-10">
                 <div className="flex items-center justify-between bg-gray-200">
                   <p className="px-2 text-gray-600 text-sm">プラン一覧</p>
-                  <Link href="/">
+                  <Link href="/plans">
                     <a className="py-2 px-4 text-white text-sm bg-pink-400">編集</a>
                   </Link>
                 </div>
