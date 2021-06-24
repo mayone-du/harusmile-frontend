@@ -21,6 +21,18 @@ export const useCreatePlan = () => {
 
   const handlePlanCreate = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (inputTitle === "") {
+      alert("プランのタイトルを入力してください。");
+      return;
+    }
+    if (inputContent === "") {
+      alert("プランの内容を入力してください。");
+      return;
+    }
+    if (inputPrice === "") {
+      alert("料金を入力してください。");
+      return;
+    }
     try {
       await createPlanMutation({
         variables: {
@@ -30,6 +42,10 @@ export const useCreatePlan = () => {
           isPublished: true,
         },
       });
+      alert("プランが作成されました。");
+      setInputTitle("");
+      setInputContent("");
+      setInputPrice("");
     } catch (error) {
       alert(error);
       return;

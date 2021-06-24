@@ -3,6 +3,7 @@ import type { NextPage } from "next";
 import { loginUserVar } from "src/apollo/cache";
 import { useGetLoginUserPlansQuery } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
+import { Plan } from "src/components/profiles/Plan";
 import { useCreatePlan } from "src/libs/hooks/useCreatePlan";
 
 const PlansIndex: NextPage = () => {
@@ -25,6 +26,7 @@ const PlansIndex: NextPage = () => {
     <Layout metaTitle="マイプラン一覧" spHeaderTitle="マイプラン一覧">
       {loginUserData.isCollegeStudent && (
         <div className="py-8">
+          <h2 className="text-center font-bold">プランの作成</h2>
           <form onSubmit={handlePlanCreate}>
             <input
               type="text"
@@ -57,14 +59,20 @@ const PlansIndex: NextPage = () => {
           </form>
           <section>
             <h2 className="text-lg font-bold text-center">マイプラン一覧</h2>
-            {data?.loginUserPlans?.edges.map((plan, index) => {
-              return (
-                <div className="border" key={index}>
-                  <div>{plan?.node?.title}</div>
-                  <div>{plan?.node?.content}</div>
-                </div>
-              );
-            })}
+            <ul>
+              {data?.loginUserPlans?.edges.map((plan, index) => {
+                return (
+                  <Plan
+                    key={index}
+                    planId={plan?.node?.id ? plan.node.id : ""}
+                    title={plan?.node?.title ? plan.node.title : ""}
+                    content={plan?.node?.content ? plan.node.content : ""}
+                    price={plan?.node?.price ? plan.node.price : 0}
+                    planImage={plan?.node?.planImage ? plan.node.planImage : ""}
+                  />
+                );
+              })}
+            </ul>
           </section>
         </div>
       )}
