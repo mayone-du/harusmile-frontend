@@ -15,6 +15,21 @@ query GetPlan($planId: ID!) {
         profileImage
         isCollegeStudent
       }
+      provider {
+        edges {
+          node {
+            id
+            reviewText
+            stars
+            customer {
+              targetUser {
+                profileName
+                profileImage
+              }
+            }
+          }
+        }
+      }
     }
     selectedPlan {
       edges {

@@ -1690,7 +1690,23 @@ export type GetPlanQuery = (
       & { targetUser?: Maybe<(
         { __typename?: 'ProfileNode' }
         & Pick<ProfileNode, 'profileName' | 'profileImage' | 'isCollegeStudent'>
-      )> }
+      )>, provider: (
+        { __typename?: 'ReviewNodeConnection' }
+        & { edges: Array<Maybe<(
+          { __typename?: 'ReviewNodeEdge' }
+          & { node?: Maybe<(
+            { __typename?: 'ReviewNode' }
+            & Pick<ReviewNode, 'id' | 'reviewText' | 'stars'>
+            & { customer: (
+              { __typename?: 'UserNode' }
+              & { targetUser?: Maybe<(
+                { __typename?: 'ProfileNode' }
+                & Pick<ProfileNode, 'profileName' | 'profileImage'>
+              )> }
+            ) }
+          )> }
+        )>> }
+      ) }
     ), selectedPlan: (
       { __typename?: 'TalkRoomNodeConnection' }
       & { edges: Array<Maybe<(
@@ -2958,6 +2974,21 @@ export const GetPlanDocument = gql`
         profileName
         profileImage
         isCollegeStudent
+      }
+      provider {
+        edges {
+          node {
+            id
+            reviewText
+            stars
+            customer {
+              targetUser {
+                profileName
+                profileImage
+              }
+            }
+          }
+        }
       }
     }
     selectedPlan {

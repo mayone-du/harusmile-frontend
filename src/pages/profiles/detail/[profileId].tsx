@@ -3,8 +3,8 @@ import { useRouter } from "next/dist/client/router";
 import { useGetProfileQuery } from "src/apollo/schema";
 import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { Layout } from "src/components/layouts/Layout";
+import { Plan } from "src/components/plans/Plan";
 import { NormalProfile } from "src/components/profiles/NormalProfile";
-import { Plan } from "src/components/profiles/Plan";
 import { ProfileLoading } from "src/components/profiles/ProfileLoading";
 
 const ProfileDetail: NextPage = () => {

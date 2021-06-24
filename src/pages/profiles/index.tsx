@@ -4,10 +4,10 @@ import Link from "next/link";
 import { parseCookies } from "nookies";
 import { useEffect } from "react";
 import { useGetLoginUserPlansQuery, useGetLoginUserReviewsQuery } from "src/apollo/schema";
-import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { Layout } from "src/components/layouts/Layout";
+import { Plan } from "src/components/plans/Plan";
 import { NormalProfile } from "src/components/profiles/NormalProfile";
-import { Plan } from "src/components/profiles/Plan";
+import { Review } from "src/components/reviews/Review";
 import { useSetLoginUserData } from "src/libs/hooks/users/useSetLoginUserData";
 
 const ProfilesIndex: NextPage = () => {
@@ -81,33 +81,29 @@ const ProfilesIndex: NextPage = () => {
                 <div className="flex items-center justify-between bg-gray-200">
                   <p className="p-2 text-sm text-gray-600">レビュー一覧</p>
                 </div>
-                <div>
+                <ul>
                   {/* レビューがある場合 */}
                   {reviewData?.loginUserReviews?.edges &&
                   reviewData.loginUserReviews.edges.length > 0 ? (
                     reviewData.loginUserReviews.edges.map((review, index) => {
                       return (
-                        <div key={index} className="border my-4 flex items-center">
-                          <div>
-                            <ProfileImageIcon
-                              profileImagePath={review?.node?.customer.targetUser?.profileImage}
-                              className="border rounded-full w-20 h-20"
-                            />
-                            <div className="font-bold text-lg">
-                              {review?.node?.customer.targetUser?.profileName}
-                            </div>
-                          </div>
-                          <div>
-                            <div>{review?.node?.reviewText}</div>
-                            <div>{review?.node?.stars.toString()}</div>
-                          </div>
-                        </div>
+                        <Review
+                          key={index}
+                          customerImagePath={review?.node?.customer.targetUser?.profileImage}
+                          customerName={
+                            review?.node?.customer?.targetUser?.profileName
+                              ? review.node.customer.targetUser.profileName
+                              : ""
+                          }
+                          reviewText={review?.node?.reviewText ? review.node.reviewText : ""}
+                          reviewStars={review?.node?.stars ? review.node.stars : 0}
+                        />
                       );
                     })
                   ) : (
-                    <div>レビューはまだありません</div>
+                    <li>レビューはまだありません</li>
                   )}
-                </div>
+                </ul>
               </section>
             </div>
           )}
