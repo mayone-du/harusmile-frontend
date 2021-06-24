@@ -118,52 +118,50 @@ export const TalkWrapper: React.VFC = () => {
 
         {/* <div>{messagesError && messagesError.message}</div> */}
         <ul className="border shadow-md max-h-72 overflow-y-scroll">
-          {talkRoomsData?.loginUserTalkRooms?.edges.map((talkRooms, index) => {
+          {talkRoomsData?.loginUserTalkRooms?.edges.map((talkRoom, index) => {
             return (
               // 自分が参加しているトークルームの一覧を返す
               <li className="border-t border-b relative" key={index}>
-                {/* {talkRooms?.node?.talkingRoom.edges.slice(-1)[0]?.node?.sender.email} */}
-                {talkRooms?.node?.id ? (
+                {/* {talkRoom?.node?.talkingRoom.edges.slice(-1)[0]?.node?.sender.email} */}
+                {talkRoom?.node?.id ? (
                   <button
                     className={`flex items-center py-2 md:px-4 px-2 w-full focus:outline-none ${
-                      openTalkRoomId === talkRooms.node.id && "bg-pink-100"
+                      openTalkRoomId === talkRoom.node.id && "bg-pink-100"
                     }`}
                     onClick={handleOpenTalkRoomChange}
-                    id={talkRooms.node.id}
+                    id={talkRoom.node.id}
                   >
                     {/* トークルームの相手を表示 */}
-                    {talkRooms.node.opponentUser && (
+                    {talkRoom.node.opponentUser && (
                       // 自分を除外したプロフィール
                       <div className="flex items-center">
                         <ProfileImageIcon
                           className="block w-14 h-14 rounded-full border"
-                          profileImagePath={talkRooms.node.opponentUser.targetUser?.profileImage}
+                          profileImagePath={talkRoom.node.opponentUser.targetUser?.profileImage}
                         />
                         <div className="px-4 text-left">
                           {/* 自分以外のプロフィールを表示 */}
                           <div>
-                            {talkRooms.node.opponentUser.id === loginUserData.userId
-                              ? talkRooms.node.selectedPlan?.planAuthor.targetUser?.profileName
-                              : talkRooms.node.opponentUser.targetUser?.profileName}
+                            {talkRoom.node.opponentUser.id === loginUserData.userId
+                              ? talkRoom.node.selectedPlan?.planAuthor.targetUser?.profileName
+                              : talkRoom.node.opponentUser.targetUser?.profileName}
                           </div>
                           {/* 最後にやり取りしたメッセージ */}
                           <div>
-                            {talkRooms.node?.talkingRoom.edges
-                              .slice(-1)[0]
-                              ?.node?.text.slice(0, 10)}
-                            {talkRooms.node?.talkingRoom.edges.length === 0 &&
+                            {talkRoom.node?.talkingRoom.edges.slice(-1)[0]?.node?.text.slice(0, 10)}
+                            {talkRoom.node?.talkingRoom.edges.length === 0 &&
                               "トークを始めましょう"}
 
                             {/* TODO: type narrowing */}
-                            {/* {talkRooms.node?.talkingRoom.edges.slice(-1)[0]?.node?.text
+                            {/* {talkRoom.node?.talkingRoom.edges.slice(-1)[0]?.node?.text
                                   .length !== undefined &&
-                                talkRooms.node.talkingRoom.edges.slice(-1)[0].node.text.length >= 10
+                                talkRoom.node.talkingRoom.edges.slice(-1)[0].node.text.length >= 10
                                   ? "..."
                                   : ""} */}
-                            {talkRooms.node?.talkingRoom.edges.length !== 0 && (
+                            {talkRoom.node?.talkingRoom.edges.length !== 0 && (
                               <span className="absolute text-gray-500 text-xs right-4 bottom-4">
                                 {fixDateFormat(
-                                  talkRooms.node?.talkingRoom.edges.slice(-1)[0]?.node?.createdAt,
+                                  talkRoom.node?.talkingRoom.edges.slice(-1)[0]?.node?.createdAt,
                                 )}
                               </span>
                             )}
@@ -203,17 +201,21 @@ export const TalkWrapper: React.VFC = () => {
                       >
                         <div className="py-2 px-12 pb-6 w-96">
                           <h4 className="py-2 md:text-lg text-base font-bold">
-                            {talkRoom?.node?.opponentUser?.targetUser?.profileName}にレビューする
+                            {talkRoom?.node?.opponentUser?.id === loginUserData.userId
+                              ? talkRoom.node.selectedPlan?.planAuthor.targetUser?.profileName
+                              : talkRoom?.node?.opponentUser?.targetUser?.profileName}
+                            にレビューする
                           </h4>
                           <form
                             className="block"
                             // eslint-disable-next-line react/jsx-handler-names
                             onSubmit={(e: React.ChangeEvent<HTMLFormElement>) => {
                               e.preventDefault();
-                              return (
-                                talkRoom.node?.opponentUser?.id &&
-                                handleCreateReview(talkRoom.node.opponentUser.id)
-                              );
+                              const providerId =
+                                talkRoom?.node?.opponentUser?.id === loginUserData.userId
+                                  ? talkRoom.node.selectedPlan?.planAuthor.id
+                                  : talkRoom?.node?.opponentUser?.id;
+                              return handleCreateReview(providerId ? providerId : "");
                             }}
                           >
                             <input

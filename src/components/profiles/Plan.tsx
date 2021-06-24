@@ -11,13 +11,9 @@ type Props = {
 };
 export const Plan: React.VFC<Props> = (props) => {
   return (
-    <li className="my-2">
+    <li className={`my-2 border ${props.price === 0 ? "border-blue-300" : "border-pink-300"}`}>
       <Link href={`/plans/${props.planId}`}>
-        <a
-          className={`border flex items-center ${
-            props.price === 0 ? "bg-blue-300" : "bg-pink-300"
-          }`}
-        >
+        <a className={`flex items-center ${props.price === 0 ? "bg-blue-300" : "bg-pink-300"}`}>
           {props.planImage === "" ? (
             <PencilSvg className="w-12 h-12 mx-2" />
           ) : (
