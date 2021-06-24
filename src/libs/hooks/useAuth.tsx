@@ -42,7 +42,22 @@ export const useAuth = () => {
   }, []);
 
   // 入力欄のバリデーション
-  const validateInputs = useCallback((): { isFormError: boolean } => {
+  const validateSignInInputs = useCallback((): { isFormError: boolean } => {
+    // メールアドレスが空文字
+    if (inputEmail === "") {
+      alert("正しい形式でメールアドレスを入力してください。");
+      return { isFormError: true };
+      // パスワードが4文字以下
+    } else if (inputPassword.length <= 4) {
+      alert("パスワードは5文字以上で入力してください。");
+      return { isFormError: true };
+    } else {
+      return { isFormError: false };
+    }
+  }, [inputEmail, inputPassword]);
+
+  // signUpの入力欄のバリデーション
+  const validateSignUpInputs = useCallback((): { isFormError: boolean } => {
     if (inputProfileName === "") {
       alert("ユーザーネームを入力してください。");
       return { isFormError: true };
@@ -68,9 +83,7 @@ export const useAuth = () => {
   const handleSignIn = async (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     // 入力欄の検証を避けるために値をセット。ログインには必要ない。
-    setInputProfileName("default");
-    setInputSchoolName("default");
-    const { isFormError } = validateInputs();
+    const { isFormError } = validateSignInInputs();
 
     if (!isFormError) {
       try {
@@ -113,7 +126,7 @@ export const useAuth = () => {
   const handleSignUp = async (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const { isFormError } = validateInputs();
+    const { isFormError } = validateSignUpInputs();
     if (!isFormError) {
       try {
         setIsLoading(true);

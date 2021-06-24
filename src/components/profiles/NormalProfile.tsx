@@ -7,6 +7,7 @@ type Props = {
   targetProfileId: string;
   targetProfileName: string;
   targetProfileText: string;
+  targetProfileImage: string;
   targetSchoolName: string;
   targetAge: number;
   targetUndergraduate: string;
@@ -30,20 +31,28 @@ export const NormalProfile: React.VFC<Props> = (props) => {
           </Link>
         )}
       </div>
-      <div className="flex items-center justify-center">
-        <ProfileImageIcon profileImagePath="" className="w-20 h-20 px-2" />
+      <div className="flex items-center justify-center py-4">
+        <ProfileImageIcon
+          profileImagePath=""
+          className="w-20 h-20 px-2 rounded-full object-cover"
+        />
         <div className="px-2">
-          <h3 className="text-lg font-bold">{props.targetProfileName}</h3>
-          <h4>{props.targetSchoolName}</h4>
-          <p>{props.targetAge.toString()}歳</p>
+          <p className="text-lg font-bold">{props.targetProfileName}</p>
+          <p className="text-sm text-gray-600">
+            {props.targetSchoolName === "" ? "学校名：未設定" : props.targetSchoolName}
+          </p>
+          <p className="text-xs text-gray-600">
+            {props.targetAge === 0 ? "年齢：未設定" : `${props.targetAge.toString}歳`}
+          </p>
         </div>
       </div>
       <div className="flex items-center justify-between bg-gray-200">
         <p className="p-2 text-sm text-gray-600">プロフィール</p>
       </div>
-      <div className="border my-4">
-        <h4 className="text-center font-bold py-2">一言コメント</h4>
-        <p>{props.targetProfileText}</p>
+      <div className="my-4">
+        <p className="text-sm text-gray-600">
+          {props.targetProfileText === "" ? "未設定" : props.targetProfileText}
+        </p>
       </div>
       <ul className="break-words">
         {/* 大学生かによって表示するデータを変更 */}
@@ -63,11 +72,11 @@ export const NormalProfile: React.VFC<Props> = (props) => {
             </li>
           </div>
         )}
-        <li className="flex items-center border-b">
+        <li className="flex items-center border-b py-1">
           <div className="text-xs w-1/3 text-gray-600">聞きたいこと</div>
           <div className="px-2 w-2/3">{props.targetWantHear}</div>
         </li>
-        <li className="flex items-center border-b">
+        <li className="flex items-center border-b py-1">
           <div className="text-xs w-1/3 text-gray-600">悩んでいること</div>
           <div className="px-2 w-2/3">{props.targetProblem}</div>
         </li>

@@ -66,13 +66,13 @@ const PlanDetail: NextPage = () => {
           <div>{planData?.plan?.title}</div>
           <div>{planData?.plan?.content}</div>
           <div>{planData?.plan?.price.toString()}円</div>
-          {loginUserData.isCollegeStudent ? (
-            <div>高校生のみメッセージを送れます</div>
-          ) : (
+          {!loginUserData.isCollegeStudent && loginUserData.isLogin && (
             <button className="p-2 border" onClick={handleCreateTalkRoom}>
               トークルームを作成する
             </button>
           )}
+          {!loginUserData.isLogin && <div className="font-bold">ログイン後に使用可能です。</div>}
+
           {planData?.plan?.planAuthor.id === loginUserData.userId && (
             <button className="border p-2">編集する</button>
           )}

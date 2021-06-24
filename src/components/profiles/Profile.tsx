@@ -31,7 +31,10 @@ export const Profile: React.VFC<Props> = (props) => {
           {/* 名前、歳、学校 */}
           <div className="md:pr-12 pr-2 md:pl-6 pl-2 w-full">
             <div className="md:text-2xl text-sm font-bold">{props.profileName}</div>
-            <p className="text-xs md:text-base"> {props.age.toString()}歳</p>
+            <p className="text-xs md:text-base">
+              {/* {props.age.toString() === "0" ? "年齢未設定" : `${props.age.toString()}歳`} */}
+              {props.isCollegeStudent ? "大学生" : "高校生"}
+            </p>
             <div className="text-gray-600 md:text-base text-xs">{props.schoolName}</div>
           </div>
         </div>
@@ -75,13 +78,15 @@ export const Profile: React.VFC<Props> = (props) => {
             <dl className="md:px-4 md:pt-4 px-2 pt-2 md:text-base text-xs">
               <div className="flex items-center">
                 <dt className="w-1/2">学部</dt>
-                <dd className="w-1/2">{props.undergraduate}</dd>
+                <dd className="w-1/2">
+                  {props.undergraduate === "" ? "未設定" : props.undergraduate}
+                </dd>
               </div>
               <div className="flex items-center">
                 <dt className="w-1/2">学科</dt>
-                <dd className="w-1/2">{props.department}</dd>
+                <dd className="w-1/2">{props.department === "" ? "未設定" : props.department}</dd>
               </div>
-              <div className="flex items-center">
+              {/* <div className="flex items-center">
                 <dt className="w-1/2">部活</dt>
                 <dd className="w-1/2">{props.clubActivities}</dd>
               </div>
@@ -92,7 +97,7 @@ export const Profile: React.VFC<Props> = (props) => {
               <div className="flex items-center">
                 <dt className="w-1/2">好きな科目</dt>
                 <dd className="w-1/2">{props.favoriteSubject}</dd>
-              </div>
+              </div> */}
             </dl>
           </div>
         )}

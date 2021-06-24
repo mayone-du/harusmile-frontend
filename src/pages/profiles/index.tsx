@@ -8,7 +8,6 @@ import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { Layout } from "src/components/layouts/Layout";
 import { NormalProfile } from "src/components/profiles/NormalProfile";
 import { Plan } from "src/components/profiles/Plan";
-import { ThemeChanger } from "src/components/ThemeChanger";
 import { useSetLoginUserData } from "src/libs/hooks/useSetLoginUserData";
 
 const ProfilesIndex: NextPage = () => {
@@ -33,6 +32,7 @@ const ProfilesIndex: NextPage = () => {
             targetProfileId={loginUserData.profileId}
             targetProfileName={loginUserData.profileName}
             targetProfileText={loginUserData.profileText}
+            targetProfileImage={loginUserData.profileImage}
             targetSchoolName={loginUserData.schoolName}
             targetAge={loginUserData.age}
             targetUndergraduate={loginUserData.undergraduate}
@@ -44,7 +44,7 @@ const ProfilesIndex: NextPage = () => {
           />
         </section>
 
-        <div>
+        <div className="pb-10">
           {/* プラン一覧 */}
           {/* ユーザーが大学生ならプランとレビューを表示 */}
           {loginUserData.isCollegeStudent && (
@@ -111,16 +111,6 @@ const ProfilesIndex: NextPage = () => {
               </section>
             </div>
           )}
-          {loginUserData.isLogin && (
-            <div className="flex items-center justify-center px-2 my-10 mx-4">
-              <Link href="/auth/signout">
-                <a className="p-2 border rounded-sm ">ログアウト</a>
-              </Link>
-            </div>
-          )}
-          <div className="py-6">
-            <ThemeChanger />
-          </div>
         </div>
       </Layout>
     </div>

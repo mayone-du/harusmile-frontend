@@ -12,21 +12,22 @@ export const NotificationButton: React.VFC = () => {
   // モーダル用style
   const customStyles = {
     content: {
-      top: "8.2%",
-      left: "auto",
-      right: "8%",
+      top: "20%",
+      left: "50%",
+      right: "auto",
       bottom: "auto",
       width: "300px",
+      transform: "translate(-50%, -50%)",
     },
     overlay: {
-      background: "rgba(255, 255, 255, 0.2)",
+      background: "rgba(255, 255, 255, 0.6)",
     },
   };
 
-  // 本番時のみ5秒ごとにポーリング
+  // 本番時のみ3秒ごとにポーリング
   const { data: notificationsData } = useGetLoginUserNotificationQuery({
     fetchPolicy: "network-only",
-    pollInterval: process.env.NODE_ENV === "development" ? 1000 * 60 : 1000 * 5,
+    pollInterval: process.env.NODE_ENV === "development" ? 1000 * 60 : 1000 * 3,
   });
   const [updateNotifications] = useUpdateNotificationsMutation();
   const { handleRefreshToken } = useRefreshTokens();
@@ -105,9 +106,9 @@ export const NotificationButton: React.VFC = () => {
           )}
           {notificationsData?.loginUserNotifications?.edges.map((notification, index) => {
             return (
-              <li key={index} className="border-b border-gray-300 flex h-10 px-2 items-center">
+              <li key={index} className="border-b border-gray-300 flex h-12 px-1 my-2 items-center">
                 <ProfileImageIcon
-                  className="border rounded-full object-cover w-8 h-8"
+                  className="border rounded-full object-cover w-10 h-10 mx-2"
                   profileImagePath={notification?.node?.notificator?.targetUser?.profileImage}
                 />
 
@@ -115,9 +116,9 @@ export const NotificationButton: React.VFC = () => {
                   <span className="font-bold">
                     {notification?.node?.notificator.targetUser?.profileName}
                   </span>
-                  さんが
+                  さんから
                   <span className="font-bold">{notification?.node?.notificationType}</span>
-                  をしました。
+                  が送られました。
                   <span className="text-xs text-gray-700">
                     {fixDateFormat(notification?.node?.createdAt)}
                   </span>

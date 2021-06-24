@@ -15,7 +15,7 @@ export const BottomNavigation: React.VFC<Props> = (props) => {
   return (
     <div>
       {/* スマホ時 */}
-      <nav className="md:hidden fixed border py-2 bottom-0 w-full z-10 bg-white">
+      <nav className="md:hidden fixed border-t border-b py-2 bottom-0 w-full z-10 bg-white">
         {/* ログイン時 */}
         {props.isLogin ? (
           <ul className="flex items-center justify-around">
@@ -61,7 +61,10 @@ export const BottomNavigation: React.VFC<Props> = (props) => {
             <li className="w-1/5">
               <Link href="/profiles">
                 <a className="flex flex-col items-center">
-                  <ProfileImageIcon className="w-6 h-6" profileImagePath={props.profileImagePath} />
+                  <ProfileImageIcon
+                    className="w-6 h-6 rounded-full object-cover"
+                    profileImagePath={props.profileImagePath}
+                  />
                   <span className="block text-xs text-gray-600">プロフィール</span>
                 </a>
               </Link>

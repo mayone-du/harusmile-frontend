@@ -24,13 +24,16 @@ const ProfileDetail: NextPage = () => {
       {isLoading && <ProfileLoading />}
 
       {profileData?.profile && (
-        <div>
+        <div className="pb-8">
           <section className="py-4">
             <NormalProfile
               targetProfileId={targetProfileId}
               targetProfileName={profileData.profile.profileName}
               targetProfileText={
                 profileData.profile.profileText ? profileData.profile.profileText : ""
+              }
+              targetProfileImage={
+                profileData.profile.profileImage ? profileData.profile.profileImage : ""
               }
               targetSchoolName={
                 profileData.profile.schoolName ? profileData.profile.schoolName : ""

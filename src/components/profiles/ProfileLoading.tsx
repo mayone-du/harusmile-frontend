@@ -18,7 +18,6 @@ export const ProfileLoading: React.VFC = () => {
         <p className="p-2 text-sm text-gray-600">プロフィール</p>
       </div>
       <div className="border my-4">
-        <div className="text-center font-bold py-2">一言コメント</div>
         <div className="h-4 my-1 bg-gray-200 animate-pulse"></div>
         <div className="h-4 my-1 bg-gray-200 animate-pulse"></div>
         <div className="h-4 my-1 bg-gray-200 animate-pulse"></div>
