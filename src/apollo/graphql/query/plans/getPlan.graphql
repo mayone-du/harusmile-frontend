@@ -16,5 +16,12 @@ query GetPlan($planId: ID!) {
         isCollegeStudent
       }
     }
+    selectedPlan {
+      edges {
+        node {
+          id
+        }
+      }
+    }
   }
 }

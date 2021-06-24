@@ -20,7 +20,7 @@ const PlansIndex: NextPage = () => {
     handlePriceChange,
     handlePlanCreate,
   } = useCreatePlan();
-  // TODO: プランの作成
+  // TODO: プランの更新
 
   return (
     <Layout metaTitle="マイプラン一覧" spHeaderTitle="マイプラン一覧">

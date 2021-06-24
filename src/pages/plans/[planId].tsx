@@ -10,6 +10,7 @@ import {
 } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
 import { useDeletePlan } from "src/libs/hooks/plans/useDeletePlan";
+import { useUpdatePlan } from "src/libs/hooks/plans/useUpdatePlan";
 import { useRefreshTokens } from "src/libs/hooks/useRefreshTokens";
 
 const PlanDetail: NextPage = () => {
@@ -21,6 +22,15 @@ const PlanDetail: NextPage = () => {
   const { handleRefreshToken } = useRefreshTokens();
   const [createTalkRoomMutation] = useCreateTalkRoomMutation();
   const { handleDeletePlan } = useDeletePlan();
+  const {
+    inputTitle,
+    inputContent,
+    inputPrice,
+    handleUpdatePlan,
+    handleTitleChange,
+    handleContentChange,
+    handlePriceChange,
+  } = useUpdatePlan(planData);
   const handleCreateTalkRoom = async () => {
     await handleRefreshToken();
     // 参加しているトークルームのplanIdとuserIdを使って、同じものがあるか比較
@@ -69,9 +79,7 @@ const PlanDetail: NextPage = () => {
   };
 
   // TODO: プランの更新、削除 料金は変更できないようにする
-  const handlePlanUpdate = async () => {
-    alert("プランの更新は現在開発中です。");
-  };
+  // TODO: プラン更新時のバグ修正
 
   return (
     <Layout metaTitle="ハルスマイル | プラン詳細" spHeaderTitle="プラン詳細">
@@ -85,35 +93,49 @@ const PlanDetail: NextPage = () => {
                 type="text"
                 className="border block w-full p-2"
                 placeholder="title"
-                value={planData?.plan?.title}
+                value={inputTitle}
+                onChange={handleTitleChange}
               />
               <input
                 type="text"
                 className="border block w-full p-2"
                 placeholder="content"
-                value={planData?.plan?.content}
+                value={inputContent}
+                onChange={handleContentChange}
               />
               <input
                 type="number"
                 className="border block w-full p-2"
                 placeholder="price"
-                value={planData?.plan?.price.toString()}
+                value={inputPrice}
+                onChange={handlePriceChange}
               />
               <div className="flex items-center">
                 <button
                   type="button"
-                  onClick={handlePlanUpdate}
+                  onClick={handleUpdatePlan}
                   className="block border p-2 bg-blue-500"
                 >
                   更新する
                 </button>
-                <button
-                  type="button"
-                  onClick={handleDeletePlan}
-                  className="block border p-2 bg-red-500"
-                >
-                  削除する
-                </button>
+                {/* プランにトークルームが存在していれば削除不可にする */}
+                {planData.plan.selectedPlan.edges.length === 0 ? (
+                  <button
+                    type="button"
+                    onClick={handleDeletePlan}
+                    className="block border p-2 bg-red-500"
+                  >
+                    削除する
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    className="block border p-2 bg-red-500 text-xs line-through"
+                    disabled
+                  >
+                    トークルームが存在する場合は削除できません
+                  </button>
+                )}
               </div>
             </div>
           ) : (

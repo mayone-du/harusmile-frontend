@@ -1025,11 +1025,11 @@ export type UpdateNotificationsMutationPayload = {
 
 export type UpdatePlanMutationInput = {
   id: Scalars['ID'];
-  title?: Maybe<Scalars['String']>;
-  content?: Maybe<Scalars['String']>;
+  title: Scalars['String'];
+  content: Scalars['String'];
   planImage?: Maybe<Scalars['Upload']>;
   price: Scalars['Int'];
-  isPublished?: Maybe<Scalars['Boolean']>;
+  isPublished: Scalars['Boolean'];
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
@@ -1358,6 +1358,27 @@ export type DeletePlanMutation = (
   )> }
 );
 
+export type UpdatePlanMutationVariables = Exact<{
+  id: Scalars['ID'];
+  title: Scalars['String'];
+  content: Scalars['String'];
+  price: Scalars['Int'];
+  isPublished: Scalars['Boolean'];
+  planImage?: Maybe<Scalars['Upload']>;
+}>;
+
+
+export type UpdatePlanMutation = (
+  { __typename?: 'Mutation' }
+  & { updatePlan?: Maybe<(
+    { __typename?: 'UpdatePlanMutationPayload' }
+    & { plan?: Maybe<(
+      { __typename?: 'PlanNode' }
+      & Pick<PlanNode, 'id'>
+    )> }
+  )> }
+);
+
 export type CreateProfileMutationVariables = Exact<{
   profileName: Scalars['String'];
   profileText?: Maybe<Scalars['String']>;
@@ -1670,6 +1691,15 @@ export type GetPlanQuery = (
         { __typename?: 'ProfileNode' }
         & Pick<ProfileNode, 'profileName' | 'profileImage' | 'isCollegeStudent'>
       )> }
+    ), selectedPlan: (
+      { __typename?: 'TalkRoomNodeConnection' }
+      & { edges: Array<Maybe<(
+        { __typename?: 'TalkRoomNodeEdge' }
+        & { node?: Maybe<(
+          { __typename?: 'TalkRoomNode' }
+          & Pick<TalkRoomNode, 'id'>
+        )> }
+      )>> }
     ) }
   )> }
 );
@@ -2264,6 +2294,48 @@ export function useDeletePlanMutation(baseOptions?: Apollo.MutationHookOptions<D
 export type DeletePlanMutationHookResult = ReturnType<typeof useDeletePlanMutation>;
 export type DeletePlanMutationResult = Apollo.MutationResult<DeletePlanMutation>;
 export type DeletePlanMutationOptions = Apollo.BaseMutationOptions<DeletePlanMutation, DeletePlanMutationVariables>;
+export const UpdatePlanDocument = gql`
+    mutation UpdatePlan($id: ID!, $title: String!, $content: String!, $price: Int!, $isPublished: Boolean!, $planImage: Upload) {
+  updatePlan(
+    input: {id: $id, title: $title, content: $content, price: $price, isPublished: $isPublished, planImage: $planImage}
+  ) {
+    plan {
+      id
+    }
+  }
+}
+    `;
+export type UpdatePlanMutationFn = Apollo.MutationFunction<UpdatePlanMutation, UpdatePlanMutationVariables>;
+
+/**
+ * __useUpdatePlanMutation__
+ *
+ * To run a mutation, you first call `useUpdatePlanMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdatePlanMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updatePlanMutation, { data, loading, error }] = useUpdatePlanMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      title: // value for 'title'
+ *      content: // value for 'content'
+ *      price: // value for 'price'
+ *      isPublished: // value for 'isPublished'
+ *      planImage: // value for 'planImage'
+ *   },
+ * });
+ */
+export function useUpdatePlanMutation(baseOptions?: Apollo.MutationHookOptions<UpdatePlanMutation, UpdatePlanMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdatePlanMutation, UpdatePlanMutationVariables>(UpdatePlanDocument, options);
+      }
+export type UpdatePlanMutationHookResult = ReturnType<typeof useUpdatePlanMutation>;
+export type UpdatePlanMutationResult = Apollo.MutationResult<UpdatePlanMutation>;
+export type UpdatePlanMutationOptions = Apollo.BaseMutationOptions<UpdatePlanMutation, UpdatePlanMutationVariables>;
 export const CreateProfileDocument = gql`
     mutation CreateProfile($profileName: String!, $profileText: String, $isCollegeStudent: Boolean!, $schoolName: String!, $age: Int, $selectedGender: ID, $selectedAddress: ID, $telephoneNumber: String, $wantHear: String, $problem: String, $undergraduate: String, $department: String, $clubActivities: String, $admissionFormat: String, $favoriteSubject: String, $profileImage: Upload) {
   createProfile(
@@ -2886,6 +2958,13 @@ export const GetPlanDocument = gql`
         profileName
         profileImage
         isCollegeStudent
+      }
+    }
+    selectedPlan {
+      edges {
+        node {
+          id
+        }
       }
     }
   }

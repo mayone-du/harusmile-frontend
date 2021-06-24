@@ -1,0 +1,23 @@
+mutation UpdatePlan(
+  $id: ID!
+  $title: String!
+  $content: String!
+  $price: Int!
+  $isPublished: Boolean!
+  $planImage: Upload
+) {
+  updatePlan(
+    input: {
+      id: $id
+      title: $title
+      content: $content
+      price: $price
+      isPublished: $isPublished
+      planImage: $planImage
+    }
+  ) {
+    plan {
+      id
+    }
+  }
+}
