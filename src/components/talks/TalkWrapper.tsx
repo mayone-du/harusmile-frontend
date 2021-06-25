@@ -3,7 +3,11 @@ import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { loginUserVar } from "src/apollo/cache";
-import { useGetLoginUserTalkRoomsLazyQuery } from "src/apollo/schema";
+import {
+  GetLoginUserTalkRoomsDocument,
+  useGetLoginUserTalkRoomsLazyQuery,
+  useUpdateTalkRoomMutation,
+} from "src/apollo/schema";
 import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { InitialTalkDetail } from "src/components/talks/InitialTalkDetail";
 import { Message } from "src/components/talks/Message";
@@ -100,6 +104,13 @@ export const TalkWrapper: React.VFC = () => {
     handleStarsChange,
   } = useCreateReview();
   // TODO: トークルームを最新順に並べ替え (Query自体を書き直す必要ありかも？)
+
+  const [updateTalkRoomMutation] = useUpdateTalkRoomMutation({
+    refetchQueries: [{ query: GetLoginUserTalkRoomsDocument }],
+  });
+  const handleUpdateTalkRoom = async (talkRoomId: string) => {
+    await updateTalkRoomMutation({ variables: { talkRoomId: talkRoomId, isApprove: true } });
+  };
 
   // トーク履歴がない場合
   if (talkRoomsData?.loginUserTalkRooms?.edges.length === 0) {
@@ -234,10 +245,15 @@ export const TalkWrapper: React.VFC = () => {
                               className="block p-2 w-full border"
                               placeholder="1~5で評価する"
                             />
-
-                            <button className="block p-2 mx-auto mt-4 border" type="submit">
-                              レビューを送信
-                            </button>
+                            {talkRoom.node.isApprove ? (
+                              <button className="block p-2 mx-auto mt-4 border" type="submit">
+                                レビューを送信
+                              </button>
+                            ) : (
+                              <div className="text-center font-bold py-2">
+                                トークを開始したらレビューができます。
+                              </div>
+                            )}
                           </form>
                         </div>
                       </Modal>
@@ -285,9 +301,19 @@ export const TalkWrapper: React.VFC = () => {
                         )}
                         {!talkRoom.node.isApprove && (
                           <div>
-                            {talkRoom.node.selectedPlan?.planAuthor.id === loginUserData.userId
-                              ? "プランの作成者が自分の場合"
-                              : "プラン作成者が承認した後、メッセージを送信できます。"}
+                            {talkRoom.node.selectedPlan?.planAuthor.id === loginUserData.userId ? (
+                              <button
+                                className="border block p-2"
+                                // eslint-disable-next-line react/jsx-handler-names
+                                onClick={() => {
+                                  handleUpdateTalkRoom(talkRoom.node?.id ? talkRoom.node.id : "");
+                                }}
+                              >
+                                このユーザーからの申込を承認する
+                              </button>
+                            ) : (
+                              "プラン作成者が承認した後、メッセージを送信できます。"
+                            )}
                           </div>
                         )}
                         {/* トークメッセージ */}
@@ -318,13 +344,13 @@ export const TalkWrapper: React.VFC = () => {
                       />
 
                       {/* 引数に相手のuserIdを渡して通知を作成 */}
-                      {talkRoom.node.opponentUser && (
+                      {talkRoom.node.opponentUser && talkRoom.node.isApprove && (
                         <button
                           className="flex items-center bg-pink-400 md:py-4 py-2 justify-center text-white w-1/5"
                           // eslint-disable-next-line react/jsx-handler-names
                           onClick={() => {
                             {
-                              /* トークルームのプラン作成者が自分と同じだったら相手のプロフィールを表示 */
+                              /* トークルームのプラン作成者が自分だったら相手のIDを渡す */
                             }
                             if (
                               talkRoom?.node?.selectedPlan?.planAuthor.id === loginUserData.userId
@@ -352,6 +378,11 @@ export const TalkWrapper: React.VFC = () => {
                           >
                             <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
                           </svg>
+                        </button>
+                      )}
+                      {talkRoom.node.opponentUser && !talkRoom.node.isApprove && (
+                        <button disabled className="border p-2 text-xs">
+                          申込みが承認された後に送信できます
                         </button>
                       )}
                     </div>

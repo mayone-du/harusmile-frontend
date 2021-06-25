@@ -209,7 +209,7 @@ const PlanDetail: NextPage = () => {
               {/* 高校生の場合 */}
               {!loginUserData.isCollegeStudent && loginUserData.isLogin ? (
                 <button className="p-2 border" onClick={handleCreateTalkRoom}>
-                  トークルームを作成する
+                  このプランに申し込む
                 </button>
               ) : (
                 <button className="border p-2" disabled>

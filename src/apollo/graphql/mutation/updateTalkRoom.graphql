@@ -1,0 +1,7 @@
+mutation UpdateTalkRoom($talkRoomId: ID!, $isApprove: Boolean!) {
+  updateTalkRoom(input: { talkRoomId: $talkRoomId, isApprove: $isApprove }) {
+    talkRoom {
+      id
+    }
+  }
+}

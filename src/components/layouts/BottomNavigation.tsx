@@ -16,15 +16,20 @@ type Props = {
 export const BottomNavigation: React.VFC<Props> = (props) => {
   // スマホ時
 
+  // ローディング中
+  if (props.isLoading) {
+    return (
+      <nav className="md:hidden fixed border-t border-b bottom-0 w-full z-10 bg-white">
+        {props.isLoading && <BottomNavigationLoading />}
+      </nav>
+    );
+  }
   return (
     <div>
       <nav className="md:hidden fixed border-t border-b bottom-0 w-full z-10 bg-white">
-        {/* ローディング */}
-        {props.isLoading && <BottomNavigationLoading />}
-
         {/* 非ログイン時 */}
         {!props.isLogin && !props.isLoading && (
-          <ul className="flex items-center justify-around">
+          <ul className="flex items-center justify-around py-2">
             <li>
               <Link href="/auth/signin">
                 <a className="block py-2 px-6 rounded-3xl border-2 border-blue-600 text-blue-600 font-bold">

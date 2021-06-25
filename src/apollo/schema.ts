@@ -1531,6 +1531,23 @@ export type UpdateNotificationsMutation = (
   )> }
 );
 
+export type UpdateTalkRoomMutationVariables = Exact<{
+  talkRoomId: Scalars['ID'];
+  isApprove: Scalars['Boolean'];
+}>;
+
+
+export type UpdateTalkRoomMutation = (
+  { __typename?: 'Mutation' }
+  & { updateTalkRoom?: Maybe<(
+    { __typename?: 'UpdateTalkRoomMutationPayload' }
+    & { talkRoom?: Maybe<(
+      { __typename?: 'TalkRoomNode' }
+      & Pick<TalkRoomNode, 'id'>
+    )> }
+  )> }
+);
+
 export type GetAllAdressesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -2628,6 +2645,42 @@ export function useUpdateNotificationsMutation(baseOptions?: Apollo.MutationHook
 export type UpdateNotificationsMutationHookResult = ReturnType<typeof useUpdateNotificationsMutation>;
 export type UpdateNotificationsMutationResult = Apollo.MutationResult<UpdateNotificationsMutation>;
 export type UpdateNotificationsMutationOptions = Apollo.BaseMutationOptions<UpdateNotificationsMutation, UpdateNotificationsMutationVariables>;
+export const UpdateTalkRoomDocument = gql`
+    mutation UpdateTalkRoom($talkRoomId: ID!, $isApprove: Boolean!) {
+  updateTalkRoom(input: {talkRoomId: $talkRoomId, isApprove: $isApprove}) {
+    talkRoom {
+      id
+    }
+  }
+}
+    `;
+export type UpdateTalkRoomMutationFn = Apollo.MutationFunction<UpdateTalkRoomMutation, UpdateTalkRoomMutationVariables>;
+
+/**
+ * __useUpdateTalkRoomMutation__
+ *
+ * To run a mutation, you first call `useUpdateTalkRoomMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateTalkRoomMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateTalkRoomMutation, { data, loading, error }] = useUpdateTalkRoomMutation({
+ *   variables: {
+ *      talkRoomId: // value for 'talkRoomId'
+ *      isApprove: // value for 'isApprove'
+ *   },
+ * });
+ */
+export function useUpdateTalkRoomMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTalkRoomMutation, UpdateTalkRoomMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateTalkRoomMutation, UpdateTalkRoomMutationVariables>(UpdateTalkRoomDocument, options);
+      }
+export type UpdateTalkRoomMutationHookResult = ReturnType<typeof useUpdateTalkRoomMutation>;
+export type UpdateTalkRoomMutationResult = Apollo.MutationResult<UpdateTalkRoomMutation>;
+export type UpdateTalkRoomMutationOptions = Apollo.BaseMutationOptions<UpdateTalkRoomMutation, UpdateTalkRoomMutationVariables>;
 export const GetAllAdressesDocument = gql`
     query GetAllAdresses {
   allAddresses {
