@@ -5,20 +5,46 @@ import { SearchSvg } from "src/components/icons/svgs/SearchSvg";
 import { TalkSvg } from "src/components/icons/svgs/TalkSvg";
 import { CreatePlanButton } from "src/components/layouts/CreatePlanButton";
 import { NotificationButton } from "src/components/layouts/NotificationButton";
+import { BottomNavigationLoading } from "src/components/loadings/BottomNavigationLoading";
 
 type Props = {
+  isLoading: boolean;
   isLogin: boolean;
   isCollegeStudent: boolean;
   profileImagePath: string;
 };
 export const BottomNavigation: React.VFC<Props> = (props) => {
+  // スマホ時
+
   return (
     <div>
-      {/* スマホ時 */}
-      <nav className="md:hidden fixed border-t border-b py-2 bottom-0 w-full z-10 bg-white">
-        {/* ログイン時 */}
-        {props.isLogin ? (
+      <nav className="md:hidden fixed border-t border-b bottom-0 w-full z-10 bg-white">
+        {/* ローディング */}
+        {props.isLoading && <BottomNavigationLoading />}
+
+        {/* 非ログイン時 */}
+        {!props.isLogin && !props.isLoading && (
           <ul className="flex items-center justify-around">
+            <li>
+              <Link href="/auth/signin">
+                <a className="block py-2 px-6 rounded-3xl border-2 border-blue-600 text-blue-600 font-bold">
+                  ログイン
+                </a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/auth/signup">
+                <a className="block py-2 px-6 rounded-3xl border bg-blue-600 text-white font-bold">
+                  新規登録
+                </a>
+              </Link>
+            </li>
+          </ul>
+        )}
+
+        {/* ログイン時 */}
+        {props.isLogin && !props.isLoading && (
+          <ul className="flex items-center justify-around py-2">
             {/* ホーム */}
             <li className="w-1/5">
               <Link href="/">
@@ -66,23 +92,6 @@ export const BottomNavigation: React.VFC<Props> = (props) => {
                     profileImagePath={props.profileImagePath}
                   />
                   <span className="block text-xs text-gray-600">マイページ</span>
-                </a>
-              </Link>
-            </li>
-          </ul>
-        ) : (
-          <ul className="flex items-center justify-around">
-            <li>
-              <Link href="/auth/signin">
-                <a className="block py-2 px-6 rounded-3xl border-2 border-blue-600 text-blue-600 font-bold">
-                  ログイン
-                </a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/auth/signup">
-                <a className="block py-2 px-6 rounded-3xl border bg-blue-600 text-white font-bold">
-                  新規登録
                 </a>
               </Link>
             </li>

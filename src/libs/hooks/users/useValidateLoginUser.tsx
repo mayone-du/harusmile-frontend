@@ -28,6 +28,7 @@ export const useValidateLoginUser = () => {
     // Reactive変数のログイン状態がfalseかつ、クエリーデータがある場合に値をセット
     if (loginUserData.isLogin === false && queryData) {
       loginUserVar({
+        isLoading: queryData ? false : true,
         isLogin: queryData ? true : false,
         userId: queryData.loginUser?.id ? queryData.loginUser.id : "",
         email: queryData.loginUser?.email ? queryData.loginUser.email : "",

@@ -4,6 +4,7 @@ export type Cookies = {
 };
 
 export type LoginUser = {
+  isLoading: boolean;
   isLogin: boolean;
   userId: string;
   email: string;

@@ -5,6 +5,7 @@ import type { LoginUser } from "src/types/types";
 export const cache = new InMemoryCache();
 
 export const initialLoginUserVar: LoginUser = {
+  isLoading: true,
   isLogin: false,
   userId: "",
   email: "",

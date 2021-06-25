@@ -11,6 +11,7 @@ export const useSetLoginUserData = () => {
   useEffect(() => {
     if (!loginUserData.isLogin) {
       loginUserVar({
+        isLoading: queryData ? false : true,
         isLogin: queryData ? true : false,
         userId: queryData?.loginUser?.id ? queryData.loginUser.id : "",
         email: queryData?.loginUser?.email ? queryData.loginUser.email : "",
