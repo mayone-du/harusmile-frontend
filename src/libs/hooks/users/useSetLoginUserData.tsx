@@ -11,7 +11,7 @@ export const useSetLoginUserData = () => {
   useEffect(() => {
     if (!loginUserData.isLogin) {
       loginUserVar({
-        isLoading: false,
+        isLoading: queryData ? false : true,
         isLogin: queryData ? true : false,
         userId: queryData?.loginUser?.id ? queryData.loginUser.id : "",
         email: queryData?.loginUser?.email ? queryData.loginUser.email : "",
@@ -92,11 +92,6 @@ export const useSetLoginUserData = () => {
       });
 
       getLoginUserLazyQuery();
-    } else {
-      loginUserVar({
-        ...loginUserData,
-        isLoading: false,
-      });
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

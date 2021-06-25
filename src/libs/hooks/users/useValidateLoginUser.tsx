@@ -16,7 +16,7 @@ export const useValidateLoginUser = () => {
     () => {
       (async () => {
         await handleRefreshToken();
-        if (loginUserData.isLogin === false && !cookies.refreshToken) return;
+        if (!loginUserData.isLogin && !cookies.refreshToken) return;
         getLoginUserLazyQuery();
       })();
     },
@@ -26,9 +26,9 @@ export const useValidateLoginUser = () => {
 
   useEffect(() => {
     // Reactive変数のログイン状態がfalseかつ、クエリーデータがある場合に値をセット
-    if (loginUserData.isLogin === false && queryData) {
+    if (!loginUserData.isLogin && queryData) {
       loginUserVar({
-        isLoading: false,
+        isLoading: queryData ? false : true,
         isLogin: queryData ? true : false,
         userId: queryData.loginUser?.id ? queryData.loginUser.id : "",
         email: queryData.loginUser?.email ? queryData.loginUser.email : "",
@@ -107,7 +107,7 @@ export const useValidateLoginUser = () => {
             })
           : [],
       });
-    } else {
+    } else if (!cookies.refreshToken) {
       loginUserVar({
         ...loginUserData,
         isLoading: false,

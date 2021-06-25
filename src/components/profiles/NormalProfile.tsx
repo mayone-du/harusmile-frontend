@@ -34,7 +34,7 @@ export const NormalProfile: React.VFC<Props> = (props) => {
       <div className="flex items-center justify-center py-4">
         <ProfileImageIcon
           profileImagePath={props.targetProfileImage}
-          className="w-20 h-20 px-2 rounded-full object-cover"
+          className="w-20 h-20 mx-2 rounded-full object-cover"
         />
         <div className="px-2">
           <p className="text-lg font-bold">{props.targetProfileName}</p>
