@@ -36,6 +36,13 @@ const Settings: NextPage = () => {
     handleSubmit,
   } = useProfileUpdate();
 
+  if (loginUserData.isLoading) {
+    return (
+      <Layout spHeaderTitle="プロフィール編集" metaTitle="ハルスマイル | 設定画面">
+        <div>loading</div>
+      </Layout>
+    );
+  }
   if (!loginUserData.isLogin) {
     return (
       <Layout spHeaderTitle="プロフィール編集" metaTitle="ハルスマイル | 設定画面">

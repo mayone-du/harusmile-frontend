@@ -24,6 +24,12 @@ const ProfilesIndex: NextPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const stars = reviewData?.loginUserReviews
+    ? reviewData.loginUserReviews.edges.map((review) => {
+        return review?.node?.stars ? review.node.stars : 0;
+      })
+    : [0];
+
   return (
     <div>
       <Layout spHeaderTitle="プロフィール" metaTitle="ハルスマイル | プロフィール">
@@ -81,6 +87,20 @@ const ProfilesIndex: NextPage = () => {
                 <div className="flex items-center justify-between bg-gray-200">
                   <p className="p-2 text-sm text-gray-600">レビュー一覧</p>
                 </div>
+                <div>
+                  <h3 className="font-bold text-sm">総合評価</h3>
+                  <p>
+                    {(
+                      Math.round(
+                        stars.reduce((prev: number, current: number) => {
+                          return prev + current / stars.length;
+                        }, 0) * 10,
+                      ) / 10
+                    ).toString()}{" "}
+                    / 5<span className="text-black">({stars.length.toString()}件)</span>
+                  </p>
+                </div>
+
                 <ul>
                   {/* レビューがある場合 */}
                   {reviewData?.loginUserReviews?.edges &&
