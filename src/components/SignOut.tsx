@@ -1,7 +1,10 @@
+import { useReactiveVar } from "@apollo/client";
 import { useRouter } from "next/dist/client/router";
 import { destroyCookie, parseCookies } from "nookies";
+import { loginUserVar } from "src/apollo/cache";
 
 export const SignOut: React.VFC = () => {
+  const loginUserData = useReactiveVar(loginUserVar);
   const router = useRouter();
   const handleSignOut = () => {
     const cookies = parseCookies();
@@ -10,11 +13,20 @@ export const SignOut: React.VFC = () => {
     alert("ログアウトしました。");
     router.reload();
   };
+
+  if (!loginUserData.isLogin) {
+    return <div>ログインしてください</div>;
+  }
   return (
     <div>
-      <button className="py-2 px-4 border" onClick={handleSignOut}>
-        ログアウト
-      </button>
+      <section className="border-b my-4">
+        <h2 className="text-lg">{loginUserData.profileName}からログアウトしますか？</h2>
+      </section>
+      <div className="p-4 text-center">
+        <button className="py-2 px-4 border" onClick={handleSignOut}>
+          ログアウト
+        </button>
+      </div>
     </div>
   );
 };

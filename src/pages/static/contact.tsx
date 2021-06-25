@@ -18,6 +18,10 @@ const Contact: NextPage = () => {
   };
   const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (inputEmail === "" || inputName === "" || inputContent === "") {
+      alert("すべての入力欄は必須です。");
+      return;
+    }
     const payload = {
       text: `
       お問い合わせがありました。\n
@@ -56,19 +60,19 @@ const Contact: NextPage = () => {
           <input
             type="email"
             onChange={handleEmailChange}
-            className="border p-2 block w-1/3 mx-auto"
+            className="border p-2 block md:w-1/3 w-full mx-auto"
             value={inputEmail}
             placeholder="email"
           />
           <input
             type="text"
-            className="border p-2 block w-1/3 mx-auto"
+            className="border p-2 block md:w-1/3 w-full mx-auto"
             onChange={handleNameChange}
             value={inputName}
             placeholder="name"
           />
           <textarea
-            className="block w-1/3 mx-auto border resize-none p-2"
+            className="block md:w-1/3 w-full mx-auto border resize-none p-2"
             cols={30}
             rows={5}
             onChange={handleContentChange}

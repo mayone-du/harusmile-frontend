@@ -13,6 +13,7 @@ query GetLoginUserTalkRooms {
             id
             targetUser {
               profileName
+              profileImage
             }
           }
         }

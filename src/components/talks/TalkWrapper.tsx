@@ -148,7 +148,11 @@ export const TalkWrapper: React.VFC = () => {
                       <div className="flex items-center">
                         <ProfileImageIcon
                           className="block w-14 h-14 object-cover rounded-full border"
-                          profileImagePath={talkRoom.node.opponentUser.targetUser?.profileImage}
+                          profileImagePath={
+                            talkRoom.node.opponentUser.id === loginUserData.userId
+                              ? talkRoom.node.selectedPlan?.planAuthor.targetUser?.profileImage
+                              : talkRoom.node.opponentUser.targetUser?.profileImage
+                          }
                         />
                         <div className="px-4 text-left">
                           {/* 自分以外のプロフィールを表示 */}
@@ -260,16 +264,23 @@ export const TalkWrapper: React.VFC = () => {
 
                       <ProfileImageIcon
                         className="w-10 h-10 object-cover"
-                        profileImagePath={talkRoom?.node?.opponentUser?.targetUser?.profileImage}
+                        // 相手のプロフィール画像を渡す
+                        profileImagePath={
+                          talkRoom?.node?.selectedPlan?.planAuthor.id === loginUserData.userId
+                            ? talkRoom.node.opponentUser?.targetUser?.profileImage
+                            : talkRoom.node.selectedPlan?.planAuthor.targetUser?.profileImage
+                        }
                       />
                       <div className="md:px-6 px-2">
-                        <p className="text-lg font-bold">
+                        <p className="md:text-lg font-bold">
                           {/* トークルームのプラン作成者が自分と同じだったら相手のプロフィールを表示 */}
                           {talkRoom?.node?.selectedPlan?.planAuthor.id === loginUserData.userId
                             ? talkRoom.node.opponentUser?.targetUser?.profileName
                             : talkRoom.node.selectedPlan?.planAuthor.targetUser?.profileName}
                         </p>
-                        <p>{talkRoom?.node?.opponentUser?.targetUser?.schoolName}</p>
+                        <p className="md:text-base text-sm text-gray-600">
+                          {talkRoom?.node?.opponentUser?.targetUser?.schoolName}
+                        </p>
                       </div>
                     </div>
                     {/* )} */}
@@ -289,8 +300,8 @@ export const TalkWrapper: React.VFC = () => {
                     <div>
                       <div className="border m-2">
                         <p>プランのタイトル：{talkRoom.node.selectedPlan?.title}</p>
-
-                        <p>
+                        <p className="text-xs">{talkRoom.node.selectedPlan?.content}</p>
+                        <p className="text-sm">
                           料金：
                           {talkRoom.node.selectedPlan?.price.toString()}
                         </p>

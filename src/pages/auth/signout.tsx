@@ -6,9 +6,7 @@ const SignOut: NextPage = () => {
   return (
     <div>
       <Layout spHeaderTitle="ログアウト" metaTitle="ハルスマイル | ログアウト">
-        <div className="flex justify-center items-center min-h-screen">
-          <SignOutComponent />
-        </div>
+        <SignOutComponent />
       </Layout>
     </div>
   );

@@ -6,7 +6,15 @@ import { TalkWrapper } from "src/components/talks/TalkWrapper";
 
 const Talk: NextPage = () => {
   const loginUserData = useReactiveVar(loginUserVar);
-  if (!loginUserData.isLogin) {
+
+  if (loginUserData.isLoading) {
+    return (
+      <Layout spHeaderTitle="トーク一覧" metaTitle="ハルスマイル | トーク一覧">
+        Loading...
+      </Layout>
+    );
+  }
+  if (!loginUserData.isLogin && !loginUserData.isLoading) {
     return (
       <Layout spHeaderTitle="トーク一覧" metaTitle="ハルスマイル | トーク一覧">
         ログイン後に使用可能です。
