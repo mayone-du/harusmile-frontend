@@ -27,7 +27,7 @@ const PlansIndex: NextPage = () => {
       {loginUserData.isCollegeStudent && (
         <div className="py-8">
           <h2 className="text-center font-bold">プランの作成</h2>
-          <form onSubmit={handlePlanCreate}>
+          <form className="mb-8" onSubmit={handlePlanCreate}>
             <input
               type="text"
               className="border p-2 block w-full"

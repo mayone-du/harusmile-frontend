@@ -299,6 +299,7 @@ export type Mutation = {
   updatePlan?: Maybe<UpdatePlanMutationPayload>;
   deletePlan?: Maybe<DeletePlanMutationPayload>;
   createTalkRoom?: Maybe<CreateTalkRoomMutationPayload>;
+  updateTalkRoom?: Maybe<UpdateTalkRoomMutationPayload>;
   createMessage?: Maybe<CreateMessageMutationPayload>;
   createReview?: Maybe<CreateReviewMutationPayload>;
   createNotification?: Maybe<CreateNotificationMutationPayload>;
@@ -342,6 +343,11 @@ export type MutationDeletePlanArgs = {
 
 export type MutationCreateTalkRoomArgs = {
   input: CreateTalkRoomMutationInput;
+};
+
+
+export type MutationUpdateTalkRoomArgs = {
+  input: UpdateTalkRoomMutationInput;
 };
 
 
@@ -981,6 +987,7 @@ export type TalkRoomNode = Node & {
   talkRoomDescription?: Maybe<Scalars['String']>;
   selectedPlan?: Maybe<PlanNode>;
   opponentUser?: Maybe<UserNode>;
+  isApprove: Scalars['Boolean'];
   talkingRoom: MessageNodeConnection;
 };
 
@@ -1065,6 +1072,18 @@ export type UpdateProfileMutationInput = {
 export type UpdateProfileMutationPayload = {
   __typename?: 'UpdateProfileMutationPayload';
   profile?: Maybe<ProfileNode>;
+  clientMutationId?: Maybe<Scalars['String']>;
+};
+
+export type UpdateTalkRoomMutationInput = {
+  talkRoomId?: Maybe<Scalars['ID']>;
+  isApprove: Scalars['Boolean'];
+  clientMutationId?: Maybe<Scalars['String']>;
+};
+
+export type UpdateTalkRoomMutationPayload = {
+  __typename?: 'UpdateTalkRoomMutationPayload';
+  talkRoom?: Maybe<TalkRoomNode>;
   clientMutationId?: Maybe<Scalars['String']>;
 };
 
@@ -1919,40 +1938,6 @@ export type SearchProfilesQuery = (
   )> }
 );
 
-export type GetAllTalkRoomsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetAllTalkRoomsQuery = (
-  { __typename?: 'Query' }
-  & { allTalkRooms?: Maybe<(
-    { __typename?: 'TalkRoomNodeConnection' }
-    & { edges: Array<Maybe<(
-      { __typename?: 'TalkRoomNodeEdge' }
-      & { node?: Maybe<(
-        { __typename?: 'TalkRoomNode' }
-        & Pick<TalkRoomNode, 'id' | 'talkRoomDescription'>
-        & { selectedPlan?: Maybe<(
-          { __typename?: 'PlanNode' }
-          & Pick<PlanNode, 'id' | 'title' | 'content'>
-        )>, talkingRoom: (
-          { __typename?: 'MessageNodeConnection' }
-          & { edges: Array<Maybe<(
-            { __typename?: 'MessageNodeEdge' }
-            & { node?: Maybe<(
-              { __typename?: 'MessageNode' }
-              & Pick<MessageNode, 'id' | 'text' | 'createdAt'>
-              & { sender: (
-                { __typename?: 'UserNode' }
-                & Pick<UserNode, 'id' | 'email'>
-              ) }
-            )> }
-          )>> }
-        ) }
-      )> }
-    )>> }
-  )> }
-);
-
 export type GetLoginUserTalkRoomsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1964,7 +1949,7 @@ export type GetLoginUserTalkRoomsQuery = (
       { __typename?: 'TalkRoomNodeEdge' }
       & { node?: Maybe<(
         { __typename?: 'TalkRoomNode' }
-        & Pick<TalkRoomNode, 'id'>
+        & Pick<TalkRoomNode, 'id' | 'isApprove'>
         & { selectedPlan?: Maybe<(
           { __typename?: 'PlanNode' }
           & Pick<PlanNode, 'id' | 'title' | 'content' | 'price'>
@@ -2011,7 +1996,7 @@ export type GetTalkRoomQuery = (
   { __typename?: 'Query' }
   & { talkRoom?: Maybe<(
     { __typename?: 'TalkRoomNode' }
-    & Pick<TalkRoomNode, 'id' | 'talkRoomDescription'>
+    & Pick<TalkRoomNode, 'id' | 'talkRoomDescription' | 'isApprove'>
     & { talkingRoom: (
       { __typename?: 'MessageNodeConnection' }
       & { edges: Array<Maybe<(
@@ -3401,69 +3386,13 @@ export function useSearchProfilesLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type SearchProfilesQueryHookResult = ReturnType<typeof useSearchProfilesQuery>;
 export type SearchProfilesLazyQueryHookResult = ReturnType<typeof useSearchProfilesLazyQuery>;
 export type SearchProfilesQueryResult = Apollo.QueryResult<SearchProfilesQuery, SearchProfilesQueryVariables>;
-export const GetAllTalkRoomsDocument = gql`
-    query GetAllTalkRooms {
-  allTalkRooms {
-    edges {
-      node {
-        id
-        talkRoomDescription
-        selectedPlan {
-          id
-          title
-          content
-        }
-        talkingRoom {
-          edges {
-            node {
-              id
-              text
-              createdAt
-              sender {
-                id
-                email
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-    `;
-
-/**
- * __useGetAllTalkRoomsQuery__
- *
- * To run a query within a React component, call `useGetAllTalkRoomsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAllTalkRoomsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetAllTalkRoomsQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetAllTalkRoomsQuery(baseOptions?: Apollo.QueryHookOptions<GetAllTalkRoomsQuery, GetAllTalkRoomsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAllTalkRoomsQuery, GetAllTalkRoomsQueryVariables>(GetAllTalkRoomsDocument, options);
-      }
-export function useGetAllTalkRoomsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllTalkRoomsQuery, GetAllTalkRoomsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAllTalkRoomsQuery, GetAllTalkRoomsQueryVariables>(GetAllTalkRoomsDocument, options);
-        }
-export type GetAllTalkRoomsQueryHookResult = ReturnType<typeof useGetAllTalkRoomsQuery>;
-export type GetAllTalkRoomsLazyQueryHookResult = ReturnType<typeof useGetAllTalkRoomsLazyQuery>;
-export type GetAllTalkRoomsQueryResult = Apollo.QueryResult<GetAllTalkRoomsQuery, GetAllTalkRoomsQueryVariables>;
 export const GetLoginUserTalkRoomsDocument = gql`
     query GetLoginUserTalkRooms {
   loginUserTalkRooms {
     edges {
       node {
         id
+        isApprove
         selectedPlan {
           id
           title
@@ -3535,6 +3464,7 @@ export const GetTalkRoomDocument = gql`
   talkRoom(id: $talkRoomId) {
     id
     talkRoomDescription
+    isApprove
     talkingRoom {
       edges {
         node {

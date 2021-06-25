@@ -1,10 +1,10 @@
 export const ProfileLoading: React.VFC = () => {
   return (
     <div>
-      <div className="flex items-center justify-between my-2 bg-gray-200">
+      <div className="flex items-center justify-between my-4 bg-gray-200">
         <p className="p-2 text-sm text-gray-600">基本情報</p>
       </div>
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center py-2">
         <div className="w-20 h-20 mx-2 bg-gray-200 animate-pulse rounded-full">
           {/* プロフィールアイコン */}
         </div>

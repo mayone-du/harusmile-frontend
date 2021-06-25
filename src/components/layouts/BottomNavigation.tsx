@@ -3,9 +3,9 @@ import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { HomeSvg } from "src/components/icons/svgs/HomeSvg";
 import { SearchSvg } from "src/components/icons/svgs/SearchSvg";
 import { TalkSvg } from "src/components/icons/svgs/TalkSvg";
+import { BottomNavigationLoading } from "src/components/layouts/BottomNavigationLoading";
 import { CreatePlanButton } from "src/components/layouts/CreatePlanButton";
 import { NotificationButton } from "src/components/layouts/NotificationButton";
-import { BottomNavigationLoading } from "src/components/loadings/BottomNavigationLoading";
 
 type Props = {
   isLoading: boolean;

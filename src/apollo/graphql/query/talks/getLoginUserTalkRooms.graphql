@@ -3,6 +3,7 @@ query GetLoginUserTalkRooms {
     edges {
       node {
         id
+        isApprove
         selectedPlan {
           id
           title

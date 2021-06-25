@@ -110,6 +110,7 @@ export const useProfileUpdate = () => {
       data?.updateProfile?.profile &&
         loginUserVar({
           ...loginUserData,
+          isLoading: false,
           profileName: data.updateProfile.profile.profileName,
           profileText: data.updateProfile.profile.profileText
             ? data.updateProfile.profile.profileText

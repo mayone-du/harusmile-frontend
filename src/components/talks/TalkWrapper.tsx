@@ -136,7 +136,7 @@ export const TalkWrapper: React.VFC = () => {
                       // 自分を除外したプロフィール
                       <div className="flex items-center">
                         <ProfileImageIcon
-                          className="block w-14 h-14 rounded-full border"
+                          className="block w-14 h-14 object-cover rounded-full border"
                           profileImagePath={talkRoom.node.opponentUser.targetUser?.profileImage}
                         />
                         <div className="px-4 text-left">
@@ -179,7 +179,7 @@ export const TalkWrapper: React.VFC = () => {
         </ul>
       </aside>
 
-      <div className="md:p-4 md:mt-0 mt-4 md:w-2/3 w-full">
+      <div className="md:p-4 md:mt-0 mt-4 mb-20 md:w-2/3 w-full">
         <div>
           {/* トークルーム詳細 */}
           {talkRoomsData?.loginUserTalkRooms?.edges.map((talkRoom, talkRoomIndex) => {
@@ -243,7 +243,7 @@ export const TalkWrapper: React.VFC = () => {
                       </Modal>
 
                       <ProfileImageIcon
-                        className="w-10 h-10"
+                        className="w-10 h-10 object-cover"
                         profileImagePath={talkRoom?.node?.opponentUser?.targetUser?.profileImage}
                       />
                       <div className="md:px-6 px-2">
@@ -282,6 +282,13 @@ export const TalkWrapper: React.VFC = () => {
                       <ul>
                         {talkRoom.node.talkingRoom.edges.length === 0 && (
                           <p className="py-4 text-center">トークを開始しましょう</p>
+                        )}
+                        {!talkRoom.node.isApprove && (
+                          <div>
+                            {talkRoom.node.selectedPlan?.planAuthor.id === loginUserData.userId
+                              ? "プランの作成者が自分の場合"
+                              : "プラン作成者が承認した後、メッセージを送信できます。"}
+                          </div>
                         )}
                         {/* トークメッセージ */}
                         {talkRoom.node.talkingRoom.edges.map((message, messageIndex) => {

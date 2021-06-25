@@ -28,58 +28,56 @@ export const Header: React.VFC<Props> = memo((props) => {
               </a>
             </Link>
           </div>
-          <ul className="flex items-center">
-            {/* ログインしている場合 */}
-            {loginUserData.isLogin ? (
-              <>
-                <li className="flex items-center px-2 md:mx-4 mx-2">
-                  <Link href="/talks">
-                    <a className="flex items-center">
-                      <div className="px-2 hidden md:block">トーク画面</div>
-                      <TalkSvg className="h-10 w-10 text-white" />
-                    </a>
-                  </Link>
-                </li>
 
-                <li className="flex items-center px-2 md:mx-4 mx-2">
-                  <Link href="/settings">
-                    <a>
-                      <ProfileImageIcon
-                        profileImagePath={props.profileImagePath}
-                        className="block object-cover mx-2 md:w-10 md:h-10 w-6 h-6 rounded-full border"
-                      />
-                    </a>
-                  </Link>
-                  <div className="md:block hidden">
-                    <p className="text-sm">
-                      {loginUserData.isCollegeStudent ? "大学生" : "高校生"}
-                    </p>
-                    <p className="md:text-sm text-xs">{loginUserData.email}</p>
-                  </div>
-                </li>
-                {/* 通知 */}
-                <li className="px-4 border-l-2 border-gray-300">
-                  <NotificationButton />
-                </li>
-              </>
-            ) : (
-              <>
-                {/* ログインしていない場合 */}
-                <li className="mx-4">
-                  <Link href="/auth/signin">
-                    <a className="text-blue-700 ">ログイン</a>
-                  </Link>
-                </li>
-                <li className="mx-4">
-                  <Link href="/auth/signup">
-                    <a className="py-3 px-8 font-bold text-white bg-blue-700 rounded-3xl">
-                      新規登録
-                    </a>
-                  </Link>
-                </li>
-              </>
-            )}
-          </ul>
+          {/* ローディング中は非表示 */}
+          {/* ログインしていない場合 */}
+          {!loginUserData.isLogin && !loginUserData.isLoading && (
+            <ul className="h-16">
+              <li className="mx-4">
+                <Link href="/auth/signin">
+                  <a className="text-blue-700 ">ログイン</a>
+                </Link>
+              </li>
+              <li className="mx-4">
+                <Link href="/auth/signup">
+                  <a className="py-3 px-8 font-bold text-white bg-blue-700 rounded-3xl">新規登録</a>
+                </Link>
+              </li>
+            </ul>
+          )}
+
+          {/* ログインしている場合 */}
+          {loginUserData.isLogin && !loginUserData.isLoading && (
+            <ul className="flex items-center">
+              <li className="flex items-center px-2 md:mx-4 mx-2">
+                <Link href="/talks">
+                  <a className="flex items-center">
+                    <div className="px-2 hidden md:block">トーク画面</div>
+                    <TalkSvg className="h-10 w-10 text-white" />
+                  </a>
+                </Link>
+              </li>
+
+              <li className="flex items-center px-2 md:mx-4 mx-2">
+                <Link href="/settings">
+                  <a>
+                    <ProfileImageIcon
+                      profileImagePath={props.profileImagePath}
+                      className="block object-cover mx-2 md:w-10 md:h-10 w-6 h-6 rounded-full border"
+                    />
+                  </a>
+                </Link>
+                <div className="md:block hidden">
+                  <p className="text-sm">{loginUserData.isCollegeStudent ? "大学生" : "高校生"}</p>
+                  <p className="md:text-sm text-xs">{loginUserData.email}</p>
+                </div>
+              </li>
+              {/* 通知 */}
+              <li className="px-4 border-l-2 border-gray-300">
+                <NotificationButton />
+              </li>
+            </ul>
+          )}
         </nav>
 
         {/* スマホ時 */}
