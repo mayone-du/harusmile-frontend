@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { toast } from "react-hot-toast";
 import { GetLoginUserPlansDocument, useCreatePlanMutation } from "src/apollo/schema";
 import { useRefreshTokens } from "src/libs/hooks/useRefreshTokens";
 
@@ -48,7 +49,7 @@ export const useCreatePlan = () => {
           isPublished: true,
         },
       });
-      alert("プランが作成されました。");
+      toast("プランが作成されました。");
       setInputTitle("");
       setInputContent("");
       setInputPrice("");
