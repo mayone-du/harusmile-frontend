@@ -1,4 +1,5 @@
 import { useReactiveVar } from "@apollo/client";
+import { parseCookies } from "nookies";
 import { useEffect } from "react";
 import { loginUserVar } from "src/apollo/cache";
 import { useGetLoginUserLazyQuery } from "src/apollo/schema";
@@ -8,6 +9,7 @@ export const useSetLoginUserData = () => {
   const [getLoginUserLazyQuery, { data: queryData }] = useGetLoginUserLazyQuery({
     fetchPolicy: "network-only",
   });
+  const cookies = parseCookies();
   useEffect(() => {
     if (!loginUserData.isLogin) {
       loginUserVar({
@@ -92,6 +94,11 @@ export const useSetLoginUserData = () => {
       });
 
       getLoginUserLazyQuery();
+    } else if (!cookies.refreshToken) {
+      loginUserVar({
+        ...loginUserData,
+        isLoading: false,
+      });
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

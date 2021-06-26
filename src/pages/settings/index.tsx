@@ -39,7 +39,7 @@ const Settings: NextPage = () => {
   if (loginUserData.isLoading) {
     return (
       <Layout spHeaderTitle="プロフィール編集" metaTitle="ハルスマイル | 設定画面">
-        <div>loading</div>
+        <div className="text-xl font-bold text-center">loading</div>
       </Layout>
     );
   }

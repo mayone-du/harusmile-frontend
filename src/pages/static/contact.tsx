@@ -40,7 +40,7 @@ const Contact: NextPage = () => {
           body: JSON.stringify(payload),
         }));
       alert(
-        `送信が完了しました。\n 1~3日以内に、送信していただいたメールアドレス($email)宛にご連絡致します。`,
+        `送信が完了しました。\n 1~3日以内に、送信していただいたメールアドレス(${inputEmail})宛にご連絡致します。`,
       );
       setInputEmail("");
       setInputName("");
