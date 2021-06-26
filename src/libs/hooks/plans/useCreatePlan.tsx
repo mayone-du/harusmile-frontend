@@ -49,7 +49,7 @@ export const useCreatePlan = () => {
           isPublished: true,
         },
       });
-      toast("プランが作成されました。");
+      toast.success("プランが作成されました。");
       setInputTitle("");
       setInputContent("");
       setInputPrice("");

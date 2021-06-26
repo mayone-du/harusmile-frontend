@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 import { useCreateNotificationMutation, useCreateReviewMutation } from "src/apollo/schema";
 import { useRefreshTokens } from "src/libs/hooks/useRefreshTokens";
 
@@ -60,7 +61,7 @@ export const useCreateReview = () => {
           notificationType: "レビュー",
         },
       });
-      alert("レビューが送信されました。");
+      toast("レビューが送信されました。");
       setInputRevewText("");
       setInputStars("");
       setIsOpen(false);

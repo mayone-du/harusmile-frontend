@@ -2,6 +2,7 @@ import { useReactiveVar } from "@apollo/client";
 import type { NextPage } from "next";
 import { useRouter } from "next/dist/client/router";
 import { useCallback, useState } from "react";
+import { toast } from "react-hot-toast";
 import { loginUserVar } from "src/apollo/cache";
 import {
   useCreateTalkRoomMutation,
@@ -55,7 +56,7 @@ const PlanDetail: NextPage = () => {
     });
 
     if (isValidatedArray?.includes(true)) {
-      alert("すでに存在します。");
+      toast("すでに存在します。");
       return;
     }
     try {
