@@ -1,6 +1,7 @@
 import { useReactiveVar } from "@apollo/client";
 import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import Modal from "react-modal";
 import { loginUserVar } from "src/apollo/cache";
 import {
@@ -68,7 +69,7 @@ export const TalkWrapper: React.VFC = () => {
   } = useCreateMessages();
   const handleSubmit = async (receiverId: string) => {
     if (inputText === "") {
-      alert("メッセージを入力してください。");
+      toast.error("メッセージを入力してください。");
       return;
     }
     await handleRefreshToken();
@@ -109,7 +110,13 @@ export const TalkWrapper: React.VFC = () => {
     refetchQueries: [{ query: GetLoginUserTalkRoomsDocument }],
   });
   const handleUpdateTalkRoom = async (talkRoomId: string) => {
-    await updateTalkRoomMutation({ variables: { talkRoomId: talkRoomId, isApprove: true } });
+    try {
+      await updateTalkRoomMutation({ variables: { talkRoomId: talkRoomId, isApprove: true } });
+      toast.success("承認しました。");
+    } catch (error) {
+      toast.error("失敗しました。");
+      alert(error);
+    }
   };
 
   // トーク履歴がない場合

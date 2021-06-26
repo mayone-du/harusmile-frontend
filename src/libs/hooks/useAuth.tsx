@@ -1,6 +1,7 @@
 import { useRouter } from "next/dist/client/router";
 import { setCookie } from "nookies";
 import { useCallback, useState } from "react";
+import toast from "react-hot-toast";
 import { initialLoginUserVar, loginUserVar } from "src/apollo/cache";
 import {
   useCreateProfileMutation,
@@ -111,12 +112,12 @@ export const useAuth = () => {
         setInputEmail("");
         setInputPassword("");
         setIsLoading(false);
-        alert("ログインが完了しました。");
         await router.push("/");
+        toast.success("ログインに成功しました。");
         router.reload();
       } catch (error) {
         setIsLoading(false);
-        alert(error);
+        toast.error("ログインに失敗しました。");
         return;
       }
     }
@@ -165,10 +166,11 @@ export const useAuth = () => {
         });
         setIsLoading(false);
         await router.push("/");
-        alert("登録が完了しました。");
         router.reload();
+        toast.success("登録が完了しました。");
       } catch (error) {
-        alert(error);
+        setIsLoading(false);
+        toast.error("メールアドレスが既に登録されています。");
         return;
       }
     }

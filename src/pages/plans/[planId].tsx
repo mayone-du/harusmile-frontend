@@ -56,7 +56,7 @@ const PlanDetail: NextPage = () => {
     });
 
     if (isValidatedArray?.includes(true)) {
-      toast("すでに存在します。");
+      toast.error("すでに申込済みです。");
       return;
     }
     try {
@@ -67,8 +67,8 @@ const PlanDetail: NextPage = () => {
           talkRoomDescription: `${planData?.plan?.planAuthor.targetUser?.profileName} | ${loginUserData.profileName}`,
         },
       });
-      alert("トークルームが作成されました。");
       router.push("/talks");
+      toast.success("トークルームが作成されました。");
     } catch (error) {
       alert(error);
     }
