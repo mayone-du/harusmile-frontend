@@ -238,8 +238,8 @@ export const TalkWrapper: React.VFC = () => {
                           <form
                             className="block"
                             // eslint-disable-next-line react/jsx-handler-names
-                            onSubmit={(e: React.ChangeEvent<HTMLFormElement>) => {
-                              e.preventDefault();
+                            onSubmit={(event: React.ChangeEvent<HTMLFormElement>) => {
+                              event.preventDefault();
                               const providerId =
                                 talkRoom?.node?.opponentUser?.id === loginUserData.userId
                                   ? talkRoom.node.selectedPlan?.planAuthor.id

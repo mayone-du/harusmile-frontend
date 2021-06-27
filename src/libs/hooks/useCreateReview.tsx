@@ -32,11 +32,11 @@ export const useCreateReview = () => {
     setIsOpen(false);
   };
 
-  const handleReviewTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputRevewText(e.target.value);
+  const handleReviewTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputRevewText(event.target.value);
   };
-  const handleStarsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputStars(e.target.value);
+  const handleStarsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputStars(event.target.value);
   };
 
   // レビュー作成

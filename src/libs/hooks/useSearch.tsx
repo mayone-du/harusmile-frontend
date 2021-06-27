@@ -8,8 +8,8 @@ export const useSearch = () => {
   // 検索条件の表示のstate
   const [isConditionsOpen, setIsConditionsOpen] = useState(false);
 
-  const handleSearchKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputSearchKeyword(e.target.value);
+  const handleSearchKeywordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputSearchKeyword(event.target.value);
   };
 
   // 検索条件の開閉用イベントハンドラ
@@ -21,8 +21,8 @@ export const useSearch = () => {
 
   // TODO: 検索条件が変更されたときのハンドラ（チェックボックスとかで検索条件を絞ったりできるように）
 
-  const handleSearch = (e: React.ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSearch = (event: React.ChangeEvent<HTMLFormElement>) => {
+    event.preventDefault();
     if (inputSearchKeyword === "") {
       return;
     }

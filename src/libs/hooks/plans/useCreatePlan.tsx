@@ -27,11 +27,11 @@ export const useCreatePlan = () => {
   }, []);
 
   // プロフ画像のイベントハンドラ
-  const handlePlanImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) setPlanImageFile(e.target.files[0]);
+  const handlePlanImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) setPlanImageFile(event.target.files[0]);
   };
-  const handlePlanCreate = async (e: React.ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handlePlanCreate = async (event: React.ChangeEvent<HTMLFormElement>) => {
+    event.preventDefault();
     if (inputTitle === "") {
       alert("プランのタイトルを入力してください。");
       return;

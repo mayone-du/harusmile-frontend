@@ -13,8 +13,6 @@ const Settings: NextPage = () => {
   const { data: allAdressesData } = useGetAllAdressesQuery();
   const { data: allGendersData } = useGetAllGendersQuery();
 
-  // TODO: プロフィール画像周りのバグ修正
-
   const {
     inputLoginUserData,
     handleProfileNameChange,

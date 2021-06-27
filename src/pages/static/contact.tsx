@@ -8,17 +8,17 @@ const Contact: NextPage = () => {
   const [inputName, setInputName] = useState("");
   const [inputContent, setInputContent] = useState("");
 
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputEmail(e.target.value);
+  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputEmail(event.target.value);
   };
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputName(e.target.value);
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputName(event.target.value);
   };
-  const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInputContent(e.target.value);
+  const handleContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setInputContent(event.target.value);
   };
-  const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>) => {
+    event.preventDefault();
     if (inputEmail === "" || inputName === "" || inputContent === "") {
       alert("すべての入力欄は必須です。");
       return;

@@ -17,7 +17,6 @@ export const useUpdatePlan = (planData: GetPlanQuery | undefined) => {
     planData?.plan?.price === 0 ? planData.plan.price.toString() : "0",
   );
 
-  // TODO: 仕様確認
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     alert("タイトルは変更できません");
     return;

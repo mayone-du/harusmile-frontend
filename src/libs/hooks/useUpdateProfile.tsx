@@ -19,64 +19,64 @@ export const useProfileUpdate = () => {
   const [profileImageFile, setProfileImageFile] = useState<File | null>(null);
 
   // 各項目ごとのイベントハンドラ
-  const handleProfileNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputLoginUserData({ ...inputLoginUserData, profileName: e.target.value });
+  const handleProfileNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputLoginUserData({ ...inputLoginUserData, profileName: event.target.value });
   };
-  const handleProfileTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInputLoginUserData({ ...inputLoginUserData, profileText: e.target.value });
+  const handleProfileTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setInputLoginUserData({ ...inputLoginUserData, profileText: event.target.value });
   };
-  const handleTelephoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputLoginUserData({ ...inputLoginUserData, telephoneNumber: e.target.value });
+  const handleTelephoneNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputLoginUserData({ ...inputLoginUserData, telephoneNumber: event.target.value });
   };
-  const handleSchoolNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputLoginUserData({ ...inputLoginUserData, schoolName: e.target.value });
+  const handleSchoolNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputLoginUserData({ ...inputLoginUserData, schoolName: event.target.value });
   };
-  const handleAgeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputLoginUserData({ ...inputLoginUserData, age: parseFloat(e.target.value) });
+  const handleAgeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputLoginUserData({ ...inputLoginUserData, age: parseFloat(event.target.value) });
   };
-  const handleUndergraduateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputLoginUserData({ ...inputLoginUserData, undergraduate: e.target.value });
+  const handleUndergraduateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputLoginUserData({ ...inputLoginUserData, undergraduate: event.target.value });
   };
-  const handleDepartmentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputLoginUserData({ ...inputLoginUserData, department: e.target.value });
+  const handleDepartmentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputLoginUserData({ ...inputLoginUserData, department: event.target.value });
   };
-  const handleClubActivitiesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputLoginUserData({ ...inputLoginUserData, clubActivities: e.target.value });
+  const handleClubActivitiesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputLoginUserData({ ...inputLoginUserData, clubActivities: event.target.value });
   };
-  const handleAdmissionFormatChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputLoginUserData({ ...inputLoginUserData, admissionFormat: e.target.value });
+  const handleAdmissionFormatChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputLoginUserData({ ...inputLoginUserData, admissionFormat: event.target.value });
   };
-  const handleFavoriteSubjectChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputLoginUserData({ ...inputLoginUserData, favoriteSubject: e.target.value });
+  const handleFavoriteSubjectChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputLoginUserData({ ...inputLoginUserData, favoriteSubject: event.target.value });
   };
-  const handleWantHearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputLoginUserData({ ...inputLoginUserData, wantHear: e.target.value });
+  const handleWantHearChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputLoginUserData({ ...inputLoginUserData, wantHear: event.target.value });
   };
-  const handleProblemChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputLoginUserData({ ...inputLoginUserData, problem: e.target.value });
+  const handleProblemChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputLoginUserData({ ...inputLoginUserData, problem: event.target.value });
   };
 
   // 住んでる県,性別,学生のselectタグ用イベントハンドラ
-  const handleAddressBlur = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setInputLoginUserData({ ...inputLoginUserData, addressId: e.target.value });
+  const handleAddressBlur = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setInputLoginUserData({ ...inputLoginUserData, addressId: event.target.value });
   };
-  const handleGenderBlur = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setInputLoginUserData({ ...inputLoginUserData, genderId: e.target.value });
+  const handleGenderBlur = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setInputLoginUserData({ ...inputLoginUserData, genderId: event.target.value });
   };
-  const handleStudentBlur = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleStudentBlur = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setInputLoginUserData({
       ...inputLoginUserData,
-      isCollegeStudent: e.target.value === "true" ? true : false,
+      isCollegeStudent: event.target.value === "true" ? true : false,
     });
   };
   // プロフ画像のイベントハンドラ
-  const handleProfileImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) setProfileImageFile(e.target.files[0]);
+  const handleProfileImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) setProfileImageFile(event.target.files[0]);
   };
 
   // 送信用関数
-  const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>) => {
+    event.preventDefault();
     // エラーチェック
     if (inputLoginUserData.addressId === "" || inputLoginUserData.genderId === "") {
       alert("住所と性別は必須です。");
