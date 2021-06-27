@@ -1,7 +1,7 @@
 {
     "name":             "harusmile",
     "short_name":       "harusmile",
-    "description":      "harusmile app",
+    "description":      "ハルスマイル | 高校生と大学生のマッチングサービス",
     "start_url":        "/",
     "display":          "standalone",
     "orientation":      "portrate-primary",
