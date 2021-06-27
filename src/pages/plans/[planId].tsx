@@ -207,7 +207,6 @@ const PlanDetail: NextPage = () => {
                   ) : (
                     // プラン作成者
                     <div>
-                      <div>名前：{planData.plan.planAuthor.targetUser.profileName}</div>
                       <h3 className="bg-gray-200 my-2 p-2">この人のレビュー</h3>
                       <ul>
                         {planData.plan.planAuthor.provider.edges.map((review, index) => {

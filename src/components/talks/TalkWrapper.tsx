@@ -332,8 +332,8 @@ export const TalkWrapper: React.VFC = () => {
                                 onClick={() => {
                                   handleUpdateTalkRoom(
                                     talkRoom.node?.id ? talkRoom.node.id : "",
-                                    talkRoom.node?.selectedPlan?.planAuthor.id
-                                      ? talkRoom.node.selectedPlan.planAuthor.id
+                                    talkRoom.node?.opponentUser?.id
+                                      ? talkRoom.node.opponentUser.id
                                       : "",
                                   );
                                 }}
