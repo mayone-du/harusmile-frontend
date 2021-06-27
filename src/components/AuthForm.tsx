@@ -36,7 +36,7 @@ export const AuthForm: React.VFC<Props> = (props) => {
           <input
             type="text"
             className="border focus:outline-none block md:w-1/3 w-2/3 p-2 rounded-sm mx-auto"
-            placeholder="username"
+            placeholder="ユーザーネーム"
             value={inputProfileName}
             onChange={handleProfileNameChange}
             autoComplete="name"
@@ -65,7 +65,7 @@ export const AuthForm: React.VFC<Props> = (props) => {
             <input
               type="text"
               className="border focus:outline-none block md:w-1/3 w-2/3 p-2 rounded-sm mx-auto"
-              placeholder="schoolName"
+              placeholder="通っている大学、高校名"
               value={inputSchoolName}
               onChange={handleSchoolNameChange}
             />
@@ -77,7 +77,7 @@ export const AuthForm: React.VFC<Props> = (props) => {
         <input
           type="email"
           className="border focus:outline-none block md:w-1/3 w-2/3 p-2 rounded-sm mx-auto"
-          placeholder="email"
+          placeholder="メールアドレス"
           value={inputEmail}
           onChange={handleEmailChange}
           autoComplete="email"
@@ -87,7 +87,7 @@ export const AuthForm: React.VFC<Props> = (props) => {
         <input
           type="password"
           className="border focus:outline-none block md:w-1/3 w-2/3 p-2 rounded-sm mx-auto"
-          placeholder="password"
+          placeholder="パスワード"
           value={inputPassword}
           onChange={handlePasswordChange}
           autoComplete="current-password"

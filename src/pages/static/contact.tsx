@@ -62,21 +62,21 @@ const Contact: NextPage = () => {
             onChange={handleEmailChange}
             className="border p-2 block md:w-1/3 w-full mx-auto"
             value={inputEmail}
-            placeholder="email"
+            placeholder="メールアドレス"
           />
           <input
             type="text"
             className="border p-2 block md:w-1/3 w-full mx-auto"
             onChange={handleNameChange}
             value={inputName}
-            placeholder="name"
+            placeholder="ユーザーネーム"
           />
           <textarea
             className="block md:w-1/3 w-full mx-auto border resize-none p-2"
             cols={30}
             rows={5}
             onChange={handleContentChange}
-            placeholder="content"
+            placeholder="お問い合わせ内容"
             value={inputContent}
           ></textarea>
           <button type="submit" className="block border w-1/4 mx-auto p-2">

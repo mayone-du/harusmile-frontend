@@ -73,7 +73,7 @@ const PlanDetail: NextPage = () => {
       await createNotificationMutation({
         variables: {
           recieverId: planData?.plan?.planAuthor.id ? planData.plan.planAuthor.id : "",
-          notificationType: "申し込み",
+          notificationType: "プラン申し込み",
         },
       });
       router.push("/talks");
@@ -113,21 +113,21 @@ const PlanDetail: NextPage = () => {
                   <input
                     type="text"
                     className="border block w-full p-2"
-                    placeholder="title"
+                    placeholder="プランのタイトル"
                     value={inputTitle}
                     onChange={handleTitleChange}
                   />
                   <input
                     type="text"
                     className="border block w-full p-2"
-                    placeholder="content"
+                    placeholder="内容や詳細"
                     value={inputContent}
                     onChange={handleContentChange}
                   />
                   <input
                     type="number"
                     className="border block w-full p-2"
-                    placeholder="price"
+                    placeholder="金額を入力してください。"
                     value={inputPrice}
                     onChange={handlePriceChange}
                   />

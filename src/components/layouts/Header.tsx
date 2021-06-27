@@ -82,25 +82,27 @@ export const Header: React.VFC<Props> = memo((props) => {
 
         {/* スマホ時 */}
         <nav className="flex md:hidden items-center relative">
-          {/* <Link href="/">
-            <a className="flex w-1/3">
+          <Link href="/">
+            <a className="block w-10 h-10 absolute left-2">
               <Image
-                width={120}
-                height={40}
+                width={256}
+                height={256}
                 objectFit="cover"
                 className="block"
-                src="/images/logo.png"
+                src="/images/logo-icon.png"
               />
             </a>
-          </Link> */}
+          </Link>
           <h2 className="font-bold text-center w-full py-2 text-xl text-gray-700">
             {props.spHeaderTitle}
           </h2>
-          <Link href="/settings">
-            <a className="block absolute right-2">
-              <SettingSvg className="w-8 h-8" />
-            </a>
-          </Link>
+          {loginUserData.isLogin && (
+            <Link href="/settings">
+              <a className="block absolute right-2">
+                <SettingSvg className="w-8 h-8" />
+              </a>
+            </Link>
+          )}
         </nav>
       </header>
       {/* スマホ時 */}

@@ -98,7 +98,7 @@ const Settings: NextPage = () => {
             <li className="my-4 mx-auto w-full">
               <Input
                 type="text"
-                placeholder="profileName"
+                placeholder="ユーザーネーム"
                 value={inputLoginUserData.profileName}
                 onChange={handleProfileNameChange}
                 label="ユーザーネーム"

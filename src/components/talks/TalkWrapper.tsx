@@ -111,6 +111,7 @@ export const TalkWrapper: React.VFC = () => {
   });
   const handleUpdateTalkRoom = async (talkRoomId: string, recieverId: string) => {
     try {
+      await handleRefreshToken();
       await updateTalkRoomMutation({ variables: { talkRoomId: talkRoomId, isApprove: true } });
       await createNotificationMutation({
         variables: {

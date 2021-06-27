@@ -26,10 +26,10 @@ export const BottomNavigation: React.VFC<Props> = (props) => {
   }
   return (
     <div>
-      <nav className="md:hidden fixed border-t border-b bottom-0 w-full z-10 bg-white">
+      <nav className="md:hidden fixed border-t border-b bottom-0 w-full z-10 bg-white dark:bg-black">
         {/* 非ログイン時 */}
         {!props.isLogin && !props.isLoading && (
-          <ul className="flex items-center justify-around py-2">
+          <ul className="flex items-center justify-around pt-2 pb-4">
             <li>
               <Link href="/auth/signin">
                 <a className="block py-2 px-6 rounded-3xl border-2 border-blue-600 text-blue-600 font-bold">
@@ -49,7 +49,7 @@ export const BottomNavigation: React.VFC<Props> = (props) => {
 
         {/* ログイン時 */}
         {props.isLogin && !props.isLoading && (
-          <ul className="flex items-center justify-around py-2">
+          <ul className="flex items-center justify-around pt-2 pb-4">
             {/* ホーム */}
             <li className="w-1/5">
               <Link href="/">

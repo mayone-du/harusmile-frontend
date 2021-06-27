@@ -108,7 +108,9 @@ export const NotificationButton: React.VFC = () => {
             return (
               <li
                 key={index}
-                className="border-b border-gray-300 flex h-12 px-1 my-2 items-center relative"
+                className={`border-b border-gray-300 flex h-12 px-1 my-2 items-center relative ${
+                  notification?.node?.notificationType === "プラン申し込み" && "bg-pink-200"
+                }`}
               >
                 <ProfileImageIcon
                   className="border rounded-full object-cover w-10 h-10 mx-2"

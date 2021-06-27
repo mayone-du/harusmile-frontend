@@ -39,7 +39,7 @@ const PlansIndex: NextPage = () => {
             <textarea
               value={inputContent}
               onChange={handleContentChange}
-              className="block border p-2 resize-none"
+              className="block border p-2 resize-none w-full"
               placeholder="内容"
             ></textarea>
             <input
