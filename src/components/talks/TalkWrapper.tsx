@@ -109,9 +109,15 @@ export const TalkWrapper: React.VFC = () => {
   const [updateTalkRoomMutation] = useUpdateTalkRoomMutation({
     refetchQueries: [{ query: GetLoginUserTalkRoomsDocument }],
   });
-  const handleUpdateTalkRoom = async (talkRoomId: string) => {
+  const handleUpdateTalkRoom = async (talkRoomId: string, recieverId: string) => {
     try {
       await updateTalkRoomMutation({ variables: { talkRoomId: talkRoomId, isApprove: true } });
+      await createNotificationMutation({
+        variables: {
+          recieverId: recieverId,
+          notificationType: "プランの承認",
+        },
+      });
       toast.success("承認しました。");
     } catch (error) {
       toast.error("失敗しました。");
@@ -324,7 +330,12 @@ export const TalkWrapper: React.VFC = () => {
                                 className="border block p-2"
                                 // eslint-disable-next-line react/jsx-handler-names
                                 onClick={() => {
-                                  handleUpdateTalkRoom(talkRoom.node?.id ? talkRoom.node.id : "");
+                                  handleUpdateTalkRoom(
+                                    talkRoom.node?.id ? talkRoom.node.id : "",
+                                    talkRoom.node?.selectedPlan?.planAuthor.id
+                                      ? talkRoom.node.selectedPlan.planAuthor.id
+                                      : "",
+                                  );
                                 }}
                               >
                                 このユーザーからの申込を承認する

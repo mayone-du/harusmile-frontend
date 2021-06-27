@@ -23,6 +23,9 @@ export const useSearch = () => {
 
   const handleSearch = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (inputSearchKeyword === "") {
+      return;
+    }
     router.push({
       pathname: "/results",
       query: {

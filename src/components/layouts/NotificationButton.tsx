@@ -121,7 +121,7 @@ export const NotificationButton: React.VFC = () => {
                   </span>
                   さんから
                   <span className="font-bold">{notification?.node?.notificationType}</span>
-                  が送られました。
+                  がありました。
                   <span className="text-xs text-gray-500 absolute right-2 bottom-1">
                     {fixDateFormat(notification?.node?.createdAt)}
                   </span>

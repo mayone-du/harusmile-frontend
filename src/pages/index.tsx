@@ -35,7 +35,7 @@ type PropsGetCollegeProfilesQuery<T> = {
 const Index: NextPage<PropsGetCollegeProfilesQuery<GetCollegeProfilesQuery>> = (props) => {
   return (
     <Layout spHeaderTitle="ホーム" metaTitle="ハルスマイル | 大学生と高校生のマッチングサービス">
-      <section className="md:py-10 py-4 md:mt-10 md:mb-20 my-4 bg-pink-50 rounded-xl">
+      <section className="md:py-10 py-4 md:mt-10 md:mb-20 my-4 md:block hidden bg-pink-50 rounded-xl">
         <h2 className="md:py-10 py-2 md:text-4xl text-xl font-bold text-center text-gray-600 dark:text-white">
           全く新しい大学受験メンタリングの形
         </h2>

@@ -34,4 +34,4 @@ yarn-error.log*
 .vercel
 
 # sw
-/sw.js.map
+/public/sw.js.map

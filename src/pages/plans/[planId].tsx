@@ -9,6 +9,7 @@ import {
   useGetLoginUserTalkRoomsQuery,
   useGetPlanQuery,
 } from "src/apollo/schema";
+import { useCreateNotificationMutation } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
 import { Review } from "src/components/reviews/Review";
 import { useDeletePlan } from "src/libs/hooks/plans/useDeletePlan";
@@ -25,6 +26,7 @@ const PlanDetail: NextPage = () => {
   const { data: loginUserTalkRoomsData } = useGetLoginUserTalkRoomsQuery();
   const { handleRefreshToken } = useRefreshTokens();
   const [createTalkRoomMutation] = useCreateTalkRoomMutation();
+  const [createNotificationMutation] = useCreateNotificationMutation();
   const { handleDeletePlan } = useDeletePlan();
   const {
     inputTitle,
@@ -67,6 +69,12 @@ const PlanDetail: NextPage = () => {
           talkRoomDescription: `${planData?.plan?.planAuthor.targetUser?.profileName} | ${loginUserData.profileName}`,
         },
       });
+      await createNotificationMutation({
+        variables: {
+          recieverId: planData?.plan?.planAuthor.id ? planData.plan.planAuthor.id : "",
+          notificationType: "申し込み",
+        },
+      });
       router.push("/talks");
       toast.success("トークルームが作成されました。");
     } catch (error) {
@@ -74,6 +82,7 @@ const PlanDetail: NextPage = () => {
     }
   };
 
+  // タブや編集切り替えのstate
   const [isEditMode, setIsEditMode] = useState(false);
   const [pickOpenTab, setPickOpenTab] = useState<"plan" | "review">("plan");
   const handleEditModeChange = () => {
