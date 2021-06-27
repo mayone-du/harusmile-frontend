@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import { useState } from "react";
 import { Layout } from "src/components/layouts/Layout";
+import { CONTACT_SLACK_WEBHOOK_URL } from "src/utils/API_ENDPOINTS";
 
 const Contact: NextPage = () => {
   const [inputEmail, setInputEmail] = useState("");
@@ -31,7 +32,7 @@ const Contact: NextPage = () => {
       ${inputContent}
       `,
     };
-    const slack_webhook_url = process.env.NEXT_PUBLIC_SLACK_WEBHOOK_URL;
+    const slack_webhook_url = CONTACT_SLACK_WEBHOOK_URL;
 
     try {
       slack_webhook_url &&
