@@ -320,14 +320,14 @@ export const TalkWrapper: React.VFC = () => {
                         </p>
                       </div>
                       <ul>
-                        {talkRoom.node.talkingRoom.edges.length === 0 && (
+                        {/* {talkRoom.node.talkingRoom.edges.length === 0 && (
                           <p className="py-4 text-center">トークを開始しましょう</p>
-                        )}
+                        )} */}
                         {!talkRoom.node.isApprove && (
                           <div>
                             {talkRoom.node.selectedPlan?.planAuthor.id === loginUserData.userId ? (
                               <button
-                                className="border block p-2"
+                                className="border block p-2 mx-auto my-4"
                                 // eslint-disable-next-line react/jsx-handler-names
                                 onClick={() => {
                                   handleUpdateTalkRoom(

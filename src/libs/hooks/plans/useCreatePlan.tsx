@@ -7,6 +7,7 @@ export const useCreatePlan = () => {
   const [inputTitle, setInputTitle] = useState("");
   const [inputContent, setInputContent] = useState("");
   const [inputPrice, setInputPrice] = useState("");
+  const [planImageFile, setPlanImageFile] = useState<File | null>(null);
   const [createPlanMutation] = useCreatePlanMutation({
     refetchQueries: [{ query: GetLoginUserPlansDocument }],
   });
@@ -25,6 +26,10 @@ export const useCreatePlan = () => {
     setInputPrice(event.target.value);
   }, []);
 
+  // プロフ画像のイベントハンドラ
+  const handlePlanImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) setPlanImageFile(e.target.files[0]);
+  };
   const handlePlanCreate = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (inputTitle === "") {
@@ -47,12 +52,14 @@ export const useCreatePlan = () => {
           content: inputContent,
           price: parseFloat(inputPrice),
           isPublished: true,
+          planImage: planImageFile,
         },
       });
       toast.success("プランが作成されました。");
       setInputTitle("");
       setInputContent("");
       setInputPrice("");
+      setPlanImageFile(null);
     } catch (error) {
       alert(error);
       return;
@@ -62,9 +69,11 @@ export const useCreatePlan = () => {
     inputTitle,
     inputContent,
     inputPrice,
+    planImageFile,
     handleTitleChange,
     handleContentChange,
     handlePriceChange,
+    handlePlanImageChange,
     handlePlanCreate,
   };
 };

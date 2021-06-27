@@ -18,6 +18,7 @@ const PlansIndex: NextPage = () => {
     handleTitleChange,
     handleContentChange,
     handlePriceChange,
+    handlePlanImageChange,
     handlePlanCreate,
   } = useCreatePlan();
   // TODO: プランの更新
@@ -49,6 +50,11 @@ const PlansIndex: NextPage = () => {
               placeholder="金額を入力"
               value={inputPrice}
               onChange={handlePriceChange}
+            />
+            <input
+              type="file"
+              className="border p-2 block w-full"
+              onChange={handlePlanImageChange}
             />
             <button
               type="submit"

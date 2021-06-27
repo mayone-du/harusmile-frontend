@@ -1,11 +1,11 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/dist/client/router";
 import { useGetProfileQuery } from "src/apollo/schema";
-import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { Layout } from "src/components/layouts/Layout";
 import { Plan } from "src/components/plans/Plan";
 import { NormalProfile } from "src/components/profiles/NormalProfile";
 import { ProfileLoading } from "src/components/profiles/ProfileLoading";
+import { Review } from "src/components/reviews/Review";
 
 const ProfileDetail: NextPage = () => {
   // 開いてる相手のプロフィールのIDからデータを取得
@@ -63,7 +63,13 @@ const ProfileDetail: NextPage = () => {
                 <h2 className="bg-gray-200 p-2 text-sm">プラン一覧</h2>
                 <div>
                   <ul>
-                    {profileData.profile.targetUser.planAuthor.edges ? (
+                    {/* プランがない場合 */}
+                    {profileData.profile.targetUser.planAuthor.edges.length === 0 && (
+                      <li>プランはまだありません。</li>
+                    )}
+                    {/* プランがある場合 */}
+                    {profileData.profile.targetUser.planAuthor.edges.length !== 0 &&
+                      profileData.profile.targetUser.planAuthor.edges &&
                       profileData.profile.targetUser.planAuthor.edges.map((plan, index) => {
                         return (
                           plan?.node && (
@@ -77,33 +83,38 @@ const ProfileDetail: NextPage = () => {
                             />
                           )
                         );
-                      })
-                    ) : (
-                      <div>no plans</div>
-                    )}
+                      })}
                   </ul>
                 </div>
               </section>
 
               <section className="py-10">
-                <h2 className="text-center p-2 text-gray-600 text-xl font-bold">レビュー一覧</h2>
-                {profileData.profile.targetUser.provider.edges.map((review, index) => {
-                  return (
-                    <div key={index} className="my-4 flex items-center border-b">
-                      <div>
-                        <ProfileImageIcon
-                          profileImagePath={review?.node?.customer.targetUser?.profileImage}
-                          className="block border rounded-full w-20 h-20 object-cover"
+                <h2 className="flex p-2 text-sm items-center justify-between bg-gray-200">
+                  レビュー一覧
+                </h2>
+                <ul>
+                  {/* レビューがない場合 */}
+                  {profileData.profile.targetUser.provider.edges.length === 0 && (
+                    <li>レビューはまだありません。</li>
+                  )}
+                  {/* レビューがある場合 */}
+                  {profileData.profile.targetUser.provider.edges.length !== 0 &&
+                    profileData.profile.targetUser.provider.edges.map((review, index) => {
+                      return (
+                        <Review
+                          key={index}
+                          customerImagePath={review?.node?.customer.targetUser?.profileImage}
+                          customerName={
+                            review?.node?.customer.targetUser?.profileName
+                              ? review.node.customer.targetUser.profileName
+                              : ""
+                          }
+                          reviewStars={review?.node?.stars ? review.node.stars : 0}
+                          reviewText={review?.node?.reviewText ? review.node.reviewText : ""}
                         />
-                        <p>{review?.node?.customer.targetUser?.profileName}</p>
-                      </div>
-                      <div>
-                        <div>{review?.node?.reviewText}</div>
-                        <div>{review?.node?.stars.toString()}</div>
-                      </div>
-                    </div>
-                  );
-                })}
+                      );
+                    })}
+                </ul>
               </section>
             </div>
           )}

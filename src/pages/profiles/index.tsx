@@ -1,18 +1,19 @@
+import { useReactiveVar } from "@apollo/client";
 import type { NextPage } from "next";
 import { useRouter } from "next/dist/client/router";
 import Link from "next/link";
 import { parseCookies } from "nookies";
 import { useEffect } from "react";
+import { loginUserVar } from "src/apollo/cache";
 import { useGetLoginUserPlansQuery, useGetLoginUserReviewsQuery } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
 import { Plan } from "src/components/plans/Plan";
 import { NormalProfile } from "src/components/profiles/NormalProfile";
 import { Review } from "src/components/reviews/Review";
-import { useSetLoginUserData } from "src/libs/hooks/users/useSetLoginUserData";
 
 const ProfilesIndex: NextPage = () => {
   const router = useRouter();
-  const { loginUserData } = useSetLoginUserData();
+  const loginUserData = useReactiveVar(loginUserVar);
   const { data: reviewData } = useGetLoginUserReviewsQuery();
   const { data: plansData } = useGetLoginUserPlansQuery();
   const cookies = parseCookies();

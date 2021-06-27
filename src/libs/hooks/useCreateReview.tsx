@@ -61,7 +61,7 @@ export const useCreateReview = () => {
           notificationType: "レビュー",
         },
       });
-      toast("レビューが送信されました。");
+      toast.success("レビューが送信されました。");
       setInputRevewText("");
       setInputStars("");
       setIsOpen(false);

@@ -15,6 +15,7 @@ import { Review } from "src/components/reviews/Review";
 import { useDeletePlan } from "src/libs/hooks/plans/useDeletePlan";
 import { useUpdatePlan } from "src/libs/hooks/plans/useUpdatePlan";
 import { useRefreshTokens } from "src/libs/hooks/useRefreshTokens";
+import { MEDIAFILE_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
 
 const PlanDetail: NextPage = () => {
   const loginUserData = useReactiveVar(loginUserVar);
@@ -161,6 +162,7 @@ const PlanDetail: NextPage = () => {
               ) : (
                 // 通常時
                 <div>
+                  {/* タブボタン */}
                   <div className="flex items-center text-sm">
                     <button
                       className={`p-2 block border w-1/2 ${
@@ -183,14 +185,27 @@ const PlanDetail: NextPage = () => {
                     このプランの作成者：{planData?.plan?.planAuthor.targetUser?.profileName}
                   </div>
                   {pickOpenTab === "plan" ? (
+                    // プランについて
                     <div className="my-2 p-2 border">
                       <h2 className="text-center text-lg py-2 font-bold">
                         {planData?.plan?.title}
                       </h2>
+                      {planData.plan.planImage === "" ? (
+                        <div className="flex items-center justify-center w-full h-32 border">
+                          サムネイルが設定されていません。
+                        </div>
+                      ) : (
+                        <img
+                          src={`${MEDIAFILE_API_ENDPOINT}${planData.plan.planImage}`}
+                          className="block object-cover w-full h-32"
+                          alt="プランのサムネイル"
+                        />
+                      )}
                       <p className="text-sm">{planData?.plan?.content}</p>
                       <div>{planData?.plan?.price.toString()}円</div>
                     </div>
                   ) : (
+                    // プラン作成者
                     <div>
                       <div>名前：{planData.plan.planAuthor.targetUser.profileName}</div>
                       <h3 className="bg-gray-200 my-2 p-2">この人のレビュー</h3>
@@ -218,11 +233,14 @@ const PlanDetail: NextPage = () => {
 
               {/* 高校生の場合 */}
               {!loginUserData.isCollegeStudent && loginUserData.isLogin ? (
-                <button className="p-2 border" onClick={handleCreateTalkRoom}>
+                <button
+                  className="p-2 border border-pink-400 text-pink-400"
+                  onClick={handleCreateTalkRoom}
+                >
                   このプランに申し込む
                 </button>
               ) : (
-                <button className="border p-2" disabled>
+                <button className="border p-2 border-black" disabled>
                   高校生のみ申込可能です。
                 </button>
               )}
