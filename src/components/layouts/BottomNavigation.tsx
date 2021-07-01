@@ -55,7 +55,7 @@ export const BottomNavigation: React.VFC<Props> = (props) => {
               <Link href="/">
                 <a className={`flex flex-col items-center`}>
                   <HomeSvg className="h-6 w-6" />
-                  <span className="block text-xs text-gray-600">ホーム</span>
+                  <span className="block text-xs text-gray-600 dark:text-white">ホーム</span>
                 </a>
               </Link>
             </li>
@@ -64,7 +64,7 @@ export const BottomNavigation: React.VFC<Props> = (props) => {
               <Link href="/talks">
                 <a className="flex flex-col items-center">
                   <TalkSvg className="h-6 w-6" />
-                  <span className="block text-xs text-gray-600">メッセージ</span>
+                  <span className="block text-xs text-gray-600 dark:text-white">メッセージ</span>
                 </a>
               </Link>
             </li>
@@ -96,7 +96,7 @@ export const BottomNavigation: React.VFC<Props> = (props) => {
                     className="w-6 h-6 rounded-full object-cover"
                     profileImagePath={props.profileImagePath}
                   />
-                  <span className="block text-xs text-gray-600">マイページ</span>
+                  <span className="block text-xs text-gray-600 dark:text-white">マイページ</span>
                 </a>
               </Link>
             </li>

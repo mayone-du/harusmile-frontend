@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Link from "next/link";
-import { AuthForm } from "src/components/AuthForm";
+import { AuthForm } from "src/components/auth/AuthForm";
 import { Layout } from "src/components/layouts/Layout";
 
 const SignUp: NextPage = () => {

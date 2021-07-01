@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
+import { SignOut as SignOutComponent } from "src/components/auth/SignOut";
 import { Layout } from "src/components/layouts/Layout";
-import { SignOut as SignOutComponent } from "src/components/SignOut";
 
 const SignOut: NextPage = () => {
   return (

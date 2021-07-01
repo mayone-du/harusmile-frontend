@@ -24,7 +24,7 @@ export const Header: React.VFC<Props> = memo((props) => {
           <div className="mx-2">
             <Link href="/">
               <a>
-                <Image src="/images/logo.png" width={200} height={70} className="object-cover" />
+                <Image src="/images/logo.png" width={235} height={50} objectFit="cover" />
               </a>
             </Link>
           </div>
@@ -93,7 +93,7 @@ export const Header: React.VFC<Props> = memo((props) => {
               />
             </a>
           </Link>
-          <h2 className="font-bold text-center w-full py-2 text-xl text-gray-700">
+          <h2 className="font-bold dark:text-white text-center w-full py-2 text-xl text-gray-700">
             {props.spHeaderTitle}
           </h2>
           {loginUserData.isLogin && (

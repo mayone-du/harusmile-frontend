@@ -31,7 +31,7 @@ export const SearchBox: React.VFC = () => {
                 value={inputSearchKeyword}
                 onChange={handleSearchKeywordChange}
               />
-              <button className="md:p-4 p-2 bg-white border-t border-r border-b">
+              <button className="md:p-4 p-2 dark:bg-gray-700 bg-white border-t border-r border-b">
                 <SearchSvg className="w-6 h-6" />
               </button>
             </form>
