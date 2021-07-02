@@ -60,7 +60,7 @@ const ProfileDetail: NextPage = () => {
           {profileData.profile.isCollegeStudent && (
             <div>
               <section className="py-10">
-                <h2 className="bg-gray-200 p-2 text-sm">プラン一覧</h2>
+                <h2 className="bg-gray-200 p-2 text-sm dark:text-gray-600">プラン一覧</h2>
                 <div>
                   <ul>
                     {/* プランがない場合 */}
@@ -89,7 +89,7 @@ const ProfileDetail: NextPage = () => {
               </section>
 
               <section className="py-10">
-                <h2 className="flex p-2 text-sm items-center justify-between bg-gray-200">
+                <h2 className="flex p-2 text-sm items-center justify-between bg-gray-200 dark:text-gray-600">
                   レビュー一覧
                 </h2>
                 <ul>

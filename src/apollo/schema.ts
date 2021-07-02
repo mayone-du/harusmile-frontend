@@ -1975,7 +1975,7 @@ export type GetLoginUserTalkRoomsQuery = (
             & Pick<UserNode, 'id'>
             & { targetUser?: Maybe<(
               { __typename?: 'ProfileNode' }
-              & Pick<ProfileNode, 'profileName' | 'profileImage'>
+              & Pick<ProfileNode, 'id' | 'profileName' | 'profileImage'>
             )> }
           ) }
         )>, talkingRoom: (
@@ -3454,6 +3454,7 @@ export const GetLoginUserTalkRoomsDocument = gql`
           planAuthor {
             id
             targetUser {
+              id
               profileName
               profileImage
             }

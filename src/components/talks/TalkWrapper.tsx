@@ -1,4 +1,5 @@
 import { useReactiveVar } from "@apollo/client";
+import Link from "next/link";
 import { parseCookies } from "nookies";
 import { useEffect } from "react";
 import { toast } from "react-hot-toast";
@@ -141,42 +142,48 @@ export const TalkWrapper: React.VFC = () => {
                 <div className="border shadow-md" key={talkRoomIndex}>
                   <div className="flex justify-between items-center p-2 md:px-10 border-b border-gray-500">
                     {/* 会話相手のプロフィール */}
-
-                    {/* {talkRoom.node.opponentUser && ( */}
-                    <div className="flex items-center">
-                      {/* レビューモーダル */}
-                      <Modal
-                        isOpen={isModalOpen}
-                        onRequestClose={handleModalClose}
-                        style={customStyles}
-                        contentLabel={`${talkRoom?.node?.opponentUser?.email} Modal`}
-                        ariaHideApp={false}
-                      >
-                        <InnerReviewModal talkRoom={talkRoom} />
-                      </Modal>
-
-                      <ProfileImageIcon
-                        className="w-10 h-10 object-cover"
-                        // 相手のプロフィール画像を渡す
-                        profileImagePath={
-                          talkRoom?.node?.selectedPlan?.planAuthor.id === loginUserData.userId
-                            ? talkRoom.node.opponentUser?.targetUser?.profileImage
-                            : talkRoom.node.selectedPlan?.planAuthor.targetUser?.profileImage
-                        }
-                      />
-                      <div className="md:px-6 px-2">
-                        <p className="md:text-lg font-bold">
-                          {/* トークルームのプラン作成者が自分と同じだったら相手のプロフィールを表示 */}
-                          {talkRoom?.node?.selectedPlan?.planAuthor.id === loginUserData.userId
-                            ? talkRoom.node.opponentUser?.targetUser?.profileName
-                            : talkRoom.node.selectedPlan?.planAuthor.targetUser?.profileName}
-                        </p>
-                        <p className="md:text-base text-sm text-gray-600 dark:text-white">
-                          {talkRoom?.node?.opponentUser?.targetUser?.schoolName}
-                        </p>
-                      </div>
-                    </div>
-                    {/* )} */}
+                    <Link
+                      href={`/profiles/detail/${
+                        talkRoom?.node?.selectedPlan?.planAuthor.id === loginUserData.userId
+                          ? talkRoom.node.opponentUser?.targetUser?.id
+                          : talkRoom.node.selectedPlan?.planAuthor?.targetUser?.id
+                      }`}
+                    >
+                      <a>
+                        <div className="flex items-center">
+                          <ProfileImageIcon
+                            className="w-10 h-10 object-cover"
+                            // 相手のプロフィール画像を渡す
+                            profileImagePath={
+                              talkRoom?.node?.selectedPlan?.planAuthor.id === loginUserData.userId
+                                ? talkRoom.node.opponentUser?.targetUser?.profileImage
+                                : talkRoom.node.selectedPlan?.planAuthor.targetUser?.profileImage
+                            }
+                          />
+                          <div className="md:px-6 px-2">
+                            <p className="md:text-lg font-bold">
+                              {/* トークルームのプラン作成者が自分と同じだったら相手のプロフィールを表示 */}
+                              {talkRoom?.node?.selectedPlan?.planAuthor.id === loginUserData.userId
+                                ? talkRoom.node.opponentUser?.targetUser?.profileName
+                                : talkRoom.node.selectedPlan?.planAuthor.targetUser?.profileName}
+                            </p>
+                            <p className="md:text-base text-sm text-gray-600 dark:text-white">
+                              {talkRoom?.node?.opponentUser?.targetUser?.schoolName}
+                            </p>
+                          </div>
+                        </div>
+                      </a>
+                    </Link>
+                    {/* レビューモーダル */}
+                    <Modal
+                      isOpen={isModalOpen}
+                      onRequestClose={handleModalClose}
+                      style={customStyles}
+                      contentLabel={`${talkRoom?.node?.opponentUser?.email} Modal`}
+                      ariaHideApp={false}
+                    >
+                      <InnerReviewModal talkRoom={talkRoom} />
+                    </Modal>
 
                     {/* 高校生のみレビューを書ける */}
                     {!loginUserData.isCollegeStudent && (

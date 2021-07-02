@@ -21,7 +21,7 @@ export const SearchBox: React.VFC = () => {
           </div>
         </h2>
         <div className="md:mx-32">
-          <div className="md:py-10 py-4 md:px-6 px-2 bg-blue-100">
+          <div className="md:py-10 py-4 md:px-6 px-2 bg-blue-100 dark:bg-gray-700">
             <p className="md:text-base text-sm">フリーワード検索</p>
             <form className="flex items-center" onSubmit={handleSearch}>
               <input
