@@ -58,7 +58,7 @@ const ProfilesIndex: NextPage = () => {
             <div>
               <section className="py-10">
                 <div className="flex items-center justify-between bg-gray-200">
-                  <p className="px-2 text-gray-600 text-sm">プラン一覧</p>
+                  <p className="px-2 text-gray-600 dark:text-white text-sm">プラン一覧</p>
                   <Link href="/plans">
                     <a className="py-2 px-4 text-white text-sm bg-pink-400">編集</a>
                   </Link>
@@ -86,7 +86,7 @@ const ProfilesIndex: NextPage = () => {
               {/* レビュー */}
               <section>
                 <div className="flex items-center justify-between bg-gray-200">
-                  <p className="p-2 text-sm text-gray-600">レビュー一覧</p>
+                  <p className="p-2 text-sm text-gray-600 dark:text-white">レビュー一覧</p>
                 </div>
                 <div>
                   <h3 className="font-bold text-sm">総合評価</h3>

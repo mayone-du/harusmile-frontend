@@ -9,21 +9,6 @@ import { fixDateFormat } from "src/libs/fixDateFormat";
 import { useRefreshTokens } from "src/libs/hooks/useRefreshTokens";
 
 export const NotificationButton: React.VFC = () => {
-  // モーダル用style
-  const customStyles = {
-    content: {
-      top: "20%",
-      left: "50%",
-      right: "auto",
-      bottom: "auto",
-      width: "330px",
-      transform: "translateX(-50%)",
-    },
-    overlay: {
-      background: "rgba(255, 255, 255, 0.6)",
-    },
-  };
-
   // 本番時のみ3秒ごとにポーリング
   const { data: notificationsData } = useGetLoginUserNotificationQuery({
     fetchPolicy: "network-only",
@@ -81,7 +66,9 @@ export const NotificationButton: React.VFC = () => {
             d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
           />
         </svg>
-        <span className="block text-xs dark:text-white text-gray-600">お知らせ</span>
+        <span className="block text-xs dark:text-white text-gray-600 dark:text-white">
+          お知らせ
+        </span>
         {/* 通知マーク */}
         {notificationsData?.loginUserNotifications &&
           notificationsData.loginUserNotifications.edges.length > 0 && (
@@ -92,7 +79,7 @@ export const NotificationButton: React.VFC = () => {
       <Modal
         isOpen={isNotificationOpen}
         onRequestClose={handleNotificationClose}
-        style={customStyles}
+        className="dark:bg-gray-700 absolute top-20 p-4 w-4/5 rounded-md left-1/2 transform -translate-x-1/2"
         contentLabel={`Notification Modal`}
         ariaHideApp={false}
       >

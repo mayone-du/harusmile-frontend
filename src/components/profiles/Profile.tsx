@@ -35,12 +35,16 @@ export const Profile: React.VFC<Props> = (props) => {
               {/* {props.age.toString() === "0" ? "年齢未設定" : `${props.age.toString()}歳`} */}
               {props.isCollegeStudent ? "大学生" : "高校生"}
             </p>
-            <div className="text-gray-600 md:text-base text-xs">{props.schoolName}</div>
+            <div className="text-gray-600 dark:text-white md:text-base text-xs">
+              {props.schoolName}
+            </div>
           </div>
         </div>
 
         {/* プロフィールテキスト */}
-        <div className="md:p-4 p-2 md:text-sm text-xs text-gray-600">{props.profileText}</div>
+        <div className="md:p-4 p-2 md:text-sm text-xs text-gray-600 dark:text-white">
+          {props.profileText}
+        </div>
 
         {props.isCollegeStudent && (
           <div>

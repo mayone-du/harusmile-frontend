@@ -171,7 +171,7 @@ export const TalkWrapper: React.VFC = () => {
                             ? talkRoom.node.opponentUser?.targetUser?.profileName
                             : talkRoom.node.selectedPlan?.planAuthor.targetUser?.profileName}
                         </p>
-                        <p className="md:text-base text-sm text-gray-600">
+                        <p className="md:text-base text-sm text-gray-600 dark:text-white">
                           {talkRoom?.node?.opponentUser?.targetUser?.schoolName}
                         </p>
                       </div>

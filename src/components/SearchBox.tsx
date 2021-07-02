@@ -15,8 +15,8 @@ export const SearchBox: React.VFC = () => {
     <div>
       <section className="md:pb-20 pb-6">
         <h2 className="flex justify-center items-center">
-          <CheckSvg className="md:mx-6 mx-2 md:w-12 md:h-12 w-6 h-6 text-gray-600" />
-          <div className="md:py-10 py-4 md:text-5xl text-lg font-bold text-center text-gray-600 dark:text-white">
+          <CheckSvg className="md:mx-6 mx-2 md:w-12 md:h-12 w-6 h-6 text-gray-600 dark:text-white" />
+          <div className="md:py-10 py-4 md:text-5xl text-lg font-bold text-center text-gray-600 dark:text-white dark:text-white">
             条件から探す
           </div>
         </h2>

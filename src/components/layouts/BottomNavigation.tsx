@@ -19,14 +19,14 @@ export const BottomNavigation: React.VFC<Props> = (props) => {
   // ローディング中
   if (props.isLoading) {
     return (
-      <nav className="md:hidden fixed border-t border-b bottom-0 w-full z-10 bg-white">
+      <nav className="md:hidden fixed border-t border-b dark:border-b-0 bottom-0 w-full z-10 bg-white">
         {props.isLoading && <BottomNavigationLoading />}
       </nav>
     );
   }
   return (
     <div>
-      <nav className="md:hidden fixed border-t border-b bottom-0 w-full z-10 bg-white dark:bg-black">
+      <nav className="md:hidden fixed border-t border-b dark:border-b-0 bottom-0 w-full z-10 bg-white dark:bg-black">
         {/* 非ログイン時 */}
         {!props.isLogin && !props.isLoading && (
           <ul className="flex items-center justify-around pt-2 pb-4">
