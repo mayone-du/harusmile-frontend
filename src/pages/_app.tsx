@@ -25,7 +25,7 @@ const App = (props: AppProps, context: NextPageContext) => {
   return (
     <div>
       <ApolloProvider client={apolloClient}>
-        <ThemeProvider attribute="class">
+        <ThemeProvider defaultTheme="light" attribute="class">
           <props.Component {...props.pageProps} />
           <Toaster
             toastOptions={{
