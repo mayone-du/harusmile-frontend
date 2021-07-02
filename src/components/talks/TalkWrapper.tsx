@@ -198,14 +198,17 @@ export const TalkWrapper: React.VFC = () => {
                   {/* トーク部分 */}
                   <div className="overflow-y-scroll max-h-96">
                     <div>
-                      <div className="border m-2">
-                        <p>プランのタイトル：{talkRoom.node.selectedPlan?.title}</p>
-                        <p className="text-xs">{talkRoom.node.selectedPlan?.content}</p>
-                        <p className="text-sm">
-                          料金：
-                          {talkRoom.node.selectedPlan?.price.toString()}
-                        </p>
-                      </div>
+                      <Link href={`/plans/${talkRoom.node.selectedPlan?.id}`}>
+                        <a className="block border m-2">
+                          <p>プランのタイトル：{talkRoom.node.selectedPlan?.title}</p>
+                          <p className="text-xs">{talkRoom.node.selectedPlan?.content}</p>
+                          <p className="text-sm">
+                            料金：
+                            {talkRoom.node.selectedPlan?.price.toString()}
+                          </p>
+                        </a>
+                      </Link>
+
                       <ul>
                         {/* {talkRoom.node.talkingRoom.edges.length === 0 && (
                           <p className="py-4 text-center">トークを開始しましょう</p>
@@ -253,7 +256,7 @@ export const TalkWrapper: React.VFC = () => {
                     <div className="flex items-center">
                       <input
                         type="text"
-                        className="block p-4 w-5/6 border"
+                        className="block px-2 h-12 w-5/6 border"
                         placeholder="メッセージを入力"
                         value={inputText}
                         onChange={handleInputChange}
@@ -262,7 +265,7 @@ export const TalkWrapper: React.VFC = () => {
                       {/* 引数に相手のuserIdを渡して通知を作成 */}
                       {talkRoom.node.opponentUser && talkRoom.node.isApprove && (
                         <button
-                          className="flex items-center bg-pink-400 md:py-4 py-2 justify-center text-white w-1/5"
+                          className="flex items-center border bg-pink-400 h-12 justify-center text-white w-1/5"
                           // eslint-disable-next-line react/jsx-handler-names
                           onClick={() => {
                             {
@@ -285,7 +288,7 @@ export const TalkWrapper: React.VFC = () => {
                             }
                           }}
                         >
-                          <span className="block px-2 md:text-lg text-sm md:py-0 py-2">送信</span>
+                          <span className="block px-2 md:text-lg text-sm md:py-0">送信</span>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="w-5 h-5 transform rotate-90"

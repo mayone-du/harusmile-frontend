@@ -16,7 +16,9 @@ export const Message: React.VFC<Props> = (props) => {
       <div className="px-4">
         <div
           className={`inline-block py-2 px-4 rounded-3xl ${
-            props.senderId === props.loginUserId ? "bg-pink-200" : "bg-blue-200"
+            props.senderId === props.loginUserId
+              ? "bg-pink-200 dark:bg-pink-400"
+              : "bg-blue-200 dark:bg-blue-400"
           }`}
         >
           {props.text}
