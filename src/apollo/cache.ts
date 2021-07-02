@@ -33,3 +33,5 @@ export const initialLoginUserVar: LoginUser = {
   followingUsers: [],
 };
 export const loginUserVar = makeVar<LoginUser>(initialLoginUserVar);
+
+export const openTalkRoomIdVar = makeVar("");

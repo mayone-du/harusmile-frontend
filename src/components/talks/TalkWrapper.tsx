@@ -1,9 +1,9 @@
 import { useReactiveVar } from "@apollo/client";
 import { parseCookies } from "nookies";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { toast } from "react-hot-toast";
 import Modal from "react-modal";
-import { loginUserVar } from "src/apollo/cache";
+import { loginUserVar, openTalkRoomIdVar } from "src/apollo/cache";
 import {
   GetLoginUserTalkRoomsDocument,
   useGetLoginUserTalkRoomsLazyQuery,
@@ -12,8 +12,9 @@ import {
 import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { InitialTalkDetail } from "src/components/talks/InitialTalkDetail";
 import { Message } from "src/components/talks/Message";
+import { InnerReviewModal } from "src/components/talks/ReviewInnerModal";
 import { SkeletonLoading } from "src/components/talks/SkeletonLoading";
-import { fixDateFormat } from "src/libs/fixDateFormat";
+import { TalkList } from "src/components/talks/TalkList";
 import { useCreateMessages } from "src/libs/hooks/useCreateMessages";
 import { useCreateReview } from "src/libs/hooks/useCreateReview";
 import { useRefreshTokens } from "src/libs/hooks/useRefreshTokens";
@@ -23,6 +24,7 @@ export const TalkWrapper: React.VFC = () => {
   const cookies = parseCookies();
   const { handleRefreshToken } = useRefreshTokens();
   const loginUserData = useReactiveVar(loginUserVar);
+  const openTalkRoomId = useReactiveVar(openTalkRoomIdVar);
 
   const { loginUserData: validatedLoginUserData } = useValidateLoginUser();
   // ログインユーザーが参加しているトークルームのデータを取得
@@ -51,15 +53,8 @@ export const TalkWrapper: React.VFC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // どのトークルームを開くかのstate ボタンのIDに付与する相手のユーザーID
-  const [openTalkRoomId, setOpenTalkRoomId] = useState("");
-  const handleOpenTalkRoomChange = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setOpenTalkRoomId(e.currentTarget.id);
-  };
-
   // メッセージ作成
   // 通知作成
-
   const {
     createMessageMutation,
     inputText,
@@ -93,17 +88,7 @@ export const TalkWrapper: React.VFC = () => {
   }, [openTalkRoomId, setInputText]);
 
   // モーダル
-  const {
-    customStyles,
-    handleModalOpen,
-    handleModalClose,
-    handleCreateReview,
-    isModalOpen,
-    inputRevewText,
-    handleReviewTextChange,
-    inputStars,
-    handleStarsChange,
-  } = useCreateReview();
+  const { customStyles, handleModalOpen, handleModalClose, isModalOpen } = useCreateReview();
   // TODO: トークルームを最新順に並べ替え (Query自体を書き直す必要ありかも？)
 
   const [updateTalkRoomMutation] = useUpdateTalkRoomMutation({
@@ -143,68 +128,7 @@ export const TalkWrapper: React.VFC = () => {
 
         {/* <div>{messagesError && messagesError.message}</div> */}
         <ul className="border shadow-md max-h-72 overflow-y-scroll">
-          {talkRoomsData?.loginUserTalkRooms?.edges.map((talkRoom, index) => {
-            return (
-              // 自分が参加しているトークルームの一覧を返す
-              <li className="border-t border-b relative" key={index}>
-                {/* {talkRoom?.node?.talkingRoom.edges.slice(-1)[0]?.node?.sender.email} */}
-                {talkRoom?.node?.id ? (
-                  <button
-                    className={`flex items-center py-2 md:px-4 px-2 w-full focus:outline-none ${
-                      openTalkRoomId === talkRoom.node.id && "bg-pink-100"
-                    }`}
-                    onClick={handleOpenTalkRoomChange}
-                    id={talkRoom.node.id}
-                  >
-                    {/* トークルームの相手を表示 */}
-                    {talkRoom.node.opponentUser && (
-                      // 自分を除外したプロフィール
-                      <div className="flex items-center">
-                        <ProfileImageIcon
-                          className="block w-14 h-14 object-cover rounded-full border"
-                          profileImagePath={
-                            talkRoom.node.opponentUser.id === loginUserData.userId
-                              ? talkRoom.node.selectedPlan?.planAuthor.targetUser?.profileImage
-                              : talkRoom.node.opponentUser.targetUser?.profileImage
-                          }
-                        />
-                        <div className="px-4 text-left">
-                          {/* 自分以外のプロフィールを表示 */}
-                          <div>
-                            {talkRoom.node.opponentUser.id === loginUserData.userId
-                              ? talkRoom.node.selectedPlan?.planAuthor.targetUser?.profileName
-                              : talkRoom.node.opponentUser.targetUser?.profileName}
-                          </div>
-                          {/* 最後にやり取りしたメッセージ */}
-                          <div>
-                            {talkRoom.node?.talkingRoom.edges.slice(-1)[0]?.node?.text.slice(0, 10)}
-                            {talkRoom.node?.talkingRoom.edges.length === 0 &&
-                              "トークを始めましょう"}
-
-                            {/* TODO: type narrowing */}
-                            {/* {talkRoom.node?.talkingRoom.edges.slice(-1)[0]?.node?.text
-                                  .length !== undefined &&
-                                talkRoom.node.talkingRoom.edges.slice(-1)[0].node.text.length >= 10
-                                  ? "..."
-                                  : ""} */}
-                            {talkRoom.node?.talkingRoom.edges.length !== 0 && (
-                              <span className="absolute text-gray-500 text-xs right-4 bottom-4">
-                                {fixDateFormat(
-                                  talkRoom.node?.talkingRoom.edges.slice(-1)[0]?.node?.createdAt,
-                                )}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </button>
-                ) : (
-                  <div>error</div>
-                )}
-              </li>
-            );
-          })}
+          <TalkList talkRoomsData={talkRoomsData} />
         </ul>
       </aside>
 
@@ -228,52 +152,7 @@ export const TalkWrapper: React.VFC = () => {
                         contentLabel={`${talkRoom?.node?.opponentUser?.email} Modal`}
                         ariaHideApp={false}
                       >
-                        <div className="py-2 px-12 pb-6 w-96">
-                          <h4 className="py-2 md:text-lg text-base font-bold">
-                            {talkRoom?.node?.opponentUser?.id === loginUserData.userId
-                              ? talkRoom.node.selectedPlan?.planAuthor.targetUser?.profileName
-                              : talkRoom?.node?.opponentUser?.targetUser?.profileName}
-                            にレビューする
-                          </h4>
-                          <form
-                            className="block"
-                            // eslint-disable-next-line react/jsx-handler-names
-                            onSubmit={(event: React.ChangeEvent<HTMLFormElement>) => {
-                              event.preventDefault();
-                              const providerId =
-                                talkRoom?.node?.opponentUser?.id === loginUserData.userId
-                                  ? talkRoom.node.selectedPlan?.planAuthor.id
-                                  : talkRoom?.node?.opponentUser?.id;
-                              return handleCreateReview(providerId ? providerId : "");
-                            }}
-                          >
-                            <input
-                              type="text"
-                              className="block p-2 w-full border"
-                              placeholder="レビューを記載"
-                              value={inputRevewText}
-                              onChange={handleReviewTextChange}
-                            />
-                            <input
-                              type="number"
-                              max={5}
-                              min={1}
-                              value={inputStars}
-                              onChange={handleStarsChange}
-                              className="block p-2 w-full border"
-                              placeholder="1~5で評価する"
-                            />
-                            {talkRoom.node.isApprove ? (
-                              <button className="block p-2 mx-auto mt-4 border" type="submit">
-                                レビューを送信
-                              </button>
-                            ) : (
-                              <div className="text-center font-bold py-2">
-                                トークを開始したらレビューができます。
-                              </div>
-                            )}
-                          </form>
-                        </div>
+                        <InnerReviewModal talkRoom={talkRoom} />
                       </Modal>
 
                       <ProfileImageIcon
