@@ -166,7 +166,7 @@ const PlanDetail: NextPage = () => {
                   <div className="flex items-center text-sm">
                     <button
                       className={`p-2 block border w-1/2 ${
-                        pickOpenTab === "plan" && "bg-blue-300"
+                        pickOpenTab === "plan" && "bg-blue-300 dark:bg-blue-600"
                       }`}
                       onClick={handlePlanTabOpen}
                     >
@@ -174,7 +174,7 @@ const PlanDetail: NextPage = () => {
                     </button>
                     <button
                       className={`p-2 block border w-1/2 ${
-                        pickOpenTab === "review" && "bg-blue-300"
+                        pickOpenTab === "review" && "bg-blue-300 dark:bg-blue-600"
                       }`}
                       onClick={handleReviewTabOpen}
                     >
@@ -207,7 +207,7 @@ const PlanDetail: NextPage = () => {
                   ) : (
                     // プラン作成者
                     <div>
-                      <h3 className="bg-gray-200 my-2 p-2">この人のレビュー</h3>
+                      <h3 className="bg-gray-200 my-2 p-2 dark:text-gray-600">この人のレビュー</h3>
                       <ul>
                         {planData.plan.planAuthor.provider.edges.map((review, index) => {
                           return (
