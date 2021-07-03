@@ -281,7 +281,7 @@ const Settings: NextPage = () => {
           <a className="p-2 border rounded-sm ">ログアウト</a>
         </Link>
       </div>
-      <div className="py-6">
+      <div className="py-6 text-center">
         <ThemeChanger />
       </div>
     </Layout>
