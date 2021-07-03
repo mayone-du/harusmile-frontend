@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useCreateNotificationMutation, useCreateReviewMutation } from "src/apollo/schema";
-import { useRefreshTokens } from "src/libs/hooks/useRefreshTokens";
+import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
 
 export const useCreateReview = () => {
   // モーダル用style

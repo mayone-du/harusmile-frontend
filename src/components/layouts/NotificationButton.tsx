@@ -6,7 +6,7 @@ import {
 } from "src/apollo/schema";
 import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { fixDateFormat } from "src/libs/fixDateFormat";
-import { useRefreshTokens } from "src/libs/hooks/useRefreshTokens";
+import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
 
 export const NotificationButton: React.VFC = () => {
   // 本番時のみ3秒ごとにポーリング

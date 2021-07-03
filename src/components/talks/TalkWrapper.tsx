@@ -16,9 +16,9 @@ import { Message } from "src/components/talks/Message";
 import { InnerReviewModal } from "src/components/talks/ReviewInnerModal";
 import { SkeletonLoading } from "src/components/talks/SkeletonLoading";
 import { TalkList } from "src/components/talks/TalkList";
-import { useCreateMessages } from "src/libs/hooks/useCreateMessages";
+import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
+import { useCreateMessages } from "src/libs/hooks/messages/useCreateMessages";
 import { useCreateReview } from "src/libs/hooks/useCreateReview";
-import { useRefreshTokens } from "src/libs/hooks/useRefreshTokens";
 import { useValidateLoginUser } from "src/libs/hooks/users/useValidateLoginUser";
 
 export const TalkWrapper: React.VFC = () => {

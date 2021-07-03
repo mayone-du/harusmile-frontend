@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
 import { GetLoginUserPlansDocument, useCreatePlanMutation } from "src/apollo/schema";
-import { useRefreshTokens } from "src/libs/hooks/useRefreshTokens";
+import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
 
 export const useCreatePlan = () => {
   const [inputTitle, setInputTitle] = useState("");

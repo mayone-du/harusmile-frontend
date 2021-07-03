@@ -12,9 +12,9 @@ import {
 import { useCreateNotificationMutation } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
 import { Review } from "src/components/reviews/Review";
+import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
 import { useDeletePlan } from "src/libs/hooks/plans/useDeletePlan";
 import { useUpdatePlan } from "src/libs/hooks/plans/useUpdatePlan";
-import { useRefreshTokens } from "src/libs/hooks/useRefreshTokens";
 import { MEDIAFILE_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
 
 const PlanDetail: NextPage = () => {

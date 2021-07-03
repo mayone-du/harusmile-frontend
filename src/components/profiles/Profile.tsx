@@ -62,7 +62,10 @@ export const Profile: React.VFC<Props> = (props) => {
                     }, 0) * 10,
                   ) / 10
                 ).toString()}{" "}
-                / 5<span className="text-black">({props.stars.length.toString()}件)</span>
+                / 5
+                <span className="text-black dark:text-white">
+                  ({props.stars.length.toString()}件)
+                </span>
               </div>
             </div>
 

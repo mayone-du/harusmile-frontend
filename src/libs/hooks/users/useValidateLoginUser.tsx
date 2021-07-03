@@ -3,7 +3,7 @@ import { parseCookies } from "nookies";
 import { useEffect } from "react";
 import { loginUserVar } from "src/apollo/cache";
 import { useGetLoginUserLazyQuery } from "src/apollo/schema";
-import { useRefreshTokens } from "src/libs/hooks/useRefreshTokens";
+import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
 
 export const useValidateLoginUser = () => {
   const loginUserData = useReactiveVar(loginUserVar);

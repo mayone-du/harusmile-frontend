@@ -2,7 +2,7 @@ import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
 import type { GetPlanQuery } from "src/apollo/schema";
 import { useUpdatePlanMutation } from "src/apollo/schema";
-import { useRefreshTokens } from "src/libs/hooks/useRefreshTokens";
+import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
 
 export const useUpdatePlan = (planData: GetPlanQuery | undefined) => {
   const router = useRouter();

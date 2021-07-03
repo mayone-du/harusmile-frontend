@@ -2,7 +2,7 @@ import { useReactiveVar } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { loginUserVar } from "src/apollo/cache";
 import { useUpdateProfileMutation } from "src/apollo/schema";
-import { useRefreshTokens } from "src/libs/hooks/useRefreshTokens";
+import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
 
 export const useProfileUpdate = () => {
   const loginUserData = useReactiveVar(loginUserVar);

@@ -1,4 +1,4 @@
-import { useAuth } from "src/libs/hooks/useAuth";
+import { useAuth } from "src/libs/hooks/auth/useAuth";
 
 type Props = {
   pageContext: "signin" | "signup";

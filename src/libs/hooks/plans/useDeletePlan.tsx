@@ -1,6 +1,6 @@
 import { useRouter } from "next/dist/client/router";
 import { useDeletePlanMutation } from "src/apollo/schema";
-import { useRefreshTokens } from "src/libs/hooks/useRefreshTokens";
+import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
 
 export const useDeletePlan = () => {
   const router = useRouter();

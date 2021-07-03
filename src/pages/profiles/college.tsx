@@ -3,7 +3,7 @@ import { addApolloState, initializeApollo } from "src/apollo/apolloClient";
 import type { GetCollegeProfilesQuery, GetCollegeProfilesQueryVariables } from "src/apollo/schema";
 import { GetCollegeProfilesDocument } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
-import { CollegeProfilesWrapper } from "src/components/profiles/CollegeProfilesWrapper";
+import { Profile } from "src/components/profiles/Profile";
 
 export const getStaticProps: GetStaticProps = async () => {
   const apolloClient = initializeApollo(null);
@@ -37,7 +37,37 @@ const College: NextPage<PropsGetAllProfilesQuery<GetCollegeProfilesQuery>> = (pr
       </p>
 
       <section>
-        {props.profilesData && <CollegeProfilesWrapper profilesData={props.profilesData} />}
+        <ul className="flex flex-wrap">
+          {props.profilesData.collegeProfiles?.edges.map((profile, index) => {
+            return (
+              <Profile
+                key={index}
+                profileId={profile?.node?.id ? profile.node.id : ""}
+                profileName={profile?.node?.profileName ? profile.node.profileName : ""}
+                profileText={profile?.node?.profileText ? profile.node.profileText : ""}
+                profileImage={profile?.node?.profileImage ? profile.node.profileImage : ""}
+                schoolName={profile?.node?.schoolName ? profile.node.schoolName : ""}
+                age={profile?.node?.age ? profile.node.age : 0}
+                undergraduate={profile?.node?.undergraduate ? profile.node.undergraduate : ""}
+                department={profile?.node?.department ? profile.node.department : ""}
+                clubActivities={profile?.node?.clubActivities ? profile.node.clubActivities : ""}
+                admissionFormat={profile?.node?.admissionFormat ? profile.node.admissionFormat : ""}
+                favoriteSubject={profile?.node?.favoriteSubject ? profile.node.favoriteSubject : ""}
+                // tags={profile?.node?.tags ? profile.node.tags : []}
+                isCollegeStudent={
+                  profile?.node?.isCollegeStudent ? profile.node.isCollegeStudent : false
+                }
+                stars={
+                  profile?.node?.targetUser
+                    ? profile.node.targetUser.provider.edges.map((review) => {
+                        return review?.node?.stars;
+                      })
+                    : [0]
+                }
+              />
+            );
+          })}
+        </ul>
       </section>
     </Layout>
   );
