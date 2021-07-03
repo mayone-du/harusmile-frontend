@@ -1,5 +1,6 @@
 import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import type { GetPlanQuery } from "src/apollo/schema";
 import { useUpdatePlanMutation } from "src/apollo/schema";
 import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
@@ -18,7 +19,7 @@ export const useUpdatePlan = (planData: GetPlanQuery | undefined) => {
   );
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    alert("タイトルは変更できません");
+    toast.error("タイトルは変更できません");
     return;
     setInputTitle(event.target.value);
   };
@@ -26,7 +27,7 @@ export const useUpdatePlan = (planData: GetPlanQuery | undefined) => {
     setInputContent(event.target.value);
   };
   const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    alert("料金は変更できません。");
+    toast.error("料金は変更できません。");
     return;
     setInputPrice(event.target.value);
   };
@@ -34,7 +35,7 @@ export const useUpdatePlan = (planData: GetPlanQuery | undefined) => {
   const handleUpdatePlan = async () => {
     // エラーチェック
     if (inputTitle === "" || inputContent === "") {
-      alert("現在開発中です");
+      toast.error("現在開発中です");
       return;
     }
 
@@ -50,10 +51,11 @@ export const useUpdatePlan = (planData: GetPlanQuery | undefined) => {
             isPublished: true,
           },
         });
-        alert("プランを更新しました。");
+        toast.success("プランを更新しました。");
         router.push("/plans");
       } catch (error) {
-        alert(error);
+        toast.error("プランが更新できませんでした。");
+        console.error(error);
         return;
       }
     }

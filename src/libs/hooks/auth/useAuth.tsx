@@ -46,11 +46,11 @@ export const useAuth = () => {
   const validateSignInInputs = useCallback((): { isFormError: boolean } => {
     // メールアドレスが空文字
     if (inputEmail === "") {
-      alert("正しい形式でメールアドレスを入力してください。");
+      toast.error("正しい形式でメールアドレスを入力してください。");
       return { isFormError: true };
       // パスワードが4文字以下
     } else if (inputPassword.length <= 4) {
-      alert("パスワードは5文字以上で入力してください。");
+      toast.error("パスワードは5文字以上で入力してください。");
       return { isFormError: true };
     } else {
       return { isFormError: false };
@@ -60,20 +60,20 @@ export const useAuth = () => {
   // signUpの入力欄のバリデーション
   const validateSignUpInputs = useCallback((): { isFormError: boolean } => {
     if (inputProfileName === "") {
-      alert("ユーザーネームを入力してください。");
+      toast.error("ユーザーネームを入力してください。");
       return { isFormError: true };
     }
     if (inputSchoolName === "") {
-      alert("学校名を入力してください。");
+      toast.error("学校名を入力してください。");
       return { isFormError: true };
     }
     // メールアドレスが空文字
     if (inputEmail === "") {
-      alert("正しい形式でメールアドレスを入力してください。");
+      toast.error("正しい形式でメールアドレスを入力してください。");
       return { isFormError: true };
       // パスワードが4文字以下
     } else if (inputPassword.length <= 4) {
-      alert("パスワードは5文字以上で入力してください。");
+      toast.error("パスワードは5文字以上で入力してください。");
       return { isFormError: true };
     } else {
       return { isFormError: false };

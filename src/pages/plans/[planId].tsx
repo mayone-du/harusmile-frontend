@@ -77,9 +77,10 @@ const PlanDetail: NextPage = () => {
         },
       });
       router.push("/talks");
-      toast.success("トークルームが作成されました。");
+      toast.success("プランに申し込みました。");
     } catch (error) {
-      alert(error);
+      toast.error("プランに申し込みできませんでした。");
+      console.error(error);
     }
   };
 

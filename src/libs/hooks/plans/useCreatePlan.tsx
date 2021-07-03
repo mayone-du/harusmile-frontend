@@ -33,15 +33,15 @@ export const useCreatePlan = () => {
   const handlePlanCreate = async (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (inputTitle === "") {
-      alert("プランのタイトルを入力してください。");
+      toast.error("プランのタイトルを入力してください。");
       return;
     }
     if (inputContent === "") {
-      alert("プランの内容を入力してください。");
+      toast.error("プランの内容を入力してください。");
       return;
     }
     if (inputPrice === "") {
-      alert("料金を入力してください。");
+      toast.error("料金を入力してください。");
       return;
     }
     try {

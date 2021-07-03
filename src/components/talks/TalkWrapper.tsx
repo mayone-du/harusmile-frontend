@@ -107,8 +107,8 @@ export const TalkWrapper: React.VFC = () => {
       });
       toast.success("承認しました。");
     } catch (error) {
-      toast.error("失敗しました。");
-      alert(error);
+      toast.error("承認に失敗しました。もう一度お試しください。");
+      console.error(error);
     }
   };
 

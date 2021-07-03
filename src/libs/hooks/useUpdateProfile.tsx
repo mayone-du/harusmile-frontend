@@ -1,5 +1,6 @@
 import { useReactiveVar } from "@apollo/client";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { loginUserVar } from "src/apollo/cache";
 import { useUpdateProfileMutation } from "src/apollo/schema";
 import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
@@ -159,7 +160,8 @@ export const useProfileUpdate = () => {
       alert("プロフィールの更新が完了しました。");
       // }
     } catch (error) {
-      alert(error);
+      toast.error("プロフィールの更新に失敗しました。もう一度お試しください。");
+      console.error(error);
       return;
     }
   };

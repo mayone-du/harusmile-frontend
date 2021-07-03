@@ -35,7 +35,7 @@ const Index: NextPage<PropsGetCollegeProfilesQuery<GetCollegeProfilesQuery>> = (
   return (
     <Layout spHeaderTitle="ホーム" metaTitle="ハルスマイル | 大学生と高校生のマッチングサービス">
       <section className="md:py-10 py-4 md:mt-10 md:mb-20 my-4 md:block hidden bg-pink-50 rounded-xl">
-        <h2 className="md:py-10 py-2 md:text-4xl text-xl font-bold text-center text-gray-600 dark:text-white dark:text-white">
+        <h2 className="md:py-10 py-2 md:text-4xl text-xl font-bold text-center text-gray-600 dark:text-white">
           全く新しい大学受験メンタリングの形
         </h2>
         <h3 className="py-4 md:text-2xl text-base md:font-bold text-center text-gray-500">
@@ -60,7 +60,7 @@ const Index: NextPage<PropsGetCollegeProfilesQuery<GetCollegeProfilesQuery>> = (
       <section className="md:pb-20 pb-6">
         <h2 className="flex justify-center items-center">
           <CheckSvg className="md:mx-6 mx-2 md:w-12 md:h-12 w-6 h-6 text-gray-600 dark:text-white" />
-          <div className="md:py-10 py-4 md:text-5xl text-lg font-bold text-center text-gray-600 dark:text-white dark:text-white">
+          <div className="md:py-10 py-4 md:text-5xl text-lg font-bold text-center text-gray-600 dark:text-white">
             一覧から探す
           </div>
         </h2>

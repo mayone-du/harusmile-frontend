@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { Layout } from "src/components/layouts/Layout";
 import { CONTACT_SLACK_WEBHOOK_URL } from "src/utils/API_ENDPOINTS";
 
@@ -20,7 +21,7 @@ const Contact: NextPage = () => {
   const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (inputEmail === "" || inputName === "" || inputContent === "") {
-      alert("すべての入力欄は必須です。");
+      toast.error("すべての入力欄は必須です。");
       return;
     }
     const payload = {
@@ -47,9 +48,10 @@ const Contact: NextPage = () => {
       setInputName("");
       setInputContent("");
     } catch (error) {
-      alert(
+      toast.error(
         "何らかのエラーが発生しました。時間を開けてもう一度試していただくか、Twitterなどからご連絡ください。",
       );
+      console.error(error);
       return;
     }
   };

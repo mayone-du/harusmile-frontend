@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import Modal from "react-modal";
 import {
   useGetLoginUserNotificationQuery,
@@ -43,7 +44,9 @@ export const NotificationButton: React.VFC = () => {
         },
       });
     } catch (error) {
-      alert(error);
+      toast.error("何らかのエラーが発生しました。");
+      console.error(error);
+      return;
     }
   };
   return (

@@ -42,7 +42,7 @@ export const useCreateReview = () => {
   // レビュー作成
   const handleCreateReview = async (providerId: string) => {
     if (inputRevewText === "" || inputStars === "") {
-      alert("レビューを入力してください。");
+      toast.error("レビューを入力してください。");
       return;
     }
 
@@ -66,7 +66,9 @@ export const useCreateReview = () => {
       setInputStars("");
       setIsOpen(false);
     } catch (error) {
-      alert(error);
+      toast.error("レビューの送信に失敗しました。もう一度お試しください。");
+      console.error(error);
+      return;
     }
     return;
   };
