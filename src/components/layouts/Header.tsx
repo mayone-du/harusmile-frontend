@@ -32,10 +32,10 @@ export const Header: React.VFC<Props> = memo((props) => {
           {/* ローディング中は非表示 */}
           {/* ログインしていない場合 */}
           {!loginUserData.isLogin && !loginUserData.isLoading && (
-            <ul className="h-16">
+            <ul className="h-16 flex items-center">
               <li className="mx-4">
                 <Link href="/auth/signin">
-                  <a className="text-blue-700 ">ログイン</a>
+                  <a className="text-blue-700">ログイン</a>
                 </Link>
               </li>
               <li className="mx-4">

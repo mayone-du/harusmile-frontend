@@ -18,7 +18,7 @@ const ProfileDetail: NextPage = () => {
   return (
     <Layout
       spHeaderTitle="プロフィール詳細"
-      metaTitle={`${profileData?.profile?.profileName} のプロフィール`}
+      meta={{ pageName: `${profileData?.profile?.profileName} のプロフィール` }}
     >
       {/* スケルトンローディング */}
       {isLoading && <ProfileLoading />}

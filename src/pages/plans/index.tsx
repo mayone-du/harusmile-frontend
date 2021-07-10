@@ -24,7 +24,7 @@ const PlansIndex: NextPage = () => {
   // TODO: プランの更新
 
   return (
-    <Layout metaTitle="マイプラン一覧" spHeaderTitle="マイプラン一覧">
+    <Layout meta={{ pageName: "マイプラン一覧" }} spHeaderTitle="マイプラン一覧">
       {loginUserData.isCollegeStudent && (
         <div className="py-8">
           <h2 className="text-center font-bold">プランの作成</h2>

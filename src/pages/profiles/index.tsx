@@ -33,7 +33,7 @@ const ProfilesIndex: NextPage = () => {
 
   return (
     <div>
-      <Layout spHeaderTitle="プロフィール" metaTitle="ハルスマイル | プロフィール">
+      <Layout spHeaderTitle="プロフィール" meta={{ pageName: "プロフィール" }}>
         <section className="pt-6">
           <NormalProfile
             targetProfileId={loginUserData.profileId}

@@ -5,9 +5,10 @@ import { Layout } from "src/components/layouts/Layout";
 
 const SignIn: NextPage = () => {
   return (
-    <Layout spHeaderTitle="ログイン" metaTitle="ハルスマイル | ログイン">
-      <h2 className="text-5xl text-center py-10 mt-6">ログイン</h2>
-      <AuthForm pageContext="signin" />
+    <Layout spHeaderTitle="ログイン" meta={{ pageName: "ハルスマイル | ログイン" }}>
+      <div className="py-8">
+        <AuthForm pageContext="signin" />
+      </div>
       <div className="flex items-center justify-center">
         <div>
           <Link href="/auth/signup">

@@ -1,7 +1,9 @@
+import { memo } from "react";
+
 type Props = {
   className: string;
 };
-export const CheckSvg: React.VFC<Props> = (props) => {
+export const CheckSvg: React.VFC<Props> = memo((props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -13,4 +15,5 @@ export const CheckSvg: React.VFC<Props> = (props) => {
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
     </svg>
   );
-};
+});
+CheckSvg.displayName = "CheckSvg";

@@ -100,7 +100,7 @@ const PlanDetail: NextPage = () => {
   }, []);
 
   return (
-    <Layout metaTitle="ハルスマイル | プラン詳細" spHeaderTitle="プラン詳細">
+    <Layout meta={{ pageName: "プラン詳細" }} spHeaderTitle="プラン詳細">
       {isPlanLoading ? (
         <div>Loading</div>
       ) : (

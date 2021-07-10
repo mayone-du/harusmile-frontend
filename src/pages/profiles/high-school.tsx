@@ -34,7 +34,7 @@ const HighSchool: NextPage<PropsGetAllProfilesQuery<GetHighSchoolProfilesQuery>>
   return (
     <Layout
       spHeaderTitle="高校生プロフィール一覧"
-      metaTitle="ハルスマイル | 高校生プロフィール一覧"
+      meta={{ pageName: "ハルスマイル | 高校生プロフィール一覧" }}
     >
       <p className="py-10 px-2 text-xl text-center">
         高校生のプロフィール: {props.profilesData?.highSchoolProfiles?.edges.length.toString()}件

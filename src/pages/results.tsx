@@ -28,7 +28,7 @@ const Results: NextPage = () => {
 
   return (
     <div>
-      <Layout spHeaderTitle="検索結果" metaTitle={`${searchKeyword}の検索結果`}>
+      <Layout spHeaderTitle="検索結果" meta={{ pageName: `${searchKeyword}の検索結果` }}>
         <h2 className="py-4 text-2xl text-center">
           {'"'}
           {searchKeyword}

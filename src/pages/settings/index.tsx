@@ -36,20 +36,20 @@ const Settings: NextPage = () => {
 
   if (loginUserData.isLoading) {
     return (
-      <Layout spHeaderTitle="プロフィール編集" metaTitle="ハルスマイル | 設定画面">
+      <Layout spHeaderTitle="プロフィール編集" meta={{ pageName: "設定画面" }}>
         <div className="text-xl font-bold text-center">loading</div>
       </Layout>
     );
   }
   if (!loginUserData.isLogin) {
     return (
-      <Layout spHeaderTitle="プロフィール編集" metaTitle="ハルスマイル | 設定画面">
+      <Layout spHeaderTitle="プロフィール編集" meta={{ pageName: "設定画面" }}>
         <div>ログイン後に使用可能です。</div>
       </Layout>
     );
   }
   return (
-    <Layout spHeaderTitle="プロフィール編集" metaTitle="ハルスマイル | 設定画面">
+    <Layout spHeaderTitle="プロフィール編集" meta={{ pageName: "設定画面" }}>
       <section className="pt-6">
         {/* 枠 */}
         <div className="md:flex items-center p-4 border shadow-md">

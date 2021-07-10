@@ -9,21 +9,21 @@ const Talk: NextPage = () => {
 
   if (loginUserData.isLoading) {
     return (
-      <Layout spHeaderTitle="トーク一覧" metaTitle="ハルスマイル | トーク一覧">
+      <Layout spHeaderTitle="トーク一覧" meta={{ pageName: "トーク一覧" }}>
         Loading...
       </Layout>
     );
   }
   if (!loginUserData.isLogin && !loginUserData.isLoading) {
     return (
-      <Layout spHeaderTitle="トーク一覧" metaTitle="ハルスマイル | トーク一覧">
+      <Layout spHeaderTitle="トーク一覧" meta={{ pageName: "トーク一覧" }}>
         ログイン後に使用可能です。
       </Layout>
     );
   }
   return (
     <div>
-      <Layout spHeaderTitle="トーク一覧" metaTitle="ハルスマイル | トーク一覧">
+      <Layout spHeaderTitle="トーク一覧" meta={{ pageName: "トーク一覧" }}>
         <TalkWrapper />
       </Layout>
     </div>

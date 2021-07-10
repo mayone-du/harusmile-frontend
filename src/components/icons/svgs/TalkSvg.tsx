@@ -1,7 +1,9 @@
+import { memo } from "react";
+
 type Props = {
   className: string;
 };
-export const TalkSvg: React.VFC<Props> = (props) => {
+export const TalkSvg: React.VFC<Props> = memo((props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -18,4 +20,5 @@ export const TalkSvg: React.VFC<Props> = (props) => {
       />
     </svg>
   );
-};
+});
+TalkSvg.displayName = "TalkSvg";

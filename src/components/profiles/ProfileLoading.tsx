@@ -1,4 +1,6 @@
-export const ProfileLoading: React.VFC = () => {
+import { memo } from "react";
+
+export const ProfileLoading: React.VFC = memo(() => {
   return (
     <div>
       <div className="flex items-center justify-between my-4 bg-gray-200">
@@ -28,4 +30,5 @@ export const ProfileLoading: React.VFC = () => {
       </ul>
     </div>
   );
-};
+});
+ProfileLoading.displayName = "ProfileLoading";

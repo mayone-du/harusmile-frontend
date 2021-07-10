@@ -5,22 +5,29 @@ import { Header } from "src/components/layouts/Header";
 import { useValidateLoginUser } from "src/libs/hooks/users/useValidateLoginUser";
 
 type Props = {
-  metaTitle: string;
+  meta?: {
+    pageName?: string;
+    descriptions?: string;
+  };
   spHeaderTitle: string;
 };
 
 export const Layout: React.FC<Props> = memo((props) => {
   const { loginUserData } = useValidateLoginUser();
-
+  const meta = {
+    title: props.meta?.pageName ? `${props.meta.pageName} | ハルスマイル` : "ハルスマイル",
+    description: props.meta?.descriptions ? props.meta.descriptions : "ハルスマイルは、・・・",
+  };
   return (
     <div>
       <Head>
-        <title>{props.metaTitle}</title>
-        <meta property="og:url" content="https://" />
+        <title>{meta.title}</title>
+        <meta name="description" content={meta.description} />
+        <meta property="og:url" content="https://harusmile.vercel.app" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Test Title" />
-        <meta property="og:description" content="Test Description" />
-        <meta property="og:site_name" content="Test SiteName" />
+        <meta property="og:title" content={meta.title} />
+        <meta property="og:description" content={meta.description} />
+        <meta property="og:site_name" content="ハルスマイル" />
         <meta property="og:image" content="/images/sample-image.jpg" />
 
         <meta name="twitter:card" content="Summary Card" />

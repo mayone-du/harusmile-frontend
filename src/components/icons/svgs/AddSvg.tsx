@@ -1,7 +1,9 @@
+import { memo } from "react";
+
 type Props = {
   className: string;
 };
-export const AddSvg: React.VFC<Props> = (props) => {
+export const AddSvg: React.VFC<Props> = memo((props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -18,4 +20,6 @@ export const AddSvg: React.VFC<Props> = (props) => {
       />
     </svg>
   );
-};
+});
+
+AddSvg.displayName = "AddSvg";

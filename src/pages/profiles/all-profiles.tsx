@@ -30,7 +30,9 @@ const AllProfiles: NextPage<PropsGetAllProfilesQuery<GetAllProfilesQuery>> = (pr
   return (
     <Layout
       spHeaderTitle="大学生プロフィール一覧"
-      metaTitle="ハルスマイル | 大学生プロフィール一覧"
+      meta={{
+        pageName: "大学生プロフィール一覧",
+      }}
     >
       <p className="py-10 px-2 text-xl text-center">
         すべてのプロフィール：{props.profilesData?.allProfiles?.edges.length.toString()}件

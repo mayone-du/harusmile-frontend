@@ -28,10 +28,7 @@ type PropsGetAllProfilesQuery<T> = {
 };
 const College: NextPage<PropsGetAllProfilesQuery<GetCollegeProfilesQuery>> = (props) => {
   return (
-    <Layout
-      spHeaderTitle="大学生プロフィール一覧"
-      metaTitle="ハルスマイル | 大学生プロフィール一覧"
-    >
+    <Layout spHeaderTitle="大学生プロフィール一覧" meta={{ pageName: "大学生プロフィール一覧" }}>
       <p className="py-10 px-2 text-xl text-center">
         大学生のプロフィール：{props.profilesData?.collegeProfiles?.edges.length.toString()}件
       </p>

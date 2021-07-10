@@ -5,7 +5,7 @@ import { Layout } from "src/components/layouts/Layout";
 const SignOut: NextPage = () => {
   return (
     <div>
-      <Layout spHeaderTitle="ログアウト" metaTitle="ハルスマイル | ログアウト">
+      <Layout spHeaderTitle="ログアウト" meta={{ pageName: "ログアウト" }}>
         <SignOutComponent />
       </Layout>
     </div>
