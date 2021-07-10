@@ -58,7 +58,7 @@ export const Layout: React.FC<Props> = memo((props) => {
         <link rel="manifest" href="/pwa/manifest.json" />
       </Head>
       <Header spHeaderTitle={props.spHeaderTitle} profileImagePath={loginUserData.profileImage} />
-      <main className="mx-2 md:mx-32">{props.children}</main>
+      <main className="mx-2 md:mx-32 pb-4">{props.children}</main>
       <Footer />
     </div>
   );

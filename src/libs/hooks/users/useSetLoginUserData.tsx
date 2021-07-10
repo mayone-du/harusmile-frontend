@@ -11,7 +11,12 @@ export const useSetLoginUserData = () => {
   });
   const cookies = parseCookies();
   useEffect(() => {
-    if (!loginUserData.isLogin) {
+    if (!cookies.refreshToken) {
+      loginUserVar({
+        ...loginUserData,
+        isLoading: false,
+      });
+    } else if (!loginUserData.isLogin) {
       loginUserVar({
         isLoading: queryData ? false : true,
         isLogin: queryData ? true : false,
@@ -94,11 +99,6 @@ export const useSetLoginUserData = () => {
       });
 
       getLoginUserLazyQuery();
-    } else if (!cookies.refreshToken) {
-      loginUserVar({
-        ...loginUserData,
-        isLoading: false,
-      });
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
