@@ -1756,7 +1756,10 @@ export type GetPlanQuery = (
   )> }
 );
 
-export type GetAllProfilesQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetAllProfilesQueryVariables = Exact<{
+  offset?: Maybe<Scalars['Int']>;
+  first?: Maybe<Scalars['Int']>;
+}>;
 
 
 export type GetAllProfilesQuery = (
@@ -3068,8 +3071,8 @@ export type GetPlanQueryHookResult = ReturnType<typeof useGetPlanQuery>;
 export type GetPlanLazyQueryHookResult = ReturnType<typeof useGetPlanLazyQuery>;
 export type GetPlanQueryResult = Apollo.QueryResult<GetPlanQuery, GetPlanQueryVariables>;
 export const GetAllProfilesDocument = gql`
-    query GetAllProfiles {
-  allProfiles {
+    query GetAllProfiles($offset: Int, $first: Int) {
+  allProfiles(offset: $offset, first: $first) {
     edges {
       node {
         id
@@ -3120,6 +3123,8 @@ export const GetAllProfilesDocument = gql`
  * @example
  * const { data, loading, error } = useGetAllProfilesQuery({
  *   variables: {
+ *      offset: // value for 'offset'
+ *      first: // value for 'first'
  *   },
  * });
  */
