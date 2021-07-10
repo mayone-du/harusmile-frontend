@@ -25,6 +25,12 @@ const PlansIndex: NextPage = () => {
 
   return (
     <Layout meta={{ pageName: "マイプラン一覧" }} spHeaderTitle="マイプラン一覧">
+      {/* ローディング時 */}
+      {loginUserData.isLoading && <div>Loading</div>}
+
+      {/* 非ログイン時 */}
+      {!loginUserData.isLoading && !loginUserData.isLogin && <div>ログイン後に使用可能です。</div>}
+
       {loginUserData.isCollegeStudent && (
         <div className="py-8">
           <h2 className="text-center font-bold">プランの作成</h2>
