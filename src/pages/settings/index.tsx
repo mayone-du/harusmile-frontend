@@ -68,7 +68,6 @@ const Settings: NextPage = () => {
           {/* 右 */}
           <div className="hidden md:flex flex-col justify-center w-1/2 h-16 font-bold text-center">
             <h3>
-              {" "}
               {loginUserData.isCollegeStudent
                 ? "これまでに相談したコウハイの数"
                 : "これまでに相談したセンパイの数"}{" "}

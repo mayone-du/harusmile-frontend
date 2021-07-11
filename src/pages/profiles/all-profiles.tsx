@@ -2,10 +2,10 @@ import type { GetStaticProps, NextPage } from "next";
 import { useEffect, useState } from "react";
 import { addApolloState, initializeApollo } from "src/apollo/apolloClient";
 import type { GetAllProfilesQuery, GetAllProfilesQueryVariables } from "src/apollo/schema";
+import { useGetAllProfilesLazyQuery } from "src/apollo/schema";
 import { GetAllProfilesDocument } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
 import { Profile } from "src/components/profiles/Profile";
-import { useGetMoreAllProfiles } from "src/libs/hooks/useGetMoreAllProfiles";
 
 export const getStaticProps: GetStaticProps = async () => {
   const apolloClient = initializeApollo(null);
@@ -14,9 +14,8 @@ export const getStaticProps: GetStaticProps = async () => {
     GetAllProfilesQueryVariables
   >({
     query: GetAllProfilesDocument,
-    // TODO: 無限スクロールの実装
     variables: {
-      first: 5,
+      first: 2, // 最初から5件のみ取得(後から取得するプロフィールの数と連動させる)
     },
   });
 
@@ -33,15 +32,30 @@ type PropsGetAllProfilesQuery<T> = {
   profilesData: T;
 };
 const AllProfiles: NextPage<PropsGetAllProfilesQuery<GetAllProfilesQuery>> = (props) => {
+  const initialProfilesCount = 2;
+  // 追加で取得したプロフィールを管理するstate
+  const [moreProfiles, setMoreProfiles] = useState<GetAllProfilesQuery>();
+  // 追加で取得する件数などの管理用state
+  const [moreNumber, setMoreNumber] = useState(initialProfilesCount);
+  const [getAllProfilesLazyQuery, { data, loading: isLoading }] = useGetAllProfilesLazyQuery();
+  const handleClickGetMoreAllProfiles = (moreCount: number) => {
+    getAllProfilesLazyQuery({
+      variables: {
+        offset: moreCount,
+        first: initialProfilesCount,
+      },
+    });
+    if (data !== undefined) {
+      setMoreProfiles(data);
+    }
+    setMoreNumber((prev) => {
+      return prev + initialProfilesCount;
+    });
+  };
+
   const [profilesLength, setProfilesLength] = useState<number>(
     props.profilesData.allProfiles?.edges.length ? props.profilesData.allProfiles.edges.length : 0,
   );
-  // const [moreProfiles, setMoreProfiles] = useState<GetAllProfilesQuery>();
-  const { getMoreAllProfiles, isLoading, data } = useGetMoreAllProfiles();
-  const handleClickGetMoreAllProfiles = () => {
-    getMoreAllProfiles();
-    // setMoreProfiles(data);
-  };
 
   // プロフィールの件数が変わるごとにセット
   useEffect(() => {
@@ -50,6 +64,7 @@ const AllProfiles: NextPage<PropsGetAllProfilesQuery<GetAllProfilesQuery>> = (pr
     if (typeof moreDataLength === "number" && typeof propsDataLength === "number") {
       setProfilesLength(moreDataLength + propsDataLength);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.allProfiles?.edges.length, props.profilesData.allProfiles?.edges.length]);
 
   return (
@@ -96,8 +111,9 @@ const AllProfiles: NextPage<PropsGetAllProfilesQuery<GetAllProfilesQuery>> = (pr
           })}
         </ul>
 
+        {/* 追加で取得したプロフィール */}
         <ul className="flex flex-wrap">
-          {data?.allProfiles?.edges.map((profile: any, index: any) => {
+          {moreProfiles?.allProfiles?.edges.map((profile: any, index: any) => {
             return (
               <Profile
                 key={index}
@@ -131,7 +147,10 @@ const AllProfiles: NextPage<PropsGetAllProfilesQuery<GetAllProfilesQuery>> = (pr
         <button
           className="px-4 py-2 block my-8 mx-auto text-center border rounded-md"
           type="button"
-          onClick={handleClickGetMoreAllProfiles}
+          // eslint-disable-next-line react/jsx-handler-names
+          onClick={() => {
+            handleClickGetMoreAllProfiles(moreNumber);
+          }}
         >
           もっと読み込む
         </button>
