@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { MEDIAFILE_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
 
 type Props = {
@@ -5,7 +6,7 @@ type Props = {
   className: string;
 };
 
-export const ProfileImageIcon: React.VFC<Props> = (props) => {
+export const ProfileImageIcon: React.VFC<Props> = memo((props) => {
   if (
     props.profileImagePath === undefined ||
     props.profileImagePath === null ||
@@ -35,4 +36,6 @@ export const ProfileImageIcon: React.VFC<Props> = (props) => {
       alt=""
     />
   );
-};
+});
+
+ProfileImageIcon.displayName = "ProfileImageIcon";
