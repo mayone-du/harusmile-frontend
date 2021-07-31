@@ -8,6 +8,7 @@ type Props = {
   targetProfileName: string;
   targetProfileText: string;
   targetProfileImage: string;
+  targetIsCollegeStudent: boolean;
   targetSchoolName: string;
   targetAge: number;
   targetUndergraduate: string;
@@ -23,7 +24,7 @@ export const NormalProfile: React.VFC<Props> = (props) => {
     <div>
       <div className="flex items-center justify-between bg-gray-200">
         <p className="p-2 text-sm text-gray-600">
-          基本情報 {loginUserData.isCollegeStudent ? "（大学生）" : "（高校生）"}
+          基本情報 {props.targetIsCollegeStudent ? "（大学生）" : "（高校生）"}
         </p>
         {loginUserData.profileId === props.targetProfileId && (
           <Link href="/settings">
@@ -56,7 +57,7 @@ export const NormalProfile: React.VFC<Props> = (props) => {
       </div>
       <ul className="break-words">
         {/* 大学生かによって表示するデータを変更 */}
-        {loginUserData.isCollegeStudent && (
+        {props.targetIsCollegeStudent && (
           <div>
             <li className="flex items-center border-b p-1">
               <div className="text-xs w-1/3 text-gray-600 dark:text-white">学部</div>

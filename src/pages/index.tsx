@@ -35,7 +35,7 @@ const Index: NextPage<PropsGetCollegeProfilesQuery<GetCollegeProfilesQuery>> = (
   return (
     <Layout spHeaderTitle="ホーム">
       <section className="md:py-10 py-4 md:mt-10 md:mb-20 my-4 md:block hidden bg-pink-50 rounded-xl">
-        <h2 className="md:py-10 py-2 md:text-4xl text-xl font-bold text-center text-gray-600 dark:text-white">
+        <h2 className="md:py-10 py-2 md:text-4xl text-xl font-bold text-center text-gray-600">
           全く新しい大学受験メンタリングの形
         </h2>
         <h3 className="py-4 md:text-2xl text-base md:font-bold text-center text-gray-500">

@@ -35,7 +35,9 @@ export const Header: React.VFC<Props> = memo((props) => {
             <ul className="h-16 flex items-center">
               <li className="mx-4">
                 <Link href="/auth/signin">
-                  <a className="text-blue-700">ログイン</a>
+                  <a className="py-3 px-8 font-bold text-blue-700 dark:text-white border-2 border-blue-700 dark:border-white rounded-3xl">
+                    ログイン
+                  </a>
                 </Link>
               </li>
               <li className="mx-4">

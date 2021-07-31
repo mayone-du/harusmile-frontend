@@ -157,8 +157,7 @@ export const useProfileUpdate = () => {
             ? data.updateProfile.profile.profileImage
             : "",
         });
-      alert("プロフィールの更新が完了しました。");
-      // }
+      toast.success("プロフィールを更新しました。");
     } catch (error) {
       toast.error("プロフィールの更新に失敗しました。もう一度お試しください。");
       console.error(error);

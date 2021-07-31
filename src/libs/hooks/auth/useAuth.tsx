@@ -113,8 +113,8 @@ export const useAuth = () => {
         setInputPassword("");
         setIsLoading(false);
         await router.push("/");
-        toast.success("ログインに成功しました。");
         router.reload();
+        toast.success("ログインに成功しました。");
       } catch (error) {
         setIsLoading(false);
         toast.error("ログインに失敗しました。");

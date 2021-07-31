@@ -32,7 +32,7 @@ export const Footer: React.VFC = memo(() => {
             </li>
           </ul>
         </nav>
-        <p className="md:py-6 py-2 text-center">copyright&copy;</p>
+        <p className="md:py-6 py-2 text-center">copyright&copy;&nbsp;harusmile</p>
       </footer>
     </div>
   );

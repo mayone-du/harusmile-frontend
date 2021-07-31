@@ -35,6 +35,7 @@ const ProfileDetail: NextPage = () => {
               targetProfileImage={
                 profileData.profile.profileImage ? profileData.profile.profileImage : ""
               }
+              targetIsCollegeStudent={profileData.profile.isCollegeStudent}
               targetSchoolName={
                 profileData.profile.schoolName ? profileData.profile.schoolName : ""
               }
