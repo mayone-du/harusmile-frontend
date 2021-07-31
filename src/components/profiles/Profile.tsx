@@ -1,8 +1,7 @@
 import Link from "next/link";
-import { Rating, RatingView } from "react-simple-star-rating";
+import { RatingView } from "react-simple-star-rating";
 import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { RightSvg } from "src/components/icons/svgs/RightSvg";
-import { Stars } from "src/components/profiles/Stars";
 
 type Props = {
   profileId: string;
@@ -21,6 +20,13 @@ type Props = {
   stars: any;
 };
 export const Profile: React.VFC<Props> = (props) => {
+  /* 配列の数字の平均を出し、少数第二位を四捨五入 */
+  const StarRating =
+    Math.round(
+      props.stars.reduce((prev: number, current: number) => {
+        return prev + current / props.stars.length;
+      }, 0) * 10,
+    ) / 10;
   return (
     <li className="md:p-4 p-1 md:w-1/3 w-1/2">
       <div className="md:p-6 p-2 border border-t-8 border-pink-200">
@@ -52,15 +58,10 @@ export const Profile: React.VFC<Props> = (props) => {
             {/* レビュー */}
             <div className="flex justify-between items-center py-4 border-b border-gray-400">
               <div>
+                {/* StarRating */}
                 <RatingView
                   className="flex items-center"
-                  ratingValue={
-                    Math.round(
-                      props.stars.reduce((prev: number, current: number) => {
-                        return prev + current / props.stars.length;
-                      }, 0) * 10,
-                    ) / 10
-                  } /* RatingView Props */
+                  ratingValue={StarRating}
                   emptyColor={"#cccccc"}
                 >
                   <svg
@@ -78,19 +79,9 @@ export const Profile: React.VFC<Props> = (props) => {
                     />
                   </svg>
                 </RatingView>
-
-                {/* <Stars /> */}
               </div>
               <div className="md:text-base text-xs">
-                {/* 配列の数字の平均を出し、少数第二位を四捨五入 */}
-                {(
-                  Math.round(
-                    props.stars.reduce((prev: number, current: number) => {
-                      return prev + current / props.stars.length;
-                    }, 0) * 10,
-                  ) / 10
-                ).toString()}{" "}
-                / 5
+                {StarRating.toString()} / 5
                 <span className="text-black dark:text-white">
                   ({props.stars.length.toString()}件)
                 </span>
