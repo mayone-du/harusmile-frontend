@@ -1,5 +1,5 @@
-query GetCollegeProfiles {
-  collegeProfiles {
+query GetCollegeProfiles($offset: Int, $first: Int) {
+  collegeProfiles(offset: $offset, first: $first) {
     edges {
       node {
         id

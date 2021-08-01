@@ -1795,7 +1795,10 @@ export type GetAllProfilesQuery = (
   )> }
 );
 
-export type GetCollegeProfilesQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetCollegeProfilesQueryVariables = Exact<{
+  offset?: Maybe<Scalars['Int']>;
+  first?: Maybe<Scalars['Int']>;
+}>;
 
 
 export type GetCollegeProfilesQuery = (
@@ -3140,8 +3143,8 @@ export type GetAllProfilesQueryHookResult = ReturnType<typeof useGetAllProfilesQ
 export type GetAllProfilesLazyQueryHookResult = ReturnType<typeof useGetAllProfilesLazyQuery>;
 export type GetAllProfilesQueryResult = Apollo.QueryResult<GetAllProfilesQuery, GetAllProfilesQueryVariables>;
 export const GetCollegeProfilesDocument = gql`
-    query GetCollegeProfiles {
-  collegeProfiles {
+    query GetCollegeProfiles($offset: Int, $first: Int) {
+  collegeProfiles(offset: $offset, first: $first) {
     edges {
       node {
         id
@@ -3195,6 +3198,8 @@ export const GetCollegeProfilesDocument = gql`
  * @example
  * const { data, loading, error } = useGetCollegeProfilesQuery({
  *   variables: {
+ *      offset: // value for 'offset'
+ *      first: // value for 'first'
  *   },
  * });
  */

@@ -16,6 +16,10 @@ export const getStaticProps: GetStaticProps = async () => {
     GetCollegeProfilesQueryVariables
   >({
     query: GetCollegeProfilesDocument,
+    variables: {
+      offset: 0,
+      first: 10,
+    },
   });
 
   // return { props: { profilesData: profilesData } };

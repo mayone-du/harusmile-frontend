@@ -39,6 +39,7 @@ const ProfilesIndex: NextPage = () => {
             targetProfileId={loginUserData.profileId}
             targetProfileName={loginUserData.profileName}
             targetProfileText={loginUserData.profileText}
+            targetIsCollegeStudent={loginUserData.isCollegeStudent}
             targetProfileImage={loginUserData.profileImage}
             targetSchoolName={loginUserData.schoolName}
             targetAge={loginUserData.age}
