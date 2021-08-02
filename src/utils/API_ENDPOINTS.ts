@@ -1,3 +1,4 @@
+// 開発環境と本番環境によってAPIエンドポイントを変更
 export const GRAPHQL_API_ENDPOINT =
   process.env.NODE_ENV === "development"
     ? `${process.env.NEXT_PUBLIC_DEV_GRAPHQL_API_URL}graphql/`

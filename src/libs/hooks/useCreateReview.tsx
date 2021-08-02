@@ -25,6 +25,7 @@ export const useCreateReview = () => {
   const [createReviewMutation] = useCreateReviewMutation();
   const [createNotificationMutation] = useCreateNotificationMutation();
   const { handleRefreshToken } = useRefreshTokens();
+  // モーダル管理
   const handleModalOpen = () => {
     setIsOpen(true);
   };
@@ -48,6 +49,7 @@ export const useCreateReview = () => {
 
     try {
       await handleRefreshToken();
+      // レビュー作成
       await createReviewMutation({
         variables: {
           providerId: providerId,
@@ -55,6 +57,7 @@ export const useCreateReview = () => {
           stars: parseFloat(inputStars),
         },
       });
+      // 通知作成
       await createNotificationMutation({
         variables: {
           recieverId: providerId,

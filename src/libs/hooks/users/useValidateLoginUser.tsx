@@ -14,6 +14,7 @@ export const useValidateLoginUser = () => {
   const cookies = parseCookies();
   useEffect(
     () => {
+      // ログインしてなければログイン情報を取得
       (async () => {
         await handleRefreshToken();
         if (!loginUserData.isLogin && !cookies.refreshToken) return;

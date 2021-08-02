@@ -4,6 +4,7 @@ import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
 
 export const useDeletePlan = () => {
   const router = useRouter();
+  // パスからプランのIDを取得
   const planId = router.asPath.replace("/plans/", "");
   const [deletePlanMutation] = useDeletePlanMutation();
   const { handleRefreshToken } = useRefreshTokens();

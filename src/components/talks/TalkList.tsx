@@ -26,6 +26,7 @@ export const TalkList: React.VFC<Props> = (props) => {
                   openTalkRoomId === talkRoom.node.id && "bg-pink-100 dark:bg-pink-400"
                 }`}
                 onClick={handleOpenTalkRoomChange}
+                // idをstate管理し、どのトークルームを選択しているか取得
                 id={talkRoom.node.id}
               >
                 {/* トークルームの相手を表示 */}
@@ -34,6 +35,7 @@ export const TalkList: React.VFC<Props> = (props) => {
                   <div className="flex items-center">
                     <ProfileImageIcon
                       className="block w-14 h-14 object-cover rounded-full border"
+                      // 相手のプロフィール画像を取得
                       profileImagePath={
                         talkRoom.node.opponentUser.id === loginUserData.userId
                           ? talkRoom.node.selectedPlan?.planAuthor.targetUser?.profileImage
@@ -47,11 +49,10 @@ export const TalkList: React.VFC<Props> = (props) => {
                           ? talkRoom.node.selectedPlan?.planAuthor.targetUser?.profileName
                           : talkRoom.node.opponentUser.targetUser?.profileName}
                       </div>
-                      {/* 最後にやり取りしたメッセージ */}
                       <div>
+                        {/* 最後にやり取りしたメッセージ 最初の10文字だけ表示 */}
                         {talkRoom.node?.talkingRoom.edges.slice(-1)[0]?.node?.text.slice(0, 10)}
                         {talkRoom.node?.talkingRoom.edges.length === 0 && "トークを始めましょう"}
-
                         {/* TODO: type narrowing */}
                         {/* {talkRoom.node?.talkingRoom.edges.slice(-1)[0]?.node?.text
                                   .length !== undefined &&
@@ -71,7 +72,7 @@ export const TalkList: React.VFC<Props> = (props) => {
                 )}
               </button>
             ) : (
-              <div>error</div>
+              <div>トークルームで何らかのエラーが発生しました。運営にお問い合わせください。</div>
             )}
           </li>
         );

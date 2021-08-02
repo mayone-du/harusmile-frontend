@@ -8,6 +8,7 @@ import { GetHighSchoolProfilesDocument } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
 import { Profile } from "src/components/profiles/Profile";
 
+// 高校生の情報をSSG
 export const getStaticProps: GetStaticProps = async () => {
   const apolloClient = initializeApollo(null);
   const { data: profilesData } = await apolloClient.query<

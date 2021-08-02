@@ -92,6 +92,7 @@ export const TalkWrapper: React.VFC = () => {
   const { customStyles, handleModalOpen, handleModalClose, isModalOpen } = useCreateReview();
   // TODO: トークルームを最新順に並べ替え (Query自体を書き直す必要ありかも？)
 
+  // トークルームを更新する
   const [updateTalkRoomMutation] = useUpdateTalkRoomMutation({
     refetchQueries: [{ query: GetLoginUserTalkRoomsDocument }],
   });

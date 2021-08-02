@@ -14,6 +14,7 @@ export const Message: React.VFC<Props> = (props) => {
       }`}
     >
       <div className="px-4">
+        {/* 自分のメッセージをピンク、相手のメッセージを青にスタイリングする */}
         <div
           className={`inline-block py-2 px-4 rounded-3xl ${
             props.senderId === props.loginUserId

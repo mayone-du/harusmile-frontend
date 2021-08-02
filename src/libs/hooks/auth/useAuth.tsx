@@ -96,6 +96,7 @@ export const useAuth = () => {
           },
         });
 
+        // 正常にレスポンスが帰ってきていたらCookieにトークンを保存
         if (tokenData?.tokenAuth) {
           setCookie(null, "accessToken", tokenData.tokenAuth.token, {
             path: "/",

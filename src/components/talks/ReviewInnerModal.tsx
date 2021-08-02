@@ -18,6 +18,7 @@ export const InnerReviewModal: React.VFC<Props> = (props) => {
   return (
     <div className="py-2 px-12 pb-6 w-96 dark:bg-gray-600">
       <h4 className="py-2 md:text-lg text-base font-bold">
+        {/* 相手のプロフィール名を表示 */}
         {props.talkRoom?.node?.opponentUser?.id === loginUserData.userId
           ? props.talkRoom.node.selectedPlan?.planAuthor.targetUser?.profileName
           : props.talkRoom?.node?.opponentUser?.targetUser?.profileName}
@@ -29,6 +30,7 @@ export const InnerReviewModal: React.VFC<Props> = (props) => {
         onSubmit={(event: React.ChangeEvent<HTMLFormElement>) => {
           event.preventDefault();
           const providerId =
+            // 相手のIDを設定
             props.talkRoom?.node?.opponentUser?.id === loginUserData.userId
               ? props.talkRoom.node.selectedPlan?.planAuthor.id
               : props.talkRoom?.node?.opponentUser?.id;

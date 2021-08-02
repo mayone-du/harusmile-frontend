@@ -9,13 +9,16 @@ export const useSetLoginUserData = () => {
   const [getLoginUserLazyQuery, { data: queryData }] = useGetLoginUserLazyQuery({
     fetchPolicy: "network-only",
   });
+  // Cookieを取得
   const cookies = parseCookies();
   useEffect(() => {
+    // リフレッシュトークンが存在する場合
     if (!cookies.refreshToken) {
       loginUserVar({
         ...loginUserData,
         isLoading: false,
       });
+      // ログイン状態がfalseの場合
     } else if (!loginUserData.isLogin) {
       loginUserVar({
         isLoading: queryData ? false : true,
