@@ -5,6 +5,7 @@ import { loginUserVar } from "src/apollo/cache";
 import { useGetLoginUserLazyQuery } from "src/apollo/schema";
 import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
 
+// ログインユーザーの検証
 export const useValidateLoginUser = () => {
   const loginUserData = useReactiveVar(loginUserVar);
 

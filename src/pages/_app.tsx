@@ -10,11 +10,13 @@ import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { initializeApollo } from "src/apollo/apolloClient";
 
+// プログレスバーを表示
 nprogress.configure({ showSpinner: false, speed: 400, minimum: 0.25 });
 
 const App = (props: AppProps, context: NextPageContext) => {
   const apolloClient = initializeApollo(null, context);
 
+  // プログレスバーの設定
   if (process.browser) {
     nprogress.start();
   }
@@ -23,18 +25,16 @@ const App = (props: AppProps, context: NextPageContext) => {
   });
 
   return (
-    <div>
-      <ApolloProvider client={apolloClient}>
-        <ThemeProvider defaultTheme="light" attribute="class">
-          <props.Component {...props.pageProps} />
-          <Toaster
-            toastOptions={{
-              duration: 2500,
-            }}
-          />
-        </ThemeProvider>
-      </ApolloProvider>
-    </div>
+    <ApolloProvider client={apolloClient}>
+      <ThemeProvider defaultTheme="light" attribute="class">
+        <props.Component {...props.pageProps} />
+        <Toaster
+          toastOptions={{
+            duration: 2500,
+          }}
+        />
+      </ThemeProvider>
+    </ApolloProvider>
   );
 };
 

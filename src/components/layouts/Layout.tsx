@@ -13,6 +13,7 @@ type Props = {
 };
 
 export const Layout: React.FC<Props> = memo((props) => {
+  // ログインユーザーの検証を行う
   const { loginUserData } = useValidateLoginUser();
   const meta = {
     title: props.meta?.pageName ? `${props.meta.pageName} | ハルスマイル` : "ハルスマイル",

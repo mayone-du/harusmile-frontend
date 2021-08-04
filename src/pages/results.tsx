@@ -7,6 +7,7 @@ import { Profile } from "src/components/profiles/Profile";
 
 const Results: NextPage = () => {
   const router = useRouter();
+  // 検索したキーワードを取得
   const searchKeyword = typeof router.query.keyword === "string" ? router.query.keyword : "";
   const searchCondition = router.query.condition;
 

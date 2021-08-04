@@ -20,10 +20,13 @@ import { MEDIAFILE_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
 const PlanDetail: NextPage = () => {
   const loginUserData = useReactiveVar(loginUserVar);
   const router = useRouter();
+  // パスからプランのIDを取得
   const planId = router.asPath.replace("/plans/", "");
+  // プランを取得
   const { data: planData, loading: isPlanLoading } = useGetPlanQuery({
     variables: { planId: planId },
   });
+  // 自分が参加しているトークルームの情報を取得
   const { data: loginUserTalkRoomsData } = useGetLoginUserTalkRoomsQuery();
   const { handleRefreshToken } = useRefreshTokens();
   const [createTalkRoomMutation] = useCreateTalkRoomMutation();
@@ -38,6 +41,7 @@ const PlanDetail: NextPage = () => {
     handleContentChange,
     handlePriceChange,
   } = useUpdatePlan(planData);
+  // トークルームの作成（メッセージ送信の承認申請）
   const handleCreateTalkRoom = async () => {
     await handleRefreshToken();
     // 参加しているトークルームのplanIdとuserIdを使って、同じものがあるか比較
@@ -102,7 +106,7 @@ const PlanDetail: NextPage = () => {
   return (
     <Layout meta={{ pageName: "プラン詳細" }} spHeaderTitle="プラン詳細">
       {isPlanLoading ? (
-        <div>Loading</div>
+        <div>Loading...</div>
       ) : (
         <div>
           {/* このプランの作成者が大学生かどうか */}
@@ -231,8 +235,11 @@ const PlanDetail: NextPage = () => {
                 </div>
               )}
 
-              {/* 高校生の場合 */}
-              {!loginUserData.isCollegeStudent && loginUserData.isLogin ? (
+              {/* ログインしていない場合 */}
+              {!loginUserData.isLogin ? (
+                <div className="font-bold">ログイン後メッセージを送信可能です。</div>
+              ) : // ↓高校生の場合
+              !loginUserData.isCollegeStudent && loginUserData.isLogin ? (
                 <button
                   className="p-2 border border-pink-400 text-pink-400"
                   onClick={handleCreateTalkRoom}
@@ -240,13 +247,10 @@ const PlanDetail: NextPage = () => {
                   このプランに申し込む
                 </button>
               ) : (
+                // それ以外
                 <button className="border p-2 border-black" disabled>
                   高校生のみ申込可能です。
                 </button>
-              )}
-              {/* ログインしていない場合 */}
-              {!loginUserData.isLogin && (
-                <div className="font-bold">ログイン後メッセージを送信可能です。</div>
               )}
 
               {/* 作成者がログインユーザー（自分）の場合 */}

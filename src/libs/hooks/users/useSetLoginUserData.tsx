@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { loginUserVar } from "src/apollo/cache";
 import { useGetLoginUserLazyQuery } from "src/apollo/schema";
 
+// ユーザーのログイン状態を取得してセット
 export const useSetLoginUserData = () => {
   const loginUserData = useReactiveVar(loginUserVar);
   const [getLoginUserLazyQuery, { data: queryData }] = useGetLoginUserLazyQuery({
@@ -12,7 +13,7 @@ export const useSetLoginUserData = () => {
   // Cookieを取得
   const cookies = parseCookies();
   useEffect(() => {
-    // リフレッシュトークンが存在する場合
+    // リフレッシュトークンが存在しない場合はローディング状態のみfalseにする
     if (!cookies.refreshToken) {
       loginUserVar({
         ...loginUserData,
