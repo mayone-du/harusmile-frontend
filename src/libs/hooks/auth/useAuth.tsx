@@ -42,7 +42,7 @@ export const useAuth = () => {
     setInputPassword(event.target.value);
   }, []);
 
-  // 入力欄のバリデーション
+  // 入力欄のバリデーション 問題があればtrueを返す
   const validateSignInInputs = useCallback((): { isFormError: boolean } => {
     // メールアドレスが空文字
     if (inputEmail === "") {
@@ -57,7 +57,7 @@ export const useAuth = () => {
     }
   }, [inputEmail, inputPassword]);
 
-  // signUpの入力欄のバリデーション
+  // signUpの入力欄のバリデーション 問題があればtrueを返す
   const validateSignUpInputs = useCallback((): { isFormError: boolean } => {
     if (inputProfileName === "") {
       toast.error("ユーザーネームを入力してください。");
@@ -76,6 +76,7 @@ export const useAuth = () => {
       toast.error("パスワードは5文字以上で入力してください。");
       return { isFormError: true };
     } else {
+      // 問題なければfalstoken
       return { isFormError: false };
     }
   }, [inputProfileName, inputSchoolName, inputEmail, inputPassword]);
@@ -86,9 +87,11 @@ export const useAuth = () => {
     // 入力欄の検証を避けるために値をセット。ログインには必要ない。
     const { isFormError } = validateSignInInputs();
 
+    // フォームのエラーがなければtokenを取得j
     if (!isFormError) {
       try {
         setIsLoading(true);
+        // tokenを取得
         const { data: tokenData } = await getTokensMutation({
           variables: {
             email: inputEmail,
@@ -107,7 +110,7 @@ export const useAuth = () => {
             maxAge: calcDate(tokenData.tokenAuth.refreshExpiresIn),
           });
         }
-
+        // ユーザーのstateを更新
         loginUserVar(initialLoginUserVar);
         setInputProfileName("");
         setInputEmail("");
@@ -141,6 +144,7 @@ export const useAuth = () => {
           },
         });
 
+        // 正常にレスポンスが帰ってきていればCookieにtokenを保存
         if (tokenData?.tokenAuth) {
           setCookie(null, "accessToken", tokenData.tokenAuth.token, {
             path: "/",
@@ -151,7 +155,7 @@ export const useAuth = () => {
             maxAge: calcDate(tokenData.tokenAuth.refreshExpiresIn),
           });
         }
-
+        // ユーザーのstateを更新
         loginUserVar(initialLoginUserVar);
         setInputEmail("");
         setInputPassword("");
@@ -166,11 +170,11 @@ export const useAuth = () => {
         });
         setIsLoading(false);
         await router.push("/");
-        router.reload();
         toast.success("登録が完了しました。");
       } catch (error) {
         setIsLoading(false);
         toast.error("メールアドレスが既に登録されています。");
+        console.error(error);
         return;
       }
     }

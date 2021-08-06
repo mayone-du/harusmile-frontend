@@ -1,0 +1,5 @@
+mutation UpdateUser($token: String!) {
+  updateUser(input: { token: $token }) {
+    ok
+  }
+}
