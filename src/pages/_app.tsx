@@ -2,7 +2,6 @@ import "tailwindcss/tailwind.css";
 import "nprogress/nprogress.css";
 
 import { ApolloProvider } from "@apollo/client";
-import type { NextPageContext } from "next";
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "next-themes";
 import nprogress from "nprogress";
@@ -13,8 +12,8 @@ import { initializeApollo } from "src/apollo/apolloClient";
 // プログレスバーを表示
 nprogress.configure({ showSpinner: false, speed: 400, minimum: 0.25 });
 
-const App = (props: AppProps, context: NextPageContext) => {
-  const apolloClient = initializeApollo(null, context);
+const App = (props: AppProps) => {
+  const apolloClient = initializeApollo(null);
 
   // プログレスバーの設定
   if (process.browser) {

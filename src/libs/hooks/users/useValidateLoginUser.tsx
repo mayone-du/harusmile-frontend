@@ -15,10 +15,10 @@ export const useValidateLoginUser = () => {
   const cookies = parseCookies();
   useEffect(
     () => {
-      // ログインしてなければログイン情報を取得
+      // tokenはあるがログインしてなければログイン情報を取得
       (async () => {
-        await handleRefreshToken();
         if (!loginUserData.isLogin && !cookies.refreshToken) return;
+        await handleRefreshToken();
         getLoginUserLazyQuery();
       })();
     },
@@ -109,7 +109,8 @@ export const useValidateLoginUser = () => {
             })
           : [],
       });
-    } else if (!cookies.refreshToken) {
+      // } else if (!cookies.refreshToken) {
+    } else {
       loginUserVar({
         ...loginUserData,
         isLoading: false,
