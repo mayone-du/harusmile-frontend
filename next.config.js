@@ -9,7 +9,7 @@ module.exports = withPWA({
     dest: "public", // swの出力ディレクトリ
     // runtimeCaching: [],
   },
-  // future: {
-  //   webpack5: false,
-  // },
+  future: {
+    webpack5: true,
+  },
 });
