@@ -32,6 +32,7 @@ export const useCreatePlan = () => {
   };
   const handlePlanCreate = async (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
+    // 入力欄の検証
     if (inputTitle === "") {
       toast.error("プランのタイトルを入力してください。");
       return;

@@ -6,6 +6,8 @@ import { fixDateFormat } from "src/libs/fixDateFormat";
 type Props = {
   talkRoomsData: any;
 };
+
+// 自分が参加しているトークルームの一覧
 export const TalkList: React.VFC<Props> = (props) => {
   const openTalkRoomId = useReactiveVar(openTalkRoomIdVar);
   // どのトークルームを開くかのstate ボタンのIDに付与する相手のユーザーID

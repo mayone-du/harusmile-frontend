@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { loginUserVar } from "src/apollo/cache";
 import { useGetLoginUserLazyQuery } from "src/apollo/schema";
 
-// ユーザーのログイン状態を取得してセット
+// ユーザーのログイン状態を取得してセット ユーザーのプロフィール設定時用のhook
 export const useSetLoginUserData = () => {
   const loginUserData = useReactiveVar(loginUserVar);
   const [getLoginUserLazyQuery, { data: queryData }] = useGetLoginUserLazyQuery({

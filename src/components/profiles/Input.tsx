@@ -4,6 +4,7 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string;
 };
 
+// プロフィール設定ページのinput
 export const Input: React.VFC<InputProps> = (props) => {
   return (
     <div>

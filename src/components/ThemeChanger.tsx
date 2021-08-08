@@ -1,6 +1,7 @@
 import { useTheme } from "next-themes";
 import { useCallback } from "react";
 
+// カラーモード変更コンポーネント
 export const ThemeChanger = () => {
   const { theme, setTheme } = useTheme();
   const handleChangeTheme = useCallback(() => {

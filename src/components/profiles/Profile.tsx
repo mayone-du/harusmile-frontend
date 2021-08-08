@@ -19,6 +19,7 @@ type Props = {
   // tags: any;
   stars: any;
 };
+// プロフィールカード
 export const Profile: React.VFC<Props> = (props) => {
   /* 配列の数字の平均を出し、少数第二位を四捨五入 */
   const StarRating =

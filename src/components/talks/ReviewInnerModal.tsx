@@ -6,6 +6,7 @@ type Props = {
   talkRoom: any;
 };
 
+// レビューモーダルの中身
 export const InnerReviewModal: React.VFC<Props> = (props) => {
   const loginUserData = useReactiveVar(loginUserVar);
   const {

@@ -14,10 +14,12 @@ export const useUpdatePlan = (planData: GetPlanQuery | undefined) => {
   const [inputContent, setInputContent] = useState(
     planData?.plan?.content ? planData.plan.content : "",
   );
+  // プランの料金を文字列型で保持
   const [inputPrice, setInputPrice] = useState(
     planData?.plan?.price === 0 ? planData.plan.price.toString() : "0",
   );
 
+  //TODO: プランの仕様をどうするかによって検討
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     toast.error("タイトルは変更できません");
     return;
@@ -26,6 +28,7 @@ export const useUpdatePlan = (planData: GetPlanQuery | undefined) => {
   const handleContentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputContent(event.target.value);
   };
+  //TODO: 有料版が検討されたら修正
   const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     toast.error("料金は変更できません。");
     return;

@@ -3,6 +3,7 @@ import { CheckSvg } from "src/components/icons/svgs/CheckSvg";
 import { SearchSvg } from "src/components/icons/svgs/SearchSvg";
 import { useSearch } from "src/libs/hooks/useSearch";
 
+// トップページに使用している検索窓
 export const SearchBox: React.VFC = () => {
   const {
     inputSearchKeyword,
