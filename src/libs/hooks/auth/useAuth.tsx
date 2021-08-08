@@ -134,35 +134,39 @@ export const useAuth = () => {
     if (!isFormError) {
       try {
         setIsLoading(true);
-        await createUserMutation({ variables: { email: inputEmail, password: inputPassword } });
-
-        // サインイン
-        const { data: tokenData } = await getTokensMutation({
-          variables: {
-            email: inputEmail,
-            password: inputPassword,
-          },
+        const { data } = await createUserMutation({
+          variables: { email: inputEmail, password: inputPassword },
         });
+        const userId = data?.createUser?.user?.id ? data.createUser.user.id : "";
 
-        // 正常にレスポンスが帰ってきていればCookieにtokenを保存
-        if (tokenData?.tokenAuth) {
-          setCookie(null, "accessToken", tokenData.tokenAuth.token, {
-            path: "/",
-            maxAge: calcDate(tokenData.tokenAuth.payload.exp),
-          });
-          setCookie(null, "refreshToken", tokenData.tokenAuth.refreshToken, {
-            path: "/",
-            maxAge: calcDate(tokenData.tokenAuth.refreshExpiresIn),
-          });
-        }
-        // ユーザーのstateを更新
-        loginUserVar(initialLoginUserVar);
-        setInputEmail("");
-        setInputPassword("");
+        // // サインイン
+        // const { data: tokenData } = await getTokensMutation({
+        //   variables: {
+        //     email: inputEmail,
+        //     password: inputPassword,
+        //   },
+        // });
+
+        // // 正常にレスポンスが帰ってきていればCookieにtokenを保存
+        // if (tokenData?.tokenAuth) {
+        //   setCookie(null, "accessToken", tokenData.tokenAuth.token, {
+        //     path: "/",
+        //     maxAge: calcDate(tokenData.tokenAuth.payload.exp),
+        //   });
+        //   setCookie(null, "refreshToken", tokenData.tokenAuth.refreshToken, {
+        //     path: "/",
+        //     maxAge: calcDate(tokenData.tokenAuth.refreshExpiresIn),
+        //   });
+        // }
+        // // ユーザーのstateを更新
+        // loginUserVar(initialLoginUserVar);
+        // setInputEmail("");
+        // setInputPassword("");
 
         // プロフィールを作成
         await createProfileMutation({
           variables: {
+            targetUserId: userId,
             profileName: inputProfileName,
             isCollegeStudent: isCollegeStudent,
             schoolName: inputSchoolName,

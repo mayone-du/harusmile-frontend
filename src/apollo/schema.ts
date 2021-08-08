@@ -130,6 +130,7 @@ export type CreatePlanMutationPayload = {
 };
 
 export type CreateProfileMutationInput = {
+  targetUserId: Scalars['ID'];
   profileName: Scalars['String'];
   profileText?: Maybe<Scalars['String']>;
   isCollegeStudent: Scalars['Boolean'];
@@ -1406,6 +1407,7 @@ export type UpdatePlanMutation = (
 );
 
 export type CreateProfileMutationVariables = Exact<{
+  targetUserId: Scalars['ID'];
   profileName: Scalars['String'];
   profileText?: Maybe<Scalars['String']>;
   isCollegeStudent: Scalars['Boolean'];
@@ -2361,9 +2363,9 @@ export type UpdatePlanMutationHookResult = ReturnType<typeof useUpdatePlanMutati
 export type UpdatePlanMutationResult = Apollo.MutationResult<UpdatePlanMutation>;
 export type UpdatePlanMutationOptions = Apollo.BaseMutationOptions<UpdatePlanMutation, UpdatePlanMutationVariables>;
 export const CreateProfileDocument = gql`
-    mutation CreateProfile($profileName: String!, $profileText: String, $isCollegeStudent: Boolean!, $schoolName: String!, $age: Int, $selectedGender: ID, $selectedAddress: ID, $telephoneNumber: String, $wantHear: String, $problem: String, $undergraduate: String, $department: String, $clubActivities: String, $admissionFormat: String, $favoriteSubject: String, $profileImage: Upload) {
+    mutation CreateProfile($targetUserId: ID!, $profileName: String!, $profileText: String, $isCollegeStudent: Boolean!, $schoolName: String!, $age: Int, $selectedGender: ID, $selectedAddress: ID, $telephoneNumber: String, $wantHear: String, $problem: String, $undergraduate: String, $department: String, $clubActivities: String, $admissionFormat: String, $favoriteSubject: String, $profileImage: Upload) {
   createProfile(
-    input: {profileName: $profileName, profileText: $profileText, isCollegeStudent: $isCollegeStudent, schoolName: $schoolName, age: $age, selectedGender: $selectedGender, selectedAddress: $selectedAddress, telephoneNumber: $telephoneNumber, wantHear: $wantHear, problem: $problem, undergraduate: $undergraduate, department: $department, clubActivities: $clubActivities, admissionFormat: $admissionFormat, favoriteSubject: $favoriteSubject, profileImage: $profileImage}
+    input: {targetUserId: $targetUserId, profileName: $profileName, profileText: $profileText, isCollegeStudent: $isCollegeStudent, schoolName: $schoolName, age: $age, selectedGender: $selectedGender, selectedAddress: $selectedAddress, telephoneNumber: $telephoneNumber, wantHear: $wantHear, problem: $problem, undergraduate: $undergraduate, department: $department, clubActivities: $clubActivities, admissionFormat: $admissionFormat, favoriteSubject: $favoriteSubject, profileImage: $profileImage}
   ) {
     profile {
       id
@@ -2409,6 +2411,7 @@ export type CreateProfileMutationFn = Apollo.MutationFunction<CreateProfileMutat
  * @example
  * const [createProfileMutation, { data, loading, error }] = useCreateProfileMutation({
  *   variables: {
+ *      targetUserId: // value for 'targetUserId'
  *      profileName: // value for 'profileName'
  *      profileText: // value for 'profileText'
  *      isCollegeStudent: // value for 'isCollegeStudent'

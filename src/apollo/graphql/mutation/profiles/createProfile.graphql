@@ -1,4 +1,5 @@
 mutation CreateProfile(
+  $targetUserId: ID!
   $profileName: String!
   $profileText: String
   $isCollegeStudent: Boolean!
@@ -18,6 +19,7 @@ mutation CreateProfile(
 ) {
   createProfile(
     input: {
+      targetUserId: $targetUserId
       profileName: $profileName
       profileText: $profileText
       isCollegeStudent: $isCollegeStudent
