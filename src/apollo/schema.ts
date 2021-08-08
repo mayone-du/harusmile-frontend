@@ -46,6 +46,7 @@ export type AddressNodeSelectedAddressArgs = {
   after?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
+  targetUser_IsActive?: Maybe<Scalars['Boolean']>;
   profileName?: Maybe<Scalars['String']>;
   profileName_Icontains?: Maybe<Scalars['String']>;
   profileText?: Maybe<Scalars['String']>;
@@ -219,6 +220,7 @@ export type GenderNodeSelectedGenderArgs = {
   after?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
+  targetUser_IsActive?: Maybe<Scalars['Boolean']>;
   profileName?: Maybe<Scalars['String']>;
   profileName_Icontains?: Maybe<Scalars['String']>;
   profileText?: Maybe<Scalars['String']>;
@@ -614,6 +616,7 @@ export type QueryAllProfilesArgs = {
   after?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
+  targetUser_IsActive?: Maybe<Scalars['Boolean']>;
   profileName?: Maybe<Scalars['String']>;
   profileName_Icontains?: Maybe<Scalars['String']>;
   profileText?: Maybe<Scalars['String']>;
@@ -647,6 +650,7 @@ export type QueryHighSchoolProfilesArgs = {
   after?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
+  targetUser_IsActive?: Maybe<Scalars['Boolean']>;
   profileName?: Maybe<Scalars['String']>;
   profileName_Icontains?: Maybe<Scalars['String']>;
   profileText?: Maybe<Scalars['String']>;
@@ -680,6 +684,7 @@ export type QueryCollegeProfilesArgs = {
   after?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
+  targetUser_IsActive?: Maybe<Scalars['Boolean']>;
   profileName?: Maybe<Scalars['String']>;
   profileName_Icontains?: Maybe<Scalars['String']>;
   profileText?: Maybe<Scalars['String']>;
@@ -943,6 +948,7 @@ export type TagNodeTagsArgs = {
   after?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
+  targetUser_IsActive?: Maybe<Scalars['Boolean']>;
   profileName?: Maybe<Scalars['String']>;
   profileName_Icontains?: Maybe<Scalars['String']>;
   profileText?: Maybe<Scalars['String']>;
@@ -1136,6 +1142,7 @@ export type UserNodeFollowingUsersArgs = {
   after?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
+  targetUser_IsActive?: Maybe<Scalars['Boolean']>;
   profileName?: Maybe<Scalars['String']>;
   profileName_Icontains?: Maybe<Scalars['String']>;
   profileText?: Maybe<Scalars['String']>;
@@ -3138,7 +3145,7 @@ export type GetPlanLazyQueryHookResult = ReturnType<typeof useGetPlanLazyQuery>;
 export type GetPlanQueryResult = Apollo.QueryResult<GetPlanQuery, GetPlanQueryVariables>;
 export const GetAllProfilesDocument = gql`
     query GetAllProfiles($offset: Int, $first: Int) {
-  allProfiles(offset: $offset, first: $first) {
+  allProfiles(offset: $offset, first: $first, targetUser_IsActive: true) {
     edges {
       node {
         id
@@ -3207,7 +3214,7 @@ export type GetAllProfilesLazyQueryHookResult = ReturnType<typeof useGetAllProfi
 export type GetAllProfilesQueryResult = Apollo.QueryResult<GetAllProfilesQuery, GetAllProfilesQueryVariables>;
 export const GetCollegeProfilesDocument = gql`
     query GetCollegeProfiles($offset: Int, $first: Int) {
-  collegeProfiles(offset: $offset, first: $first) {
+  collegeProfiles(offset: $offset, first: $first, targetUser_IsActive: true) {
     edges {
       node {
         id
@@ -3279,7 +3286,7 @@ export type GetCollegeProfilesLazyQueryHookResult = ReturnType<typeof useGetColl
 export type GetCollegeProfilesQueryResult = Apollo.QueryResult<GetCollegeProfilesQuery, GetCollegeProfilesQueryVariables>;
 export const GetHighSchoolProfilesDocument = gql`
     query GetHighSchoolProfiles {
-  highSchoolProfiles {
+  highSchoolProfiles(targetUser_IsActive: true) {
     edges {
       node {
         id

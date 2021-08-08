@@ -1,5 +1,5 @@
 query GetHighSchoolProfiles {
-  highSchoolProfiles {
+  highSchoolProfiles(targetUser_IsActive: true) {
     edges {
       node {
         id

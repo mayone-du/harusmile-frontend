@@ -1,5 +1,5 @@
 query GetAllProfiles($offset: Int, $first: Int) {
-  allProfiles(offset: $offset, first: $first) {
+  allProfiles(offset: $offset, first: $first, targetUser_IsActive: true) {
     edges {
       node {
         id
