@@ -120,6 +120,7 @@ export const useAuth = () => {
         toast.success("ログインに成功しました。");
       } catch (error) {
         setIsLoading(false);
+        // TODO: 本人確認が済んでいるか、パスワードの検証など
         toast.error("ログインに失敗しました。");
         return;
       }
@@ -174,9 +175,10 @@ export const useAuth = () => {
         });
         setIsLoading(false);
         await router.push("/");
-        toast.success("登録が完了しました。");
+        toast.success("仮登録が完了しました。メールを確認して本登録してください。");
       } catch (error) {
         setIsLoading(false);
+        // TODO: エラー内容によってエラー文を出し分け
         toast.error("メールアドレスが既に登録されています。");
         console.error(error);
         return;
