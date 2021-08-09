@@ -7,7 +7,7 @@ import { Plan } from "src/components/plans/Plan";
 import { useCreatePlan } from "src/libs/hooks/plans/useCreatePlan";
 
 const PlansIndex: NextPage = () => {
-  // プラン一覧の表示
+  // 自分のプラン一覧の表示と作成欄
   const { data } = useGetLoginUserPlansQuery({ fetchPolicy: "network-only" });
   const loginUserData = useReactiveVar(loginUserVar);
 
@@ -31,6 +31,10 @@ const PlansIndex: NextPage = () => {
       {/* 非ログイン時 */}
       {!loginUserData.isLoading && !loginUserData.isLogin && <div>ログイン後に使用可能です。</div>}
 
+      {/* ユーザーが高校生の場合は表示しない */}
+      {!loginUserData.isCollegeStudent && <div>大学生のみプランの作成が可能です。</div>}
+
+      {/* ユーザーが大学生ならプランの一覧を表示 */}
       {loginUserData.isCollegeStudent && (
         <div className="py-8">
           <h2 className="text-center font-bold">プランの作成</h2>

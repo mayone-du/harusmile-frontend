@@ -15,11 +15,6 @@ const SignIn: NextPage = () => {
             <a className="block p-2 border">新規登録はこちら</a>
           </Link>
         </div>
-        <div>
-          <Link href="/auth/signout">
-            <a className="block p-2 border">ログアウトはこちら</a>
-          </Link>
-        </div>
       </div>
     </Layout>
   );

@@ -33,6 +33,8 @@ export const useVerify = () => {
           return;
         }
       })();
+    } else if (token === undefined) {
+      setVerifyMessage("メールアドレスに送信されたURLをクリックして本登録を済ませてください。");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
