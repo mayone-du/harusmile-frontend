@@ -13,6 +13,8 @@ export const useCreateReview = () => {
       bottom: "auto",
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
+      padding: "0px",
+      border: "none",
     },
     overlay: {
       background: "rgba(0, 0, 0, 0.3)",
