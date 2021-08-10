@@ -19,7 +19,7 @@ const Settings: NextPage = () => {
     handleProfileTextChange,
     handleAgeChange,
     handleSchoolNameChange,
-    handleTelephoneNumberChange,
+    // handleTelephoneNumberChange,
     handleUndergraduateChange,
     handleAdmissionFormatChange,
     handleDepartmentChange,
@@ -77,13 +77,14 @@ const Settings: NextPage = () => {
         </div>
       </section>
 
+      {/* 各入力欄 */}
       <form onSubmit={handleSubmit}>
-        <ul className="flex">
+        <ul className="md:flex">
           <div className="w-full">
             <li className="my-4 mx-auto w-full">
-              <div className="mx-auto w-2/3 text-sm">高校生 or 大学生</div>
+              <div className="mx-auto md:w-2/3 text-sm">高校生 or 大学生</div>
               <select
-                className="block p-2 mx-auto w-2/3 border-b border-pink-500 focus:outline-none"
+                className="block p-2 mx-auto md:w-2/3 w-full border-b border-pink-500 focus:outline-none"
                 value={inputLoginUserData.isCollegeStudent.toString()}
                 onChange={handleStudentBlur}
                 onBlur={handleStudentBlur}
@@ -95,35 +96,37 @@ const Settings: NextPage = () => {
             <li className="my-4 mx-auto w-full">
               <Input
                 type="text"
-                placeholder="ユーザーネーム"
+                placeholder="山田 太郎"
                 value={inputLoginUserData.profileName}
                 onChange={handleProfileNameChange}
                 label="ユーザーネーム"
               />
             </li>
+            {/* 自己紹介 */}
             <li className="my-4 mx-auto w-full">
-              <div className="mx-auto w-2/3 text-sm">自己紹介文</div>
+              <div className="mx-auto md:w-2/3 text-sm">自己紹介文</div>
               <textarea
-                placeholder="profileText"
-                className="block p-2 mx-auto w-2/3 border-b border-pink-500 focus:outline-none resize-none"
+                placeholder="〇〇学校 〇年 〇〇が得意です。よろしくおねがいします。"
+                className="block p-2 mx-auto md:w-2/3 w-full border-b border-pink-500 focus:outline-none resize-none"
                 value={inputLoginUserData.profileText}
                 onChange={handleProfileTextChange}
               ></textarea>
             </li>
-            <li className="my-4 mx-auto w-full">
+            {/* 電話番号 */}
+            {/* <li className="my-4 mx-auto w-full">
               <Input
                 type="tel"
-                placeholder="telephoneNumber"
+                placeholder="000-1111-2222"
                 value={inputLoginUserData.telephoneNumber}
                 onChange={handleTelephoneNumberChange}
                 label="電話番号"
               />
-            </li>
+            </li> */}
 
             <li className="my-4 mx-auto w-full">
-              <div className="mx-auto w-2/3 text-sm">住んでいる場所</div>
+              <div className="mx-auto md:w-2/3 text-sm">住んでいる場所</div>
               <select
-                className="block p-2 mx-auto w-2/3 border-b border-pink-500 focus:outline-none"
+                className="block p-2 mx-auto md:w-2/3 w-full border-b border-pink-500 focus:outline-none"
                 value={inputLoginUserData.addressId}
                 onChange={handleAddressBlur}
                 onBlur={handleAddressBlur}
@@ -143,9 +146,9 @@ const Settings: NextPage = () => {
               </select>
             </li>
             <li className="my-4 mx-auto w-full">
-              <div className="mx-auto w-2/3 text-sm">性別</div>
+              <div className="mx-auto md:w-2/3 text-sm">性別</div>
               <select
-                className="block p-2 mx-auto w-2/3 border-b border-pink-500 focus:outline-none"
+                className="block p-2 mx-auto md:w-2/3 w-full border-b border-pink-500 focus:outline-none"
                 value={inputLoginUserData.genderId}
                 onChange={handleGenderBlur}
                 onBlur={handleGenderBlur}
@@ -169,7 +172,7 @@ const Settings: NextPage = () => {
                 type="number"
                 max={50}
                 min={0}
-                placeholder="age"
+                placeholder="20"
                 value={inputLoginUserData.age}
                 onChange={handleAgeChange}
                 label="年齢"
@@ -181,7 +184,7 @@ const Settings: NextPage = () => {
             <li className="my-4 mx-auto w-full">
               <Input
                 type="text"
-                placeholder="schoolName"
+                placeholder="〇〇学校"
                 value={inputLoginUserData.schoolName}
                 onChange={handleSchoolNameChange}
                 label="学校名"
@@ -192,7 +195,7 @@ const Settings: NextPage = () => {
                 <li className="my-4 mx-auto w-full">
                   <Input
                     type="text"
-                    placeholder="undergraduate"
+                    placeholder="〇〇学部"
                     value={inputLoginUserData.undergraduate}
                     onChange={handleUndergraduateChange}
                     label="学部"
@@ -201,8 +204,8 @@ const Settings: NextPage = () => {
                 <li className="my-4 mx-auto w-full">
                   <Input
                     type="text"
-                    placeholder="department"
-                    className="block p-2 mx-auto w-2/3 border-b border-pink-500 focus:outline-none"
+                    placeholder="〇〇学科"
+                    className="block p-2 mx-auto md:w-2/3 border-b border-pink-500 focus:outline-none"
                     value={inputLoginUserData.department}
                     onChange={handleDepartmentChange}
                     label="学科"
@@ -211,7 +214,7 @@ const Settings: NextPage = () => {
                 <li className="my-4 mx-auto w-full">
                   <Input
                     type="text"
-                    placeholder="clubActivities"
+                    placeholder="〇〇部 or 〇〇サークル"
                     value={inputLoginUserData.clubActivities}
                     onChange={handleClubActivitiesChange}
                     label="部活動・サークル"
@@ -220,8 +223,8 @@ const Settings: NextPage = () => {
                 <li className="my-4 mx-auto w-full">
                   <Input
                     type="text"
-                    placeholder="admissionFormat"
-                    className="block p-2 mx-auto w-2/3 border-b border-pink-500 focus:outline-none"
+                    placeholder="入試形態を入力"
+                    className="block p-2 mx-auto md:w-2/3 border-b border-pink-500 focus:outline-none"
                     value={inputLoginUserData.admissionFormat}
                     onChange={handleAdmissionFormatChange}
                     label="入試形態"
@@ -230,7 +233,7 @@ const Settings: NextPage = () => {
                 <li className="my-4 mx-auto w-full">
                   <Input
                     type="text"
-                    placeholder="favoriteSubject"
+                    placeholder="好きな科目を入力"
                     value={inputLoginUserData.favoriteSubject}
                     onChange={handleFavoriteSubjectChange}
                     label="好きな科目"
@@ -239,7 +242,7 @@ const Settings: NextPage = () => {
                 <li className="my-4 mx-auto w-full">
                   <Input
                     type="text"
-                    placeholder="wantHear"
+                    placeholder="〇〇について"
                     value={inputLoginUserData.wantHear}
                     onChange={handleWantHearChange}
                     label="聞きたいこと"
@@ -248,7 +251,7 @@ const Settings: NextPage = () => {
                 <li className="my-4 mx-auto w-full">
                   <Input
                     type="text"
-                    placeholder="problem"
+                    placeholder="〇〇について"
                     value={inputLoginUserData.problem}
                     onChange={handleProblemChange}
                     label="悩み"
@@ -258,11 +261,11 @@ const Settings: NextPage = () => {
             )}
 
             <li className="my-4 mx-auto w-full">
-              <div className="mx-auto w-2/3 text-sm">プロフィール画像</div>
+              <div className="mx-auto md:w-2/3 text-sm">プロフィール画像</div>
               <input
                 type="file"
-                placeholder="profileImage"
-                className="block p-2 mx-auto w-2/3 border-b border-pink-500 focus:outline-none"
+                placeholder="プロフィール画像を選択してください。"
+                className="block p-2 mx-auto md:w-2/3 w-full border-b border-pink-500 focus:outline-none"
                 onChange={handleProfileImageChange}
               />
             </li>

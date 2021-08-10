@@ -80,7 +80,7 @@ export const NotificationButton: React.VFC = () => {
       <Modal
         isOpen={isNotificationOpen}
         onRequestClose={handleNotificationClose}
-        className="dark:bg-gray-700 absolute top-20 p-4 w-4/5 rounded-md left-1/2 transform -translate-x-1/2 bg-white border"
+        className="dark:bg-gray-700 absolute top-20 p-4 md:w-96 w-5/6 rounded-md left-1/2 transform -translate-x-1/2 bg-white border"
         contentLabel={`Notification Modal`}
         ariaHideApp={false}
       >
