@@ -1,6 +1,8 @@
-# Template Repository
+# HaruSmile について
 
-## Packages
+## 概要
+
+## 主な使用技術
 
 - Next.js
 - TypeScript
@@ -9,13 +11,8 @@
 - Apollo Client
 - GraphQL Code Generator
 - Jest
-- nookies
 - ESLint
 - Prettier
-
-## SetUp
-
-- Create /.env.local
 
 ### TODO
 
@@ -31,11 +28,8 @@
 - リファクタリング
   - 検索時の条件など
   - ログインユーザーのデータ保持まわり
-  - GraphQL にフラグメントを追加？
-  - 使用していない GraphQL の削除や最適化
   - テストコード
   - useCallBack / useMemo の使用
-  - ProfilesWrapper コンポーネントが 3 つあるから最適化
   - 書き方などの統一
   - ファイルやコンポーネントの分割
 - その他細かいタスクなど
@@ -45,6 +39,7 @@
 ### DONE
 
 - 機能
+
   - 新規登録
   - ログイン
   - ログアウト
