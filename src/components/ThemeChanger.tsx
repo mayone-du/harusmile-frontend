@@ -15,7 +15,7 @@ export const ThemeChanger = () => {
         checked={theme === "light"}
         onChange={handleChangeTheme}
         className={`${theme === "light" ? "bg-teal-900" : "bg-teal-700"}
-          border-gray-500 relative inline-flex flex-shrink-0 h-[38px] w-[74px] border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
+          relative inline-flex flex-shrink-0 h-[38px] w-[74px] border-2 border-gray-500 rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
       >
         <span className="sr-only">Use setting</span>
         <span

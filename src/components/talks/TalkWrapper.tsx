@@ -19,7 +19,6 @@ import { TalkList } from "src/components/talks/TalkList";
 import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
 import { useCreateMessages } from "src/libs/hooks/messages/useCreateMessages";
 import { useCreateReview } from "src/libs/hooks/useCreateReview";
-import { useValidateLoginUser } from "src/libs/hooks/users/useValidateLoginUser";
 
 export const TalkWrapper: React.VFC = () => {
   const cookies = parseCookies();
@@ -27,7 +26,6 @@ export const TalkWrapper: React.VFC = () => {
   const loginUserData = useReactiveVar(loginUserVar);
   const openTalkRoomId = useReactiveVar(openTalkRoomIdVar);
 
-  const { loginUserData: validatedLoginUserData } = useValidateLoginUser();
   // ログインユーザーが参加しているトークルームのデータを取得
   const [
     getLoginUserTalkRooms,
@@ -42,12 +40,12 @@ export const TalkWrapper: React.VFC = () => {
     pollInterval: process.env.NODE_ENV === "development" ? 1000 * 60 : 1000 * 5,
   });
 
+  // マウント時にユーザー情報のチェックを行う
   useEffect(() => {
     (async () => {
-      if (validatedLoginUserData.isLogin) {
-        if (!cookies.accessToken) {
-          await handleRefreshToken();
-        }
+      // ログインしていて、アクセストークンがない場合にトークンを更新
+      if (loginUserData.isLogin && !cookies.accessToken) {
+        await handleRefreshToken();
       }
       getLoginUserTalkRooms();
     })();
@@ -201,7 +199,7 @@ export const TalkWrapper: React.VFC = () => {
                     <div>
                       <Link href={`/plans/${talkRoom.node.selectedPlan?.id}`}>
                         <a className="block border m-2">
-                          <p>プランのタイトル：{talkRoom.node.selectedPlan?.title}</p>
+                          <p className="font-bold">{talkRoom.node.selectedPlan?.title}</p>
                           <p className="text-xs">{talkRoom.node.selectedPlan?.content}</p>
                           <p className="text-sm">
                             料金：
@@ -264,6 +262,7 @@ export const TalkWrapper: React.VFC = () => {
                       />
 
                       {/* 引数に相手のuserIdを渡して通知を作成 */}
+                      {/* 承認済みの場合 */}
                       {talkRoom.node.opponentUser && talkRoom.node.isApprove && (
                         <button
                           className="flex items-center border bg-pink-400 h-12 justify-center text-white w-1/5"
@@ -300,9 +299,10 @@ export const TalkWrapper: React.VFC = () => {
                           </svg>
                         </button>
                       )}
+                      {/* メッセージの送信が承認されていない場合 */}
                       {talkRoom.node.opponentUser && !talkRoom.node.isApprove && (
-                        <button disabled className="border p-2 text-xs">
-                          申込みが承認された後に送信できます
+                        <button disabled className="border p-2 line-through h-12 w-1/5">
+                          送信
                         </button>
                       )}
                     </div>

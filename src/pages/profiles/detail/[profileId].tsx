@@ -14,6 +14,11 @@ const ProfileDetail: NextPage = () => {
   const { data: profileData, loading: isLoading } = useGetProfileQuery({
     variables: { profileId: targetProfileId },
   });
+  const stars = profileData?.profile?.targetUser
+    ? profileData.profile.targetUser.provider.edges.map((review) => {
+        return review?.node?.stars ? review.node.stars : 0;
+      })
+    : [0];
 
   return (
     <Layout
@@ -99,6 +104,17 @@ const ProfileDetail: NextPage = () => {
                     <li>レビューはまだありません。</li>
                   )}
                   {/* レビューがある場合 */}
+                  {/* レビューの平均 */}
+                  <div>
+                    平均：
+                    {Math.round(
+                      stars.reduce((prev: number, current: number) => {
+                        return prev + current / stars.length;
+                      }, 0) * 10,
+                    ) / 10}
+                    <span className="mx-4">{stars.length !== 0 && stars.length.toString()}件</span>
+                  </div>
+                  {/* 各レビュー */}
                   {profileData.profile.targetUser.provider.edges.length !== 0 &&
                     profileData.profile.targetUser.provider.edges.map((review, index) => {
                       return (

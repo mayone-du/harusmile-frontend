@@ -1,9 +1,17 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import { useCreateNotificationMutation, useCreateReviewMutation } from "src/apollo/schema";
+import {
+  useCreateNotificationMutation,
+  useCreateReviewMutation,
+  useGetLoginUserSendReviewsQuery,
+} from "src/apollo/schema";
 import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
 
 export const useCreateReview = () => {
+  const { data: sendReviewData } = useGetLoginUserSendReviewsQuery();
+  const sendUsers = sendReviewData?.loginUserSendReviews?.edges.map((review) => {
+    return review?.node?.provider.id;
+  });
   // モーダル用style
   const customStyles = {
     content: {
@@ -42,10 +50,16 @@ export const useCreateReview = () => {
     setInputStars(event.target.value);
   };
 
-  // レビュー作成
+  // レビュー作成 サービス提供者側のIDを受け取るj
   const handleCreateReview = async (providerId: string) => {
     if (inputRevewText === "" || inputStars === "") {
       toast.error("レビューを入力してください。");
+      return;
+    }
+
+    // 既にレビューを作成したユーザーへは作成できないようにする
+    if (sendUsers?.includes(providerId)) {
+      toast.error("既にレビュー済みです。");
       return;
     }
 

@@ -1,0 +1,13 @@
+query GetLoginUserSendReviews {
+  loginUserSendReviews {
+    edges {
+      node {
+        id
+        provider {
+          id
+          email
+        }
+      }
+    }
+  }
+}

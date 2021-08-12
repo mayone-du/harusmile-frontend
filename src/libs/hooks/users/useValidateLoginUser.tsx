@@ -5,7 +5,7 @@ import { loginUserVar } from "src/apollo/cache";
 import { useGetLoginUserLazyQuery } from "src/apollo/schema";
 import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
 
-// ログインユーザーの検証
+// ログインユーザーの検証 レイアウトコンポーネントで毎回呼ばれる
 export const useValidateLoginUser = () => {
   const loginUserData = useReactiveVar(loginUserVar);
 
@@ -27,11 +27,11 @@ export const useValidateLoginUser = () => {
   );
 
   useEffect(() => {
-    // Reactive変数のログイン状態がfalseかつ、クエリーデータがある場合に値をセット
+    // Reactive変数のログイン状態がfalseかつ、取得したユーザーのデータがある場合に値をセット
     if (!loginUserData.isLogin && queryData) {
       loginUserVar({
-        isLoading: queryData ? false : true,
-        isLogin: queryData ? true : false,
+        isLoading: false,
+        isLogin: true,
         userId: queryData.loginUser?.id ? queryData.loginUser.id : "",
         email: queryData.loginUser?.email ? queryData.loginUser.email : "",
         profileId: queryData.loginUser?.targetUser?.id ? queryData.loginUser?.targetUser?.id : "",
@@ -109,7 +109,6 @@ export const useValidateLoginUser = () => {
             })
           : [],
       });
-      // } else if (!cookies.refreshToken) {
     } else {
       loginUserVar({
         ...loginUserData,

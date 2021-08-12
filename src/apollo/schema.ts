@@ -575,6 +575,7 @@ export type Query = {
   review?: Maybe<ReviewNode>;
   allReviews?: Maybe<ReviewNodeConnection>;
   loginUserReviews?: Maybe<ReviewNodeConnection>;
+  loginUserSendReviews?: Maybe<ReviewNodeConnection>;
   gender?: Maybe<GenderNode>;
   allGenders?: Maybe<GenderNodeConnection>;
   address?: Maybe<AddressNode>;
@@ -783,6 +784,19 @@ export type QueryAllReviewsArgs = {
 
 
 export type QueryLoginUserReviewsArgs = {
+  offset?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  after?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  stars?: Maybe<Scalars['Int']>;
+  reviewText?: Maybe<Scalars['String']>;
+  reviewText_Icontains?: Maybe<Scalars['String']>;
+  customerId?: Maybe<Scalars['ID']>;
+};
+
+
+export type QueryLoginUserSendReviewsArgs = {
   offset?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   after?: Maybe<Scalars['String']>;
@@ -1743,6 +1757,27 @@ export type GetLoginUserReviewsQuery = (
             { __typename?: 'ProfileNode' }
             & Pick<ProfileNode, 'profileName' | 'profileImage'>
           )> }
+        ) }
+      )> }
+    )>> }
+  )> }
+);
+
+export type GetLoginUserSendReviewsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetLoginUserSendReviewsQuery = (
+  { __typename?: 'Query' }
+  & { loginUserSendReviews?: Maybe<(
+    { __typename?: 'ReviewNodeConnection' }
+    & { edges: Array<Maybe<(
+      { __typename?: 'ReviewNodeEdge' }
+      & { node?: Maybe<(
+        { __typename?: 'ReviewNode' }
+        & Pick<ReviewNode, 'id'>
+        & { provider: (
+          { __typename?: 'UserNode' }
+          & Pick<UserNode, 'id' | 'email'>
         ) }
       )> }
     )>> }
@@ -3074,6 +3109,48 @@ export function useGetLoginUserReviewsLazyQuery(baseOptions?: Apollo.LazyQueryHo
 export type GetLoginUserReviewsQueryHookResult = ReturnType<typeof useGetLoginUserReviewsQuery>;
 export type GetLoginUserReviewsLazyQueryHookResult = ReturnType<typeof useGetLoginUserReviewsLazyQuery>;
 export type GetLoginUserReviewsQueryResult = Apollo.QueryResult<GetLoginUserReviewsQuery, GetLoginUserReviewsQueryVariables>;
+export const GetLoginUserSendReviewsDocument = gql`
+    query GetLoginUserSendReviews {
+  loginUserSendReviews {
+    edges {
+      node {
+        id
+        provider {
+          id
+          email
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetLoginUserSendReviewsQuery__
+ *
+ * To run a query within a React component, call `useGetLoginUserSendReviewsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLoginUserSendReviewsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLoginUserSendReviewsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetLoginUserSendReviewsQuery(baseOptions?: Apollo.QueryHookOptions<GetLoginUserSendReviewsQuery, GetLoginUserSendReviewsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetLoginUserSendReviewsQuery, GetLoginUserSendReviewsQueryVariables>(GetLoginUserSendReviewsDocument, options);
+      }
+export function useGetLoginUserSendReviewsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLoginUserSendReviewsQuery, GetLoginUserSendReviewsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetLoginUserSendReviewsQuery, GetLoginUserSendReviewsQueryVariables>(GetLoginUserSendReviewsDocument, options);
+        }
+export type GetLoginUserSendReviewsQueryHookResult = ReturnType<typeof useGetLoginUserSendReviewsQuery>;
+export type GetLoginUserSendReviewsLazyQueryHookResult = ReturnType<typeof useGetLoginUserSendReviewsLazyQuery>;
+export type GetLoginUserSendReviewsQueryResult = Apollo.QueryResult<GetLoginUserSendReviewsQuery, GetLoginUserSendReviewsQueryVariables>;
 export const GetPlanDocument = gql`
     query GetPlan($planId: ID!) {
   plan(id: $planId) {

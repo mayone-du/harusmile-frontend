@@ -18,7 +18,7 @@ type Props = {
   targetWantHear: string;
   targetProblem: string;
 };
-// プロフィール粗油彩
+// プロフィール詳細
 export const NormalProfile: React.VFC<Props> = (props) => {
   const loginUserData = useReactiveVar(loginUserVar);
   return (

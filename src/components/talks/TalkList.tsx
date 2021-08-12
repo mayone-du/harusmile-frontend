@@ -25,7 +25,8 @@ export const TalkList: React.VFC<Props> = (props) => {
             {talkRoom?.node?.id ? (
               <button
                 className={`flex items-center py-2 md:px-4 px-2 w-full focus:outline-none ${
-                  openTalkRoomId === talkRoom.node.id && "bg-pink-100 dark:bg-pink-400"
+                  // 現在開いているトークルームの色を変更
+                  openTalkRoomId === talkRoom.node.id && "bg-gray-200 dark:bg-gray-700"
                 }`}
                 onClick={handleOpenTalkRoomChange}
                 // idをstate管理し、どのトークルームを選択しているか取得
