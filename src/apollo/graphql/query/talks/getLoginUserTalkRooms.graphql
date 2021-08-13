@@ -23,6 +23,7 @@ query GetLoginUserTalkRooms {
             node {
               id
               text
+              isViewed
               createdAt
               sender {
                 id

@@ -273,6 +273,7 @@ export type MessageNode = Node & {
   talkingRoom: TalkRoomNode;
   sender: UserNode;
   text: Scalars['String'];
+  isViewed: Scalars['Boolean'];
   createdAt: Scalars['DateTime'];
 };
 
@@ -2064,7 +2065,7 @@ export type GetLoginUserTalkRoomsQuery = (
             { __typename?: 'MessageNodeEdge' }
             & { node?: Maybe<(
               { __typename?: 'MessageNode' }
-              & Pick<MessageNode, 'id' | 'text' | 'createdAt'>
+              & Pick<MessageNode, 'id' | 'text' | 'isViewed' | 'createdAt'>
               & { sender: (
                 { __typename?: 'UserNode' }
                 & Pick<UserNode, 'id'>
@@ -3626,6 +3627,7 @@ export const GetLoginUserTalkRoomsDocument = gql`
             node {
               id
               text
+              isViewed
               createdAt
               sender {
                 id

@@ -1,13 +1,15 @@
 import { useReactiveVar } from "@apollo/client";
 import { loginUserVar, openTalkRoomIdVar } from "src/apollo/cache";
+import type { GetLoginUserTalkRoomsQuery } from "src/apollo/schema";
 import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { fixDateFormat } from "src/libs/fixDateFormat";
 
 type Props = {
-  talkRoomsData: any;
+  talkRoomsData: GetLoginUserTalkRoomsQuery;
 };
 
 // 自分が参加しているトークルームの一覧
+// TODO: 未読のメッセージを上にし、開いたら相手のメッセージのみ確認フラグをTrueに更新する
 export const TalkList: React.VFC<Props> = (props) => {
   const openTalkRoomId = useReactiveVar(openTalkRoomIdVar);
   // どのトークルームを開くかのstate ボタンのIDに付与する相手のユーザーID
@@ -15,9 +17,23 @@ export const TalkList: React.VFC<Props> = (props) => {
     openTalkRoomIdVar(e.currentTarget.id);
   };
   const loginUserData = useReactiveVar(loginUserVar);
+  // TODO: 未読のメッセージの件数を表示
+  // 未読のメッセージを取得
+  const unViewedMessages = props.talkRoomsData.loginUserTalkRooms?.edges.map((talkRoom) => {
+    const resultArray = talkRoom?.node?.talkingRoom.edges.map((message) => {
+      // 未読のメッセージのみ返す
+
+      const result = message?.node?.isViewed === false && message.node.text;
+      return result;
+    });
+    return resultArray?.filter(Boolean);
+  });
+  console.log(unViewedMessages);
+  // TODO: 未読のメッセージをトークルームごとに紐付ける
+
   return (
     <div>
-      {props.talkRoomsData?.loginUserTalkRooms?.edges.map((talkRoom: any, index: any) => {
+      {props.talkRoomsData?.loginUserTalkRooms?.edges.map((talkRoom, index) => {
         return (
           // 自分が参加しているトークルームの一覧を返す
           <li className="border-t border-b relative" key={index}>

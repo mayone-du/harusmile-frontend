@@ -20,13 +20,15 @@ import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
 import { useCreateMessages } from "src/libs/hooks/messages/useCreateMessages";
 import { useCreateReview } from "src/libs/hooks/useCreateReview";
 
+// このコンポーネントでトークルームのメッセージなどのデータを取得。TalkListコンポーネントにもデータを渡す
 export const TalkWrapper: React.VFC = () => {
   const cookies = parseCookies();
   const { handleRefreshToken } = useRefreshTokens();
   const loginUserData = useReactiveVar(loginUserVar);
+  // 現在開いているトークルームのID
   const openTalkRoomId = useReactiveVar(openTalkRoomIdVar);
 
-  // ログインユーザーが参加しているトークルームのデータを取得
+  // ログインユーザーが参加しているトークルームのメッセージを全て取得
   const [
     getLoginUserTalkRooms,
     {
@@ -61,6 +63,8 @@ export const TalkWrapper: React.VFC = () => {
     handleInputChange,
     createNotificationMutation,
   } = useCreateMessages();
+
+  // メッセージの送信と通知の作成
   const handleSubmit = async (receiverId: string) => {
     if (inputText === "") {
       toast.error("メッセージを入力してください。");
@@ -73,13 +77,13 @@ export const TalkWrapper: React.VFC = () => {
         text: inputText,
       },
     });
+    setInputText("");
     await createNotificationMutation({
       variables: {
         recieverId: receiverId,
         notificationType: "メッセージ",
       },
     });
-    setInputText("");
   };
 
   useEffect(() => {
@@ -128,7 +132,8 @@ export const TalkWrapper: React.VFC = () => {
 
         {/* <div>{messagesError && messagesError.message}</div> */}
         <ul className="border shadow-md max-h-72 overflow-y-scroll">
-          <TalkList talkRoomsData={talkRoomsData} />
+          {/* TalkListコンポーネントに自分が参加しているトークルームとメッセージの情報を全て渡す */}
+          <TalkList talkRoomsData={talkRoomsData ? talkRoomsData : {}} />
         </ul>
       </aside>
 
