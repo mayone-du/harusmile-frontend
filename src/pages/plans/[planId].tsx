@@ -183,12 +183,13 @@ const PlanDetail: NextPage = () => {
                       }`}
                       onClick={handleReviewTabOpen}
                     >
-                      この人のレビューを見る
+                      この人について
                     </button>
                   </div>
                   <div>
                     このプランの作成者：{planData?.plan?.planAuthor.targetUser?.profileName}
                   </div>
+
                   {pickOpenTab === "plan" ? (
                     // プランについて
                     <div className="my-2 p-2 border">
@@ -210,9 +211,13 @@ const PlanDetail: NextPage = () => {
                       <div>{planData?.plan?.price.toString()}円</div>
                     </div>
                   ) : (
-                    // プラン作成者
+                    // プラン作成者について
                     <div>
-                      <h3 className="bg-gray-200 my-2 p-2 dark:text-gray-600">この人のレビュー</h3>
+                      <h3 className="bg-gray-200 my-2 p-2 dark:text-gray-600">この人について</h3>
+                      {/* 自己紹介など */}
+                      <p>自己紹介</p>
+                      <div>{planData.plan.planAuthor.targetUser.profileText}</div>
+                      {/* レビュー */}
                       <ul>
                         {planData.plan.planAuthor.provider.edges.map((review, index) => {
                           return (

@@ -38,7 +38,11 @@ export const Review: React.VFC<Props> = (props) => {
                 />
               </svg>
             </RatingView>
-            <div className="px-2">{props.reviewStars.toString()}</div>
+            <div className="px-2 font-bold text-yellow-300">
+              {props.reviewStars.toString().length === 1
+                ? `${props.reviewStars.toString()}.0`
+                : props.reviewStars.toString()}
+            </div>
           </div>
           <p className="text-sm">{props.reviewText}</p>
           <p className="font-bold text-xs">{props.customerName}</p>

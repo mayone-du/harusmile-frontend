@@ -1799,7 +1799,7 @@ export type GetPlanQuery = (
       & Pick<UserNode, 'id'>
       & { targetUser?: Maybe<(
         { __typename?: 'ProfileNode' }
-        & Pick<ProfileNode, 'profileName' | 'profileImage' | 'isCollegeStudent'>
+        & Pick<ProfileNode, 'profileName' | 'profileImage' | 'isCollegeStudent' | 'profileText'>
       )>, provider: (
         { __typename?: 'ReviewNodeConnection' }
         & { edges: Array<Maybe<(
@@ -3168,6 +3168,7 @@ export const GetPlanDocument = gql`
         profileName
         profileImage
         isCollegeStudent
+        profileText
       }
       provider {
         edges {

@@ -73,19 +73,19 @@ export const NormalProfile: React.VFC<Props> = (props) => {
           <div>
             <li className="flex items-center border-b p-1">
               <div className="text-xs w-1/3 text-gray-600 dark:text-white">学部</div>
-              <div className="px-2 w-2/3">
+              <div className="px-2 w-2/3 text-sm">
                 {props.targetUndergraduate ? props.targetUndergraduate : "未設定"}
               </div>
             </li>
             <li className="flex items-center border-b p-1">
               <div className="text-xs w-1/3 text-gray-600 dark:text-white">学科</div>
-              <div className="px-2 w-2/3">
+              <div className="px-2 w-2/3 text-sm">
                 {props.targetDepartment ? props.targetDepartment : "未設定"}
               </div>
             </li>
             <li className="flex items-center border-b p-1">
               <div className="text-xs w-1/3 text-gray-600 dark:text-white">部活動・サークル</div>
-              <div className="px-2 w-2/3">
+              <div className="px-2 w-2/3 text-sm">
                 {props.targetClubActivities ? props.targetClubActivities : "未設定"}
               </div>
             </li>
@@ -93,19 +93,25 @@ export const NormalProfile: React.VFC<Props> = (props) => {
         )}
         <li className="flex items-center border-b p-1">
           <div className="text-xs w-1/3 text-gray-600 dark:text-white">性別</div>
-          <div className="px-2 w-2/3">{props.targetGender ? props.targetGender : "未設定"}</div>
+          <div className="px-2 w-2/3 text-sm">
+            {props.targetGender ? props.targetGender : "未設定"}
+          </div>
         </li>
         <li className="flex items-center border-b p-1">
           <div className="text-xs w-1/3 text-gray-600 dark:text-white">住所</div>
-          <div className="px-2 w-2/3">{props.targetAddress ? props.targetAddress : "未設定"}</div>
+          <div className="px-2 w-2/3 text-sm">
+            {props.targetAddress ? props.targetAddress : "未設定"}
+          </div>
         </li>
         <li className="flex items-center border-b p-1">
           <div className="text-xs w-1/3 text-gray-600 dark:text-white">聞きたいこと</div>
-          <div className="px-2 w-2/3">{props.targetWantHear ? props.targetWantHear : "未設定"}</div>
+          <div className="px-2 w-2/3 text-sm">
+            {props.targetWantHear ? props.targetWantHear : "未設定"}
+          </div>
         </li>
         <li className="flex items-center border-b p-1">
           <div className="text-xs w-1/3 text-gray-600 dark:text-white">悩んでいること</div>
-          <div className="px-2 w-2/3">{props.targetProblem}</div>
+          <div className="px-2 w-2/3 text-sm">{props.targetProblem}</div>
         </li>
       </ul>
     </div>

@@ -1,5 +1,6 @@
 import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export const useSearch = () => {
   const router = useRouter();
@@ -23,7 +24,13 @@ export const useSearch = () => {
 
   const handleSearch = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
+    // 検索時のバリデーション
     if (inputSearchKeyword === "") {
+      toast.error("検索したいキーワードを入力してください。");
+      return;
+    }
+    if (inputSearchKeyword.length > 30) {
+      toast.error("30文字以内で検索して下さい。");
       return;
     }
     router.push({
