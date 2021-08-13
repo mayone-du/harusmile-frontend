@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { fixDateFormat } from "src/libs/fixDateFormat";
 
 type Props = {
@@ -6,7 +7,7 @@ type Props = {
   text: string;
   createdAt: string;
 };
-export const Message: React.VFC<Props> = (props) => {
+export const Message: React.VFC<Props> = memo((props) => {
   return (
     <li
       className={`my-4 flex ${
@@ -29,4 +30,6 @@ export const Message: React.VFC<Props> = (props) => {
       </div>
     </li>
   );
-};
+});
+
+Message.displayName = "Message";

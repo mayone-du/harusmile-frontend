@@ -1,6 +1,8 @@
 import { useReactiveVar } from "@apollo/client";
+import { memo, useCallback } from "react";
 import { loginUserVar, openTalkRoomIdVar } from "src/apollo/cache";
 import type { GetLoginUserTalkRoomsQuery } from "src/apollo/schema";
+import { useUpdateMessagesMutation } from "src/apollo/schema";
 import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { fixDateFormat } from "src/libs/fixDateFormat";
 
@@ -10,26 +12,60 @@ type Props = {
 
 // 自分が参加しているトークルームの一覧
 // TODO: 未読のメッセージを上にし、開いたら相手のメッセージのみ確認フラグをTrueに更新する
-export const TalkList: React.VFC<Props> = (props) => {
-  const openTalkRoomId = useReactiveVar(openTalkRoomIdVar);
-  // どのトークルームを開くかのstate ボタンのIDに付与する相手のユーザーID
-  const handleOpenTalkRoomChange = (e: React.MouseEvent<HTMLButtonElement>) => {
-    openTalkRoomIdVar(e.currentTarget.id);
-  };
+export const TalkList: React.VFC<Props> = memo((props) => {
   const loginUserData = useReactiveVar(loginUserVar);
-  // TODO: 未読のメッセージの件数を表示
+  const openTalkRoomId = useReactiveVar(openTalkRoomIdVar);
+  const [updateMessages] = useUpdateMessagesMutation();
+
   // 未読のメッセージを取得
   const unViewedMessages = props.talkRoomsData.loginUserTalkRooms?.edges.map((talkRoom) => {
     const resultArray = talkRoom?.node?.talkingRoom.edges.map((message) => {
-      // 未読のメッセージのみ返す
-
-      const result = message?.node?.isViewed === false && message.node.text;
+      // 相手が送った未読のメッセージのIDのみを返す
+      const result =
+        message?.node?.isViewed === false &&
+        message.node.sender.id !== loginUserData.userId &&
+        message.node.id;
       return result;
     });
-    return resultArray?.filter(Boolean);
+    const filteredArray = resultArray?.filter(Boolean);
+    const talkRoomId = talkRoom?.node?.id ? talkRoom.node.id : "undefined";
+    // 紐付いているトークルームのIDをオブジェクトのkeyにして返す
+    return { [talkRoomId]: filteredArray };
   });
-  console.log(unViewedMessages);
-  // TODO: 未読のメッセージをトークルームごとに紐付ける
+
+  // どのトークルームを開くかのReactiveVariables ボタンのIDに付与する相手のユーザーIDをセット
+  // トークルームのリストをクリックした時に呼ぶ関数
+  // const handleOpenTalkRoomChange = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleOpenTalkRoomChange = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const currentOpenTalkRoomId = openTalkRoomIdVar(e.currentTarget.id);
+
+    // 現在開いているトークルームの自分が未読のメッセージのIDを取得
+    const [currentUnViewedMessage] = unViewedMessages
+      ? unViewedMessages
+          ?.map((obj) => {
+            if (obj[currentOpenTalkRoomId]?.length > 0) {
+              return obj[currentOpenTalkRoomId];
+            }
+            return false;
+          })
+          .filter(Boolean)
+      : [];
+    // 未読のメッセージがある場合は既読に更新する
+    if (currentUnViewedMessage) {
+      (async () => {
+        try {
+          await updateMessages({
+            variables: {
+              messageIds: currentUnViewedMessage,
+            },
+          });
+        } catch (error) {
+          console.error(error);
+        }
+      })();
+    }
+    // }, []);
+  };
 
   return (
     <div>
@@ -62,7 +98,18 @@ export const TalkList: React.VFC<Props> = (props) => {
                       }
                     />
                     <div className="px-4 text-left">
-                      {/* 自分以外のプロフィールを表示 */}
+                      {/* 未読のメッセージの件数 */}
+                      <div className="absolute bg-gray-400">
+                        {unViewedMessages?.map((obj) => {
+                          if (talkRoom?.node) {
+                            // トークルームのIDをオブジェクトのキーとしているためそれで取得
+                            return (
+                              obj[talkRoom.node.id]?.length !== 0 && obj[talkRoom.node.id]?.length
+                            );
+                          }
+                        })}
+                      </div>
+                      {/* 相手（自分以外）のプロフィールを表示 */}
                       <div>
                         {talkRoom.node.opponentUser.id === loginUserData.userId
                           ? talkRoom.node.selectedPlan?.planAuthor.targetUser?.profileName
@@ -72,6 +119,7 @@ export const TalkList: React.VFC<Props> = (props) => {
                         {/* 最後にやり取りしたメッセージ 最初の10文字だけ表示 */}
                         {talkRoom.node?.talkingRoom.edges.slice(-1)[0]?.node?.text.slice(0, 10)}
                         {talkRoom.node?.talkingRoom.edges.length === 0 && "トークを始めましょう"}
+
                         {/* TODO: type narrowing */}
                         {/* {talkRoom.node?.talkingRoom.edges.slice(-1)[0]?.node?.text
                                   .length !== undefined &&
@@ -98,4 +146,6 @@ export const TalkList: React.VFC<Props> = (props) => {
       })}
     </div>
   );
-};
+});
+
+TalkList.displayName = "TalkList";

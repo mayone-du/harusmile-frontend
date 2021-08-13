@@ -1,0 +1,5 @@
+mutation UpdateMessages($messageIds: [ID!]) {
+  updateMessages(input: { messageIds: $messageIds }) {
+    ok
+  }
+}

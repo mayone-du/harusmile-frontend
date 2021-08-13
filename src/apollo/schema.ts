@@ -306,6 +306,7 @@ export type Mutation = {
   createTalkRoom?: Maybe<CreateTalkRoomMutationPayload>;
   updateTalkRoom?: Maybe<UpdateTalkRoomMutationPayload>;
   createMessage?: Maybe<CreateMessageMutationPayload>;
+  updateMessages?: Maybe<UpdateMessagesMutationPayload>;
   createReview?: Maybe<CreateReviewMutationPayload>;
   createNotification?: Maybe<CreateNotificationMutationPayload>;
   updateNotifications?: Maybe<UpdateNotificationsMutationPayload>;
@@ -363,6 +364,11 @@ export type MutationUpdateTalkRoomArgs = {
 
 export type MutationCreateMessageArgs = {
   input: CreateMessageMutationInput;
+};
+
+
+export type MutationUpdateMessagesArgs = {
+  input: UpdateMessagesMutationInput;
 };
 
 
@@ -1047,6 +1053,17 @@ export type TalkRoomNodeEdge = {
   cursor: Scalars['String'];
 };
 
+export type UpdateMessagesMutationInput = {
+  messageIds?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  clientMutationId?: Maybe<Scalars['String']>;
+};
+
+export type UpdateMessagesMutationPayload = {
+  __typename?: 'UpdateMessagesMutationPayload';
+  ok?: Maybe<Scalars['Boolean']>;
+  clientMutationId?: Maybe<Scalars['String']>;
+};
+
 export type UpdateNotificationsMutationInput = {
   notificationIds?: Maybe<Array<Maybe<Scalars['ID']>>>;
   clientMutationId?: Maybe<Scalars['String']>;
@@ -1286,19 +1303,20 @@ export type UserNodeEdge = {
   cursor: Scalars['String'];
 };
 
-export type CreateMessageMutationVariables = Exact<{
-  talkingRoomId: Scalars['ID'];
-  text: Scalars['String'];
+export type CreateReviewMutationVariables = Exact<{
+  providerId: Scalars['ID'];
+  reviewText: Scalars['String'];
+  stars: Scalars['Int'];
 }>;
 
 
-export type CreateMessageMutation = (
+export type CreateReviewMutation = (
   { __typename?: 'Mutation' }
-  & { createMessage?: Maybe<(
-    { __typename?: 'CreateMessageMutationPayload' }
-    & { message?: Maybe<(
-      { __typename?: 'MessageNode' }
-      & Pick<MessageNode, 'text' | 'createdAt'>
+  & { createReview?: Maybe<(
+    { __typename?: 'CreateReviewMutationPayload' }
+    & { review?: Maybe<(
+      { __typename?: 'ReviewNode' }
+      & Pick<ReviewNode, 'id' | 'reviewText' | 'stars'>
     )> }
   )> }
 );
@@ -1328,38 +1346,18 @@ export type CreateNotificationMutation = (
   )> }
 );
 
-export type CreateReviewMutationVariables = Exact<{
-  providerId: Scalars['ID'];
-  reviewText: Scalars['String'];
-  stars: Scalars['Int'];
+export type UpdateNotificationsMutationVariables = Exact<{
+  notificationIds?: Maybe<Array<Scalars['ID']> | Scalars['ID']>;
 }>;
 
 
-export type CreateReviewMutation = (
+export type UpdateNotificationsMutation = (
   { __typename?: 'Mutation' }
-  & { createReview?: Maybe<(
-    { __typename?: 'CreateReviewMutationPayload' }
-    & { review?: Maybe<(
-      { __typename?: 'ReviewNode' }
-      & Pick<ReviewNode, 'id' | 'reviewText' | 'stars'>
-    )> }
-  )> }
-);
-
-export type CreateTalkRoomMutationVariables = Exact<{
-  opponentUserId: Scalars['ID'];
-  selectedPlanId: Scalars['ID'];
-  talkRoomDescription?: Maybe<Scalars['String']>;
-}>;
-
-
-export type CreateTalkRoomMutation = (
-  { __typename?: 'Mutation' }
-  & { createTalkRoom?: Maybe<(
-    { __typename?: 'CreateTalkRoomMutationPayload' }
-    & { talkRoom?: Maybe<(
-      { __typename?: 'TalkRoomNode' }
-      & Pick<TalkRoomNode, 'id' | 'talkRoomDescription'>
+  & { updateNotifications?: Maybe<(
+    { __typename?: 'UpdateNotificationsMutationPayload' }
+    & { notification?: Maybe<(
+      { __typename?: 'NotificationNode' }
+      & Pick<NotificationNode, 'id'>
     )> }
   )> }
 );
@@ -1499,6 +1497,71 @@ export type UpdateProfileMutation = (
   )> }
 );
 
+export type CreateMessageMutationVariables = Exact<{
+  talkingRoomId: Scalars['ID'];
+  text: Scalars['String'];
+}>;
+
+
+export type CreateMessageMutation = (
+  { __typename?: 'Mutation' }
+  & { createMessage?: Maybe<(
+    { __typename?: 'CreateMessageMutationPayload' }
+    & { message?: Maybe<(
+      { __typename?: 'MessageNode' }
+      & Pick<MessageNode, 'text' | 'createdAt'>
+    )> }
+  )> }
+);
+
+export type CreateTalkRoomMutationVariables = Exact<{
+  opponentUserId: Scalars['ID'];
+  selectedPlanId: Scalars['ID'];
+  talkRoomDescription?: Maybe<Scalars['String']>;
+}>;
+
+
+export type CreateTalkRoomMutation = (
+  { __typename?: 'Mutation' }
+  & { createTalkRoom?: Maybe<(
+    { __typename?: 'CreateTalkRoomMutationPayload' }
+    & { talkRoom?: Maybe<(
+      { __typename?: 'TalkRoomNode' }
+      & Pick<TalkRoomNode, 'id' | 'talkRoomDescription'>
+    )> }
+  )> }
+);
+
+export type UpdateMessagesMutationVariables = Exact<{
+  messageIds?: Maybe<Array<Scalars['ID']> | Scalars['ID']>;
+}>;
+
+
+export type UpdateMessagesMutation = (
+  { __typename?: 'Mutation' }
+  & { updateMessages?: Maybe<(
+    { __typename?: 'UpdateMessagesMutationPayload' }
+    & Pick<UpdateMessagesMutationPayload, 'ok'>
+  )> }
+);
+
+export type UpdateTalkRoomMutationVariables = Exact<{
+  talkRoomId: Scalars['ID'];
+  isApprove: Scalars['Boolean'];
+}>;
+
+
+export type UpdateTalkRoomMutation = (
+  { __typename?: 'Mutation' }
+  & { updateTalkRoom?: Maybe<(
+    { __typename?: 'UpdateTalkRoomMutationPayload' }
+    & { talkRoom?: Maybe<(
+      { __typename?: 'TalkRoomNode' }
+      & Pick<TalkRoomNode, 'id'>
+    )> }
+  )> }
+);
+
 export type GetTokensMutationVariables = Exact<{
   email: Scalars['String'];
   password: Scalars['String'];
@@ -1536,39 +1599,6 @@ export type RevokeRefreshTokenMutation = (
   & { revokeToken?: Maybe<(
     { __typename?: 'Revoke' }
     & Pick<Revoke, 'revoked'>
-  )> }
-);
-
-export type UpdateNotificationsMutationVariables = Exact<{
-  notificationIds?: Maybe<Array<Scalars['ID']> | Scalars['ID']>;
-}>;
-
-
-export type UpdateNotificationsMutation = (
-  { __typename?: 'Mutation' }
-  & { updateNotifications?: Maybe<(
-    { __typename?: 'UpdateNotificationsMutationPayload' }
-    & { notification?: Maybe<(
-      { __typename?: 'NotificationNode' }
-      & Pick<NotificationNode, 'id'>
-    )> }
-  )> }
-);
-
-export type UpdateTalkRoomMutationVariables = Exact<{
-  talkRoomId: Scalars['ID'];
-  isApprove: Scalars['Boolean'];
-}>;
-
-
-export type UpdateTalkRoomMutation = (
-  { __typename?: 'Mutation' }
-  & { updateTalkRoom?: Maybe<(
-    { __typename?: 'UpdateTalkRoomMutationPayload' }
-    & { talkRoom?: Maybe<(
-      { __typename?: 'TalkRoomNode' }
-      & Pick<TalkRoomNode, 'id'>
-    )> }
   )> }
 );
 
@@ -2113,43 +2143,47 @@ export type GetTalkRoomQuery = (
 );
 
 
-export const CreateMessageDocument = gql`
-    mutation CreateMessage($talkingRoomId: ID!, $text: String!) {
-  createMessage(input: {talkingRoomId: $talkingRoomId, text: $text}) {
-    message {
-      text
-      createdAt
+export const CreateReviewDocument = gql`
+    mutation CreateReview($providerId: ID!, $reviewText: String!, $stars: Int!) {
+  createReview(
+    input: {provider: $providerId, reviewText: $reviewText, stars: $stars}
+  ) {
+    review {
+      id
+      reviewText
+      stars
     }
   }
 }
     `;
-export type CreateMessageMutationFn = Apollo.MutationFunction<CreateMessageMutation, CreateMessageMutationVariables>;
+export type CreateReviewMutationFn = Apollo.MutationFunction<CreateReviewMutation, CreateReviewMutationVariables>;
 
 /**
- * __useCreateMessageMutation__
+ * __useCreateReviewMutation__
  *
- * To run a mutation, you first call `useCreateMessageMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateMessageMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useCreateReviewMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateReviewMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [createMessageMutation, { data, loading, error }] = useCreateMessageMutation({
+ * const [createReviewMutation, { data, loading, error }] = useCreateReviewMutation({
  *   variables: {
- *      talkingRoomId: // value for 'talkingRoomId'
- *      text: // value for 'text'
+ *      providerId: // value for 'providerId'
+ *      reviewText: // value for 'reviewText'
+ *      stars: // value for 'stars'
  *   },
  * });
  */
-export function useCreateMessageMutation(baseOptions?: Apollo.MutationHookOptions<CreateMessageMutation, CreateMessageMutationVariables>) {
+export function useCreateReviewMutation(baseOptions?: Apollo.MutationHookOptions<CreateReviewMutation, CreateReviewMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateMessageMutation, CreateMessageMutationVariables>(CreateMessageDocument, options);
+        return Apollo.useMutation<CreateReviewMutation, CreateReviewMutationVariables>(CreateReviewDocument, options);
       }
-export type CreateMessageMutationHookResult = ReturnType<typeof useCreateMessageMutation>;
-export type CreateMessageMutationResult = Apollo.MutationResult<CreateMessageMutation>;
-export type CreateMessageMutationOptions = Apollo.BaseMutationOptions<CreateMessageMutation, CreateMessageMutationVariables>;
+export type CreateReviewMutationHookResult = ReturnType<typeof useCreateReviewMutation>;
+export type CreateReviewMutationResult = Apollo.MutationResult<CreateReviewMutation>;
+export type CreateReviewMutationOptions = Apollo.BaseMutationOptions<CreateReviewMutation, CreateReviewMutationVariables>;
 export const CreateNotificationDocument = gql`
     mutation CreateNotification($recieverId: ID!, $notificationType: String!) {
   createNotification(
@@ -2196,87 +2230,41 @@ export function useCreateNotificationMutation(baseOptions?: Apollo.MutationHookO
 export type CreateNotificationMutationHookResult = ReturnType<typeof useCreateNotificationMutation>;
 export type CreateNotificationMutationResult = Apollo.MutationResult<CreateNotificationMutation>;
 export type CreateNotificationMutationOptions = Apollo.BaseMutationOptions<CreateNotificationMutation, CreateNotificationMutationVariables>;
-export const CreateReviewDocument = gql`
-    mutation CreateReview($providerId: ID!, $reviewText: String!, $stars: Int!) {
-  createReview(
-    input: {provider: $providerId, reviewText: $reviewText, stars: $stars}
-  ) {
-    review {
+export const UpdateNotificationsDocument = gql`
+    mutation UpdateNotifications($notificationIds: [ID!]) {
+  updateNotifications(input: {notificationIds: $notificationIds}) {
+    notification {
       id
-      reviewText
-      stars
     }
   }
 }
     `;
-export type CreateReviewMutationFn = Apollo.MutationFunction<CreateReviewMutation, CreateReviewMutationVariables>;
+export type UpdateNotificationsMutationFn = Apollo.MutationFunction<UpdateNotificationsMutation, UpdateNotificationsMutationVariables>;
 
 /**
- * __useCreateReviewMutation__
+ * __useUpdateNotificationsMutation__
  *
- * To run a mutation, you first call `useCreateReviewMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateReviewMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useUpdateNotificationsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateNotificationsMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [createReviewMutation, { data, loading, error }] = useCreateReviewMutation({
+ * const [updateNotificationsMutation, { data, loading, error }] = useUpdateNotificationsMutation({
  *   variables: {
- *      providerId: // value for 'providerId'
- *      reviewText: // value for 'reviewText'
- *      stars: // value for 'stars'
+ *      notificationIds: // value for 'notificationIds'
  *   },
  * });
  */
-export function useCreateReviewMutation(baseOptions?: Apollo.MutationHookOptions<CreateReviewMutation, CreateReviewMutationVariables>) {
+export function useUpdateNotificationsMutation(baseOptions?: Apollo.MutationHookOptions<UpdateNotificationsMutation, UpdateNotificationsMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateReviewMutation, CreateReviewMutationVariables>(CreateReviewDocument, options);
+        return Apollo.useMutation<UpdateNotificationsMutation, UpdateNotificationsMutationVariables>(UpdateNotificationsDocument, options);
       }
-export type CreateReviewMutationHookResult = ReturnType<typeof useCreateReviewMutation>;
-export type CreateReviewMutationResult = Apollo.MutationResult<CreateReviewMutation>;
-export type CreateReviewMutationOptions = Apollo.BaseMutationOptions<CreateReviewMutation, CreateReviewMutationVariables>;
-export const CreateTalkRoomDocument = gql`
-    mutation CreateTalkRoom($opponentUserId: ID!, $selectedPlanId: ID!, $talkRoomDescription: String) {
-  createTalkRoom(
-    input: {opponentUser: $opponentUserId, selectedPlan: $selectedPlanId, talkRoomDescription: $talkRoomDescription}
-  ) {
-    talkRoom {
-      id
-      talkRoomDescription
-    }
-  }
-}
-    `;
-export type CreateTalkRoomMutationFn = Apollo.MutationFunction<CreateTalkRoomMutation, CreateTalkRoomMutationVariables>;
-
-/**
- * __useCreateTalkRoomMutation__
- *
- * To run a mutation, you first call `useCreateTalkRoomMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateTalkRoomMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createTalkRoomMutation, { data, loading, error }] = useCreateTalkRoomMutation({
- *   variables: {
- *      opponentUserId: // value for 'opponentUserId'
- *      selectedPlanId: // value for 'selectedPlanId'
- *      talkRoomDescription: // value for 'talkRoomDescription'
- *   },
- * });
- */
-export function useCreateTalkRoomMutation(baseOptions?: Apollo.MutationHookOptions<CreateTalkRoomMutation, CreateTalkRoomMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateTalkRoomMutation, CreateTalkRoomMutationVariables>(CreateTalkRoomDocument, options);
-      }
-export type CreateTalkRoomMutationHookResult = ReturnType<typeof useCreateTalkRoomMutation>;
-export type CreateTalkRoomMutationResult = Apollo.MutationResult<CreateTalkRoomMutation>;
-export type CreateTalkRoomMutationOptions = Apollo.BaseMutationOptions<CreateTalkRoomMutation, CreateTalkRoomMutationVariables>;
+export type UpdateNotificationsMutationHookResult = ReturnType<typeof useUpdateNotificationsMutation>;
+export type UpdateNotificationsMutationResult = Apollo.MutationResult<UpdateNotificationsMutation>;
+export type UpdateNotificationsMutationOptions = Apollo.BaseMutationOptions<UpdateNotificationsMutation, UpdateNotificationsMutationVariables>;
 export const CreatePlanDocument = gql`
     mutation CreatePlan($title: String!, $content: String!, $price: Int!, $isPublished: Boolean!, $planImage: Upload) {
   createPlan(
@@ -2549,6 +2537,152 @@ export function useUpdateProfileMutation(baseOptions?: Apollo.MutationHookOption
 export type UpdateProfileMutationHookResult = ReturnType<typeof useUpdateProfileMutation>;
 export type UpdateProfileMutationResult = Apollo.MutationResult<UpdateProfileMutation>;
 export type UpdateProfileMutationOptions = Apollo.BaseMutationOptions<UpdateProfileMutation, UpdateProfileMutationVariables>;
+export const CreateMessageDocument = gql`
+    mutation CreateMessage($talkingRoomId: ID!, $text: String!) {
+  createMessage(input: {talkingRoomId: $talkingRoomId, text: $text}) {
+    message {
+      text
+      createdAt
+    }
+  }
+}
+    `;
+export type CreateMessageMutationFn = Apollo.MutationFunction<CreateMessageMutation, CreateMessageMutationVariables>;
+
+/**
+ * __useCreateMessageMutation__
+ *
+ * To run a mutation, you first call `useCreateMessageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateMessageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createMessageMutation, { data, loading, error }] = useCreateMessageMutation({
+ *   variables: {
+ *      talkingRoomId: // value for 'talkingRoomId'
+ *      text: // value for 'text'
+ *   },
+ * });
+ */
+export function useCreateMessageMutation(baseOptions?: Apollo.MutationHookOptions<CreateMessageMutation, CreateMessageMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateMessageMutation, CreateMessageMutationVariables>(CreateMessageDocument, options);
+      }
+export type CreateMessageMutationHookResult = ReturnType<typeof useCreateMessageMutation>;
+export type CreateMessageMutationResult = Apollo.MutationResult<CreateMessageMutation>;
+export type CreateMessageMutationOptions = Apollo.BaseMutationOptions<CreateMessageMutation, CreateMessageMutationVariables>;
+export const CreateTalkRoomDocument = gql`
+    mutation CreateTalkRoom($opponentUserId: ID!, $selectedPlanId: ID!, $talkRoomDescription: String) {
+  createTalkRoom(
+    input: {opponentUser: $opponentUserId, selectedPlan: $selectedPlanId, talkRoomDescription: $talkRoomDescription}
+  ) {
+    talkRoom {
+      id
+      talkRoomDescription
+    }
+  }
+}
+    `;
+export type CreateTalkRoomMutationFn = Apollo.MutationFunction<CreateTalkRoomMutation, CreateTalkRoomMutationVariables>;
+
+/**
+ * __useCreateTalkRoomMutation__
+ *
+ * To run a mutation, you first call `useCreateTalkRoomMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateTalkRoomMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createTalkRoomMutation, { data, loading, error }] = useCreateTalkRoomMutation({
+ *   variables: {
+ *      opponentUserId: // value for 'opponentUserId'
+ *      selectedPlanId: // value for 'selectedPlanId'
+ *      talkRoomDescription: // value for 'talkRoomDescription'
+ *   },
+ * });
+ */
+export function useCreateTalkRoomMutation(baseOptions?: Apollo.MutationHookOptions<CreateTalkRoomMutation, CreateTalkRoomMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateTalkRoomMutation, CreateTalkRoomMutationVariables>(CreateTalkRoomDocument, options);
+      }
+export type CreateTalkRoomMutationHookResult = ReturnType<typeof useCreateTalkRoomMutation>;
+export type CreateTalkRoomMutationResult = Apollo.MutationResult<CreateTalkRoomMutation>;
+export type CreateTalkRoomMutationOptions = Apollo.BaseMutationOptions<CreateTalkRoomMutation, CreateTalkRoomMutationVariables>;
+export const UpdateMessagesDocument = gql`
+    mutation UpdateMessages($messageIds: [ID!]) {
+  updateMessages(input: {messageIds: $messageIds}) {
+    ok
+  }
+}
+    `;
+export type UpdateMessagesMutationFn = Apollo.MutationFunction<UpdateMessagesMutation, UpdateMessagesMutationVariables>;
+
+/**
+ * __useUpdateMessagesMutation__
+ *
+ * To run a mutation, you first call `useUpdateMessagesMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateMessagesMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateMessagesMutation, { data, loading, error }] = useUpdateMessagesMutation({
+ *   variables: {
+ *      messageIds: // value for 'messageIds'
+ *   },
+ * });
+ */
+export function useUpdateMessagesMutation(baseOptions?: Apollo.MutationHookOptions<UpdateMessagesMutation, UpdateMessagesMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateMessagesMutation, UpdateMessagesMutationVariables>(UpdateMessagesDocument, options);
+      }
+export type UpdateMessagesMutationHookResult = ReturnType<typeof useUpdateMessagesMutation>;
+export type UpdateMessagesMutationResult = Apollo.MutationResult<UpdateMessagesMutation>;
+export type UpdateMessagesMutationOptions = Apollo.BaseMutationOptions<UpdateMessagesMutation, UpdateMessagesMutationVariables>;
+export const UpdateTalkRoomDocument = gql`
+    mutation UpdateTalkRoom($talkRoomId: ID!, $isApprove: Boolean!) {
+  updateTalkRoom(input: {talkRoomId: $talkRoomId, isApprove: $isApprove}) {
+    talkRoom {
+      id
+    }
+  }
+}
+    `;
+export type UpdateTalkRoomMutationFn = Apollo.MutationFunction<UpdateTalkRoomMutation, UpdateTalkRoomMutationVariables>;
+
+/**
+ * __useUpdateTalkRoomMutation__
+ *
+ * To run a mutation, you first call `useUpdateTalkRoomMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateTalkRoomMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateTalkRoomMutation, { data, loading, error }] = useUpdateTalkRoomMutation({
+ *   variables: {
+ *      talkRoomId: // value for 'talkRoomId'
+ *      isApprove: // value for 'isApprove'
+ *   },
+ * });
+ */
+export function useUpdateTalkRoomMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTalkRoomMutation, UpdateTalkRoomMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateTalkRoomMutation, UpdateTalkRoomMutationVariables>(UpdateTalkRoomDocument, options);
+      }
+export type UpdateTalkRoomMutationHookResult = ReturnType<typeof useUpdateTalkRoomMutation>;
+export type UpdateTalkRoomMutationResult = Apollo.MutationResult<UpdateTalkRoomMutation>;
+export type UpdateTalkRoomMutationOptions = Apollo.BaseMutationOptions<UpdateTalkRoomMutation, UpdateTalkRoomMutationVariables>;
 export const GetTokensDocument = gql`
     mutation GetTokens($email: String!, $password: String!) {
   tokenAuth(email: $email, password: $password) {
@@ -2655,77 +2789,6 @@ export function useRevokeRefreshTokenMutation(baseOptions?: Apollo.MutationHookO
 export type RevokeRefreshTokenMutationHookResult = ReturnType<typeof useRevokeRefreshTokenMutation>;
 export type RevokeRefreshTokenMutationResult = Apollo.MutationResult<RevokeRefreshTokenMutation>;
 export type RevokeRefreshTokenMutationOptions = Apollo.BaseMutationOptions<RevokeRefreshTokenMutation, RevokeRefreshTokenMutationVariables>;
-export const UpdateNotificationsDocument = gql`
-    mutation UpdateNotifications($notificationIds: [ID!]) {
-  updateNotifications(input: {notificationIds: $notificationIds}) {
-    notification {
-      id
-    }
-  }
-}
-    `;
-export type UpdateNotificationsMutationFn = Apollo.MutationFunction<UpdateNotificationsMutation, UpdateNotificationsMutationVariables>;
-
-/**
- * __useUpdateNotificationsMutation__
- *
- * To run a mutation, you first call `useUpdateNotificationsMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateNotificationsMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateNotificationsMutation, { data, loading, error }] = useUpdateNotificationsMutation({
- *   variables: {
- *      notificationIds: // value for 'notificationIds'
- *   },
- * });
- */
-export function useUpdateNotificationsMutation(baseOptions?: Apollo.MutationHookOptions<UpdateNotificationsMutation, UpdateNotificationsMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateNotificationsMutation, UpdateNotificationsMutationVariables>(UpdateNotificationsDocument, options);
-      }
-export type UpdateNotificationsMutationHookResult = ReturnType<typeof useUpdateNotificationsMutation>;
-export type UpdateNotificationsMutationResult = Apollo.MutationResult<UpdateNotificationsMutation>;
-export type UpdateNotificationsMutationOptions = Apollo.BaseMutationOptions<UpdateNotificationsMutation, UpdateNotificationsMutationVariables>;
-export const UpdateTalkRoomDocument = gql`
-    mutation UpdateTalkRoom($talkRoomId: ID!, $isApprove: Boolean!) {
-  updateTalkRoom(input: {talkRoomId: $talkRoomId, isApprove: $isApprove}) {
-    talkRoom {
-      id
-    }
-  }
-}
-    `;
-export type UpdateTalkRoomMutationFn = Apollo.MutationFunction<UpdateTalkRoomMutation, UpdateTalkRoomMutationVariables>;
-
-/**
- * __useUpdateTalkRoomMutation__
- *
- * To run a mutation, you first call `useUpdateTalkRoomMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateTalkRoomMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateTalkRoomMutation, { data, loading, error }] = useUpdateTalkRoomMutation({
- *   variables: {
- *      talkRoomId: // value for 'talkRoomId'
- *      isApprove: // value for 'isApprove'
- *   },
- * });
- */
-export function useUpdateTalkRoomMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTalkRoomMutation, UpdateTalkRoomMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateTalkRoomMutation, UpdateTalkRoomMutationVariables>(UpdateTalkRoomDocument, options);
-      }
-export type UpdateTalkRoomMutationHookResult = ReturnType<typeof useUpdateTalkRoomMutation>;
-export type UpdateTalkRoomMutationResult = Apollo.MutationResult<UpdateTalkRoomMutation>;
-export type UpdateTalkRoomMutationOptions = Apollo.BaseMutationOptions<UpdateTalkRoomMutation, UpdateTalkRoomMutationVariables>;
 export const CreateUserDocument = gql`
     mutation CreateUser($email: String!, $password: String!) {
   createUser(input: {email: $email, password: $password}) {

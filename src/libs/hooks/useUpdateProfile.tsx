@@ -6,7 +6,7 @@ import { useUpdateProfileMutation } from "src/apollo/schema";
 import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
 
 // プロフィールの更新
-export const useProfileUpdate = () => {
+export const useUpdateProfile = () => {
   const loginUserData = useReactiveVar(loginUserVar);
   const { handleRefreshToken } = useRefreshTokens();
 

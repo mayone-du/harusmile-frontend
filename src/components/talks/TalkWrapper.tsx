@@ -1,7 +1,7 @@
 import { useReactiveVar } from "@apollo/client";
 import Link from "next/link";
 import { parseCookies } from "nookies";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import { toast } from "react-hot-toast";
 import Modal from "react-modal";
 import { loginUserVar, openTalkRoomIdVar } from "src/apollo/cache";
@@ -21,7 +21,7 @@ import { useCreateMessages } from "src/libs/hooks/messages/useCreateMessages";
 import { useCreateReview } from "src/libs/hooks/useCreateReview";
 
 // このコンポーネントでトークルームのメッセージなどのデータを取得。TalkListコンポーネントにもデータを渡す
-export const TalkWrapper: React.VFC = () => {
+export const TalkWrapper: React.VFC = memo(() => {
   const cookies = parseCookies();
   const { handleRefreshToken } = useRefreshTokens();
   const loginUserData = useReactiveVar(loginUserVar);
@@ -320,4 +320,6 @@ export const TalkWrapper: React.VFC = () => {
       </div>
     </div>
   );
-};
+});
+
+TalkWrapper.displayName = "TalkWrapper";
