@@ -29,7 +29,7 @@ const Settings: NextPage = () => {
     handleWantHearChange,
     handleAddressBlur,
     handleGenderBlur,
-    handleStudentBlur,
+    // handleStudentBlur,
     handleProfileImageChange,
     handleSubmit,
   } = useProfileUpdate();
@@ -81,7 +81,7 @@ const Settings: NextPage = () => {
       <form onSubmit={handleSubmit}>
         <ul className="md:flex">
           <div className="w-full">
-            <li className="my-4 mx-auto w-full">
+            {/* <li className="my-4 mx-auto w-full">
               <div className="mx-auto md:w-2/3 text-sm">高校生 or 大学生</div>
               <select
                 className="block p-2 mx-auto md:w-2/3 w-full border-b border-pink-500 focus:outline-none"
@@ -92,7 +92,7 @@ const Settings: NextPage = () => {
                 <option value={"true"}>大学生</option>
                 <option value={"false"}>高校生</option>
               </select>
-            </li>
+            </li> */}
             <li className="my-4 mx-auto w-full">
               <Input
                 type="text"

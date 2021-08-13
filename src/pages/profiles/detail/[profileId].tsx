@@ -59,6 +59,16 @@ const ProfileDetail: NextPage = () => {
               }
               targetWantHear={profileData?.profile?.wantHear ? profileData.profile.wantHear : ""}
               targetProblem={profileData?.profile?.problem ? profileData.profile.problem : ""}
+              targetGender={
+                profileData.profile.selectedGender?.genderName
+                  ? profileData.profile.selectedGender?.genderName
+                  : ""
+              }
+              targetAddress={
+                profileData.profile.selectedAddress?.addressName
+                  ? profileData.profile.selectedAddress?.addressName
+                  : ""
+              }
             />
           </section>
 

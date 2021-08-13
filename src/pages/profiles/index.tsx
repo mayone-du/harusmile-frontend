@@ -49,6 +49,8 @@ const ProfilesIndex: NextPage = () => {
             targetFavoriteSubject={loginUserData.favoriteSubject}
             targetWantHear={loginUserData.wantHear}
             targetProblem={loginUserData.problem}
+            targetGender={loginUserData.genderName}
+            targetAddress={loginUserData.addressName}
           />
         </section>
 

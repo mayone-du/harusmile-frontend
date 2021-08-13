@@ -17,6 +17,8 @@ type Props = {
   targetFavoriteSubject: string;
   targetWantHear: string;
   targetProblem: string;
+  targetGender: string;
+  targetAddress: string;
 };
 // プロフィール詳細
 export const NormalProfile: React.VFC<Props> = (props) => {
@@ -51,9 +53,18 @@ export const NormalProfile: React.VFC<Props> = (props) => {
       <div className="flex items-center justify-between bg-gray-200">
         <p className="p-2 text-sm text-gray-600">プロフィール</p>
       </div>
+      {/* <div className="flex items-center justify-between bg-gray-200">
+        <p className="p-2 text-sm text-gray-600">プロフィール</p>
+        {loginUserData.profileId === props.targetProfileId && (
+          <Link href="/settings">
+            <a className="py-2 px-4 text-white text-sm bg-pink-400">編集</a>
+          </Link>
+        )}
+      </div> */}
+      {/* 自己紹介 */}
       <div className="my-4">
         <p className="text-sm text-gray-600 dark:text-white">
-          {props.targetProfileText === "" ? "未設定" : props.targetProfileText}
+          {props.targetProfileText ? props.targetProfileText : "未設定"}
         </p>
       </div>
       <ul className="break-words">
@@ -62,21 +73,35 @@ export const NormalProfile: React.VFC<Props> = (props) => {
           <div>
             <li className="flex items-center border-b p-1">
               <div className="text-xs w-1/3 text-gray-600 dark:text-white">学部</div>
-              <div className="px-2 w-2/3">{props.targetUndergraduate}</div>
+              <div className="px-2 w-2/3">
+                {props.targetUndergraduate ? props.targetUndergraduate : "未設定"}
+              </div>
             </li>
             <li className="flex items-center border-b p-1">
               <div className="text-xs w-1/3 text-gray-600 dark:text-white">学科</div>
-              <div className="px-2 w-2/3">{props.targetDepartment}</div>
+              <div className="px-2 w-2/3">
+                {props.targetDepartment ? props.targetDepartment : "未設定"}
+              </div>
             </li>
             <li className="flex items-center border-b p-1">
               <div className="text-xs w-1/3 text-gray-600 dark:text-white">部活動・サークル</div>
-              <div className="px-2 w-2/3">{props.targetClubActivities}</div>
+              <div className="px-2 w-2/3">
+                {props.targetClubActivities ? props.targetClubActivities : "未設定"}
+              </div>
             </li>
           </div>
         )}
         <li className="flex items-center border-b p-1">
+          <div className="text-xs w-1/3 text-gray-600 dark:text-white">性別</div>
+          <div className="px-2 w-2/3">{props.targetGender ? props.targetGender : "未設定"}</div>
+        </li>
+        <li className="flex items-center border-b p-1">
+          <div className="text-xs w-1/3 text-gray-600 dark:text-white">住所</div>
+          <div className="px-2 w-2/3">{props.targetAddress ? props.targetAddress : "未設定"}</div>
+        </li>
+        <li className="flex items-center border-b p-1">
           <div className="text-xs w-1/3 text-gray-600 dark:text-white">聞きたいこと</div>
-          <div className="px-2 w-2/3">{props.targetWantHear}</div>
+          <div className="px-2 w-2/3">{props.targetWantHear ? props.targetWantHear : "未設定"}</div>
         </li>
         <li className="flex items-center border-b p-1">
           <div className="text-xs w-1/3 text-gray-600 dark:text-white">悩んでいること</div>

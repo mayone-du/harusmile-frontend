@@ -57,6 +57,7 @@ const HighSchool: NextPage<PropsGetAllProfilesQuery<GetHighSchoolProfilesQuery>>
                 clubActivities={profile?.node?.clubActivities ? profile.node.clubActivities : ""}
                 admissionFormat={profile?.node?.admissionFormat ? profile.node.admissionFormat : ""}
                 favoriteSubject={profile?.node?.favoriteSubject ? profile.node.favoriteSubject : ""}
+                problem={profile?.node?.problem ? profile.node.problem : ""}
                 // tags={profile?.node?.tags ? profile.node.tags : []}
                 isCollegeStudent={
                   profile?.node?.isCollegeStudent ? profile.node.isCollegeStudent : false

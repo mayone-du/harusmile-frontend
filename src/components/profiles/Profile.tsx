@@ -16,13 +16,14 @@ type Props = {
   admissionFormat: string;
   favoriteSubject: string;
   isCollegeStudent: boolean;
+  problem: string;
   // tags: any;
   stars: any;
 };
 // プロフィールカード
 export const Profile: React.VFC<Props> = (props) => {
   /* 配列の数字の平均を出し、少数第二位を四捨五入 */
-  const StarRating =
+  const starRating =
     Math.round(
       props.stars.reduce((prev: number, current: number) => {
         return prev + current / props.stars.length;
@@ -54,7 +55,8 @@ export const Profile: React.VFC<Props> = (props) => {
           {props.profileText}
         </div>
 
-        {props.isCollegeStudent && (
+        {/* 大学生と高校生によって表示する項目を出し分け */}
+        {props.isCollegeStudent ? (
           <div>
             {/* レビュー */}
             <div className="flex justify-between items-center py-4 border-b border-gray-400">
@@ -62,7 +64,7 @@ export const Profile: React.VFC<Props> = (props) => {
                 {/* StarRating */}
                 <RatingView
                   className="flex items-center"
-                  ratingValue={StarRating}
+                  ratingValue={starRating}
                   emptyColor={"#cccccc"}
                 >
                   <svg
@@ -82,9 +84,14 @@ export const Profile: React.VFC<Props> = (props) => {
                 </RatingView>
               </div>
               <div className="md:text-base text-xs">
-                {StarRating.toString()} / 5
-                <span className="text-black dark:text-white">
-                  ({props.stars.length.toString()}件)
+                <span className="block text-yellow-300 font-bold">
+                  {/* 評価の平均値が一桁だったら.0を付け加える */}
+                  {starRating.toString().length === 1
+                    ? `${starRating.toString()}.0`
+                    : starRating.toString()}
+                </span>
+                <span className="block text-black dark:text-white">
+                  ({props.stars.length.toString()})
                 </span>
               </div>
             </div>
@@ -125,6 +132,15 @@ export const Profile: React.VFC<Props> = (props) => {
                 <dt className="w-1/2">好きな科目</dt>
                 <dd className="w-1/2">{props.favoriteSubject}</dd>
               </div> */}
+            </dl>
+          </div>
+        ) : (
+          <div className="border-t">
+            <dl className="md:px-4 md:pt-4 px-2 pt-2 md:text-base text-xs">
+              <div className="flex items-center">
+                <dt className="w-1/2">悩み</dt>
+                <dd className="w-1/2">{props.problem ? props.problem : "未設定"}</dd>
+              </div>
             </dl>
           </div>
         )}
