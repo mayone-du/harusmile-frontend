@@ -4,6 +4,7 @@ import { loginUserVar, openTalkRoomIdVar } from "src/apollo/cache";
 import type { GetLoginUserTalkRoomsQuery } from "src/apollo/schema";
 import { useUpdateMessagesMutation } from "src/apollo/schema";
 import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
+// import { changeDateFormat } from "src/libs/changeDateFormat";
 import { fixDateFormat } from "src/libs/fixDateFormat";
 import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
 
@@ -12,12 +13,26 @@ type Props = {
 };
 
 // 自分が参加しているトークルームの一覧
-// TODO: 未読のメッセージを上にし、開いたら相手のメッセージのみ確認フラグをTrueに更新する
+// 未読のメッセージを上にし、開いたら相手のメッセージのみ確認フラグをTrueに更新する
 export const TalkList: React.VFC<Props> = memo((props) => {
   const loginUserData = useReactiveVar(loginUserVar);
   const openTalkRoomId = useReactiveVar(openTalkRoomIdVar);
   const [updateMessages] = useUpdateMessagesMutation();
   const { handleRefreshToken } = useRefreshTokens();
+
+  // TODO: 時刻をもとにトークルームを降順にソート
+  // const copyTalkRooms = [{ ...props.talkRoomsData.loginUserTalkRooms?.edges }];
+  // // const sortedTalkRooms = props.talkRoomsData.loginUserTalkRooms?.edges.sort((a, b) => {
+  // const sortedTalkRooms = copyTalkRooms?.sort((a, b) => {
+  //   if (
+  //     changeDateFormat(a[0]?.node?.talkingRoom.edges.slice(-1)[0]?.node?.createdAt) <
+  //     changeDateFormat(b[0]?.node?.talkingRoom.edges.slice(-1)[0]?.node?.createdAt)
+  //   ) {
+  //     return 1;
+  //   } else {
+  //     return -1;
+  //   }
+  // });
 
   // 未読のメッセージを取得
   const unViewedMessages = props.talkRoomsData.loginUserTalkRooms?.edges.map((talkRoom) => {
@@ -70,6 +85,7 @@ export const TalkList: React.VFC<Props> = memo((props) => {
     <div>
       {/* 各トークルームをリスト形式で表示 */}
       {props.talkRoomsData?.loginUserTalkRooms?.edges.map((talkRoom, index) => {
+        // {sortedTalkRooms?.map((talkRoom, index) => {
         return (
           // 自分が参加しているトークルームの一覧を返す
           <li className="border-t border-b relative" key={index}>
