@@ -1,10 +1,11 @@
 import { useReactiveVar } from "@apollo/client";
-import { memo, useCallback } from "react";
+import { memo } from "react";
 import { loginUserVar, openTalkRoomIdVar } from "src/apollo/cache";
 import type { GetLoginUserTalkRoomsQuery } from "src/apollo/schema";
 import { useUpdateMessagesMutation } from "src/apollo/schema";
 import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { fixDateFormat } from "src/libs/fixDateFormat";
+import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
 
 type Props = {
   talkRoomsData: GetLoginUserTalkRoomsQuery;
@@ -16,6 +17,7 @@ export const TalkList: React.VFC<Props> = memo((props) => {
   const loginUserData = useReactiveVar(loginUserVar);
   const openTalkRoomId = useReactiveVar(openTalkRoomIdVar);
   const [updateMessages] = useUpdateMessagesMutation();
+  const { handleRefreshToken } = useRefreshTokens();
 
   // 未読のメッセージを取得
   const unViewedMessages = props.talkRoomsData.loginUserTalkRooms?.edges.map((talkRoom) => {
@@ -30,33 +32,59 @@ export const TalkList: React.VFC<Props> = memo((props) => {
     const filteredArray = resultArray?.filter(Boolean);
     const talkRoomId = talkRoom?.node?.id ? talkRoom.node.id : "undefined";
     // 紐付いているトークルームのIDをオブジェクトのkeyにして返す
+    // TODO: ↓データの保持する形式を変更して可読性を上げる
+    // return { id: talkRoomId, data: filteredArray };
     return { [talkRoomId]: filteredArray };
   });
 
+  const unViewedMessagesObject = unViewedMessages
+    ? // ? unViewedMessages.reduce((obj, data) => {
+      //     obj[data] = data;
+      //     return obj;
+      //   }, {})
+      unViewedMessages.reduce((obj, item) => {
+        obj[item.id] = item.data;
+        return obj;
+      }, {})
+    : {};
+  console.log(unViewedMessagesObject);
+
   // どのトークルームを開くかのReactiveVariables ボタンのIDに付与する相手のユーザーIDをセット
   // トークルームのリストをクリックした時に呼ぶ関数
-  // const handleOpenTalkRoomChange = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
   const handleOpenTalkRoomChange = (e: React.MouseEvent<HTMLButtonElement>) => {
     const currentOpenTalkRoomId = openTalkRoomIdVar(e.currentTarget.id);
 
-    // 現在開いているトークルームの自分が未読のメッセージのIDを取得
+    // 現在開いているトークルームから自分が未読のメッセージのIDを取得
     const [currentUnViewedMessage] = unViewedMessages
       ? unViewedMessages
-          ?.map((obj) => {
-            if (obj[currentOpenTalkRoomId]?.length > 0) {
-              return obj[currentOpenTalkRoomId];
+          .map((obj) => {
+            const newObj = obj[currentOpenTalkRoomId];
+            if (newObj && newObj.length > 0) {
+              return newObj;
             }
+            // obj = {トークルームのID: ['メッセージのID' or false] | undefined}
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             return false;
           })
           .filter(Boolean)
       : [];
+
     // 未読のメッセージがある場合は既読に更新する
     if (currentUnViewedMessage) {
+      // (string | false)[]の型の状態からfalseを取り除く
+      const messageIds = currentUnViewedMessage.filter(
+        (item): item is Exclude<typeof item, false> => {
+          return item !== false;
+        },
+      );
+
+      // メッセージを既読に更新
       (async () => {
         try {
+          await handleRefreshToken();
           await updateMessages({
             variables: {
-              messageIds: currentUnViewedMessage,
+              messageIds: messageIds,
             },
           });
         } catch (error) {
@@ -64,11 +92,11 @@ export const TalkList: React.VFC<Props> = memo((props) => {
         }
       })();
     }
-    // }, []);
   };
 
   return (
     <div>
+      {/* 各トークルームをリスト形式で表示 */}
       {props.talkRoomsData?.loginUserTalkRooms?.edges.map((talkRoom, index) => {
         return (
           // 自分が参加しているトークルームの一覧を返す
@@ -99,13 +127,18 @@ export const TalkList: React.VFC<Props> = memo((props) => {
                     />
                     <div className="px-4 text-left">
                       {/* 未読のメッセージの件数 */}
-                      <div className="absolute bg-gray-400">
-                        {unViewedMessages?.map((obj) => {
+                      <div className="absolute h-4 w-4 rounded-full bg-gray-400">
+                        {/* {unViewedMessages&&  } */}
+                        {unViewedMessages?.map((obj, index) => {
                           if (talkRoom?.node) {
                             // トークルームのIDをオブジェクトのキーとしているためそれで取得
-                            return (
-                              obj[talkRoom.node.id]?.length !== 0 && obj[talkRoom.node.id]?.length
-                            );
+                            if (obj[talkRoom.node.id]?.length !== 0) {
+                              return (
+                                <div key={index} className="bg-red-400">
+                                  {obj[talkRoom.node.id]?.length}
+                                </div>
+                              );
+                            }
                           }
                         })}
                       </div>
