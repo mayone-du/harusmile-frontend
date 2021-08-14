@@ -33,50 +33,48 @@ export const TalkList: React.VFC<Props> = memo((props) => {
     const talkRoomId = talkRoom?.node?.id ? talkRoom.node.id : "undefined";
     // 紐付いているトークルームのIDをオブジェクトのkeyにして返す
     // TODO: ↓データの保持する形式を変更して可読性を上げる
-    // return { id: talkRoomId, data: filteredArray };
-    return { [talkRoomId]: filteredArray };
+    return { id: talkRoomId, data: filteredArray };
+    // return { [talkRoomId]: filteredArray };
   });
+  console.log(unViewedMessages);
 
-  const unViewedMessagesObject = unViewedMessages
-    ? // ? unViewedMessages.reduce((obj, data) => {
-      //     obj[data] = data;
-      //     return obj;
-      //   }, {})
-      unViewedMessages.reduce((obj, item) => {
-        obj[item.id] = item.data;
-        return obj;
-      }, {})
-    : {};
-  console.log(unViewedMessagesObject);
+  // {"トークルームID": ["メッセージのID", "メッセージのID2"]} のかたちで保持
+  const fixedObject = {};
+  if (unViewedMessages) {
+    unViewedMessages.forEach((item) => {
+      fixedObject[item.id] = item.data;
+    });
+  }
+  console.log(fixedObject);
 
   // どのトークルームを開くかのReactiveVariables ボタンのIDに付与する相手のユーザーIDをセット
   // トークルームのリストをクリックした時に呼ぶ関数
   const handleOpenTalkRoomChange = (e: React.MouseEvent<HTMLButtonElement>) => {
     const currentOpenTalkRoomId = openTalkRoomIdVar(e.currentTarget.id);
 
-    // 現在開いているトークルームから自分が未読のメッセージのIDを取得
-    const [currentUnViewedMessage] = unViewedMessages
-      ? unViewedMessages
-          .map((obj) => {
-            const newObj = obj[currentOpenTalkRoomId];
-            if (newObj && newObj.length > 0) {
-              return newObj;
-            }
-            // obj = {トークルームのID: ['メッセージのID' or false] | undefined}
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            return false;
-          })
-          .filter(Boolean)
-      : [];
+    // // 現在開いているトークルームから自分が未読のメッセージのIDを取得
+    // const [currentUnViewedMessage] = unViewedMessages
+    //   ? unViewedMessages
+    //       .map((obj) => {
+    //         const newObj = obj[currentOpenTalkRoomId];
+    //         if (newObj && newObj.length > 0) {
+    //           return newObj;
+    //         }
+    //         // obj = {トークルームのID: ['メッセージのID' or false] | undefined}
+    //         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    //         return false;
+    //       })
+    //       .filter(Boolean)
+    //   : [];
 
     // 未読のメッセージがある場合は既読に更新する
-    if (currentUnViewedMessage) {
-      // (string | false)[]の型の状態からfalseを取り除く
-      const messageIds = currentUnViewedMessage.filter(
-        (item): item is Exclude<typeof item, false> => {
-          return item !== false;
-        },
-      );
+    if (fixedObject[currentOpenTalkRoomId].length > 0) {
+      //   // (string | false)[]の型の状態からfalseを取り除く
+      //   const messageIds = currentUnViewedMessage.filter(
+      //     (item): item is Exclude<typeof item, false> => {
+      //       return item !== false;
+      //     },
+      //   );
 
       // メッセージを既読に更新
       (async () => {
@@ -84,7 +82,7 @@ export const TalkList: React.VFC<Props> = memo((props) => {
           await handleRefreshToken();
           await updateMessages({
             variables: {
-              messageIds: messageIds,
+              messageIds: fixedObject[currentOpenTalkRoomId],
             },
           });
         } catch (error) {
@@ -129,7 +127,7 @@ export const TalkList: React.VFC<Props> = memo((props) => {
                       {/* 未読のメッセージの件数 */}
                       <div className="absolute h-4 w-4 rounded-full bg-gray-400">
                         {/* {unViewedMessages&&  } */}
-                        {unViewedMessages?.map((obj, index) => {
+                        {/* {unViewedMessages?.map((obj, index) => {
                           if (talkRoom?.node) {
                             // トークルームのIDをオブジェクトのキーとしているためそれで取得
                             if (obj[talkRoom.node.id]?.length !== 0) {
@@ -140,7 +138,8 @@ export const TalkList: React.VFC<Props> = memo((props) => {
                               );
                             }
                           }
-                        })}
+                        })} */}
+                        {fixedObject[talkRoom.node.id].length}
                       </div>
                       {/* 相手（自分以外）のプロフィールを表示 */}
                       <div>
