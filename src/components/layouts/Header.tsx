@@ -82,7 +82,7 @@ export const Header: React.VFC<Props> = memo((props) => {
           )}
         </nav>
 
-        {/* スマホ時 */}
+        {/* スマホ時のヘッダー */}
         <nav className="flex md:hidden items-center relative">
           <Link href="/">
             <a className="block w-10 h-10 absolute left-2">
@@ -107,7 +107,7 @@ export const Header: React.VFC<Props> = memo((props) => {
           )}
         </nav>
       </header>
-      {/* スマホ時 */}
+      {/* スマホ時の下タブ */}
       <BottomNavigation
         isLoading={loginUserData.isLoading}
         isLogin={loginUserData.isLogin}
@@ -117,4 +117,5 @@ export const Header: React.VFC<Props> = memo((props) => {
     </div>
   );
 });
+
 Header.displayName = "Header";

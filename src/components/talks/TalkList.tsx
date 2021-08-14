@@ -115,7 +115,7 @@ export const TalkList: React.VFC<Props> = memo((props) => {
                     />
                     <div className="px-4 text-left">
                       {/* 未読のメッセージの件数 */}
-                      <div className="absolute right-0 top-0 h-6 w-6 p-2 flex items-center justify-center rounded-full bg-gray-400 bg-opacity-50">
+                      <div className="absolute right-2 top-2 h-6 w-6 p-2 flex items-center justify-center rounded-full bg-gray-400 bg-opacity-50">
                         {unViewedMessagesObject[talkRoom.node.id].length}
                       </div>
                       {/* 相手（自分以外）のプロフィールを表示 */}
@@ -127,16 +127,12 @@ export const TalkList: React.VFC<Props> = memo((props) => {
                       <div>
                         {/* 最後にやり取りしたメッセージ 最初の10文字だけ表示 */}
                         {talkRoom.node?.talkingRoom.edges.slice(-1)[0]?.node?.text.slice(0, 10)}
+                        {/* TODO: 最後にやり取りしたメッセージが10文字以上なら末尾に...の文字列を表示 */}
+                        {/* {talkRoom.node?.talkingRoom.edges.slice(-1)[0]?.node?.text.length > 10 &&
+                          "..."} */}
                         {talkRoom.node?.talkingRoom.edges.length === 0 && "トークを始めましょう"}
-
-                        {/* TODO: type narrowing */}
-                        {/* {talkRoom.node?.talkingRoom.edges.slice(-1)[0]?.node?.text
-                                  .length !== undefined &&
-                                talkRoom.node.talkingRoom.edges.slice(-1)[0].node.text.length >= 10
-                                  ? "..."
-                                  : ""} */}
                         {talkRoom.node?.talkingRoom.edges.length !== 0 && (
-                          <span className="absolute text-gray-500 text-xs right-4 bottom-4">
+                          <span className="absolute text-gray-500 text-xs right-2 bottom-2">
                             {fixDateFormat(
                               talkRoom.node?.talkingRoom.edges.slice(-1)[0]?.node?.createdAt,
                             )}
