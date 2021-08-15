@@ -26,19 +26,23 @@ export const SearchBox: React.VFC = () => {
             <p className="md:text-base text-sm">フリーワード検索</p>
             <form className="flex items-center" onSubmit={handleSearch}>
               <input
-                className="block md:p-4 p-2 w-full rounded-none border-t border-b border-l focus:outline-none"
+                className="block md:p-4 p-2 w-full dark:bg-gray-800 rounded-none border-t border-b border-l focus:outline-none"
                 type="search"
                 placeholder="大学名、出身高校名、部活など"
                 value={inputSearchKeyword}
                 onChange={handleSearchKeywordChange}
               />
-              <button className="md:p-4 p-2 dark:bg-gray-700 bg-white border-t border-r border-b">
+              <button className="md:p-4 p-2 dark:bg-gray-800 bg-white border-t border-r border-b">
                 <SearchSvg className="w-6 h-6" />
               </button>
             </form>
 
             <div>
-              <button type="submit" className="text-blue-700" onClick={handleConditionsToggle}>
+              <button
+                type="submit"
+                className="text-blue-700 dark:text-blue-500"
+                onClick={handleConditionsToggle}
+              >
                 検索条件を開く
               </button>
               {/* 検索条件 */}

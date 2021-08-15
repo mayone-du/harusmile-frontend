@@ -11,6 +11,7 @@ import {
 } from "src/apollo/schema";
 import { useCreateNotificationMutation } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
+import { PlanLoading } from "src/components/plans/PlanLoading";
 import { Review } from "src/components/reviews/Review";
 import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
 import { useDeletePlan } from "src/libs/hooks/plans/useDeletePlan";
@@ -87,7 +88,6 @@ const PlanDetail: NextPage = () => {
       console.error(error);
     }
   };
-
   // タブや編集切り替えのstate
   const [isEditMode, setIsEditMode] = useState(false);
   const [pickOpenTab, setPickOpenTab] = useState<"plan" | "review">("plan");
@@ -105,8 +105,9 @@ const PlanDetail: NextPage = () => {
 
   return (
     <Layout meta={{ pageName: "プラン詳細" }} spHeaderTitle="プラン詳細">
+      {/* ローディング */}
       {isPlanLoading ? (
-        <div>Loading...</div>
+        <PlanLoading />
       ) : (
         <div>
           {/* このプランの作成者が大学生かどうか */}
@@ -172,7 +173,7 @@ const PlanDetail: NextPage = () => {
                     <button
                       className={`p-2 block border w-1/2 ${
                         pickOpenTab === "plan" && "bg-blue-300 dark:bg-blue-600"
-                      }`}
+                      } rounded-l`}
                       onClick={handlePlanTabOpen}
                     >
                       このプランについて
@@ -180,7 +181,7 @@ const PlanDetail: NextPage = () => {
                     <button
                       className={`p-2 block border w-1/2 ${
                         pickOpenTab === "review" && "bg-blue-300 dark:bg-blue-600"
-                      }`}
+                      } rounded-r`}
                       onClick={handleReviewTabOpen}
                     >
                       この人について

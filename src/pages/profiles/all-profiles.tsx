@@ -10,6 +10,7 @@ import { GetAllProfilesDocument } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
 import { Profile } from "src/components/profiles/Profile";
 
+// TODO: 無限スクロールかページネーションの実装
 export const getStaticProps: GetStaticProps = async () => {
   const apolloClient = initializeApollo(null);
   const { data: profilesData } = await apolloClient.query<
@@ -18,7 +19,7 @@ export const getStaticProps: GetStaticProps = async () => {
   >({
     query: GetAllProfilesDocument,
     // variables: {
-    //   first: 2, // 最初から5件のみ取得(後から取得するプロフィールの数と連動させる)
+    //   first: 10, // 最初から10件のみ取得（ページネーション）
     // },
   });
 
@@ -75,9 +76,9 @@ const AllProfiles: NextPage<PropsGetAllProfilesQuery<GetAllProfilesQuery>> = (pr
 
   return (
     <Layout
-      spHeaderTitle="大学生プロフィール一覧"
+      spHeaderTitle="全てのプロフィール"
       meta={{
-        pageName: "大学生プロフィール一覧",
+        pageName: "全てのプロフィール",
       }}
     >
       <p className="py-10 px-2 text-xl text-center">

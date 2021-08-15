@@ -5,7 +5,7 @@ const NotFoundPage: NextPage = () => {
   return (
     <div>
       <Layout spHeaderTitle="404 Not Found" meta={{ pageName: "404 Not Found" }}>
-        指定されたページは存在しませんでした。
+        <h2 className="font-bold text-center py-4">お探しのページは見つかりませんでした。</h2>
       </Layout>
     </div>
   );

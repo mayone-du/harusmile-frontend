@@ -84,10 +84,11 @@ export const useAuth = () => {
   // signIn
   const handleSignIn = async (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     // 入力欄の検証を避けるために値をセット。ログインには必要ない。
     const { isFormError } = validateSignInInputs();
 
-    // フォームのエラーがなければtokenを取得j
+    // フォームのエラーがなければtokenを取得
     if (!isFormError) {
       try {
         setIsLoading(true);
@@ -135,34 +136,12 @@ export const useAuth = () => {
     if (!isFormError) {
       try {
         setIsLoading(true);
+
+        // ユーザーを作成
         const { data } = await createUserMutation({
           variables: { email: inputEmail, password: inputPassword },
         });
         const userId = data?.createUser?.user?.id ? data.createUser.user.id : "";
-
-        // // サインイン
-        // const { data: tokenData } = await getTokensMutation({
-        //   variables: {
-        //     email: inputEmail,
-        //     password: inputPassword,
-        //   },
-        // });
-
-        // // 正常にレスポンスが帰ってきていればCookieにtokenを保存
-        // if (tokenData?.tokenAuth) {
-        //   setCookie(null, "accessToken", tokenData.tokenAuth.token, {
-        //     path: "/",
-        //     maxAge: calcDate(tokenData.tokenAuth.payload.exp),
-        //   });
-        //   setCookie(null, "refreshToken", tokenData.tokenAuth.refreshToken, {
-        //     path: "/",
-        //     maxAge: calcDate(tokenData.tokenAuth.refreshExpiresIn),
-        //   });
-        // }
-        // // ユーザーのstateを更新
-        // loginUserVar(initialLoginUserVar);
-        // setInputEmail("");
-        // setInputPassword("");
 
         // プロフィールを作成
         await createProfileMutation({
@@ -173,6 +152,7 @@ export const useAuth = () => {
             schoolName: inputSchoolName,
           },
         });
+
         setIsLoading(false);
         await router.push("/");
         toast.success("仮登録が完了しました。メールを確認して本登録してください。");

@@ -35,7 +35,7 @@ const Results: NextPage = () => {
           {searchKeyword}
           {'"'}を含む
           {searchCondition === "schoolName"
-            ? "大学名"
+            ? "学校名"
             : searchCondition === "profileName"
             ? "ユーザー名"
             : ""}
@@ -63,6 +63,7 @@ const Results: NextPage = () => {
                   favoriteSubject={
                     profile?.node?.favoriteSubject ? profile.node.favoriteSubject : ""
                   }
+                  problem={profile?.node?.problem ? profile.node.problem : ""}
                   // tags={profile?.node?.tags ? profile.node.tags : []}
                   isCollegeStudent={
                     profile?.node?.isCollegeStudent ? profile.node.isCollegeStudent : false
