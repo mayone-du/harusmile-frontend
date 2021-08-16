@@ -62,7 +62,12 @@ export const Profile: React.VFC<Props> = (props) => {
             <div className="flex justify-between items-center py-4 border-b border-gray-400">
               <div>
                 {/* StarRating */}
-                <Rating name={`${props.profileId} stars`} value={starRating} precision={0.1} />
+                <Rating
+                  readOnly
+                  name={`${props.profileId} stars`}
+                  value={starRating}
+                  precision={0.1}
+                />
               </div>
               <div className="md:text-base text-xs">
                 <span className="block text-yellow-300 font-bold">

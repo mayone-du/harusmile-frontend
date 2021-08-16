@@ -1,3 +1,4 @@
+import { Button } from "@material-ui/core";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useGetAllAdressesQuery, useGetAllGendersQuery } from "src/apollo/schema";
@@ -272,15 +273,15 @@ const Settings: NextPage = () => {
           </div>
         </ul>
         <div className="flex justify-center">
-          <button className="block py-2 px-8 rounded-md border border-pink-500" type="submit">
+          <Button type="submit" variant="outlined" color="secondary">
             更新する
-          </button>
+          </Button>
         </div>
       </form>
 
       <div className="flex items-center justify-center px-2 my-10 mx-4">
         <Link href="/auth/signout">
-          <a className="p-2 border rounded-sm ">ログアウト</a>
+          <a className="p-2 border rounded-sm">ログアウト</a>
         </Link>
       </div>
       <div className="py-6 text-center">
