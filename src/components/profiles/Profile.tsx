@@ -1,5 +1,5 @@
+import Rating from "@material-ui/lab/Rating";
 import Link from "next/link";
-import { RatingView } from "react-simple-star-rating";
 import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { RightSvg } from "src/components/icons/svgs/RightSvg";
 
@@ -40,7 +40,7 @@ export const Profile: React.VFC<Props> = (props) => {
           {/* 名前、歳、学校 */}
           <div className="md:pr-12 pr-2 md:pl-6 pl-2 w-full">
             <div className="md:text-2xl text-sm font-bold">{props.profileName}</div>
-            <p className="text-xs md:text-base">
+            <p className="text-1xs md:text-base">
               {/* {props.age.toString() === "0" ? "年齢未設定" : `${props.age.toString()}歳`} */}
               {props.isCollegeStudent ? "大学生" : "高校生"}
             </p>
@@ -51,7 +51,7 @@ export const Profile: React.VFC<Props> = (props) => {
         </div>
 
         {/* プロフィールテキスト */}
-        <div className="md:p-4 p-2 md:text-sm text-xs text-gray-600 dark:text-white">
+        <div className="md:p-4 p-2 md:text-sm text-1xs text-gray-600 dark:text-white">
           {props.profileText}
         </div>
 
@@ -62,26 +62,7 @@ export const Profile: React.VFC<Props> = (props) => {
             <div className="flex justify-between items-center py-4 border-b border-gray-400">
               <div>
                 {/* StarRating */}
-                <RatingView
-                  className="flex items-center"
-                  ratingValue={starRating}
-                  emptyColor={"#cccccc"}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="md:w-8 md:h-8 w-6 h-6"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
-                    />
-                  </svg>
-                </RatingView>
+                <Rating name={`${props.profileId} stars`} value={starRating} precision={0.1} />
               </div>
               <div className="md:text-base text-xs">
                 <span className="block text-yellow-300 font-bold">
