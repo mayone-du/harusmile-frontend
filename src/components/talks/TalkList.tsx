@@ -115,9 +115,11 @@ export const TalkList: React.VFC<Props> = memo((props) => {
                     />
                     <div className="px-4 text-left">
                       {/* 未読のメッセージの件数 */}
-                      <div className="absolute right-2 top-2 h-6 w-6 p-2 flex items-center justify-center rounded-full bg-gray-400 bg-opacity-50">
-                        {unViewedMessagesObject[talkRoom.node.id].length}
-                      </div>
+                      {unViewedMessagesObject[talkRoom.node.id].length > 0 && (
+                        <div className="absolute right-2 top-2 h-6 w-6 p-2 flex items-center justify-center rounded-full bg-gray-400 bg-opacity-50">
+                          {unViewedMessagesObject[talkRoom.node.id].length}
+                        </div>
+                      )}
                       {/* 相手（自分以外）のプロフィールを表示 */}
                       <div>
                         {talkRoom.node.opponentUser.id === loginUserData.userId
