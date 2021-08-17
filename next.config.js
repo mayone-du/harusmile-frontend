@@ -9,5 +9,5 @@ module.exports = withPWA({
     dest: "public", // swの出力ディレクトリ
     // runtimeCaching: [],
   },
-  pageExtensions: [".tsx"],
+  pageExtensions: ["tsx"],
 });
