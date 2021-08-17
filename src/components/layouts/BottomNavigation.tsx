@@ -1,3 +1,4 @@
+import { useRouter } from "next/dist/client/router";
 import Link from "next/link";
 import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { HomeSvg } from "src/components/icons/svgs/HomeSvg";
@@ -12,9 +13,13 @@ type Props = {
   isLogin: boolean;
   isCollegeStudent: boolean;
   profileImagePath: string;
+  // currentPage: string;
 };
+
+// スマホの下タブ
 export const BottomNavigation: React.VFC<Props> = (props) => {
-  // スマホ時
+  const router = useRouter();
+  const currentPath = router.pathname;
 
   // ローディング中
   if (props.isLoading) {
@@ -54,17 +59,37 @@ export const BottomNavigation: React.VFC<Props> = (props) => {
             <li className="w-1/5">
               <Link href="/">
                 <a className={`flex flex-col items-center`}>
-                  <HomeSvg className="h-6 w-6" />
-                  <span className="block text-xs text-gray-600 dark:text-white">ホーム</span>
+                  <HomeSvg
+                    className={`h-6 w-6
+                      ${currentPath === "/" && "text-yellow-500"}
+                  `}
+                  />
+                  <span
+                    className={`block text-xs text-gray-600 dark:text-white ${
+                      currentPath === "/" && "text-yellow-500"
+                    }`}
+                  >
+                    ホーム
+                  </span>
                 </a>
               </Link>
             </li>
             {/* メッセージ */}
             <li className="w-1/5">
               <Link href="/talks">
-                <a className="flex flex-col items-center">
-                  <TalkSvg className="h-6 w-6" />
-                  <span className="block text-xs text-gray-600 dark:text-white">メッセージ</span>
+                <a className={`flex flex-col items-center`}>
+                  <TalkSvg
+                    className={`h-6 w-6 
+                      ${currentPath === "/talks" && "text-yellow-500"}
+                  `}
+                  />
+                  <span
+                    className={`block text-xs text-gray-600 dark:text-white ${
+                      currentPath === "/talks" && "text-yellow-500"
+                    }`}
+                  >
+                    メッセージ
+                  </span>
                 </a>
               </Link>
             </li>
@@ -93,10 +118,18 @@ export const BottomNavigation: React.VFC<Props> = (props) => {
               <Link href="/profiles">
                 <a className="flex flex-col items-center">
                   <ProfileImageIcon
-                    className="w-6 h-6 rounded-full object-cover"
+                    className={`w-6 h-6 rounded-full object-cover
+                      ${currentPath === "/profiles" && "text-yellow-500"}
+                    `}
                     profileImagePath={props.profileImagePath}
                   />
-                  <span className="block text-xs text-gray-600 dark:text-white">マイページ</span>
+                  <span
+                    className={`block text-xs text-gray-600 dark:text-white
+                  ${currentPath === "/profiles" && "text-yellow-500"}
+                  `}
+                  >
+                    マイページ
+                  </span>
                 </a>
               </Link>
             </li>

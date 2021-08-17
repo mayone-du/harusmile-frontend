@@ -12,8 +12,8 @@ import {
 } from "src/apollo/schema";
 import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { InitialTalkDetail } from "src/components/talks/InitialTalkDetail";
+import { InnerReviewModal } from "src/components/talks/InnerReviewModal";
 import { Message } from "src/components/talks/Message";
-import { InnerReviewModal } from "src/components/talks/ReviewInnerModal";
 import { SkeletonLoading } from "src/components/talks/SkeletonLoading";
 import { TalkList } from "src/components/talks/TalkList";
 import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
