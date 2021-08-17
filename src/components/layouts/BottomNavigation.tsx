@@ -1,5 +1,8 @@
 import { useRouter } from "next/dist/client/router";
 import Link from "next/link";
+import { useCallback } from "react";
+import { useState } from "react";
+import Modal from "react-modal";
 import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { HomeSvg } from "src/components/icons/svgs/HomeSvg";
 import { SearchSvg } from "src/components/icons/svgs/SearchSvg";
@@ -7,6 +10,7 @@ import { TalkSvg } from "src/components/icons/svgs/TalkSvg";
 import { BottomNavigationLoading } from "src/components/layouts/BottomNavigationLoading";
 import { CreatePlanButton } from "src/components/layouts/CreatePlanButton";
 import { NotificationButton } from "src/components/layouts/NotificationButton";
+import { SearchBox } from "src/components/SearchBox";
 
 type Props = {
   isLoading: boolean;
@@ -20,6 +24,13 @@ type Props = {
 export const BottomNavigation: React.VFC<Props> = (props) => {
   const router = useRouter();
   const currentPath = router.pathname;
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+  const handleClickModalOpen = useCallback(() => {
+    setIsSearchModalOpen(true);
+  }, []);
+  const handleModalClose = useCallback(() => {
+    setIsSearchModalOpen(false);
+  }, []);
 
   // ローディング中
   if (props.isLoading) {
@@ -100,12 +111,25 @@ export const BottomNavigation: React.VFC<Props> = (props) => {
               </li>
             ) : (
               <li className="w-1/5 relative">
-                <Link href="/">
-                  <a className="flex flex-col items-center justify-center bg-blue-600 rounded-full w-20 h-20 absolute -top-16 left-1/2 transform -translate-x-1/2 shadow-md">
-                    <SearchSvg className="h-10 w-10 text-white" />
-                    <span className="block text-xs text-white">検索</span>
-                  </a>
-                </Link>
+                {/* 検索 */}
+                <button
+                  onClick={handleClickModalOpen}
+                  className="flex flex-col items-center justify-center bg-blue-600 rounded-full w-20 h-20 absolute -top-16 left-1/2 transform -translate-x-1/2 shadow-md"
+                >
+                  <SearchSvg className="h-10 w-10 text-white" />
+                  <span className="block text-xs text-white">検索</span>
+                </button>
+                <Modal
+                  isOpen={isSearchModalOpen}
+                  onRequestClose={handleModalClose}
+                  className="dark:bg-gray-700 absolute top-20 p-4 md:w-96 w-5/6 rounded-md left-1/2 transform -translate-x-1/2 bg-white border"
+                  contentLabel={`Search Modal`}
+                  ariaHideApp={false}
+                >
+                  <div>
+                    <SearchBox />
+                  </div>
+                </Modal>
               </li>
             )}
 
