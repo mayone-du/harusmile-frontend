@@ -28,8 +28,8 @@ const TabPanel = (props: TabPanelProps) => {
 
 const a11yProps = (index: any) => {
   return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
+    id: `plan-tab-${index}`,
+    "aria-controls": `plan-tabpanel-${index}`,
   };
 };
 
@@ -59,7 +59,7 @@ export const PlanTab: React.VFC<GetPlanQuery> = (props) => {
           indicatorColor="primary"
           onChange={handleChange}
           aria-label="plan detail tabs"
-          className="bg-gray-300 text-black"
+          className="bg-gray-200 text-black"
         >
           <Tab className="w-1/2" label="プラン詳細" {...a11yProps(0)} />
           <Tab className="w-1/2" label="このプランについて" {...a11yProps(1)} />

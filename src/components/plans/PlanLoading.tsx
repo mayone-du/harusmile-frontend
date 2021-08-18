@@ -5,11 +5,9 @@ export const PlanLoading = memo(() => {
     <div className="py-4">
       <div className="flex items-center text-sm">
         {/* タブ */}
-        <div className={`p-2 block h-10 border w-1/2 rounded-l bg-gray-400 animate-pulse`}></div>
-        <div className={`p-2 block h-10 border w-1/2 rounded-r bg-gray-400 animate-pulse`}></div>
+        <div className={`p-2 block h-12 border w-1/2 rounded-l bg-gray-400 animate-pulse`}></div>
+        <div className={`p-2 block h-12 border w-1/2 rounded-r bg-gray-400 animate-pulse`}></div>
       </div>
-      {/* プラン作成者 */}
-      <div className="bg-gray-400 rounded my-2 animate-pulse w-full h-6"></div>
       {/* プラン詳細 */}
       <div className="w-full my-2 p-2 h-68 bg-gray-400 animate-pulse rounded">
         {/* プランのタイトル */}

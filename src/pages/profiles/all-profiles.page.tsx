@@ -3,7 +3,7 @@ import {
   // useEffect,
   useState,
 } from "react";
-import { addApolloState, initializeApollo } from "src/apollo/apolloClient";
+import { addApolloState, initializeApollo } from "src/apollo/client";
 import type { GetAllProfilesQuery, GetAllProfilesQueryVariables } from "src/apollo/schema";
 // import { useGetAllProfilesLazyQuery } from "src/apollo/schema";
 import { GetAllProfilesDocument } from "src/apollo/schema";

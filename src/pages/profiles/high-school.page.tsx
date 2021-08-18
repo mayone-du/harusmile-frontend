@@ -1,5 +1,5 @@
 import type { GetStaticProps, NextPage } from "next";
-import { addApolloState, initializeApollo } from "src/apollo/apolloClient";
+import { addApolloState, initializeApollo } from "src/apollo/client";
 import type {
   GetHighSchoolProfilesQuery,
   GetHighSchoolProfilesQueryVariables,

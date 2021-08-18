@@ -29,14 +29,18 @@ export const Layout: React.FC<Props> = memo((props) => {
         <meta property="og:title" content={meta.title} />
         <meta property="og:description" content={meta.description} />
         <meta property="og:site_name" content="ハルスマイル" />
-        <meta property="og:image" content="/images/sample-image.jpg" />
+        <meta property="og:image" content="/images/logo.png" />
 
         <meta name="twitter:card" content="Summary Card" />
         {/* <meta name="twitter:site" content="@mayo1201blog" /> */}
 
         {/* PWA */}
-        <link rel="apple-touch-icon" type="image/png" href="/pwa/apple-touch-icon-180x180.png" />
-        <link rel="icon" sizes="512x512" href="/pwa/icon-512x512.png" />
+        <link
+          rel="apple-touch-icon"
+          type="image/png"
+          href="/pwa/icons/apple-touch-icon-180x180.png"
+        />
+        <link rel="icon" sizes="512x512" href="/pwa/icons/icon-512x512.png" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="manifest" href="/manifest.json" />
 
@@ -49,14 +53,18 @@ export const Layout: React.FC<Props> = memo((props) => {
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="#000" />
         <meta name="apple-mobile-web-app-title" content="harusmile" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/pwa/apple-touch-icon-180x180.png" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/pwa/icons/apple-touch-icon-180x180.png"
+        />
         {/* 一般 */}
         <meta name="application-name" content="harusmile" />
         <meta name="theme-color" content="#000" />
         <meta name="description" content="harusmile app" />
-        <link rel="icon" sizes="512x512" href="/pwa/icon-512x512.png" />
+        <link rel="icon" sizes="512x512" href="/pwa/icons/icon-512x512.png" />
         <link rel="icon" href="/images/favicon.ico" />
-        <link rel="manifest" href="/pwa/manifest.json" />
+        <link rel="manifest" href="/pwa/icons/manifest.json" />
       </Head>
       <Header spHeaderTitle={props.spHeaderTitle} profileImagePath={loginUserData.profileImage} />
       <main className="mx-2 md:mx-32 pb-4">{props.children}</main>

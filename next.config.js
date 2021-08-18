@@ -6,7 +6,7 @@ module.exports = withPWA({
     CONTACT_SLACK_WEBHOOK_URL: process.env.CONTACT_SLACK_WEBHOOK_URL,
   },
   pwa: {
-    dest: "public", // swの出力ディレクトリ
+    dest: "public/pwa/sw", // swの出力ディレクトリ
     // runtimeCaching: [],
   },
   pageExtensions: ["page.tsx"],

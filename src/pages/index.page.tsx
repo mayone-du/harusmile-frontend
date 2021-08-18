@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import type { GetStaticProps } from "next";
 import Image from "next/image";
-import { addApolloState, initializeApollo } from "src/apollo/apolloClient";
+import { addApolloState, initializeApollo } from "src/apollo/client";
 import type { GetCollegeProfilesQuery, GetCollegeProfilesQueryVariables } from "src/apollo/schema";
 import { GetCollegeProfilesDocument } from "src/apollo/schema";
 import { CheckSvg } from "src/components/icons/svgs/CheckSvg";

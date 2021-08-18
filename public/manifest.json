@@ -1,7 +1,7 @@
 {
     "name":             "harusmile",
     "short_name":       "harusmile",
-    "description":      "ハルスマイル | 高校生と大学生のマッチングサービス",
+    "description":      "ハルスマイル | 高校生と大学生のメンタリングサービス",
     "start_url":        "/",
     "display":          "standalone",
     "orientation":      "portrate-primary",
@@ -10,7 +10,7 @@
     "dir": "ltr",
     "icons": [
         {
-            "src": "/pwa/icon-512x512.png",
+            "src": "/pwa/icons/icon-512x512.png",
             "sizes": "512x512",
             "type": "image/png"
         }
