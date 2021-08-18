@@ -10,6 +10,7 @@ import {
   useGetLoginUserTalkRoomsLazyQuery,
   useUpdateTalkRoomMutation,
 } from "src/apollo/schema";
+import { YellowButton } from "src/components/buttons/YellowButton";
 import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { InitialTalkDetail } from "src/components/talks/InitialTalkDetail";
 import { InnerReviewModal } from "src/components/talks/InnerReviewModal";
@@ -86,6 +87,7 @@ export const TalkWrapper: React.VFC = memo(() => {
     });
   };
 
+  // トークルームが変わった時に入力欄のメッセージを初期化
   useEffect(() => {
     setInputText("");
   }, [openTalkRoomId, setInputText]);
@@ -136,7 +138,6 @@ export const TalkWrapper: React.VFC = memo(() => {
           <TalkList talkRoomsData={talkRoomsData ? talkRoomsData : {}} />
         </ul>
       </aside>
-
       <div className="md:p-4 md:mt-0 mt-4 mb-20 md:w-2/3 w-full">
         <div>
           {/* トークルーム詳細 */}
@@ -191,12 +192,13 @@ export const TalkWrapper: React.VFC = memo(() => {
 
                     {/* 高校生のみレビューを書ける */}
                     {!loginUserData.isCollegeStudent && (
-                      <button
-                        className="block md:text-base text-sm p-2 text-white bg-yellow-500"
-                        onClick={handleModalOpen}
-                      >
-                        レビューを書く
-                      </button>
+                      // <button
+                      //   className="block md:text-base text-sm p-2 text-white bg-yellow-500"
+                      //   onClick={handleModalOpen}
+                      // >
+                      <YellowButton onClick={handleModalOpen}>レビューを書く</YellowButton>
+                      // レビューを書く
+                      // </button>
                     )}
                   </div>
                   {/* トーク部分 */}

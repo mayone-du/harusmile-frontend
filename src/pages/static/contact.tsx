@@ -1,3 +1,4 @@
+import { Button, TextField } from "@material-ui/core";
 import type { NextPage } from "next";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -60,31 +61,42 @@ const Contact: NextPage = () => {
       <Layout spHeaderTitle="お問い合わせ" meta={{ pageName: "お問い合わせ" }}>
         <h2 className="text-3xl text-center py-10">Contact</h2>
         <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            onChange={handleEmailChange}
-            className="border p-2 block md:w-1/3 w-full mx-auto"
-            value={inputEmail}
-            placeholder="メールアドレス"
-          />
-          <input
-            type="text"
-            className="border p-2 block md:w-1/3 w-full mx-auto"
-            onChange={handleNameChange}
-            value={inputName}
-            placeholder="ユーザーネーム"
-          />
-          <textarea
-            className="block md:w-1/3 w-full mx-auto border resize-none p-2"
-            cols={30}
-            rows={5}
-            onChange={handleContentChange}
-            placeholder="お問い合わせ内容"
-            value={inputContent}
-          ></textarea>
-          <button type="submit" className="block border w-1/4 mx-auto p-2">
-            送信する
-          </button>
+          <div className="my-2">
+            <TextField
+              type="email"
+              onChange={handleEmailChange}
+              value={inputEmail}
+              variant="outlined"
+              label="メールアドレス"
+              className="w-full"
+            />
+          </div>
+          <div className="my-2">
+            <TextField
+              type="text"
+              onChange={handleNameChange}
+              value={inputName}
+              variant="outlined"
+              label="ユーザーネーム"
+              className="w-full"
+            />
+          </div>
+          <div className="my-2">
+            <TextField
+              className="w-full"
+              multiline
+              rows={5}
+              onChange={handleContentChange}
+              variant="outlined"
+              label="お問い合わせ内容"
+              value={inputContent}
+            />
+          </div>
+          <div className="flex justify-center">
+            <Button variant="outlined" type="submit">
+              送信する
+            </Button>
+          </div>
         </form>
       </Layout>
     </div>

@@ -1,4 +1,5 @@
 import { useReactiveVar } from "@apollo/client";
+import { Button } from "@material-ui/core";
 import type { NextPage } from "next";
 import { useRouter } from "next/dist/client/router";
 import { useCallback, useState } from "react";
@@ -246,12 +247,14 @@ const PlanDetail: NextPage = () => {
                 <div className="font-bold">ログイン後メッセージを送信可能です。</div>
               ) : // ↓高校生の場合
               !loginUserData.isCollegeStudent && loginUserData.isLogin ? (
-                <button
+                <Button color="secondary" variant="outlined" onClick={handleCreateTalkRoom}>
+                  このプランに申し込む
+                  {/* <button
                   className="p-2 border border-pink-400 text-pink-400"
                   onClick={handleCreateTalkRoom}
                 >
-                  このプランに申し込む
-                </button>
+                </button> */}
+                </Button>
               ) : (
                 // それ以外
                 <button className="border p-2 border-black" disabled>

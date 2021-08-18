@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useCallback } from "react";
 import { useState } from "react";
 import Modal from "react-modal";
+import { SearchButton } from "src/components/buttons/SearchButton";
 import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { HomeSvg } from "src/components/icons/svgs/HomeSvg";
 import { SearchSvg } from "src/components/icons/svgs/SearchSvg";
@@ -17,16 +18,19 @@ type Props = {
   isLogin: boolean;
   isCollegeStudent: boolean;
   profileImagePath: string;
-  // currentPage: string;
 };
 
 // スマホの下タブ
 export const BottomNavigation: React.VFC<Props> = (props) => {
   const router = useRouter();
   const currentPath = router.pathname;
+
+  // 検索モーダルの開閉
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const handleClickModalOpen = useCallback(() => {
-    setIsSearchModalOpen(true);
+    setIsSearchModalOpen((prev) => {
+      return !prev;
+    });
   }, []);
   const handleModalClose = useCallback(() => {
     setIsSearchModalOpen(false);
@@ -112,13 +116,19 @@ export const BottomNavigation: React.VFC<Props> = (props) => {
             ) : (
               <li className="w-1/5 relative">
                 {/* 検索 */}
-                <button
+                <SearchButton onClick={handleClickModalOpen}>
+                  <div className="flex flex-col items-center justify-center">
+                    <SearchSvg className="h-10 w-10 text-white" />
+                    <span className="block text-xs text-white">検索</span>
+                  </div>
+                </SearchButton>
+                {/* <button
                   onClick={handleClickModalOpen}
                   className="flex flex-col items-center justify-center bg-blue-600 rounded-full w-20 h-20 absolute -top-16 left-1/2 transform -translate-x-1/2 shadow-md"
                 >
                   <SearchSvg className="h-10 w-10 text-white" />
                   <span className="block text-xs text-white">検索</span>
-                </button>
+                </button> */}
                 <Modal
                   isOpen={isSearchModalOpen}
                   onRequestClose={handleModalClose}
