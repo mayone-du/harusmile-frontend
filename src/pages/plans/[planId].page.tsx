@@ -2,7 +2,7 @@ import { useReactiveVar } from "@apollo/client";
 import { Button } from "@material-ui/core";
 import type { NextPage } from "next";
 import { useRouter } from "next/dist/client/router";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { loginUserVar } from "src/apollo/cache";
 import {
@@ -13,11 +13,10 @@ import {
 import { useCreateNotificationMutation } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
 import { PlanLoading } from "src/components/plans/PlanLoading";
-import { Review } from "src/components/reviews/Review";
+import { PlanTab } from "src/components/plans/PlanTab";
 import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
 import { useDeletePlan } from "src/libs/hooks/plans/useDeletePlan";
 import { useUpdatePlan } from "src/libs/hooks/plans/useUpdatePlan";
-import { MEDIAFILE_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
 
 const PlanDetail: NextPage = () => {
   const loginUserData = useReactiveVar(loginUserVar);
@@ -91,18 +90,11 @@ const PlanDetail: NextPage = () => {
   };
   // タブや編集切り替えのstate
   const [isEditMode, setIsEditMode] = useState(false);
-  const [pickOpenTab, setPickOpenTab] = useState<"plan" | "review">("plan");
   const handleEditModeChange = () => {
     setIsEditMode((prev) => {
       return !prev;
     });
   };
-  const handlePlanTabOpen = useCallback(() => {
-    setPickOpenTab("plan");
-  }, []);
-  const handleReviewTabOpen = useCallback(() => {
-    setPickOpenTab("review");
-  }, []);
 
   return (
     <Layout meta={{ pageName: "プラン詳細" }} spHeaderTitle="プラン詳細">
@@ -167,76 +159,8 @@ const PlanDetail: NextPage = () => {
               ) : (
                 // 通常時
                 <div>
-                  {/* タブボタン */}
-                  <div className="flex items-center text-sm">
-                    <button
-                      className={`p-2 block border w-1/2 ${
-                        pickOpenTab === "plan" && "bg-blue-300 dark:bg-blue-600"
-                      } rounded-l`}
-                      onClick={handlePlanTabOpen}
-                    >
-                      このプランについて
-                    </button>
-                    <button
-                      className={`p-2 block border w-1/2 ${
-                        pickOpenTab === "review" && "bg-blue-300 dark:bg-blue-600"
-                      } rounded-r`}
-                      onClick={handleReviewTabOpen}
-                    >
-                      この人について
-                    </button>
-                  </div>
-                  <div>
-                    このプランの作成者：{planData?.plan?.planAuthor.targetUser?.profileName}
-                  </div>
-
-                  {pickOpenTab === "plan" ? (
-                    // プランについて
-                    <div className="my-2 p-2 border">
-                      <h2 className="text-center text-lg py-2 font-bold">
-                        {planData?.plan?.title}
-                      </h2>
-                      {planData.plan.planImage === "" ? (
-                        <div className="flex items-center justify-center w-full h-32 border">
-                          サムネイルが設定されていません。
-                        </div>
-                      ) : (
-                        <img
-                          src={`${MEDIAFILE_API_ENDPOINT}${planData.plan.planImage}`}
-                          className="block object-cover w-full h-32"
-                          alt="プランのサムネイル"
-                        />
-                      )}
-                      <p className="text-sm">{planData?.plan?.content}</p>
-                      <div>{planData?.plan?.price.toString()}円</div>
-                    </div>
-                  ) : (
-                    // プラン作成者について
-                    <div>
-                      <h3 className="bg-gray-200 my-2 p-2 dark:text-gray-600">この人について</h3>
-                      {/* 自己紹介など */}
-                      <p>自己紹介</p>
-                      <div>{planData.plan.planAuthor.targetUser.profileText}</div>
-                      {/* レビュー */}
-                      <ul>
-                        {planData.plan.planAuthor.provider.edges.map((review, index) => {
-                          return (
-                            <Review
-                              key={index}
-                              customerImagePath={review?.node?.customer.targetUser?.profileImage}
-                              customerName={
-                                review?.node?.customer.targetUser?.profileName
-                                  ? review.node.customer.targetUser.profileName
-                                  : ""
-                              }
-                              reviewText={review?.node?.reviewText ? review.node.reviewText : ""}
-                              reviewStars={review?.node?.stars ? review.node.stars : 0}
-                            />
-                          );
-                        })}
-                      </ul>
-                    </div>
-                  )}
+                  {/* プランの詳細とプラン作成者をタブで表示 */}
+                  <PlanTab {...planData}></PlanTab>
                 </div>
               )}
 

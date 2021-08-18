@@ -2,6 +2,7 @@ import { useReactiveVar } from "@apollo/client";
 import type { NextPage } from "next";
 import { loginUserVar } from "src/apollo/cache";
 import { useGetLoginUserPlansQuery } from "src/apollo/schema";
+import { BlueButton } from "src/components/buttons/BlueButton";
 import { Layout } from "src/components/layouts/Layout";
 import { Plan } from "src/components/plans/Plan";
 import { useCreatePlan } from "src/libs/hooks/plans/useCreatePlan";
@@ -21,7 +22,6 @@ const PlansIndex: NextPage = () => {
     handlePlanImageChange,
     handlePlanCreate,
   } = useCreatePlan();
-  // TODO: プランの更新
 
   return (
     <Layout meta={{ pageName: "マイプラン一覧" }} spHeaderTitle="マイプラン一覧">
@@ -66,12 +66,11 @@ const PlansIndex: NextPage = () => {
               className="border p-2 block w-full"
               onChange={handlePlanImageChange}
             />
-            <button
-              type="submit"
-              className="block w-1/2 mx-auto bg-blue-600 text-white rounded-3xl py-2"
-            >
-              作成
-            </button>
+            <div className="flex justify-center">
+              <BlueButton type="submit" color="primary">
+                作成
+              </BlueButton>
+            </div>
           </form>
           <section>
             <h2 className="text-lg font-bold text-center">マイプラン一覧</h2>
