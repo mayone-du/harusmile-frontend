@@ -4,12 +4,6 @@ import { parseCookies } from "nookies";
 import { memo, useEffect } from "react";
 import { toast } from "react-hot-toast";
 import Modal from "react-modal";
-import { loginUserVar, openTalkRoomIdVar } from "src/apollo/cache";
-import {
-  GetLoginUserTalkRoomsDocument,
-  useGetLoginUserTalkRoomsLazyQuery,
-  useUpdateTalkRoomMutation,
-} from "src/apollo/schema";
 import { YellowButton } from "src/components/buttons/YellowButton";
 import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { InitialTalkDetail } from "src/components/talks/InitialTalkDetail";
@@ -17,6 +11,12 @@ import { InnerReviewModal } from "src/components/talks/InnerReviewModal";
 import { Message } from "src/components/talks/Message";
 import { SkeletonLoading } from "src/components/talks/SkeletonLoading";
 import { TalkList } from "src/components/talks/TalkList";
+import { loginUserVar, openTalkRoomIdVar } from "src/graphql/apollo/cache";
+import {
+  GetLoginUserTalkRoomsDocument,
+  useGetLoginUserTalkRoomsLazyQuery,
+  useUpdateTalkRoomMutation,
+} from "src/graphql/apollo/schemas/schema";
 import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
 import { useCreateMessages } from "src/libs/hooks/messages/useCreateMessages";
 import { useCreateReview } from "src/libs/hooks/useCreateReview";

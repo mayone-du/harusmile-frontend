@@ -1,8 +1,8 @@
 import { useReactiveVar } from "@apollo/client";
 import { parseCookies } from "nookies";
 import { useEffect } from "react";
-import { loginUserVar } from "src/apollo/cache";
-import { useGetLoginUserLazyQuery } from "src/apollo/schema";
+import { loginUserVar } from "src/graphql/apollo/cache";
+import { useGetLoginUserLazyQuery } from "src/graphql/apollo/schemas/schema";
 
 // ユーザーのログイン状態を取得してセット ユーザーのプロフィール設定時用のhook
 export const useSetLoginUserData = () => {

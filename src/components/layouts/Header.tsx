@@ -2,12 +2,12 @@ import { useReactiveVar } from "@apollo/client";
 import Image from "next/image";
 import Link from "next/link";
 import { memo } from "react";
-import { loginUserVar } from "src/apollo/cache";
 import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { SettingSvg } from "src/components/icons/svgs/SettingSvg";
 import { TalkSvg } from "src/components/icons/svgs/TalkSvg";
 import { BottomNavigation } from "src/components/layouts/BottomNavigation";
 import { NotificationButton } from "src/components/layouts/NotificationButton";
+import { loginUserVar } from "src/graphql/apollo/cache";
 
 type Props = {
   profileImagePath: string;

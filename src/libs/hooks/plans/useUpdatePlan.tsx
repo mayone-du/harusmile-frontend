@@ -2,8 +2,8 @@ import { useRouter } from "next/dist/client/router";
 import { useEffect } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import type { GetPlanQuery } from "src/apollo/schema";
-import { useUpdatePlanMutation } from "src/apollo/schema";
+import type { GetPlanQuery } from "src/graphql/apollo/schemas/schema";
+import { useUpdatePlanMutation } from "src/graphql/apollo/schemas/schema";
 import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
 
 // プランの情報を受け取ってinputの初期値に設定

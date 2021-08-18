@@ -1,8 +1,8 @@
 import { useReactiveVar } from "@apollo/client";
 import type { NextPage } from "next";
-import { loginUserVar } from "src/apollo/cache";
 import { Layout } from "src/components/layouts/Layout";
 import { TalkWrapper } from "src/components/talks/TalkWrapper";
+import { loginUserVar } from "src/graphql/apollo/cache";
 
 const Talk: NextPage = () => {
   const loginUserData = useReactiveVar(loginUserVar);

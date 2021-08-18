@@ -1,6 +1,9 @@
 import { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
-import { GetLoginUserPlansDocument, useCreatePlanMutation } from "src/apollo/schema";
+import {
+  GetLoginUserPlansDocument,
+  useCreatePlanMutation,
+} from "src/graphql/apollo/schemas/schema";
 import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
 
 export const useCreatePlan = () => {

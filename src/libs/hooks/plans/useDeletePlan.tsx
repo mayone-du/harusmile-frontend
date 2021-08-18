@@ -1,5 +1,5 @@
 import { useRouter } from "next/dist/client/router";
-import { useDeletePlanMutation } from "src/apollo/schema";
+import { useDeletePlanMutation } from "src/graphql/apollo/schemas/schema";
 import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
 
 export const useDeletePlan = () => {

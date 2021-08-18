@@ -1,8 +1,8 @@
 import { useReactiveVar } from "@apollo/client";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { loginUserVar } from "src/apollo/cache";
-import { useUpdateProfileMutation } from "src/apollo/schema";
+import { loginUserVar } from "src/graphql/apollo/cache";
+import { useUpdateProfileMutation } from "src/graphql/apollo/schemas/schema";
 import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
 
 // プロフィールの更新

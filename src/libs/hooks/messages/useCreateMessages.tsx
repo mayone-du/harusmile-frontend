@@ -1,5 +1,8 @@
 import { useCallback, useState } from "react";
-import { useCreateMessageMutation, useCreateNotificationMutation } from "src/apollo/schema";
+import {
+  useCreateMessageMutation,
+  useCreateNotificationMutation,
+} from "src/graphql/apollo/schemas/schema";
 
 export const useCreateMessages = () => {
   const [createMessageMutation] = useCreateMessageMutation();

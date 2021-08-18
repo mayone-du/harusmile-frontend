@@ -1,7 +1,7 @@
 import { useReactiveVar } from "@apollo/client";
 import Link from "next/link";
-import { loginUserVar } from "src/apollo/cache";
 import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
+import { loginUserVar } from "src/graphql/apollo/cache";
 
 type Props = {
   targetProfileId: string;

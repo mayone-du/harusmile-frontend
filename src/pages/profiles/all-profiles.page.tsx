@@ -3,12 +3,15 @@ import {
   // useEffect,
   useState,
 } from "react";
-import { addApolloState, initializeApollo } from "src/apollo/client";
-import type { GetAllProfilesQuery, GetAllProfilesQueryVariables } from "src/apollo/schema";
-// import { useGetAllProfilesLazyQuery } from "src/apollo/schema";
-import { GetAllProfilesDocument } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
 import { Profile } from "src/components/profiles/Profile";
+import { addApolloState, initializeApollo } from "src/graphql/apollo/client";
+import type {
+  GetAllProfilesQuery,
+  GetAllProfilesQueryVariables,
+} from "src/graphql/apollo/schemas/schema";
+// import { useGetAllProfilesLazyQuery } from "src/apollo/schema";
+import { GetAllProfilesDocument } from "src/graphql/apollo/schemas/schema";
 
 // TODO: 無限スクロールかページネーションの実装
 export const getStaticProps: GetStaticProps = async () => {

@@ -1,5 +1,5 @@
 import { useReactiveVar } from "@apollo/client";
-import { loginUserVar } from "src/apollo/cache";
+import { loginUserVar } from "src/graphql/apollo/cache";
 import { useCreateReview } from "src/libs/hooks/useCreateReview";
 
 type Props = {

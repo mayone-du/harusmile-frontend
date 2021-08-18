@@ -2,12 +2,12 @@ import { useRouter } from "next/dist/client/router";
 import { setCookie } from "nookies";
 import { useCallback, useState } from "react";
 import toast from "react-hot-toast";
-import { initialLoginUserVar, loginUserVar } from "src/apollo/cache";
+import { initialLoginUserVar, loginUserVar } from "src/graphql/apollo/cache";
 import {
   useCreateProfileMutation,
   useCreateUserMutation,
   useGetTokensMutation,
-} from "src/apollo/schema";
+} from "src/graphql/apollo/schemas/schema";
 import { calcDate } from "src/libs/calcDate";
 
 export const useAuth = () => {

@@ -1,9 +1,9 @@
 import { useReactiveVar } from "@apollo/client";
 import { memo } from "react";
-import { loginUserVar, openTalkRoomIdVar } from "src/apollo/cache";
-import type { GetLoginUserTalkRoomsQuery } from "src/apollo/schema";
-import { useUpdateMessagesMutation } from "src/apollo/schema";
 import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
+import { loginUserVar, openTalkRoomIdVar } from "src/graphql/apollo/cache";
+import type { GetLoginUserTalkRoomsQuery } from "src/graphql/apollo/schemas/schema";
+import { useUpdateMessagesMutation } from "src/graphql/apollo/schemas/schema";
 // import { changeDateFormat } from "src/libs/changeDateFormat";
 import { fixDateFormat } from "src/libs/fixDateFormat";
 import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";

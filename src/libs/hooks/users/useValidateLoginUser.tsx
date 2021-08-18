@@ -1,8 +1,8 @@
 import { useReactiveVar } from "@apollo/client";
 import { parseCookies } from "nookies";
 import { useEffect } from "react";
-import { loginUserVar } from "src/apollo/cache";
-import { useGetLoginUserLazyQuery } from "src/apollo/schema";
+import { loginUserVar } from "src/graphql/apollo/cache";
+import { useGetLoginUserLazyQuery } from "src/graphql/apollo/schemas/schema";
 import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
 
 // ログインユーザーの検証 レイアウトコンポーネントで毎回呼ばれる

@@ -1,11 +1,11 @@
 import { Button } from "@material-ui/core";
 import type { NextPage } from "next";
 import Link from "next/link";
-import { useGetAllAdressesQuery, useGetAllGendersQuery } from "src/apollo/schema";
 import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { Layout } from "src/components/layouts/Layout";
 import { Input } from "src/components/profiles/Input";
 import { ThemeChanger } from "src/components/ThemeChanger";
+import { useGetAllAdressesQuery, useGetAllGendersQuery } from "src/graphql/apollo/schemas/schema";
 import { useSetLoginUserData } from "src/libs/hooks/users/useSetLoginUserData";
 import { useUpdateProfile } from "src/libs/hooks/useUpdateProfile";
 

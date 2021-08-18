@@ -1,9 +1,12 @@
 import type { GetStaticProps, NextPage } from "next";
-import { addApolloState, initializeApollo } from "src/apollo/client";
-import type { GetCollegeProfilesQuery, GetCollegeProfilesQueryVariables } from "src/apollo/schema";
-import { GetCollegeProfilesDocument } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
 import { Profile } from "src/components/profiles/Profile";
+import { addApolloState, initializeApollo } from "src/graphql/apollo/client";
+import type {
+  GetCollegeProfilesQuery,
+  GetCollegeProfilesQueryVariables,
+} from "src/graphql/apollo/schemas/schema";
+import { GetCollegeProfilesDocument } from "src/graphql/apollo/schemas/schema";
 
 export const getStaticProps: GetStaticProps = async () => {
   const apolloClient = initializeApollo(null);

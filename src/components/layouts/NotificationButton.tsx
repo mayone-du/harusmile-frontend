@@ -1,11 +1,11 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import Modal from "react-modal";
+import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import {
   useGetLoginUserNotificationQuery,
   useUpdateNotificationsMutation,
-} from "src/apollo/schema";
-import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
+} from "src/graphql/apollo/schemas/schema";
 import { fixDateFormat } from "src/libs/fixDateFormat";
 import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
 

@@ -4,16 +4,16 @@ import type { NextPage } from "next";
 import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import { loginUserVar } from "src/apollo/cache";
+import { Layout } from "src/components/layouts/Layout";
+import { PlanLoading } from "src/components/plans/PlanLoading";
+import { PlanTab } from "src/components/plans/PlanTab";
+import { loginUserVar } from "src/graphql/apollo/cache";
 import {
   useCreateTalkRoomMutation,
   useGetLoginUserTalkRoomsQuery,
   useGetPlanQuery,
-} from "src/apollo/schema";
-import { useCreateNotificationMutation } from "src/apollo/schema";
-import { Layout } from "src/components/layouts/Layout";
-import { PlanLoading } from "src/components/plans/PlanLoading";
-import { PlanTab } from "src/components/plans/PlanTab";
+} from "src/graphql/apollo/schemas/schema";
+import { useCreateNotificationMutation } from "src/graphql/apollo/schemas/schema";
 import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
 import { useDeletePlan } from "src/libs/hooks/plans/useDeletePlan";
 import { useUpdatePlan } from "src/libs/hooks/plans/useUpdatePlan";

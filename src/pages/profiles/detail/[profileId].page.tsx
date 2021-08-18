@@ -1,11 +1,11 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/dist/client/router";
-import { useGetProfileQuery } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
 import { Plan } from "src/components/plans/Plan";
 import { NormalProfile } from "src/components/profiles/NormalProfile";
 import { ProfileLoading } from "src/components/profiles/ProfileLoading";
 import { Review } from "src/components/reviews/Review";
+import { useGetProfileQuery } from "src/graphql/apollo/schemas/schema";
 
 const ProfileDetail: NextPage = () => {
   // 開いてる相手のプロフィールのIDからデータを取得

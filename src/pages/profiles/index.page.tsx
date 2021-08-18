@@ -4,12 +4,15 @@ import { useRouter } from "next/dist/client/router";
 import Link from "next/link";
 import { parseCookies } from "nookies";
 import { useEffect } from "react";
-import { loginUserVar } from "src/apollo/cache";
-import { useGetLoginUserPlansQuery, useGetLoginUserReviewsQuery } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
 import { Plan } from "src/components/plans/Plan";
 import { NormalProfile } from "src/components/profiles/NormalProfile";
 import { Review } from "src/components/reviews/Review";
+import { loginUserVar } from "src/graphql/apollo/cache";
+import {
+  useGetLoginUserPlansQuery,
+  useGetLoginUserReviewsQuery,
+} from "src/graphql/apollo/schemas/schema";
 
 const ProfilesIndex: NextPage = () => {
   const router = useRouter();

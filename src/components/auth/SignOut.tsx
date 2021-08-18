@@ -2,7 +2,7 @@ import { useReactiveVar } from "@apollo/client";
 import { Button } from "@material-ui/core";
 import { useRouter } from "next/dist/client/router";
 import { destroyCookie, parseCookies } from "nookies";
-import { loginUserVar } from "src/apollo/cache";
+import { loginUserVar } from "src/graphql/apollo/cache";
 
 export const SignOut: React.VFC = () => {
   const loginUserData = useReactiveVar(loginUserVar);

@@ -4,7 +4,7 @@ import {
   useCreateNotificationMutation,
   useCreateReviewMutation,
   useGetLoginUserSendReviewsQuery,
-} from "src/apollo/schema";
+} from "src/graphql/apollo/schemas/schema";
 import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
 
 export const useCreateReview = () => {

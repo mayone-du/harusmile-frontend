@@ -2,8 +2,8 @@ import { AppBar, Box, Tab, Tabs } from "@material-ui/core";
 import type { Theme } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import { useState } from "react";
-import type { GetPlanQuery } from "src/apollo/schema";
 import { Review } from "src/components/reviews/Review";
+import type { GetPlanQuery } from "src/graphql/apollo/schemas/schema";
 import { MEDIAFILE_API_ENDPOINT } from "src/utils/API_ENDPOINTS";
 
 type TabPanelProps = {

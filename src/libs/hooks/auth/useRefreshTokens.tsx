@@ -1,5 +1,8 @@
 import { parseCookies, setCookie } from "nookies";
-import { useRefreshTokensMutation, useRevokeRefreshTokenMutation } from "src/apollo/schema";
+import {
+  useRefreshTokensMutation,
+  useRevokeRefreshTokenMutation,
+} from "src/graphql/apollo/schemas/schema";
 import { calcDate } from "src/libs/calcDate";
 
 export const useRefreshTokens = () => {

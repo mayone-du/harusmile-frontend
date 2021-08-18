@@ -1,12 +1,12 @@
 import type { GetStaticProps, NextPage } from "next";
-import { addApolloState, initializeApollo } from "src/apollo/client";
+import { Layout } from "src/components/layouts/Layout";
+import { Profile } from "src/components/profiles/Profile";
+import { addApolloState, initializeApollo } from "src/graphql/apollo/client";
 import type {
   GetHighSchoolProfilesQuery,
   GetHighSchoolProfilesQueryVariables,
-} from "src/apollo/schema";
-import { GetHighSchoolProfilesDocument } from "src/apollo/schema";
-import { Layout } from "src/components/layouts/Layout";
-import { Profile } from "src/components/profiles/Profile";
+} from "src/graphql/apollo/schemas/schema";
+import { GetHighSchoolProfilesDocument } from "src/graphql/apollo/schemas/schema";
 
 // 高校生の情報をSSG
 export const getStaticProps: GetStaticProps = async () => {

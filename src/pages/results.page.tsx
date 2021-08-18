@@ -1,9 +1,9 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/dist/client/router";
 import { useEffect } from "react";
-import { useSearchProfilesLazyQuery } from "src/apollo/schema";
 import { Layout } from "src/components/layouts/Layout";
 import { Profile } from "src/components/profiles/Profile";
+import { useSearchProfilesLazyQuery } from "src/graphql/apollo/schemas/schema";
 
 const Results: NextPage = () => {
   const router = useRouter();

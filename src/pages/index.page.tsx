@@ -1,13 +1,16 @@
 import type { NextPage } from "next";
 import type { GetStaticProps } from "next";
 import Image from "next/image";
-import { addApolloState, initializeApollo } from "src/apollo/client";
-import type { GetCollegeProfilesQuery, GetCollegeProfilesQueryVariables } from "src/apollo/schema";
-import { GetCollegeProfilesDocument } from "src/apollo/schema";
 import { CheckSvg } from "src/components/icons/svgs/CheckSvg";
 import { Layout } from "src/components/layouts/Layout";
 import { Profile } from "src/components/profiles/Profile";
 import { SearchBox } from "src/components/SearchBox";
+import { addApolloState, initializeApollo } from "src/graphql/apollo/client";
+import type {
+  GetCollegeProfilesQuery,
+  GetCollegeProfilesQueryVariables,
+} from "src/graphql/apollo/schemas/schema";
+import { GetCollegeProfilesDocument } from "src/graphql/apollo/schemas/schema";
 // 大学生一覧
 export const getStaticProps: GetStaticProps = async () => {
   const apolloClient = initializeApollo();

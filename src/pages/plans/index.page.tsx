@@ -1,10 +1,10 @@
 import { useReactiveVar } from "@apollo/client";
 import type { NextPage } from "next";
-import { loginUserVar } from "src/apollo/cache";
-import { useGetLoginUserPlansQuery } from "src/apollo/schema";
 import { BlueButton } from "src/components/buttons/BlueButton";
 import { Layout } from "src/components/layouts/Layout";
 import { Plan } from "src/components/plans/Plan";
+import { loginUserVar } from "src/graphql/apollo/cache";
+import { useGetLoginUserPlansQuery } from "src/graphql/apollo/schemas/schema";
 import { useCreatePlan } from "src/libs/hooks/plans/useCreatePlan";
 
 const PlansIndex: NextPage = () => {

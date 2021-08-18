@@ -1,8 +1,8 @@
 import { useReactiveVar } from "@apollo/client";
 import { useRouter } from "next/dist/client/router";
 import { useEffect, useState } from "react";
-import { loginUserVar } from "src/apollo/cache";
-import { useUpdateUserMutation } from "src/apollo/schema";
+import { loginUserVar } from "src/graphql/apollo/cache";
+import { useUpdateUserMutation } from "src/graphql/apollo/schemas/schema";
 
 // 本登録のhooks
 export const useVerify = () => {
