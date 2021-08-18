@@ -10,14 +10,17 @@ type Props = {
 
 export const Review: React.VFC<Props> = (props) => {
   return (
-    <li className="border my-4 flex items-center">
-      <div className="flex items-center">
-        <ProfileImageIcon
-          profileImagePath={props.customerImagePath}
-          className="border rounded-full w-12 h-12"
-        />
-        <div className="px-2">
-          <div className="flex items-center">
+    <li className="my-4 flex items-center">
+      <div className="flex items-center w-full">
+        <div className="w-1/5">
+          <ProfileImageIcon
+            profileImagePath={props.customerImagePath}
+            className="border rounded-full w-12 h-12"
+          />
+        </div>
+        {/* 吹き出し */}
+        <div className="px-2 border-2 w-4/5 rounded bg-gray relative before:w-3 before:h-3 before:border-t-2 before:border-l-2 before:-rotate-45 dark:before:bg-black before:bg-white before:absolute before:top-1/2 before:-left-2 before:transform before:-translate-y-1/2 before:block">
+          <div className="flex items-center px-1">
             <Rating
               name={`${props.customerImagePath} stars`}
               readOnly

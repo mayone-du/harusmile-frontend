@@ -50,7 +50,7 @@ export const PlanTab: React.VFC<GetPlanQuery> = (props) => {
           className="bg-gray-200 text-black rounded overflow-hidden"
         >
           <Tab className="w-1/2" label="プラン詳細" {...a11yProps(0)} />
-          <Tab className="w-1/2" label="このプランについて" {...a11yProps(1)} />
+          <Tab className="w-1/2" label="この人について" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
@@ -80,6 +80,7 @@ export const PlanTab: React.VFC<GetPlanQuery> = (props) => {
           <p>自己紹介</p>
           <div>{props.plan?.planAuthor?.targetUser?.profileText}</div>
           {/* レビュー */}
+          <h3 className="bg-gray-200 my-2 p-2 dark:text-gray-600">レビュー</h3>
           <ul>
             {props.plan?.planAuthor.provider.edges.map((review, index) => {
               return (

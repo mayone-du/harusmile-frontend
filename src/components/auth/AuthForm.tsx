@@ -20,6 +20,7 @@ export const AuthForm: React.VFC<Props> = (props) => {
     handleSignIn,
     handleSignUp,
   } = useAuth();
+
   const handleAuth = async (e: React.ChangeEvent<HTMLFormElement>) => {
     if (props.pageContext === "signin") {
       await handleSignIn(e);
@@ -74,11 +75,11 @@ export const AuthForm: React.VFC<Props> = (props) => {
           />
           {/* 大学生か高校生で登録 */}
           <p className={labelClassName}>身分情報</p>
-          <div className="flex items-center justify-center mb-2">
+          <div className="flex items-center justify-center w-2/3 mb-2 mx-auto">
             <button
               type="button"
               onClick={handleSetCollegeStudent}
-              className={`focus:outline-none py-2 px-4 block border ${
+              className={`focus:outline-none py-2 px-4 block border text-sm rounded-l w-1/2 ${
                 isCollegeStudent && "bg-pink-400"
               }`}
             >
@@ -87,7 +88,7 @@ export const AuthForm: React.VFC<Props> = (props) => {
             <button
               type="button"
               onClick={handleSetHighSchoolStudent}
-              className={`focus:outline-none py-2 px-4 block border ${
+              className={`focus:outline-none py-2 px-4 block border text-sm rounded-r w-1/2 ${
                 isCollegeStudent || "bg-pink-400"
               }`}
             >
