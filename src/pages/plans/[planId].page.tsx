@@ -166,7 +166,9 @@ const PlanDetail: NextPage = () => {
 
               {/* ログインしていない場合 */}
               {!loginUserData.isLogin ? (
-                <div className="font-bold">ログイン後メッセージを送信可能です。</div>
+                <Button className="font-bold" variant="contained" color="primary">
+                  ログイン後にメッセージを送信可能です。
+                </Button>
               ) : // ↓高校生の場合
               !loginUserData.isCollegeStudent && loginUserData.isLogin ? (
                 <Button color="secondary" variant="outlined" onClick={handleCreateTalkRoom}>

@@ -59,8 +59,8 @@ const Contact: NextPage = () => {
   return (
     <div>
       <Layout spHeaderTitle="お問い合わせ" meta={{ pageName: "お問い合わせ" }}>
-        <h2 className="text-3xl text-center py-10">Contact</h2>
-        <form onSubmit={handleSubmit}>
+        <h2 className="text-3xl text-center py-4">Contact</h2>
+        <form onSubmit={handleSubmit} className="py-8 dark:bg-gray-200">
           <div className="my-2">
             <TextField
               type="email"

@@ -1,6 +1,4 @@
 import { AppBar, Box, Tab, Tabs } from "@material-ui/core";
-import type { Theme } from "@material-ui/core/styles";
-import { makeStyles } from "@material-ui/core/styles";
 import { useState } from "react";
 import { Review } from "src/components/reviews/Review";
 import type { GetPlanQuery } from "src/graphql/apollo/schemas/schema";
@@ -33,18 +31,8 @@ const a11yProps = (index: any) => {
   };
 };
 
-const useStyles = makeStyles((theme: Theme) => {
-  return {
-    root: {
-      flexGrow: 1,
-      backgroundColor: theme.palette.background.paper,
-    },
-  };
-});
-
 // プラン詳細のタブ
 export const PlanTab: React.VFC<GetPlanQuery> = (props) => {
-  const classes = useStyles();
   const [value, setValue] = useState(0);
 
   const handleChange = (event: React.ChangeEvent<any>, newValue: number) => {
@@ -52,14 +40,14 @@ export const PlanTab: React.VFC<GetPlanQuery> = (props) => {
   };
 
   return (
-    <div className={classes.root}>
+    <div>
       <AppBar position="static" className="p-0">
         <Tabs
           value={value}
           indicatorColor="primary"
           onChange={handleChange}
           aria-label="plan detail tabs"
-          className="bg-gray-200 text-black"
+          className="bg-gray-200 text-black rounded overflow-hidden"
         >
           <Tab className="w-1/2" label="プラン詳細" {...a11yProps(0)} />
           <Tab className="w-1/2" label="このプランについて" {...a11yProps(1)} />
