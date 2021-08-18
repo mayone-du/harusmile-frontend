@@ -1,9 +1,9 @@
 import "@testing-library/jest-dom/extend-expect";
 
 import { render, screen } from "@testing-library/react";
-import Index from "src/pages/index";
+import IndexPage from "src/pages/index.page";
 
 it("Should render Index Page", () => {
-  render(<Index />);
+  render(<IndexPage profilesData={{}} />);
   expect(screen.getByText("Index Page")).toBeInTheDocument();
 });
