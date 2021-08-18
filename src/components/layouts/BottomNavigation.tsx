@@ -132,7 +132,7 @@ export const BottomNavigation: React.VFC<Props> = (props) => {
                 <Modal
                   isOpen={isSearchModalOpen}
                   onRequestClose={handleModalClose}
-                  className="dark:bg-gray-700 absolute top-20 p-4 md:w-96 w-5/6 rounded-md left-1/2 transform -translate-x-1/2 bg-white border"
+                  className="dark:bg-gray-700 absolute top-20 p-4 w-11/12 rounded-md left-1/2 transform -translate-x-1/2 bg-white border"
                   contentLabel={`Search Modal`}
                   ariaHideApp={false}
                 >

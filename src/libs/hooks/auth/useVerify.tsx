@@ -24,11 +24,10 @@ export const useVerify = () => {
               token: token,
             },
           });
-          // TODO: クエリパラメーターでemailとpasswordを受けとってログインさせるのもあり？
           setVerifyMessage("本登録が完了しました。ログイン画面よりログインして下さい。");
         } catch (error) {
           // TODO: エラーハンドリングなど
-          setVerifyMessage("既に本登録が済んでいるか、tokenが無効です。");
+          setVerifyMessage("既に本登録が済んでいるか、認証用トークンが無効です。");
           console.error(error);
           return;
         }

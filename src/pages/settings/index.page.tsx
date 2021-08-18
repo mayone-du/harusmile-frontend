@@ -108,7 +108,7 @@ const Settings: NextPage = () => {
               <div className="mx-auto md:w-2/3 text-sm">自己紹介文</div>
               <textarea
                 placeholder="〇〇学校 〇年 〇〇が得意です。よろしくおねがいします。"
-                className="block p-2 mx-auto md:w-2/3 w-full border-b border-pink-500 focus:outline-none resize-none"
+                className="block p-2 rounded mx-auto md:w-2/3 w-full border-b border-pink-500 focus:outline-none resize-none"
                 value={inputLoginUserData.profileText}
                 onChange={handleProfileTextChange}
               ></textarea>
@@ -127,7 +127,7 @@ const Settings: NextPage = () => {
             <li className="my-4 mx-auto w-full">
               <div className="mx-auto md:w-2/3 text-sm">住んでいる場所</div>
               <select
-                className="block p-2 mx-auto md:w-2/3 w-full border-b border-pink-500 focus:outline-none"
+                className="block p-2 mx-auto rounded md:w-2/3 w-full border-b border-pink-500 focus:outline-none"
                 value={inputLoginUserData.addressId}
                 onChange={handleAddressBlur}
                 onBlur={handleAddressBlur}
@@ -149,7 +149,7 @@ const Settings: NextPage = () => {
             <li className="my-4 mx-auto w-full">
               <div className="mx-auto md:w-2/3 text-sm">性別</div>
               <select
-                className="block p-2 mx-auto md:w-2/3 w-full border-b border-pink-500 focus:outline-none"
+                className="block p-2 mx-auto rounded md:w-2/3 w-full border-b border-pink-500 focus:outline-none"
                 value={inputLoginUserData.genderId}
                 onChange={handleGenderBlur}
                 onBlur={handleGenderBlur}

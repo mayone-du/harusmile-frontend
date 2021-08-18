@@ -102,18 +102,19 @@ export const NotificationButton: React.VFC = () => {
           )}
           {notificationsData?.loginUserNotifications?.edges.map((notification, index) => {
             return (
+              // 通知の内容
               <li
                 key={index}
-                className={`border-b border-gray-300 flex h-12 px-1 my-2 items-center relative ${
+                className={`border-b border-gray-300 flex w-full h-12 px-1 my-2 items-center relative ${
                   notification?.node?.notificationType === "プラン申し込み" && "bg-pink-200"
                 }`}
               >
                 <ProfileImageIcon
-                  className="border rounded-full object-cover w-10 h-10 mx-2"
+                  className="border rounded-full object-cover h-10 mx-2 w-1/6"
                   profileImagePath={notification?.node?.notificator?.targetUser?.profileImage}
                 />
 
-                <p className="text-sm">
+                <p className="text-sm w-5/6">
                   <span className="font-bold">
                     {notification?.node?.notificator.targetUser?.profileName}
                   </span>

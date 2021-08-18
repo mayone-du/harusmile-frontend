@@ -22,6 +22,9 @@ export const TalkList: React.VFC<Props> = memo((props) => {
 
   // TODO: 時刻をもとにトークルームを降順にソート
   // const copyTalkRooms = [{ ...props.talkRoomsData.loginUserTalkRooms?.edges }];
+  // // const copyTalkRooms = { ...props.talkRoomsData.loginUserTalkRooms?.edges };
+  // console.log("copyTalkRooms", copyTalkRooms);
+
   // // const sortedTalkRooms = props.talkRoomsData.loginUserTalkRooms?.edges.sort((a, b) => {
   // const sortedTalkRooms = copyTalkRooms?.sort((a, b) => {
   //   if (
@@ -33,6 +36,7 @@ export const TalkList: React.VFC<Props> = memo((props) => {
   //     return -1;
   //   }
   // });
+  // console.log("sortedTalkRooms", sortedTalkRooms);
 
   // 未読のメッセージを取得
   const unViewedMessages = props.talkRoomsData.loginUserTalkRooms?.edges.map((talkRoom) => {
@@ -62,6 +66,8 @@ export const TalkList: React.VFC<Props> = memo((props) => {
   // トークルームのリストをクリックした時に呼ぶ関数
   const handleOpenTalkRoomChange = (e: React.MouseEvent<HTMLButtonElement>) => {
     const currentOpenTalkRoomId = openTalkRoomIdVar(e.currentTarget.id);
+    // もともと開いていたトークルームIDと新しく開いたトークルームIDが一緒（同じトークルームをクリックした場合）は更新しない
+    if (openTalkRoomId === currentOpenTalkRoomId) return;
 
     // 未読のメッセージがある場合は既読に更新する
     if (unViewedMessagesObject[currentOpenTalkRoomId].length > 0) {

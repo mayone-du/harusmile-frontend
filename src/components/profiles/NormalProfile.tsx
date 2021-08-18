@@ -111,7 +111,9 @@ export const NormalProfile: React.VFC<Props> = (props) => {
         </li>
         <li className="flex items-center border-b p-1">
           <div className="text-xs w-1/3 text-gray-600 dark:text-white">悩んでいること</div>
-          <div className="px-2 w-2/3 text-sm">{props.targetProblem}</div>
+          <div className="px-2 w-2/3 text-sm">
+            {props.targetProblem ? props.targetProblem : "未設定"}
+          </div>
         </li>
       </ul>
     </div>

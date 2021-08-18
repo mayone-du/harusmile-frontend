@@ -200,12 +200,11 @@ export const TalkWrapper: React.VFC = memo(() => {
                     <div>
                       {/* トークルームの一番上にプランの内容を表示 */}
                       <Link href={`/plans/${talkRoom.node.selectedPlan?.id}`}>
-                        <a className="block border m-2 rounded">
+                        <a className="block border m-2 p-2 rounded">
                           <p className="font-bold">{talkRoom.node.selectedPlan?.title}</p>
                           <p className="text-xs">{talkRoom.node.selectedPlan?.content}</p>
                           <p className="text-sm">
-                            料金：
-                            {talkRoom.node.selectedPlan?.price.toString()}
+                            {talkRoom.node.selectedPlan?.price.toString()} 円
                           </p>
                           <p className="text-xs">詳細を見る</p>
                         </a>

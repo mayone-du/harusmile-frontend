@@ -31,14 +31,14 @@ export const Profile: React.VFC<Props> = (props) => {
     ) / 10;
   return (
     <li className="md:p-4 p-1 md:w-1/3 w-1/2">
-      <div className="md:p-6 p-2 border border-t-8 border-pink-200">
+      <div className="md:p-6 p-2 border border-t-8 border-pink-200 rounded-sm">
         <div className="flex items-center w-full">
           <ProfileImageIcon
-            className="block object-cover md:w-14 md:h-14 w-8 h-8 rounded-full border"
+            className="block object-cover md:w-14 md:h-14 w-1/5 h-8 rounded-full border"
             profileImagePath={props.profileImage}
           />
           {/* 名前、歳、学校 */}
-          <div className="md:pr-12 pr-2 md:pl-6 pl-2 w-full">
+          <div className="md:pr-12 pr-2 md:pl-6 pl-2 w-4/5">
             <div className="md:text-2xl text-sm font-bold">{props.profileName}</div>
             <p className="text-1xs md:text-base">
               {/* {props.age.toString() === "0" ? "年齢未設定" : `${props.age.toString()}歳`} */}
@@ -95,7 +95,7 @@ export const Profile: React.VFC<Props> = (props) => {
         </ul> */}
 
             {/* 学校詳細 */}
-            <dl className="md:px-4 md:pt-4 px-2 pt-2 md:text-base text-xs">
+            <dl className="md:px-4 md:pt-4 px-2 pt-2 md:text-base text-1xs">
               <div className="flex items-center">
                 <dt className="w-1/2">学部</dt>
                 <dd className="w-1/2">
