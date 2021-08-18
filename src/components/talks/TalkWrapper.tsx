@@ -192,26 +192,22 @@ export const TalkWrapper: React.VFC = memo(() => {
 
                     {/* 高校生のみレビューを書ける */}
                     {!loginUserData.isCollegeStudent && (
-                      // <button
-                      //   className="block md:text-base text-sm p-2 text-white bg-yellow-500"
-                      //   onClick={handleModalOpen}
-                      // >
                       <YellowButton onClick={handleModalOpen}>レビューを書く</YellowButton>
-                      // レビューを書く
-                      // </button>
                     )}
                   </div>
                   {/* トーク部分 */}
                   <div className="overflow-y-scroll max-h-96">
                     <div>
+                      {/* トークルームの一番上にプランの内容を表示 */}
                       <Link href={`/plans/${talkRoom.node.selectedPlan?.id}`}>
-                        <a className="block border m-2">
+                        <a className="block border m-2 rounded">
                           <p className="font-bold">{talkRoom.node.selectedPlan?.title}</p>
                           <p className="text-xs">{talkRoom.node.selectedPlan?.content}</p>
                           <p className="text-sm">
                             料金：
                             {talkRoom.node.selectedPlan?.price.toString()}
                           </p>
+                          <p className="text-xs">詳細を見る</p>
                         </a>
                       </Link>
 

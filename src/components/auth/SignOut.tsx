@@ -1,4 +1,5 @@
 import { useReactiveVar } from "@apollo/client";
+import { Button } from "@material-ui/core";
 import { useRouter } from "next/dist/client/router";
 import { destroyCookie, parseCookies } from "nookies";
 import { loginUserVar } from "src/apollo/cache";
@@ -11,6 +12,7 @@ export const SignOut: React.VFC = () => {
     if (cookies.accessToken) destroyCookie(null, "accessToken", { path: "/", maxAge: -1 });
     if (cookies.refreshToken) destroyCookie(null, "refreshToken", { path: "/", maxAge: -1 });
     alert("ログアウトしました。");
+    router.push("/");
     router.reload();
   };
 
@@ -22,10 +24,10 @@ export const SignOut: React.VFC = () => {
       <section className="border-b my-4">
         <h2 className="text-lg">{loginUserData.profileName}からログアウトしますか？</h2>
       </section>
-      <div className="p-4 text-center">
-        <button className="py-2 px-4 border" onClick={handleSignOut}>
+      <div className="p-4 flex justify-center">
+        <Button variant="outlined" color="primary" onClick={handleSignOut}>
           ログアウト
-        </button>
+        </Button>
       </div>
     </div>
   );

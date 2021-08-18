@@ -3,13 +3,13 @@ import Link from "next/link";
 import { useCallback } from "react";
 import { useState } from "react";
 import Modal from "react-modal";
+import { CreatePlanButton } from "src/components/buttons/CreatePlanButton";
 import { SearchButton } from "src/components/buttons/SearchButton";
 import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
 import { HomeSvg } from "src/components/icons/svgs/HomeSvg";
 import { SearchSvg } from "src/components/icons/svgs/SearchSvg";
 import { TalkSvg } from "src/components/icons/svgs/TalkSvg";
 import { BottomNavigationLoading } from "src/components/layouts/BottomNavigationLoading";
-import { CreatePlanButton } from "src/components/layouts/CreatePlanButton";
 import { NotificationButton } from "src/components/layouts/NotificationButton";
 import { SearchBox } from "src/components/SearchBox";
 

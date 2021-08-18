@@ -1,10 +1,12 @@
 import { useRouter } from "next/dist/client/router";
+import { useEffect } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import type { GetPlanQuery } from "src/apollo/schema";
 import { useUpdatePlanMutation } from "src/apollo/schema";
 import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
 
+// プランの情報を受け取ってinputの初期値に設定
 export const useUpdatePlan = (planData: GetPlanQuery | undefined) => {
   const router = useRouter();
   const [updatePlanMutation] = useUpdatePlanMutation();
@@ -18,6 +20,12 @@ export const useUpdatePlan = (planData: GetPlanQuery | undefined) => {
   const [inputPrice, setInputPrice] = useState(
     planData?.plan?.price === 0 ? planData.plan.price.toString() : "0",
   );
+
+  // プランの情報が初期値はundefinedのため、データを取得できたらinputの初期値をセット
+  useEffect(() => {
+    setInputTitle(planData?.plan?.title ? planData.plan.title : "");
+    setInputContent(planData?.plan?.content ? planData.plan.content : "");
+  }, [planData]);
 
   //TODO: プランの仕様をどうするかによって検討
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

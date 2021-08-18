@@ -139,30 +139,28 @@ const PlanDetail: NextPage = () => {
                     onChange={handlePriceChange}
                   />
                   <div className="flex items-center">
-                    <button
+                    <Button
+                      variant="outlined"
                       type="button"
                       onClick={handleUpdatePlan}
-                      className="block border p-2 bg-blue-500"
+                      color="primary"
                     >
                       更新する
-                    </button>
+                    </Button>
                     {/* プランにトークルームが存在していれば削除不可にする */}
                     {planData.plan.selectedPlan.edges.length === 0 ? (
-                      <button
+                      <Button
                         type="button"
                         onClick={handleDeletePlan}
-                        className="block border p-2 bg-red-500"
+                        color="secondary"
+                        variant="outlined"
                       >
                         削除する
-                      </button>
+                      </Button>
                     ) : (
-                      <button
-                        type="button"
-                        className="block border p-2 bg-red-500 text-xs line-through"
-                        disabled
-                      >
+                      <Button type="button" color="secondary" variant="outlined" disabled>
                         トークルームが存在する場合は削除できません
-                      </button>
+                      </Button>
                     )}
                   </div>
                 </div>
@@ -249,23 +247,16 @@ const PlanDetail: NextPage = () => {
               !loginUserData.isCollegeStudent && loginUserData.isLogin ? (
                 <Button color="secondary" variant="outlined" onClick={handleCreateTalkRoom}>
                   このプランに申し込む
-                  {/* <button
-                  className="p-2 border border-pink-400 text-pink-400"
-                  onClick={handleCreateTalkRoom}
-                >
-                </button> */}
+                </Button>
+              ) : planData.plan.planAuthor.id === loginUserData.userId ? (
+                <Button variant="contained" onClick={handleEditModeChange}>
+                  {/* 作成者がログインユーザー（自分）の場合はプランを編集可能 */}
+                  {isEditMode ? "切り替える" : "編集する"}
                 </Button>
               ) : (
                 // それ以外
                 <button className="border p-2 border-black" disabled>
                   高校生のみ申込可能です。
-                </button>
-              )}
-
-              {/* 作成者がログインユーザー（自分）の場合 */}
-              {planData?.plan?.planAuthor.id === loginUserData.userId && (
-                <button onClick={handleEditModeChange} className="border p-2">
-                  {isEditMode ? "切り替える" : "編集する"}
                 </button>
               )}
             </div>
