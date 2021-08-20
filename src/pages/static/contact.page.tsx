@@ -11,37 +11,62 @@ import { CONTACT_SLACK_WEBHOOK_URL } from "src/utils/API_ENDPOINTS";
 const Contact: NextPage = () => {
   const { loginUserData } = useValidateLoginUser();
 
-  const [inputEmail, setInputEmail] = useState("");
-  const [inputName, setInputName] = useState("");
-  const [inputContent, setInputContent] = useState("");
+  // 各入力欄のstate
+  const [inputs, setInputs] = useState({
+    email: "",
+    username: "",
+    content: "",
+  });
 
+  // ユーザーデータを取得できた時に値をセット
   useEffect(() => {
-    setInputEmail(loginUserData.email);
-    setInputName(loginUserData.profileName);
+    setInputs((prevState) => {
+      return {
+        ...prevState,
+        email: loginUserData.email,
+        username: loginUserData.profileName,
+      };
+    });
   }, [loginUserData]);
 
+  // 各入力欄のイベントハンドラ
   const handleEmailChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputEmail(event.target.value);
+    setInputs((prevState) => {
+      return {
+        ...prevState,
+        email: event.target.value,
+      };
+    });
   }, []);
   const handleNameChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputName(event.target.value);
+    setInputs((prevState) => {
+      return {
+        ...prevState,
+        username: event.target.value,
+      };
+    });
   }, []);
   const handleContentChange = useCallback((event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInputContent(event.target.value);
+    setInputs((prevState) => {
+      return {
+        ...prevState,
+        content: event.target.value,
+      };
+    });
   }, []);
   const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (inputEmail === "" || inputName === "" || inputContent === "") {
+    if (inputs.email === "" || inputs.username === "" || inputs.content === "") {
       toast.error("すべての入力欄は必須です。");
       return;
     }
     const payload = {
       text: `
       お問い合わせがありました。\n
-      名前: ${inputName}\n
-      メールアドレス:${inputEmail}\n
+      名前: ${inputs.username}\n
+      メールアドレス:${inputs.email}\n
       お問い合わせ内容\n
-      ${inputContent}
+      ${inputs.content}
       `,
     };
     const slack_webhook_url = CONTACT_SLACK_WEBHOOK_URL;
@@ -53,11 +78,14 @@ const Contact: NextPage = () => {
           body: JSON.stringify(payload),
         }));
       alert(
-        `送信が完了しました。\n 1~3日以内に、送信していただいたメールアドレス(${inputEmail})宛にご連絡致します。`,
+        `送信が完了しました。\n 1~3日以内に、送信していただいたメールアドレス(${inputs.email})宛にご連絡致します。`,
       );
-      setInputEmail("");
-      setInputName("");
-      setInputContent("");
+      // stateを初期化
+      setInputs({
+        email: "",
+        username: "",
+        content: "",
+      });
     } catch (error) {
       toast.error(
         "何らかのエラーが発生しました。時間を開けてもう一度試していただくか、Twitterなどからご連絡ください。",
@@ -75,7 +103,7 @@ const Contact: NextPage = () => {
           <input
             type="email"
             onChange={handleEmailChange}
-            value={inputEmail}
+            value={inputs.email}
             placeholder="メールアドレス"
             className="w-full border rounded block mb-2 p-2"
           />
@@ -83,7 +111,7 @@ const Contact: NextPage = () => {
           <input
             type="text"
             onChange={handleNameChange}
-            value={inputName}
+            value={inputs.username}
             placeholder="ユーザーネーム"
             className="w-full border rounded block mb-2 p-2"
           />
@@ -93,7 +121,7 @@ const Contact: NextPage = () => {
             rows={4}
             onChange={handleContentChange}
             placeholder="お問い合わせ内容"
-            value={inputContent}
+            value={inputs.content}
           ></textarea>
           <div className="flex justify-center">
             <Button variant="outlined" type="submit">
