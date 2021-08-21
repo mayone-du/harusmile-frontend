@@ -69,10 +69,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
     query: GetAllProfilesCountDocument,
   });
 
-  // const maxPageCount = profilesCount.allProfilesCount
-  //   ? Math.ceil(profilesCount.allProfilesCount / ONE_PAGE_COUNT)
-  //   : 1;
-
   // // ページの番号が最大のページ数を超えていたらエラー
   // if (maxPageCount < parseFloat(pageNumber)) {
   //   toast.error("エラーが発生しました。");
@@ -84,6 +80,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     props: {
       profilesData,
       profilesCount,
+      pageNumber: parseFloat(pageNumber),
     },
     revalidate: 5, // 5seconds
   });
@@ -92,6 +89,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 type Props<T, U> = {
   profilesData: T;
   profilesCount: U;
+  pageNumber: number;
 };
 
 // 高校生・大学生のプロフィールを表示するページ
@@ -107,6 +105,8 @@ const AllProfilesPageNumbers: NextPage<Props<GetAllProfilesQuery, GetAllProfiles
   const profilesCount = props.profilesCount.allProfilesCount
     ? props.profilesCount.allProfilesCount
     : 0;
+
+  const maxPageCount = profilesCount ? Math.ceil(profilesCount / ONE_PAGE_COUNT) : 1;
 
   // クエリパラメーターでページの番号を受け取り、存在しなければgetStaticPropsで受け取ったページを表示する
   return (
@@ -156,8 +156,8 @@ const AllProfilesPageNumbers: NextPage<Props<GetAllProfilesQuery, GetAllProfiles
       </section>
 
       {/* ページネーション */}
-      <div className="flex justify-center">
-        <Pagenation />
+      <div className="flex justify-center pt-4">
+        <Pagenation currentPageNumber={props.pageNumber} maxPageCount={maxPageCount} />
       </div>
     </Layout>
   );
