@@ -127,18 +127,20 @@ export const TalkList: React.VFC<Props> = memo((props) => {
                         </div>
                       )}
                       {/* 相手（自分以外）のプロフィールを表示 */}
-                      <div>
+                      <div className="font-bold">
                         {talkRoom.node.opponentUser.id === loginUserData.userId
                           ? talkRoom.node.selectedPlan?.planAuthor.targetUser?.profileName
                           : talkRoom.node.opponentUser.targetUser?.profileName}
                       </div>
                       <div>
-                        {/* 最後にやり取りしたメッセージ 最初の10文字だけ表示 */}
-                        {talkRoom.node?.talkingRoom.edges.slice(-1)[0]?.node?.text.slice(0, 10)}
-                        {/* TODO: 最後にやり取りしたメッセージが10文字以上なら末尾に...の文字列を表示 */}
-                        {/* {talkRoom.node?.talkingRoom.edges.slice(-1)[0]?.node?.text.length > 10 &&
+                        <span className="text-sm">
+                          {/* 最後にやり取りしたメッセージ 最初の10文字だけ表示 */}
+                          {talkRoom.node?.talkingRoom.edges.slice(-1)[0]?.node?.text.slice(0, 10)}
+                          {/* TODO: 最後にやり取りしたメッセージが10文字以上なら末尾に...の文字列を表示 */}
+                          {/* {talkRoom.node?.talkingRoom.edges.slice(-1)[0]?.node?.text.length > 10 &&
                           "..."} */}
-                        {talkRoom.node?.talkingRoom.edges.length === 0 && "トークを始めましょう"}
+                          {talkRoom.node?.talkingRoom.edges.length === 0 && "トークを始めましょう"}
+                        </span>
                         {talkRoom.node?.talkingRoom.edges.length !== 0 && (
                           <span className="absolute text-gray-500 text-xs right-2 bottom-2">
                             {fixDateFormat(

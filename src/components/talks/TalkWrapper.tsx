@@ -6,6 +6,7 @@ import { toast } from "react-hot-toast";
 import Modal from "react-modal";
 import { YellowButton } from "src/components/buttons/YellowButton";
 import { ProfileImageIcon } from "src/components/icons/ProfileImageIcon";
+import { RightSvg } from "src/components/icons/svgs/RightSvg";
 import { InitialTalkDetail } from "src/components/talks/InitialTalkDetail";
 import { InnerReviewModal } from "src/components/talks/InnerReviewModal";
 import { Message } from "src/components/talks/Message";
@@ -121,7 +122,6 @@ export const TalkWrapper: React.VFC = memo(() => {
   if (talkRoomsData?.loginUserTalkRooms?.edges.length === 0) {
     return <InitialTalkDetail />;
   }
-
   return (
     <div className="md:flex">
       <aside className="block md:p-4 mt-4 md:w-1/3 w-full">
@@ -157,7 +157,7 @@ export const TalkWrapper: React.VFC = memo(() => {
                       <a>
                         <div className="flex items-center">
                           <ProfileImageIcon
-                            className="w-10 h-10 object-cover"
+                            className="w-10 h-10 object-cover rounded-full"
                             // 相手のプロフィール画像を渡す
                             profileImagePath={
                               talkRoom?.node?.selectedPlan?.planAuthor.id === loginUserData.userId
@@ -172,7 +172,7 @@ export const TalkWrapper: React.VFC = memo(() => {
                                 ? talkRoom.node.opponentUser?.targetUser?.profileName
                                 : talkRoom.node.selectedPlan?.planAuthor.targetUser?.profileName}
                             </p>
-                            <p className="md:text-base text-sm text-gray-600 dark:text-white">
+                            <p className="md:text-base text-xs text-gray-600 dark:text-white">
                               {talkRoom?.node?.opponentUser?.targetUser?.schoolName}
                             </p>
                           </div>
@@ -200,13 +200,20 @@ export const TalkWrapper: React.VFC = memo(() => {
                     <div>
                       {/* トークルームの一番上にプランの内容を表示 */}
                       <Link href={`/plans/${talkRoom.node.selectedPlan?.id}`}>
-                        <a className="block border m-2 p-2 rounded">
+                        <a className="block border m-2 p-2 rounded relative">
                           <p className="font-bold">{talkRoom.node.selectedPlan?.title}</p>
-                          <p className="text-xs">{talkRoom.node.selectedPlan?.content}</p>
+                          {/* プランの内容が25文字を超える場合は省略して表示 */}
+                          {talkRoom.node.selectedPlan?.content && (
+                            <p className="text-1xs w-5/6">
+                              {talkRoom.node.selectedPlan.content.length > 25
+                                ? talkRoom.node.selectedPlan.content.slice(0, 25) + "..."
+                                : talkRoom.node.selectedPlan.content}
+                            </p>
+                          )}
                           <p className="text-sm">
                             {talkRoom.node.selectedPlan?.price.toString()} 円
                           </p>
-                          <p className="text-xs">詳細を見る</p>
+                          <RightSvg className="w-4 h-4 absolute top-1/2 right-6 transform -translate-y-1/2" />
                         </a>
                       </Link>
 

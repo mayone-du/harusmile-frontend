@@ -26,7 +26,13 @@ export const Message: React.VFC<Props> = memo((props) => {
           {props.text}
         </div>
         {/* 送信時刻 */}
-        <div className="text-xs text-right text-gray-500">{fixDateFormat(props.createdAt)}</div>
+        <div
+          className={`text-1xs text-gray-500 ${
+            props.senderId === props.loginUserId ? "text-right" : "text-left"
+          }`}
+        >
+          {fixDateFormat(props.createdAt)}
+        </div>
       </div>
     </li>
   );
