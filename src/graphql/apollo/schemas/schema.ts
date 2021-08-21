@@ -595,6 +595,7 @@ export type Query = {
   loginUserMessages?: Maybe<MessageNodeConnection>;
   notification?: Maybe<NotificationNode>;
   loginUserNotifications?: Maybe<NotificationNodeConnection>;
+  allProfilesCount?: Maybe<Scalars['Int']>;
 };
 
 
@@ -1896,8 +1897,19 @@ export type GetAllProfilesQuery = (
           & Pick<AddressNode, 'addressName'>
         )> }
       )> }
-    )>> }
+    )>>, pageInfo: (
+      { __typename?: 'PageInfo' }
+      & Pick<PageInfo, 'hasNextPage'>
+    ) }
   )> }
+);
+
+export type GetAllProfilesCountQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllProfilesCountQuery = (
+  { __typename?: 'Query' }
+  & Pick<Query, 'allProfilesCount'>
 );
 
 export type GetCollegeProfilesQueryVariables = Exact<{
@@ -3325,6 +3337,9 @@ export const GetAllProfilesDocument = gql`
         }
       }
     }
+    pageInfo {
+      hasNextPage
+    }
   }
 }
     `;
@@ -3357,6 +3372,38 @@ export function useGetAllProfilesLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type GetAllProfilesQueryHookResult = ReturnType<typeof useGetAllProfilesQuery>;
 export type GetAllProfilesLazyQueryHookResult = ReturnType<typeof useGetAllProfilesLazyQuery>;
 export type GetAllProfilesQueryResult = Apollo.QueryResult<GetAllProfilesQuery, GetAllProfilesQueryVariables>;
+export const GetAllProfilesCountDocument = gql`
+    query GetAllProfilesCount {
+  allProfilesCount
+}
+    `;
+
+/**
+ * __useGetAllProfilesCountQuery__
+ *
+ * To run a query within a React component, call `useGetAllProfilesCountQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllProfilesCountQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllProfilesCountQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllProfilesCountQuery(baseOptions?: Apollo.QueryHookOptions<GetAllProfilesCountQuery, GetAllProfilesCountQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllProfilesCountQuery, GetAllProfilesCountQueryVariables>(GetAllProfilesCountDocument, options);
+      }
+export function useGetAllProfilesCountLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllProfilesCountQuery, GetAllProfilesCountQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllProfilesCountQuery, GetAllProfilesCountQueryVariables>(GetAllProfilesCountDocument, options);
+        }
+export type GetAllProfilesCountQueryHookResult = ReturnType<typeof useGetAllProfilesCountQuery>;
+export type GetAllProfilesCountLazyQueryHookResult = ReturnType<typeof useGetAllProfilesCountLazyQuery>;
+export type GetAllProfilesCountQueryResult = Apollo.QueryResult<GetAllProfilesCountQuery, GetAllProfilesCountQueryVariables>;
 export const GetCollegeProfilesDocument = gql`
     query GetCollegeProfiles($offset: Int, $first: Int) {
   collegeProfiles(offset: $offset, first: $first, targetUser_IsActive: true) {
