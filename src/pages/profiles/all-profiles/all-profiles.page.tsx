@@ -47,11 +47,19 @@ export const getStaticProps: GetStaticProps = async () => {
     revalidate: 5, // 5seconds
   });
 };
+
 type Props<T, U> = {
   profilesData: T;
   profilesCount: U;
 };
+
+// 高校生・大学生のプロフィールを表示するページ
 const AllProfiles: NextPage<Props<GetAllProfilesQuery, GetAllProfilesCountQuery>> = (props) => {
+  // https://harusmile.vercel.app/all-profiles?page=2 のクエリパラメーターの形式で受け取る
+  // 存在しない場合などは、1を渡して初期のページを表示する
+  // const pageNumber = router.query.page ? parseFloat(router.query.page.toString()) : 1;
+  // console.log(pageNumber);
+
   // 全てのプロフィールの件数
   const profilesCount = props.profilesCount.allProfilesCount
     ? props.profilesCount.allProfilesCount

@@ -24,7 +24,11 @@ const PlanDetail: NextPage = () => {
   // パスからプランのIDを取得
   const planId = router.asPath.replace("/plans/", "");
   // プランを取得
-  const { data: planData, loading: isPlanLoading } = useGetPlanQuery({
+  const {
+    data: planData,
+    loading: isPlanLoading,
+    error,
+  } = useGetPlanQuery({
     variables: { planId: planId },
   });
   // 自分が参加しているトークルームの情報を取得
@@ -101,6 +105,9 @@ const PlanDetail: NextPage = () => {
       {/* ローディング */}
       {isPlanLoading ? (
         <PlanLoading />
+      ) : error ? (
+        // エラー
+        <div>エラーが発生しました。プランが存在しません。</div>
       ) : (
         <div>
           {/* このプランの作成者が大学生かどうか */}

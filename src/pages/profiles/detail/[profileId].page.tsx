@@ -11,7 +11,11 @@ const ProfileDetail: NextPage = () => {
   // 開いてる相手のプロフィールのIDからデータを取得
   const router = useRouter();
   const targetProfileId = router.asPath.replace("/profiles/detail/", "");
-  const { data: profileData, loading: isLoading } = useGetProfileQuery({
+  const {
+    data: profileData,
+    loading: isLoading,
+    error,
+  } = useGetProfileQuery({
     variables: { profileId: targetProfileId },
   });
   const stars = profileData?.profile?.targetUser
@@ -27,6 +31,7 @@ const ProfileDetail: NextPage = () => {
     >
       {/* スケルトンローディング */}
       {isLoading && <ProfileLoading />}
+      {error && <div>エラーが発生しました。プロフィールが存在しません。</div>}
 
       {profileData?.profile && (
         <div className="pb-8">
