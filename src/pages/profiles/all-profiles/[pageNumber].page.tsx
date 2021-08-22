@@ -43,7 +43,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths.push({ params: { pageNumber: index.toString() } });
   }
 
-  return { paths, fallback: true };
+  return { paths, fallback: false };
 };
 
 // 1ページに付き10件ごとプロフィールを表示
@@ -68,6 +68,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const { data: profilesCount } = await apolloClient.query<GetAllProfilesCountQuery>({
     query: GetAllProfilesCountDocument,
   });
+
+  // エラーの場合は404へ
+  // if (error || errors) {
+  //   return { notFound: true };
+  // }
 
   // // ページの番号が最大のページ数を超えていたらエラー
   // if (maxPageCount < parseFloat(pageNumber)) {
@@ -102,7 +107,7 @@ const AllProfilesPageNumbers: NextPage<Props<GetAllProfilesQuery, GetAllProfiles
   // console.log(pageNumber);
 
   // 全てのプロフィールの件数
-  const profilesCount = props.profilesCount.allProfilesCount
+  const profilesCount = props.profilesCount?.allProfilesCount
     ? props.profilesCount.allProfilesCount
     : 0;
 
@@ -122,7 +127,7 @@ const AllProfilesPageNumbers: NextPage<Props<GetAllProfilesQuery, GetAllProfiles
 
       <section>
         <ul className="flex flex-wrap">
-          {props.profilesData.allProfiles?.edges.map((profile, index) => {
+          {props.profilesData?.allProfiles?.edges.map((profile, index) => {
             return (
               <Profile
                 key={index}
