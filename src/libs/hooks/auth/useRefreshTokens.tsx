@@ -3,7 +3,7 @@ import {
   useRefreshTokensMutation,
   useRevokeRefreshTokenMutation,
 } from "src/graphql/apollo/schemas/schema";
-import { calcDate } from "src/libs/calcDate";
+import { calcDate } from "src/libs/functions/calcDate";
 
 export const useRefreshTokens = () => {
   const [refreshTokensMutation] = useRefreshTokensMutation();

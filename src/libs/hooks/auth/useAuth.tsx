@@ -8,7 +8,7 @@ import {
   useCreateUserMutation,
   useGetTokensMutation,
 } from "src/graphql/apollo/schemas/schema";
-import { calcDate } from "src/libs/calcDate";
+import { calcDate } from "src/libs/functions/calcDate";
 
 export const useAuth = () => {
   const router = useRouter();
