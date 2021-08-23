@@ -40,30 +40,34 @@ const ProfileDetail: NextPage = () => {
               targetProfileId={targetProfileId}
               targetProfileName={profileData.profile.profileName}
               targetProfileText={
-                profileData.profile.profileText ? profileData.profile.profileText : ""
+                profileData.profile.profileText ? profileData.profile.profileText : "未設定"
               }
               targetProfileImage={
-                profileData.profile.profileImage ? profileData.profile.profileImage : ""
+                profileData.profile.profileImage ? profileData.profile.profileImage : "未設定"
               }
               targetIsCollegeStudent={profileData.profile.isCollegeStudent}
               targetSchoolName={
-                profileData.profile.schoolName ? profileData.profile.schoolName : ""
+                profileData.profile.schoolName ? profileData.profile.schoolName : "未設定"
               }
               targetAge={profileData.profile.age ? profileData.profile.age : 0}
               targetUndergraduate={
-                profileData?.profile?.undergraduate ? profileData.profile.undergraduate : ""
+                profileData?.profile?.undergraduate ? profileData.profile.undergraduate : "未設定"
               }
               targetDepartment={
-                profileData?.profile?.department ? profileData.profile.department : ""
+                profileData?.profile?.department ? profileData.profile.department : "未設定"
               }
               targetClubActivities={
-                profileData?.profile?.clubActivities ? profileData.profile.clubActivities : ""
+                profileData?.profile?.clubActivities ? profileData.profile.clubActivities : "未設定"
               }
               targetFavoriteSubject={
-                profileData?.profile?.favoriteSubject ? profileData.profile.favoriteSubject : ""
+                profileData?.profile?.favoriteSubject
+                  ? profileData.profile.favoriteSubject
+                  : "未設定"
               }
-              targetWantHear={profileData?.profile?.wantHear ? profileData.profile.wantHear : ""}
-              targetProblem={profileData?.profile?.problem ? profileData.profile.problem : ""}
+              targetWantHear={
+                profileData?.profile?.wantHear ? profileData.profile.wantHear : "未設定"
+              }
+              targetProblem={profileData?.profile?.problem ? profileData.profile.problem : "未設定"}
               targetGender={
                 profileData.profile.selectedGender?.genderName
                   ? profileData.profile.selectedGender?.genderName
