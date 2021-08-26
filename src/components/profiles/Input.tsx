@@ -12,7 +12,7 @@ export const Input: React.VFC<InputProps> = (props) => {
       <input
         type={props.type}
         placeholder={props.placeholder}
-        className="block p-2 mx-auto md:w-2/3 w-full rounded border-b border-pink-500 focus:outline-none"
+        className="block p-2 mx-auto md:w-2/3 w-full border-b border-pink-500 focus:outline-none"
         value={props.value}
         onChange={props.onChange}
         max={props.max}

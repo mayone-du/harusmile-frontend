@@ -4,11 +4,11 @@ import { Layout } from "src/components/layouts/Layout";
 
 const SignOut: NextPage = () => {
   return (
-    <div>
-      <Layout spHeaderTitle="ログアウト" meta={{ pageName: "ログアウト" }}>
+    <Layout spHeaderTitle="ログアウト" meta={{ pageName: "ログアウト" }}>
+      <div className="pt-4">
         <SignOutComponent />
-      </Layout>
-    </div>
+      </div>
+    </Layout>
   );
 };
 

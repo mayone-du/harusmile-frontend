@@ -125,11 +125,11 @@ export const TalkWrapper: React.VFC = memo(() => {
   return (
     <div className="md:flex">
       <aside className="block md:p-4 mt-4 md:w-1/3 w-full">
-        {isLoading && (
-          <div>
+        {isLoading && openTalkRoomId === "" && (
+          <>
             <SkeletonLoading />
             <SkeletonLoading />
-          </div>
+          </>
         )}
 
         {/* <div>{messagesError && messagesError.message}</div> */}

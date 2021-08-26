@@ -98,6 +98,9 @@ export const PlanTab: React.VFC<GetPlanQuery> = (props) => {
               );
             })}
           </ul>
+          {props.plan?.planAuthor.provider.edges.length === 0 && (
+            <p className="text-sm">レビューは0件です。</p>
+          )}
         </div>
       </TabPanel>
     </div>
