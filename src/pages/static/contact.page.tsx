@@ -62,6 +62,7 @@ const Contact: NextPage = () => {
     }
     const payload = {
       text: `
+      ハルスマイルにて\n
       お問い合わせがありました。\n
       名前: ${inputs.username}\n
       メールアドレス:${inputs.email}\n
