@@ -5,7 +5,7 @@ import { loginUserVar, openTalkRoomIdVar } from "src/graphql/apollo/cache";
 import type { GetLoginUserTalkRoomsQuery } from "src/graphql/apollo/schemas/schema";
 import { useUpdateMessagesMutation } from "src/graphql/apollo/schemas/schema";
 // import { changeDateFormat } from "src/libs/changeDateFormat";
-import { fixDateFormat } from "src/libs/fixDateFormat";
+import { fixDateFormat } from "src/libs/functions/fixDateFormat";
 import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
 
 type Props = {

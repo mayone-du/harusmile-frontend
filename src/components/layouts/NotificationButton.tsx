@@ -6,7 +6,7 @@ import {
   useGetLoginUserNotificationQuery,
   useUpdateNotificationsMutation,
 } from "src/graphql/apollo/schemas/schema";
-import { fixDateFormat } from "src/libs/fixDateFormat";
+import { fixDateFormat } from "src/libs/functions/fixDateFormat";
 import { useRefreshTokens } from "src/libs/hooks/auth/useRefreshTokens";
 
 export const NotificationButton: React.VFC = () => {

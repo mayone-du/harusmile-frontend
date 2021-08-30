@@ -1,8 +1,6 @@
 import { Button } from "@material-ui/core";
 import type { NextPage } from "next";
-import { useCallback } from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Layout } from "src/components/layouts/Layout";
 import { useValidateLoginUser } from "src/libs/hooks/users/useValidateLoginUser";

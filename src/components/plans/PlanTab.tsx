@@ -47,7 +47,7 @@ export const PlanTab: React.VFC<GetPlanQuery> = (props) => {
           indicatorColor="primary"
           onChange={handleChange}
           aria-label="plan detail tabs"
-          className="bg-gray-200 text-black rounded overflow-hidden"
+          className="bg-gray-200 text-black"
         >
           <Tab className="w-1/2" label="プラン詳細" {...a11yProps(0)} />
           <Tab className="w-1/2" label="この人について" {...a11yProps(1)} />

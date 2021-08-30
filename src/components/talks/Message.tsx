@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { fixDateFormat } from "src/libs/fixDateFormat";
+import { fixDateFormat } from "src/libs/functions/fixDateFormat";
 
 type Props = {
   senderId: string;
